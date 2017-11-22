@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>ECMAScript</title>
+</head>
+
+<body>
+    <script>
+        //##########################
+        var Dog = function() {
+            this.bark = function() {
+                console.log(shout);
+            }
+        }
+
+        var bobby = new Dog();
+        var felix = new Dog();
+
+        (boddy.bark == felix.bark); // returns false. They both declared their own method.
+
+
+        //##########################
+        var Dog = function() {}; // declaring constructor
+        Dog.prototype; // prints "{}" : prototype exists and is empty
+
+        Dog.prototype.bark = function() { // defining a method on the Dog prototype
+            console.log("wouf wouf");
+        };
+
+        var bobby = new Dog();
+        bobby.bark(); // using the prototype declaration - prints "wouf wouf" to the console
+
+        var felix = new Dog();
+        (bobby.bark == felix.bark); // instances share same reference - returns true;
+
+
+        //##########################
+        var Dog = function() {}; // declaring constructor
+        Dog.prototype; // prints "{}" : prototype exists and is empty
+
+        Dog.prototype.bark = function() { // defining a method on the Dog prototype
+            console.log("wouf wouf");
+        };
+
+        var bobby = new Dog();
+
+        bobby.bark(); // prints "wouf wouf" to the console
+
+        Dog.prototype.bark = function() {
+                console.log("meow meow");
+            } // overrides the prototype bark method
+
+        bobby.bark(); // now prints "meow meow" to the console.
+    </script>
+</body>
+
+</html>
