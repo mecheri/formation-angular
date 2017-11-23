@@ -1,5 +1,4 @@
 https://fr.wikipedia.org/wiki/ECMAScript
-https://www.w3schools.com/js/js_versions.asp
 
 
 # ECMAScript:
