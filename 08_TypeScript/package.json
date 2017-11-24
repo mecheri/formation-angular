@@ -1,0 +1,19 @@
+{
+  "name": "type-script",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "tsc": "tsc -w"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "scroll-to": "0.0.2",
+    "typescript": "^2.6.1"
+  },
+  "dependencies": {
+    "@types/jquery": "^3.2.16"
+  }
+}

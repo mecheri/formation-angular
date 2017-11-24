@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "pretty": true,
+        "experimentalDecorators": true
+    },
+    "files": [
+        "./main.ts",
+        "./scrollto.d.ts"
+    ]
+}
