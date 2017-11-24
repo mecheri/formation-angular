@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "babel": "babel ./01/main.js -w -o ./01/main.compiled.js",
-        "babel-watch": "babel-watch ./01/main.js --watch",
+        "babel-watch": "babel-watch ./01/main.js",
         "webpack": "webpack ./02/main.js ./02/main.bundle.js"
     },
     "keywords": [],
