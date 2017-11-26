@@ -11,10 +11,10 @@ Moteur d’exécution JavaScript open source de Google, écrit en C ++ et utilis
 
 # Asynchronisme et boucle d'evenements
 
-![alt text](https://github.com/mecheri/formation-angular/master/img/event-loop.jpg)
+![alt text](https://github.com/mecheri/formation-angular/blob/master/img/event-loop.jpg)
 
-// Code bloquant -> synchrone
 // pour executer la ligne 2 il faut attendre la lecture du fichier
+// Code bloquant -> synchrone
 // Pas d'exploitation de la boucle d'evenements de node.js et le coté async
 var content = fs.readFileSync('file.txt');
 console.log(content);
