@@ -16,10 +16,13 @@ Moteur d’exécution JavaScript open source de Google, écrit en C ++ et utilis
 // pour executer la ligne 2 il faut attendre la lecture du fichier
 // Code bloquant -> synchrone
 // Pas d'exploitation de la boucle d'evenements de node.js et le coté async
+```javascript
 var content = fs.readFileSync('file.txt');
 console.log(content);
+```
 
 // Code non bloquant -> asynchrone
+```javascript
 // Je veux que lise le fichier
 // Lorsque tu auras lu ce fichier que pourra executer le code de la fonction passée en parametre
 // Si il y a du code apres cette instruction, node.js pourra l'executer en attendant d'avoir les informations sur le fichier en cours // de lecture
@@ -30,3 +33,4 @@ fs.readFile('file.txt', (err, content) => {
     }
     console.log(content);
 })
+```
