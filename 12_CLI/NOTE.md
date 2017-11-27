@@ -1,21 +1,21 @@
-### Angular CLI
-# https://cli.angular.io/
+# Angular CLI
+## https://cli.angular.io/
 
 Interface de ligne de commande qui permet de créer un projet, d'ajouter des fichiers et d'exécuter des tâches de développement.
 
-## Installation
+# Installation
 ```bash
 npm install -g @angular/cli
 ```
 
-## Générer et lancer un projet Angular via server web de dev
+# Générer et lancer un projet Angular via server web de dev
 ```bash
 ng new NOM-DU-PROJET
 cd NOM-DU-PROJET
 ng serve
 ```
 
-## Génération de Components, Directives, Pipes et Services
+# Génération de Components, Directives, Pipes et Services
 Scaffold  | Usage
 ---       | ---
 [Component](https://github.com/angular/angular-cli/wiki/generate-component) | `ng g component my-new-component`
@@ -34,18 +34,18 @@ Scaffold  | Usage
     - `ng g component new-module/new-component` pour ajouter la réference dans le nouveau module
 
 
-## Empaquetage
+# Empaquetage
 ```bash
 ng build --prod
 ```
 
-## Test unitaire et bout en bout
+# Test unitaire et bout en bout
 ```bash
 ng test
 ng e2e
 ```
 
-## Mise à jour
+# Mise à jour
 ```bash
 npm uninstall --save-dev angular-cli
 npm install --save-dev @angular/cli@latest
@@ -56,11 +56,11 @@ npm cache clean
 npm install -g @angular/cli@latest
 ```
 
-## Configuration
-# https://github.com/angular/angular-cli/wiki/angular-cli
+# Configuration
+## https://github.com/angular/angular-cli/wiki/angular-cli
 
-## Structure de fichiers
-# Dossier src --> fichiers applicatifs
+# Structure de fichiers
+## Dossier src --> fichiers applicatifs
 Fichier   | Définition
 ---       | ---
 app/app.component.{ts,html,css,spec.ts} | composant racine qui deviendra un arbre de composants imbriqués au fur et à mesure que l'application évolue
@@ -74,7 +74,7 @@ polyfills.ts                            | Gérer les differences d'implementatio
 test.ts                                 | Point d'entrée pour lancer les tests unitaires
 tsconfig.{app|spec}.json                | Configuration du compilateur typscript de l'application pour le dev et les tests unitaires
 
-# Dossier racine --> fichiers pour le packaging, test et deploiment
+## Dossier racine --> fichiers pour le packaging, test et deploiment
 Fichier   | Définition
 ---       | ---
 e2e/                | Dossier pour les tests de bout en bout
