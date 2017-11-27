@@ -96,7 +96,7 @@
 
 ## Comment l'injecteur sait qu'une instance d'un service est disponible
 * Il faut préalablement enregistrer le service
-# Dans un Module
+### Dans un Module
 * Enregistrer un Service dans le AppModule -> l'instance est disponible partout
-# Dans un Compoenent
+### Dans un Compoenent
 * Enregistrer un Service dans un Component -> une nouvelle instance du service est disponible avec chaque nouvelle instance du Component
