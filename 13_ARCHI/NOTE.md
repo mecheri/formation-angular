@@ -98,5 +98,5 @@
 * Il faut préalablement enregistrer le service
 ### Dans un Module
 * Enregistrer un Service dans le AppModule -> l'instance est disponible partout
-### Dans un Compoenent
+### Dans un Component
 * Enregistrer un Service dans un Component -> une nouvelle instance du service est disponible avec chaque nouvelle instance du Component
