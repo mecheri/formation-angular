@@ -1,0 +1,8 @@
+<h2>Demo List</h2>
+<ul>
+    <li *ngFor="let demo of list" (click)="selectDemo(demo)">
+        {{demo.label}}
+    </li>
+</ul>
+
+<demo-detail *ngIf="selectedHero" [demo]="selectedDemo"></demo-detail>
