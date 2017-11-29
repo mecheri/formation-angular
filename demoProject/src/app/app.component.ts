@@ -1,10 +1,13 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
-import { InteractionsComponent }  from './training/components/interactions/interactions.component';
+import { InteractionsComponent } from './training/components/interactions/interactions.component';
+
+import { InteractionsService } from './training/components/interactions/interactions.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [InteractionsService]
 })
 export class AppComponent implements AfterViewInit {
   // Components
@@ -19,17 +22,33 @@ export class AppComponent implements AfterViewInit {
   label = "test";
 
   // Interactions
+  interEx = 3;
   interCode = "A";
   interLabel = "test";
   interSetter = "    qsdsdqsd";
   interAccept = "";
-  interOnAccept= (accept: boolean) : void=> {
+  interOnAccept = (accept: boolean): void => {
     this.interAccept = accept ? "Oui" : "Non";
   }
   @ViewChild(InteractionsComponent)
   private interactionsComponent: InteractionsComponent;
   interViewChild = "";
   ngAfterViewInit() {
-    this.interViewChild = this.interactionsComponent.hello;
+    if (this.interactionsComponent) {
+      this.interViewChild = this.interactionsComponent.hello;
+    }
+  }
+
+  dataFromParent = "data from parent";
+  dataFromChild = "";
+  constructor(private interService: InteractionsService) {
+    interService.broadcastChildStream$.subscribe(
+      dataFromChild => {
+        this.dataFromChild = dataFromChild;
+      }
+    );
+  }
+  broadcastParent() {
+    this.interService.broadcastParent(this.dataFromParent);
   }
 }

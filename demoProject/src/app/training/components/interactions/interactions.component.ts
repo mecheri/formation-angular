@@ -1,18 +1,28 @@
-import { Component, EventEmitter, Input, Output, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges, OnChanges, OnDestroy } from '@angular/core';
+
+import { InteractionsService } from './interactions.service';
+import { Subscription }   from 'rxjs/Subscription';
 
 @Component({
-  selector: 'interactions',
+  selector: 'interactions-demo',
   template: `
-   <div>{{code}}</div>
-   <div>{{name}}</div>
-   <div>{{prop}}</div>
+    <div *ngIf="ex===1">{{code}} , {{name}}</div>
 
-   <button (click)="accept(true)">OK</button>
-   <button (click)="accept(false)">KO</button>
+    <div *ngIf="ex===2">{{prop}}</div>
 
+    <div *ngIf="ex===4">
+    <button (click)="accept(true)">OK</button>
+    <button (click)="accept(false)">KO</button>
+    </div>
+
+    <div *ngIf="ex===7">
+    <button (click)="broadcastChild()">Broadcast from child</button>
+    <span>{{dataFromParent}}</span>
+    </div>
  `
 })
-export class InteractionsComponent implements OnChanges {
+export class InteractionsComponent implements OnChanges, OnDestroy  {
+  @Input() ex: number;
   // 01
   @Input() code: string;
   @Input('label') name: string;
@@ -44,4 +54,22 @@ export class InteractionsComponent implements OnChanges {
 
   // 05
   hello = "Hello World";
+
+  // 07
+  dataFromParent = "";
+  dataFromChild = "data from child";
+  subscription: Subscription;
+  constructor(private interService: InteractionsService) {
+    this.subscription = interService.broadcastParentStream$.subscribe(
+      dataFromParent => {
+        this.dataFromParent = dataFromParent;
+    });
+  }
+  broadcastChild() {
+    this.interService.broadcastChild(this.dataFromChild);
+  }
+  ngOnDestroy() {
+    // pour eviter les fuites memoire
+    this.subscription.unsubscribe();
+  }
 }

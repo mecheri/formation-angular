@@ -1,6 +1,7 @@
 <!--***********-->
 <!-- Two-way bindings 1 -->
 <!--***********-->
+<h2>Two-way bindings 1</h2>
 <input type="text" [(ngModel)]="prop">
 <span>{{ prop }}</span>
 <hr>
@@ -8,6 +9,7 @@
 <!--***********-->
 <!-- Two-way bindings 2  -->
 <!--***********-->
+<h2>Two-way bindings 2</h2>
 <sizer [(size)]="fontSizePx"></sizer>
 <div [style.font-size.px]="fontSizePx">Resizable Text</div>
 <sizer [size]="fontSizePx" (sizeChange)="fontSizePx=$event"></sizer>
@@ -16,27 +18,54 @@
 <!--***********-->
 <!-- Life cycle hooks -->
 <!--***********-->
+<h2>Cycles de vie des Components</h2>
 <input type="text" [(ngModel)]="id">
 <input type="text" [(ngModel)]="label">
 <hooks [id]="id" [label]="label"></hooks>
 <hr>
 
 <!--***********-->
-<!-- Interactions -->
+<!-- interactions-demo -->
 <!--***********-->
+<h2>Interactions des Components</h2>
+<h3>Exemple {{ interEx }}</h3>
 <!-- 01 -->
-<interactions [code]="interCode" [label]="interLabel"></interactions>
+<div *ngIf="interEx===1">
+    <interactions-demo [code]="interCode" [label]="interLabel" [ex]="interEx"></interactions-demo>
+    <hr>
+</div>
 <!-- 02 -->
-<interactions [prop]="interSetter"></interactions>
+<div *ngIf="interEx===2">
+    <interactions-demo [prop]="interSetter" [ex]="interEx"></interactions-demo>
+    <hr>
+</div>
 <!-- 03 -->
-<input type="text" [(ngModel)]="interCode">
-<interactions [code]="interCode"></interactions>
+<div *ngIf="interEx===3">
+    <input type="text" [(ngModel)]="interCode">
+    <interactions-demo [code]="interCode" [ex]="interEx"></interactions-demo>
+    <hr>
+</div>
 <!-- 04 -->
-<interactions (onAccept)="interOnAccept($event)"></interactions>
-<span>{{interAccept}}</span>
+<div *ngIf="interEx===4">
+    <interactions-demo (onAccept)="interOnAccept($event)" [ex]="interEx"></interactions-demo>
+    <span>{{interAccept}}</span>
+    <hr>
+</div>
 <!-- 05 -->
-<interactions #localVar></interactions>
-<span>{{localVar.hello}}</span>
+<div *ngIf="interEx===5">
+    <interactions-demo #localVar [ex]="interEx"></interactions-demo>
+    <span>{{localVar.hello}}</span>
+    <hr>
+</div>
 <!-- 06 -->
-<span>{{interViewChild}}</span>
-<hr>
+<div *ngIf="interEx===6">
+    <span>{{interViewChild}}</span>
+    <hr>
+</div>
+<!-- 07 -->
+<div *ngIf="interEx===7">
+    <button (click)="broadcastParent()">Broadcast from parent</button>
+    <span>{{dataFromChild}}</span>
+    <interactions-demo [ex]="interEx"></interactions-demo>
+    <hr>
+</div>
