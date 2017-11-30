@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges, OnChanges, OnDestroy } from '@angular/core';
 
 import { InteractionsService } from './interactions.service';
-import { Subscription }   from 'rxjs/Subscription';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'interactions-demo',
@@ -21,21 +21,24 @@ import { Subscription }   from 'rxjs/Subscription';
     </div>
  `
 })
-export class InteractionsComponent implements OnChanges, OnDestroy  {
+export class InteractionsComponent implements OnChanges, OnDestroy {
   @Input() ex: number;
-  // 01
+
+  //#region 01
   @Input() code: string;
   @Input('label') name: string;
+  //#endregion
 
-  // 02
+  //#region 02
   private _prop = '';
   @Input()
   set prop(data: string) {
     this._prop = (data && data.trim()) || '<no data found>';
   }
   get prop(): string { return this._prop; }
+  //#endregion
 
-  // 03
+  //#region 03
   ngOnChanges(changes: SimpleChanges) {
     console.log('---> OnChanges fires');
     for (let propName in changes) {
@@ -45,17 +48,20 @@ export class InteractionsComponent implements OnChanges, OnDestroy  {
       console.log(`${propName}: currentValue = ${cur}, previousValue = ${prev}`);
     }
   }
+  //#endregion
 
-  // 04
+  //#region 04
   @Output() onAccept = new EventEmitter<boolean>();
   accept(accept: boolean) {
     this.onAccept.emit(accept);
   }
+  //#endregion
 
-  // 05
+  //#region 05
   hello = "Hello World";
+  //#endregion
 
-  // 07
+  //#region 07
   dataFromParent = "";
   dataFromChild = "data from child";
   subscription: Subscription;
@@ -63,7 +69,7 @@ export class InteractionsComponent implements OnChanges, OnDestroy  {
     this.subscription = interService.broadcastParentStream$.subscribe(
       dataFromParent => {
         this.dataFromParent = dataFromParent;
-    });
+      });
   }
   broadcastChild() {
     this.interService.broadcastChild(this.dataFromChild);
@@ -72,4 +78,5 @@ export class InteractionsComponent implements OnChanges, OnDestroy  {
     // pour eviter les fuites memoire
     this.subscription.unsubscribe();
   }
+  //#endregion
 }

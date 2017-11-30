@@ -83,7 +83,7 @@ Style | style property | <button [style.color]="isActive ? 'red' : 'green'">
 Voir l'exemple
 
 # Cycle de vie (Lifecycle Hooks)
-* Un component un cycle de vie géré par Angular
+* Un component a un cycle de vie géré par Angular (Angular change detection)
 * Moments clés:
     1. Angular crée un Compnent et le rend
     2. Angular crée et restitue ses enfants

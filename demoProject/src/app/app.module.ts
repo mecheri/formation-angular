@@ -10,7 +10,8 @@ import { HooksComponent } from './training/components/hooks/hooks.component';
 import { InteractionsComponent } from './training/components/interactions/interactions.component';
 
 // Directives
-// TODO
+import { HighlightDirective } from './training/directives/highlight.directive';
+import { InputMaxLengthDirective } from './training/directives/input-max-length.directive';
 
 // Pipes
 // TODO
@@ -33,7 +34,9 @@ import { InteractionsComponent } from './training/components/interactions/intera
     SizerComponent,
     HooksComponent,
     SizerComponent,
-    InteractionsComponent
+    InteractionsComponent,
+    HighlightDirective,
+    InputMaxLengthDirective
   ],
   imports: [
     BrowserModule,

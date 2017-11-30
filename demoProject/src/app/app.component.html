@@ -25,7 +25,7 @@
 <hr>
 
 <!--***********-->
-<!-- interactions-demo -->
+<!-- Interactions des Components -->
 <!--***********-->
 <h2>Interactions des Components</h2>
 <h3>Exemple {{ interEx }}</h3>
@@ -68,4 +68,23 @@
     <span>{{dataFromChild}}</span>
     <interactions-demo [ex]="interEx"></interactions-demo>
     <hr>
+</div>
+
+<!--***********-->
+<!-- Directives -->
+<!--***********-->
+<h2>Directives d'attribut</h2>
+<p highlight>Directive de structure</p>
+<input type="text" [inputMaxLength]="5">
+
+<h2>Directives de structure</h2>
+<div *ngIf="directive.array.length > 1">{{directive.array[0]}}</div>
+<ul>
+    <li *ngFor="let a of directive.array">{{a}}</li>
+</ul>
+
+<div [ngSwitch]="directive?.code">
+    <div *ngSwitchCase="'A'">A</div>
+    <div *ngSwitchCase="'B'">B</div>
+    <div *ngSwitchCase="'C'">C</div>
 </div>

@@ -10,7 +10,7 @@ import { InteractionsService } from './training/components/interactions/interact
   providers: [InteractionsService]
 })
 export class AppComponent implements AfterViewInit {
-  // Components
+  //#region Components
   // Two-way bindings 1
   prop = 1;
 
@@ -51,4 +51,18 @@ export class AppComponent implements AfterViewInit {
   broadcastParent() {
     this.interService.broadcastParent(this.dataFromParent);
   }
+  //#endregion
+
+  //#region Directives
+  directive = {
+    array: ['A', 'B', 'C'],
+    code: 'B'
+  }
+  //#endregion
+
+  //#region Pipes
+  //#endregion
+
+  //#region Forms
+  //#endregion
 }
