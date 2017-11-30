@@ -20,14 +20,14 @@ Elle sont précedées de (*)
 ```
 * NgIf supprime l'élément du DOM et le détache de l'arbre d'événements du DOM
 * NgIf détache l'élément du mécanisme de "change detection" d'Angular
-* Quand un élément est caché, il reste attaché au DOM et ses évenement. Angular aussi reste à l'ecoute des changements dur les propriétés bindées
+* Quand un élément est caché, il reste attaché au DOM et ses évenement. Angular aussi reste à l'ecoute des changements des propriétés bindées
 
 ### (*) préfixe
-* Sucre syntaxique qui permet à Angular de transformer le *ngIf en <ng-template> qui entoure l'élément DOM  
+Est un "Sucre syntaxique" qui permet à Angular de transformer le *ngIf en "<ng-template>" qui entoure l'élément DOM  
 ```html
 <div *ngIf="prop">{{prop.name}}</div>
 <ng-template [ngIf]="prop">
   <div>{{prop.name}}</div>
 </ng-template>
 ```
-* <ng-template> est un élément interne d'Angular pour l'affichage HTML
+* "<ng-template>" est un élément interne d'Angular pour l'affichage HTML
