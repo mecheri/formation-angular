@@ -1,6 +1,6 @@
 ## Concepts & Architecture générale
 
-# Processus globale
+# Principe général
 1. Templates HTML avec balisage Angular
 2. Components pour gérer les templates
 3. Ajout de la logique applicative dans des Services

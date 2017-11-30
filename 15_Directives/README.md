@@ -23,11 +23,11 @@ Elle sont précedées de (*)
 * Quand un élément est caché, il reste attaché au DOM et ses évenement. Angular aussi reste à l'ecoute des changements des propriétés bindées
 
 ### (*) préfixe
-Est un "Sucre syntaxique" qui permet à Angular de transformer le *ngIf en "<ng-template>" qui entoure l'élément DOM  
+Est un "Sucre syntaxique" qui permet à Angular de transformer le *ngIf en "ng-template" qui entoure l'élément DOM  
 ```html
 <div *ngIf="prop">{{prop.name}}</div>
 <ng-template [ngIf]="prop">
   <div>{{prop.name}}</div>
 </ng-template>
 ```
-* "<ng-template>" est un élément interne d'Angular pour l'affichage HTML
+* "ng-template" est un élément interne d'Angular pour l'affichage HTML
