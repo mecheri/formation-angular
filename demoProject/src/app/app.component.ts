@@ -61,6 +61,9 @@ export class AppComponent implements AfterViewInit {
   //#endregion
 
   //#region Pipes
+  dateAnniv = new Date(1988, 1, 12);
+  dateFormat = "MM/dd/yy";
+  exponent= "";
   //#endregion
 
   //#region Forms

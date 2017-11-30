@@ -12,6 +12,7 @@ import { InteractionsComponent } from './training/components/interactions/intera
 // Directives
 import { HighlightDirective } from './training/directives/highlight.directive';
 import { InputMaxLengthDirective } from './training/directives/input-max-length.directive';
+import { ExponentialPipe } from './training/pipes/exponential.pipe';
 
 // Pipes
 // TODO
@@ -36,7 +37,8 @@ import { InputMaxLengthDirective } from './training/directives/input-max-length.
     SizerComponent,
     InteractionsComponent,
     HighlightDirective,
-    InputMaxLengthDirective
+    InputMaxLengthDirective,
+    ExponentialPipe
   ],
   imports: [
     BrowserModule,

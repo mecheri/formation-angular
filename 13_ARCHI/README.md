@@ -62,6 +62,8 @@
 ## both 
 * Two-way data binding ngModel: combine le property et event binding
 
+# Angular Change detection
+Angular scrute les changements de valeurs des proriétés bindées via un processus de "Change detection" qui s'exécute après chaque événement DOM (frappe, déplacement de la souris, timer, réponse de serveur.
 
 # Directives
 * Les Templates Angular sont dynamiques. 
@@ -82,7 +84,6 @@
 * Un bon Component permet uniquement l'experience utilisateur avec des propriétés et des fonctions pour le data-binding
 * Les Components consomment beaucoup de services et en dépendent
 * Les Services peuvent dépendre d'autres Services
-
 # Injection de dépendances
 * Permet de fournir aux nouveaux Component les dépendances de Services dont ils ont besoin
 ## Fonctionnement
@@ -93,7 +94,6 @@
 5. L'injecteur en crée un et l'ajoute au conteneur
 6. Lorsque tous les services demandés ont été résolus
 7. Angular peut appeler le constructeur du Component
-
 ## Comment l'injecteur sait qu'une instance d'un service est disponible
 * Il faut préalablement enregistrer le service
 ### Dans un Module

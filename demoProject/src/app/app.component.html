@@ -32,43 +32,37 @@
 <!-- 01 -->
 <div *ngIf="interEx===1">
     <interactions-demo [code]="interCode" [label]="interLabel" [ex]="interEx"></interactions-demo>
-    <hr>
 </div>
 <!-- 02 -->
 <div *ngIf="interEx===2">
     <interactions-demo [prop]="interSetter" [ex]="interEx"></interactions-demo>
-    <hr>
 </div>
 <!-- 03 -->
 <div *ngIf="interEx===3">
     <input type="text" [(ngModel)]="interCode">
     <interactions-demo [code]="interCode" [ex]="interEx"></interactions-demo>
-    <hr>
 </div>
 <!-- 04 -->
 <div *ngIf="interEx===4">
     <interactions-demo (onAccept)="interOnAccept($event)" [ex]="interEx"></interactions-demo>
     <span>{{interAccept}}</span>
-    <hr>
 </div>
 <!-- 05 -->
 <div *ngIf="interEx===5">
     <interactions-demo #localVar [ex]="interEx"></interactions-demo>
     <span>{{localVar.hello}}</span>
-    <hr>
 </div>
 <!-- 06 -->
 <div *ngIf="interEx===6">
     <span>{{interViewChild}}</span>
-    <hr>
 </div>
 <!-- 07 -->
 <div *ngIf="interEx===7">
     <button (click)="broadcastParent()">Broadcast from parent</button>
     <span>{{dataFromChild}}</span>
     <interactions-demo [ex]="interEx"></interactions-demo>
-    <hr>
 </div>
+<hr>
 
 <!--***********-->
 <!-- Directives -->
@@ -88,3 +82,21 @@
     <div *ngSwitchCase="'B'">B</div>
     <div *ngSwitchCase="'C'">C</div>
 </div>
+<hr>
+
+<!--***********-->
+<!-- Pipes -->
+<!--***********-->
+<h2>Pipes</h2>
+<p>Date d'anniv {{ dateAnniv }}</p>
+<p>Date d'anniv {{ dateAnniv | date }}</p>
+<!-- Pipe parameter -->
+<p>Date d'anniv {{ dateAnniv | date: "MM/dd/yy" }}</p>
+<!-- Pipe binding parameter -->
+<p>Date d'anniv {{ dateAnniv | date: dateFormat }}</p>
+<!-- Chaining pipes -->
+<p>Date d'anniv {{ dateAnniv | date | uppercase }}</p>
+<!-- Custom Pipes -->
+<p>Exponentielle: {{2 | exponential}}</p>
+<input [(ngModel)]="exponent">
+<p>Exponentielle: {{2 | exponential: exponent}}</p>
