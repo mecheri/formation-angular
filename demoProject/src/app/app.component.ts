@@ -63,9 +63,21 @@ export class AppComponent implements AfterViewInit {
   //#region Pipes
   dateAnniv = new Date(1988, 1, 12);
   dateFormat = "MM/dd/yy";
-  exponent= "";
+  exponent = "";
   //#endregion
 
   //#region Forms
+  onKey(event: any) {
+    console.log(event.target.value);
+  }
+  onKeyWithType(event: KeyboardEvent) {
+    console.log((<HTMLInputElement>event.target).value);
+  }
+  onKeyWithRef(value: string) {
+    console.log(value);
+  }
+  onEnter(value: string) {
+    console.log(value);
+  }
   //#endregion
 }

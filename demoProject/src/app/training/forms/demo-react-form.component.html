@@ -1,0 +1,45 @@
+<!-- <label class="center-block">Code:
+  <input class="form-control" [formControl]="code">
+</label> -->
+
+<!-- novalidate pour désactiver les validations HTML native -->
+<form [formGroup]="demoForm1" novalidate>
+    <div class="form-group">
+        <label class="center-block">Code:
+        <input class="form-control" formControlName="code">
+      </label>
+    </div>
+    <p>Form value: {{ demoForm1.value | json }}</p>
+    <p>Form status: {{ demoForm1.status | json }}</p>
+</form>
+
+
+<form [formGroup]="demoForm2" novalidate>
+    <div class="form-group">
+        <label class="center-block">Code:
+        <input class="form-control" formControlName="code">
+      </label>
+    </div>
+
+    <div class="form-group">
+        <label class="center-block">Label:
+        <input class="form-control" formControlName="label">
+      </label>
+    </div>
+
+    <div formGroupName="demoChild" class="well well-lg">
+        <div class="form-group">
+            <label class="center-block">Code:
+            <input class="form-control" formControlName="code">
+          </label>
+        </div>
+        <div class="form-group">
+            <label class="center-block">Label:
+            <input class="form-control" formControlName="label">
+          </label>
+        </div>
+    </div>
+
+    <p>Form value: {{ demoForm2.value | json }}</p>
+    <p>Form status: {{ demoForm2.status | json }}</p>
+</form>

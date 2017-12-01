@@ -1,102 +1,124 @@
-<!--***********-->
-<!-- Two-way bindings 1 -->
-<!--***********-->
-<h2>Two-way bindings 1</h2>
-<input type="text" [(ngModel)]="prop">
-<span>{{ prop }}</span>
-<hr>
+<div class="container">
+    <!--***********-->
+    <!-- Two-way bindings 1 -->
+    <!--***********-->
+    <h2>Two-way bindings 1</h2>
+    <input type="text" [(ngModel)]="prop">
+    <span>{{ prop }}</span>
+    <hr>
 
-<!--***********-->
-<!-- Two-way bindings 2  -->
-<!--***********-->
-<h2>Two-way bindings 2</h2>
-<sizer [(size)]="fontSizePx"></sizer>
-<div [style.font-size.px]="fontSizePx">Resizable Text</div>
-<sizer [size]="fontSizePx" (sizeChange)="fontSizePx=$event"></sizer>
-<hr>
+    <!--***********-->
+    <!-- Two-way bindings 2  -->
+    <!--***********-->
+    <h2>Two-way bindings 2</h2>
+    <sizer [(size)]="fontSizePx"></sizer>
+    <div [style.font-size.px]="fontSizePx">Resizable Text</div>
+    <sizer [size]="fontSizePx" (sizeChange)="fontSizePx=$event"></sizer>
+    <hr>
 
-<!--***********-->
-<!-- Life cycle hooks -->
-<!--***********-->
-<h2>Cycles de vie des Components</h2>
-<input type="text" [(ngModel)]="id">
-<input type="text" [(ngModel)]="label">
-<hooks [id]="id" [label]="label"></hooks>
-<hr>
+    <!--***********-->
+    <!-- Life cycle hooks -->
+    <!--***********-->
+    <h2>Cycles de vie des Components</h2>
+    <input type="text" [(ngModel)]="id">
+    <input type="text" [(ngModel)]="label">
+    <hooks [id]="id" [label]="label"></hooks>
+    <hr>
 
-<!--***********-->
-<!-- Interactions des Components -->
-<!--***********-->
-<h2>Interactions des Components</h2>
-<h3>Exemple {{ interEx }}</h3>
-<!-- 01 -->
-<div *ngIf="interEx===1">
-    <interactions-demo [code]="interCode" [label]="interLabel" [ex]="interEx"></interactions-demo>
-</div>
-<!-- 02 -->
-<div *ngIf="interEx===2">
-    <interactions-demo [prop]="interSetter" [ex]="interEx"></interactions-demo>
-</div>
-<!-- 03 -->
-<div *ngIf="interEx===3">
-    <input type="text" [(ngModel)]="interCode">
-    <interactions-demo [code]="interCode" [ex]="interEx"></interactions-demo>
-</div>
-<!-- 04 -->
-<div *ngIf="interEx===4">
-    <interactions-demo (onAccept)="interOnAccept($event)" [ex]="interEx"></interactions-demo>
-    <span>{{interAccept}}</span>
-</div>
-<!-- 05 -->
-<div *ngIf="interEx===5">
-    <interactions-demo #localVar [ex]="interEx"></interactions-demo>
-    <span>{{localVar.hello}}</span>
-</div>
-<!-- 06 -->
-<div *ngIf="interEx===6">
-    <span>{{interViewChild}}</span>
-</div>
-<!-- 07 -->
-<div *ngIf="interEx===7">
-    <button (click)="broadcastParent()">Broadcast from parent</button>
-    <span>{{dataFromChild}}</span>
-    <interactions-demo [ex]="interEx"></interactions-demo>
-</div>
-<hr>
+    <!--***********-->
+    <!-- Interactions des Components -->
+    <!--***********-->
+    <h2>Interactions des Components</h2>
+    <h3>Exemple {{ interEx }}</h3>
+    <!-- 01 -->
+    <div *ngIf="interEx===1">
+        <interactions-demo [code]="interCode" [label]="interLabel" [ex]="interEx"></interactions-demo>
+    </div>
+    <!-- 02 -->
+    <div *ngIf="interEx===2">
+        <interactions-demo [prop]="interSetter" [ex]="interEx"></interactions-demo>
+    </div>
+    <!-- 03 -->
+    <div *ngIf="interEx===3">
+        <input type="text" [(ngModel)]="interCode">
+        <interactions-demo [code]="interCode" [ex]="interEx"></interactions-demo>
+    </div>
+    <!-- 04 -->
+    <div *ngIf="interEx===4">
+        <interactions-demo (onAccept)="interOnAccept($event)" [ex]="interEx"></interactions-demo>
+        <span>{{interAccept}}</span>
+    </div>
+    <!-- 05 -->
+    <div *ngIf="interEx===5">
+        <interactions-demo #localVar [ex]="interEx"></interactions-demo>
+        <span>{{localVar.hello}}</span>
+    </div>
+    <!-- 06 -->
+    <div *ngIf="interEx===6">
+        <span>{{interViewChild}}</span>
+    </div>
+    <!-- 07 -->
+    <div *ngIf="interEx===7">
+        <button (click)="broadcastParent()">Broadcast from parent</button>
+        <span>{{dataFromChild}}</span>
+        <interactions-demo [ex]="interEx"></interactions-demo>
+    </div>
+    <hr>
 
-<!--***********-->
-<!-- Directives -->
-<!--***********-->
-<h2>Directives d'attribut</h2>
-<p highlight>Directive de structure</p>
-<input type="text" [inputMaxLength]="5">
+    <!--***********-->
+    <!-- Directives -->
+    <!--***********-->
+    <h2>Directives d'attribut</h2>
+    <p highlight>Directive de structure</p>
+    <input type="text" [inputMaxLength]="5">
 
-<h2>Directives de structure</h2>
-<div *ngIf="directive.array.length > 1">{{directive.array[0]}}</div>
-<ul>
-    <li *ngFor="let a of directive.array">{{a}}</li>
-</ul>
+    <h2>Directives de structure</h2>
+    <div *ngIf="directive.array.length > 1">{{directive.array[0]}}</div>
+    <ul>
+        <li *ngFor="let a of directive.array">{{a}}</li>
+    </ul>
 
-<div [ngSwitch]="directive?.code">
-    <div *ngSwitchCase="'A'">A</div>
-    <div *ngSwitchCase="'B'">B</div>
-    <div *ngSwitchCase="'C'">C</div>
+    <div [ngSwitch]="directive?.code">
+        <div *ngSwitchCase="'A'">A</div>
+        <div *ngSwitchCase="'B'">B</div>
+        <div *ngSwitchCase="'C'">C</div>
+    </div>
+    <hr>
+
+    <!--***********-->
+    <!-- Pipes -->
+    <!--***********-->
+    <h2>Pipes</h2>
+    <p>Date d'anniv {{ dateAnniv }}</p>
+    <p>Date d'anniv {{ dateAnniv | date }}</p>
+    <!-- Pipe parameter -->
+    <p>Date d'anniv {{ dateAnniv | date: "MM/dd/yy" }}</p>
+    <!-- Pipe binding parameter -->
+    <p>Date d'anniv {{ dateAnniv | date: dateFormat }}</p>
+    <!-- Chaining pipes -->
+    <p>Date d'anniv {{ dateAnniv | date | uppercase }}</p>
+    <!-- Custom Pipes -->
+    <p>Exponentielle: {{2 | exponential}}</p>
+    <input [(ngModel)]="exponent">
+    <p>Exponentielle: {{2 | exponential: exponent}}</p>
+    <hr>
+
+    <!--***********-->
+    <!-- Forms -->
+    <!--***********-->
+    <h2>Events Bindings</h2>
+    <input (keyup)="onKey($event)"><br>
+    <input (keyup)="onKeyWithType($event)"><br>
+    <input #input1 (keyup)="onKeyWithRef(input1.value)"><br>
+    <input #input2 (keyup.enter)="onEnter(input2.value)"><br>
+
+    <hr>
+    <!-- Template-based Forms -->
+    <h2>Template-based Forms</h2>
+    <demo-form></demo-form>
+    <hr>
+
+    <!-- Reactive Forms -->
+    <h1>Reactive Forms</h1>
+    <demo-react-form></demo-react-form>
 </div>
-<hr>
-
-<!--***********-->
-<!-- Pipes -->
-<!--***********-->
-<h2>Pipes</h2>
-<p>Date d'anniv {{ dateAnniv }}</p>
-<p>Date d'anniv {{ dateAnniv | date }}</p>
-<!-- Pipe parameter -->
-<p>Date d'anniv {{ dateAnniv | date: "MM/dd/yy" }}</p>
-<!-- Pipe binding parameter -->
-<p>Date d'anniv {{ dateAnniv | date: dateFormat }}</p>
-<!-- Chaining pipes -->
-<p>Date d'anniv {{ dateAnniv | date | uppercase }}</p>
-<!-- Custom Pipes -->
-<p>Exponentielle: {{2 | exponential}}</p>
-<input [(ngModel)]="exponent">
-<p>Exponentielle: {{2 | exponential: exponent}}</p>

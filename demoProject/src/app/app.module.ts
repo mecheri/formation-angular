@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Training
 // Components
@@ -12,13 +12,13 @@ import { InteractionsComponent } from './training/components/interactions/intera
 // Directives
 import { HighlightDirective } from './training/directives/highlight.directive';
 import { InputMaxLengthDirective } from './training/directives/input-max-length.directive';
-import { ExponentialPipe } from './training/pipes/exponential.pipe';
 
 // Pipes
-// TODO
+import { ExponentialPipe } from './training/pipes/exponential.pipe';
 
 // Forms
-// TODO
+import { DemoFormComponent } from './training/forms/demo-form.component';
+import { DemoReactFormComponent } from './training/forms/demo-react-form.component';
 
 // Http
 // TODO
@@ -38,11 +38,14 @@ import { ExponentialPipe } from './training/pipes/exponential.pipe';
     InteractionsComponent,
     HighlightDirective,
     InputMaxLengthDirective,
-    ExponentialPipe
+    ExponentialPipe,
+    DemoFormComponent,
+    DemoReactFormComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

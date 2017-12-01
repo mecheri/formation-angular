@@ -1,0 +1,35 @@
+{{ model | json }}
+<!-- <form #demoForm="ngForm"> -->
+<form (ngSubmit)="onSubmit()" #demoForm="ngForm">
+    <div class="form-group">
+
+        <label for="code">Code</label>
+
+        <!-- <input type="text" class="form-control" name="code" id="code" required [(ngModel)]="model.code" #code> Statuts: {{code.className}} -->
+
+        <input type="text" class="form-control" name="code" id="code" required minlength="4" [(ngModel)]="model.code" #code="ngModel">
+
+        <!-- <div [hidden]="code.valid || code.pristine" class="alert alert-danger"> Code est obligatoire </div> -->
+
+        <div *ngIf="code.invalid && (code.dirty || code.touched)" class="alert alert-danger">
+
+            <div *ngIf="code.errors.required">
+                Code est obligatoire
+            </div>
+            <div *ngIf="code.errors.minlength">
+                Minimum 4 caractères
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <label for="label">Label</label>
+        <input type="text" class="form-control" name="label" id="label" required [(ngModel)]="model.label">
+    </div>
+
+    <!-- <button type="submit" class="btn btn-success" (click)="newDemo(); demoForm.reset()">Submit</button> -->
+    <button type="submit" class="btn btn-success" [disabled]="!demoForm.form.valid">Submit</button>
+
+</form>
