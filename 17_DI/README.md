@@ -67,7 +67,7 @@ export class DemoFactory {
 ### Providers
 * La configuration de l'injecteur et du tableau de providers est multile:
 * providers: [Logger] <=> [{ provide: Logger, useClass: Logger }]
-    - La propriété provide contient le jeton qui sert de clé pour enregistrer le service.
+    - La propriété provide contient le token qui sert de clé pour enregistrer le service.
     - La deuxième propriété est toujours un objet de définition du service
 * [{ provide: Logger, useClass: BetterLogger }]
 * [ NewLogger, { provide: OldLogger, useClass: NewLogger}] --> crée deux instances de NewLogger
@@ -86,4 +86,36 @@ let demoServiceFactory = (logger: Logger) => {
     /* .....   */
   return new HeroService(logger);
 };
+```
+### DI Tokens
+* A l'enregistrement d'un Provider avec l'injecteur, Angular l'associe à un token d'injection de dépendance. 
+* L'injecteur gère une mappe interne de token à laquelle il fait référence lorsqu'il cherche une dépendance.
+#### DI Tokens types
+* L'injection d'une instance de classe (Logger, DemoService)
+* L'injection d'une "non-classe" (chaîne, une fonction ou un objet) --> ex: injecter la configuration de l'application
+```typescript
+export const DEMO_CONFIG: AppConfig = {
+  apiEndpoint: 'api.demo.com',
+  version: '1.0.0'
+};
+
+// AppConfig est une Interface TypeScript
+// Le type Interface TypeScript ne peut pas être utilisée comme token d'injection pas Angular
+// A la transpliation l'Interface TypeScript disparaît du JavaScript généré.
+// --> il faut injecter le token aussi
+import { InjectionToken } from '@angular/core';
+export const APP_CONFIG = new InjectionToken<AppConfig>('app.config');
+
+providers: [{ provide: APP_CONFIG, useValue: DEMO_CONFIG }]
+
+constructor(@Inject(APP_CONFIG) config: AppConfig) {}
+```
+
+### Dépendances facultatives
+```typescript
+import { Optional } from '@angular/core';
+
+constructor(@Optional() private logger: Logger) {
+  if (this.logger) { this.logger.log('Hello world'); }
+}
 ```
