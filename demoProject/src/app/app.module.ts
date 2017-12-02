@@ -20,14 +20,16 @@ import { ExponentialPipe } from './training/pipes/exponential.pipe';
 import { DemoFormComponent } from './training/forms/demo-form.component';
 import { DemoReactFormComponent } from './training/forms/demo-react-form.component';
 import { ForbiddenValidatorDirective } from './training/forms/forbidden-validator.directive';
+import { DemosComponent } from './training/di/demos.component';
+
+// Services
+import { DemoService } from './training/di/demo.service';
+import { Logger } from './training/di/logger.service';
 
 // Http
 // TODO
 
 // Navigation
-// TODO
-
-// Services
 // TODO
 
 @NgModule({
@@ -42,14 +44,18 @@ import { ForbiddenValidatorDirective } from './training/forms/forbidden-validato
     ExponentialPipe,
     DemoFormComponent,
     DemoReactFormComponent,
-    ForbiddenValidatorDirective
+    ForbiddenValidatorDirective,
+    DemosComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    DemoService,
+    Logger
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
