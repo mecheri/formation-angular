@@ -1,4 +1,3 @@
-{{ model | json }}
 <!-- <form #demoForm="ngForm"> -->
 <form (ngSubmit)="onSubmit()" #demoForm="ngForm">
     <div class="form-group">
@@ -26,8 +25,19 @@
 
     <div class="form-group">
         <label for="label">Label</label>
-        <input type="text" class="form-control" name="label" id="label" required [(ngModel)]="model.label">
+        <input type="text" class="form-control" name="label" id="label" required forbiddenLabel="test" [(ngModel)]="model.label" #label="ngModel">
+
+        <div *ngIf="label.invalid && (label.dirty || label.touched)" class="alert alert-danger">
+            <div *ngIf="label.errors.required">
+                Label est obligatoire
+            </div>
+            <div *ngIf="label.errors.forbiddenLabel">
+                chaîne non autorisée
+            </div>
+        </div>
     </div>
+
+    <p>Form value: {{ model | json }}</p>
 
     <!-- <button type="submit" class="btn btn-success" (click)="newDemo(); demoForm.reset()">Submit</button> -->
     <button type="submit" class="btn btn-success" [disabled]="!demoForm.form.valid">Submit</button>

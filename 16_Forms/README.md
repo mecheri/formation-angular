@@ -41,5 +41,6 @@
     - "FormGroup": suit la valeur et l'état de validité d'un groupe d'instances AbstractControl.
     - "FormArray": suit la valeur et l'état de validité d'un tableau indexé numériquement des instances de AbstractControl.
     - "FormBuilder" permet de réduire la répétition lors de la création de contrôle.
+    - "Validators" : valident la saisie de l'utilisateur pour plus de précision. Angular fournit des validateurs intégrés https://angular.io/api/forms/Validators. On peut aussi construire des "Custom Validators"
 
 ## Custom Form Validation (Validation formulaire)

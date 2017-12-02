@@ -19,6 +19,7 @@ import { ExponentialPipe } from './training/pipes/exponential.pipe';
 // Forms
 import { DemoFormComponent } from './training/forms/demo-form.component';
 import { DemoReactFormComponent } from './training/forms/demo-react-form.component';
+import { ForbiddenValidatorDirective } from './training/forms/forbidden-validator.directive';
 
 // Http
 // TODO
@@ -40,7 +41,8 @@ import { DemoReactFormComponent } from './training/forms/demo-react-form.compone
     InputMaxLengthDirective,
     ExponentialPipe,
     DemoFormComponent,
-    DemoReactFormComponent
+    DemoReactFormComponent,
+    ForbiddenValidatorDirective
   ],
   imports: [
     BrowserModule,
