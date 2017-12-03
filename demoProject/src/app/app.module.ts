@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // Training
 // Components
@@ -27,7 +28,7 @@ import { DemoService } from './training/di/demo.service';
 import { Logger } from './training/di/logger.service';
 
 // Http
-// TODO
+import { DemoInterceptor } from './training/http/demo.interceptor';
 
 // Navigation
 // TODO
@@ -50,11 +51,17 @@ import { Logger } from './training/di/logger.service';
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [
     DemoService,
-    Logger
+    Logger,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: DemoInterceptor,
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent]
 })

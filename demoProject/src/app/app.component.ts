@@ -1,6 +1,7 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
-import { InteractionsComponent } from './training/components/interactions/interactions.component';
+import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
+import { InteractionsComponent } from './training/components/interactions/interactions.component';
 import { InteractionsService } from './training/components/interactions/interactions.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { InteractionsService } from './training/components/interactions/interact
   styleUrls: ['./app.component.css'],
   providers: [InteractionsService]
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements OnInit, AfterViewInit {
   //#region Components
   // Two-way bindings 1
   prop = 1;
@@ -41,7 +42,9 @@ export class AppComponent implements AfterViewInit {
 
   dataFromParent = "data from parent";
   dataFromChild = "";
-  constructor(private interService: InteractionsService) {
+  constructor(
+    private http: HttpClient,
+    private interService: InteractionsService) {
     interService.broadcastChildStream$.subscribe(
       dataFromChild => {
         this.dataFromChild = dataFromChild;
@@ -78,6 +81,70 @@ export class AppComponent implements AfterViewInit {
   }
   onEnter(value: string) {
     console.log(value);
+  }
+  //#endregion
+
+  //#region HttpClient
+
+  results: string[];
+  ngOnInit(): void {
+    // Récupération de données JSON
+    this.http.get('https://api.github.com/emojis')
+      .subscribe(data => {
+        console.log(data['hugs']);
+      });
+
+    // Vérification du type de la réponse
+    interface EmojisResponse {
+      hugs: string;
+    }
+    this.http.get<EmojisResponse>('https://api.github.com/emojis')
+      .subscribe(data => {
+        console.log(data.hugs);
+      });
+
+    // Récupération de la totalité de la réponse pas le body uniquement
+    this.http.get<EmojisResponse>('https://api.github.com/emojis', { observe: 'response' })
+      .subscribe(resp => {
+        console.log(resp);
+      });
+
+    // Gestion des erreurs
+    this.http.get('https://api.github.com/emojisqsd')
+      .subscribe(
+      data => console.log(data),
+      error => console.log('Erreur http -->', error)
+      );
+
+    // Récupération de données non-JSON
+    this.http.get('file.txt', { responseType: 'text' })
+      .subscribe(data => {
+        console.log(data);
+      });
+
+    // Envoyer des données a un serveur
+    // Requete POST
+    const body = { name: 'Mehdi' };
+    this.http
+      .post('/api/users/add', body)
+      .subscribe(
+      data => console.log(data),
+      error => console.log('Erreur http -->', error)
+      );
+    // Headers
+    this.http
+      .post('/api/users/add', body, {
+        headers: new HttpHeaders().set('Authorization', 'auth-token'),
+      })
+      .subscribe();
+
+    // URL Parameters  
+    this.http
+      .post('/api/users/add', body, {
+        params: new HttpParams().set('id', '3'),
+      })
+      .subscribe();
+
   }
   //#endregion
 }
