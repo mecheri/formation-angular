@@ -59,20 +59,20 @@ intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> 
 }
 ```
 * Un intercepteur peut modifier les Headers indispensable dans certains cas:
-- Authentification
-```typescript
-intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const authReq = req.clone({headers: req.headers.set('Authorization', 'valeur du token authentification')});
-    return next.handle(authReq);
-  }
-```
-- Logger des informations avant/après requête
-```typescript
-intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-  	const started = Date.now();
-    return next.handle(req)
-      .do(event => Date.now() - started);
-  }
-```
-- Gestion du cache
-- Gestion de la protection XSRF
+  - Authentification
+  ```typescript
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+      const authReq = req.clone({headers: req.headers.set('Authorization', 'valeur du token authentification')});
+      return next.handle(authReq);
+    }
+  ```
+  - Logger des informations avant/après requête
+  ```typescript
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+      const started = Date.now();
+      return next.handle(req)
+        .do(event => Date.now() - started);
+    }
+  ```
+  - Gestion du cache
+  - Gestion de la protection XSRF
