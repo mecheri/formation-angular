@@ -28,7 +28,7 @@ import {HttpClientModule} from '@angular/common/http';
 * Next représente le prochain intercepteur dans la chaîne, ou le backend final s'il n'y a plus d'intercepteurs
 * Un intercepteur peut être assimilé un middelware
 
-#### Enregistrer l'intercepteur dans la DI d'angular
+#### Enregistrer l'intercepteur dans la DI d'Angular
 ```typescript
 import {NgModule} from '@angular/core';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';

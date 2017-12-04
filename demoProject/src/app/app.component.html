@@ -1,74 +1,75 @@
 <div class="container">
+
     <!--***********-->
     <!-- Two-way bindings 1 -->
     <!--***********-->
-    <h2>Two-way bindings 1</h2>
+    <!-- <h2>Two-way bindings 1</h2>
     <input type="text" [(ngModel)]="prop">
     <span>{{ prop }}</span>
-    <hr>
+    <hr> -->
 
     <!--***********-->
     <!-- Two-way bindings 2  -->
     <!--***********-->
-    <h2>Two-way bindings 2</h2>
+    <!-- <h2>Two-way bindings 2</h2>
     <sizer [(size)]="fontSizePx"></sizer>
     <div [style.font-size.px]="fontSizePx">Resizable Text</div>
     <sizer [size]="fontSizePx" (sizeChange)="fontSizePx=$event"></sizer>
-    <hr>
+    <hr> -->
 
     <!--***********-->
     <!-- Life cycle hooks -->
     <!--***********-->
-    <h2>Cycles de vie des Components</h2>
+    <!-- <h2>Cycles de vie des Components</h2>
     <input type="text" [(ngModel)]="id">
     <input type="text" [(ngModel)]="label">
     <hooks [id]="id" [label]="label"></hooks>
-    <hr>
+    <hr> -->
 
     <!--***********-->
     <!-- Interactions des Components -->
     <!--***********-->
-    <h2>Interactions des Components</h2>
-    <h3>Exemple {{ interEx }}</h3>
+    <!-- <h2>Interactions des Components</h2>
+    <h3>Exemple {{ interEx }}</h3> -->
     <!-- 01 -->
-    <div *ngIf="interEx===1">
+    <!-- <div *ngIf="interEx===1">
         <interactions-demo [code]="interCode" [label]="interLabel" [ex]="interEx"></interactions-demo>
-    </div>
+    </div> -->
     <!-- 02 -->
-    <div *ngIf="interEx===2">
+    <!-- <div *ngIf="interEx===2">
         <interactions-demo [prop]="interSetter" [ex]="interEx"></interactions-demo>
-    </div>
+    </div> -->
     <!-- 03 -->
-    <div *ngIf="interEx===3">
+    <!-- <div *ngIf="interEx===3">
         <input type="text" [(ngModel)]="interCode">
         <interactions-demo [code]="interCode" [ex]="interEx"></interactions-demo>
-    </div>
+    </div> -->
     <!-- 04 -->
-    <div *ngIf="interEx===4">
+    <!-- <div *ngIf="interEx===4">
         <interactions-demo (onAccept)="interOnAccept($event)" [ex]="interEx"></interactions-demo>
         <span>{{interAccept}}</span>
-    </div>
+    </div> -->
     <!-- 05 -->
-    <div *ngIf="interEx===5">
+    <!-- <div *ngIf="interEx===5">
         <interactions-demo #localVar [ex]="interEx"></interactions-demo>
         <span>{{localVar.hello}}</span>
-    </div>
+    </div> -->
     <!-- 06 -->
-    <div *ngIf="interEx===6">
+    <!-- <div *ngIf="interEx===6">
         <span>{{interViewChild}}</span>
-    </div>
+    </div> -->
     <!-- 07 -->
-    <div *ngIf="interEx===7">
+    <!-- <div *ngIf="interEx===7">
         <button (click)="broadcastParent()">Broadcast from parent</button>
         <span>{{dataFromChild}}</span>
         <interactions-demo [ex]="interEx"></interactions-demo>
     </div>
-    <hr>
+    <hr> -->
 
     <!--***********-->
     <!-- Directives -->
     <!--***********-->
-    <h2>Directives d'attribut</h2>
+    <!-- <h2>Directives d'attribut</h2>
     <p highlight>Directive de structure</p>
     <input type="text" [inputMaxLength]="5">
 
@@ -83,50 +84,75 @@
         <div *ngSwitchCase="'B'">B</div>
         <div *ngSwitchCase="'C'">C</div>
     </div>
-    <hr>
+    <hr> -->
 
     <!--***********-->
     <!-- Pipes -->
     <!--***********-->
-    <h2>Pipes</h2>
+    <!-- <h2>Pipes</h2>
     <p>Date d'anniv {{ dateAnniv }}</p>
-    <p>Date d'anniv {{ dateAnniv | date }}</p>
+    <p>Date d'anniv {{ dateAnniv | date }}</p> -->
     <!-- Pipe parameter -->
-    <p>Date d'anniv {{ dateAnniv | date: "MM/dd/yy" }}</p>
+    <!-- <p>Date d'anniv {{ dateAnniv | date: "MM/dd/yy" }}</p> -->
     <!-- Pipe binding parameter -->
-    <p>Date d'anniv {{ dateAnniv | date: dateFormat }}</p>
+    <!-- <p>Date d'anniv {{ dateAnniv | date: dateFormat }}</p> -->
     <!-- Chaining pipes -->
-    <p>Date d'anniv {{ dateAnniv | date | uppercase }}</p>
+    <!-- <p>Date d'anniv {{ dateAnniv | date | uppercase }}</p> -->
     <!-- Custom Pipes -->
-    <p>Exponentielle: {{2 | exponential}}</p>
+    <!-- <p>Exponentielle: {{2 | exponential}}</p>
     <input [(ngModel)]="exponent">
     <p>Exponentielle: {{2 | exponential: exponent}}</p>
-    <hr>
+    <hr> -->
 
     <!--***********-->
     <!-- Forms -->
     <!--***********-->
-    <h2>Events Bindings</h2>
+    <!-- <h2>Events Bindings</h2>
     <input (keyup)="onKey($event)"><br>
     <input (keyup)="onKeyWithType($event)"><br>
     <input #input1 (keyup)="onKeyWithRef(input1.value)"><br>
     <input #input2 (keyup.enter)="onEnter(input2.value)"><br>
+    <hr> -->
 
-    <hr>
     <!-- Template-based Forms -->
-    <h2>Template-based Forms</h2>
+    <!-- <h2>Template-based Forms</h2>
     <demo-form></demo-form>
-    <hr>
+    <hr> -->
 
     <!-- Reactive Forms -->
-    <h1>Reactive Forms</h1>
+    <!-- <h1>Reactive Forms</h1>
     <demo-react-form></demo-react-form>
-    <hr>
+    <hr> -->
 
     <!--***********-->
     <!-- DI -->
     <!--***********-->
-    <h1>Dependency Injection</h1>
+    <!-- <h1>Dependency Injection</h1>
     <demos-di></demos-di>
-    <hr>
+    <hr> -->
+
+    <!--***********-->
+    <!-- Routing and Navigation -->
+    <!--***********-->
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="collapsed navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-9" aria-expanded="false"> 
+                    <span class="sr-only">Toggle navigation</span> 
+                    <span class="icon-bar"></span> 
+                    <span class="icon-bar"></span> 
+                    <span class="icon-bar"></span> 
+                </button>
+                <a href="#" class="navbar-brand">Demo</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-9">
+                <ul class="nav navbar-nav">
+                    <li><a routerLink="/menu1" routerLinkActive="active">Menu 1</a></li>
+                    <li><a routerLink="/menu2" routerLinkActive="active">Menu 2</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <router-outlet></router-outlet>
 </div>
