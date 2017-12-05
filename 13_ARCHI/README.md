@@ -6,7 +6,7 @@
 3. Ajout de la logique applicative dans des Services
 4. Mettre les Components et Services dans des Modules
 5. Lancement de l'application en amorsant le module racine
-6. Angular ce charge après de presenter le contenu coté navigateur 
+6. Angular ce charge après de presenter le contenu coté navigateur
 
 
 # Modules
@@ -46,7 +46,7 @@
 * Si une classe n'est pas décorée de @Component alors ce n'est pas un Component Angular
 * @Component prend en parametre un objet d'options nécessaire pour créer un Component définir son Template
 * Les options les plus connues sont: selector, templateUrl, providers ...
-* Il existe d'autres @Injectable, @Input, and @Output  
+* Il existe d'autres @Injectable, @Input, and @Output
 * Pour que Angular sache quoi faire, il faut décorer les classes avec des métadonnées
 
 
@@ -59,14 +59,14 @@
 * property binding [demo] : Passe la valeur a la propriété demo
 ## from the DOM
 * event binding (click) : Appelle le Component quand l'utilisateur clique
-## both 
+## both
 * Two-way data binding ngModel: combine le property et event binding
 
 # Angular Change detection
 Angular scrute les changements de valeurs des proriétés bindées via un processus de "Change detection" qui s'exécute après chaque événement DOM (frappe, déplacement de la souris, timer, réponse de serveur.
 
 # Directives
-* Les Templates Angular sont dynamiques. 
+* Les Templates Angular sont dynamiques.
 * Angular transforme le DOM selon les instructions des directives
 * Une Directive est une classe décorée de @Directive
 * Un Component est une Directive avec un Template
@@ -79,8 +79,8 @@ Angular scrute les changements de valeurs des proriétés bindées via un proces
 
 
 # Services
-* Un service est une classe avec un objectif spécifique et bien défini (logger, data, messages). 
-* Les Services effectuent des taches spécifiques à la place des Components. 
+* Un service est une classe avec un objectif spécifique et bien défini (logger, data, messages).
+* Les Services effectuent des taches spécifiques à la place des Components.
 * Un bon Component permet uniquement l'experience utilisateur avec des propriétés et des fonctions pour le data-binding
 * Les Components consomment beaucoup de services et en dépendent
 * Les Services peuvent dépendre d'autres Services
@@ -100,3 +100,7 @@ Angular scrute les changements de valeurs des proriétés bindées via un proces
 * Enregistrer un Service dans le AppModule -> l'instance est disponible partout
 ### Dans un Component
 * Enregistrer un Service dans un Component -> une nouvelle instance du service est disponible avec chaque nouvelle instance du Component
+
+## WebComponents standard
+
+## Shadow DOM
