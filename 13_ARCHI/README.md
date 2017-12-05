@@ -1,3 +1,13 @@
+# Angular
+* Angular est un framework d'application JavaScript.
+* Angular fournit
+    - une bibliothèque pour la construction de composants encapsulés,
+    - l'injection de dépendances,
+    - un langage de modèle avec liaison de données,
+    - un routeur d'application construit sur des observables,
+    - une interface de ligne de commande
+* Angular facilite la séparation de la logique d'affichage (composants) et de la logique métier (services et logique) pour que plusieurs équipes puissent travailler sur différents aspects de la même application.
+
 ## Concepts & Architecture générale
 
 # Principe général
@@ -101,6 +111,48 @@ Angular scrute les changements de valeurs des proriétés bindées via un proces
 ### Dans un Component
 * Enregistrer un Service dans un Component -> une nouvelle instance du service est disponible avec chaque nouvelle instance du Component
 
-## WebComponents standard
+## Les WebComponents
+### https://www.webcomponents.org/introduction
+* Les components Angular reprennent le principe d'encapsulation et la possibilité de réutilisation des WebComponents
+* Les WebComponents font partie du navigateur et ne nécessitent pas de bibliothèque externe comme jQuery
+* Les WebComponents peuvent être utiolisés en ajoutant simplement une déclaration d'importation à une page HTML
+* Tous les navigateurs ne supportent pas les WebComponents, il faut utiliser des polyfills pour les utiliser
+* les technologies des WebComponents:
+    - Custom Elements: pour créer et enregistrer de nouveaux éléments HTML et les faire reconnaître par le navigateur.
+    - HTML Templates: squelette pour créer des éléments HTML instanciables.
+    - Shadow DOM: permet d'encapsuler le JavaScript et le CSS des éléments.
+    - HTML Imports: pour packager ses composants (CSS, JavaScript, etc.) et permettre leur intégration dans d'autres pages.
+* L'utilisation de composants WebComponents dans les applications Angular est très simple et Les mécanismes de syntaxe, de liaison de propriété et de gestion des événements qui ne changent pas.
 
 ## Shadow DOM
+* Shadow DOM fait partie de la norme WebComponents et permet l'encapsulation de l'arborescence DOM et du style
+* Shadow DOM permet de cacher la logique DOM derrière d'autres éléments.
+* Shadow DOM permet d'appliquer des styles uniquement dans le scope de l'élement encapsulé sans aucun impact sur les éléments externes
+
+### Shadow DOM & Angular
+* Angular offre la possibilité de construire des Components.
+* Un component est une classe avec un modèle et des styles qui lui appartiennent.
+* Donc ressemble un WebComponent mais n'en n'est pas un.
+* A la création d'un Component, Angular place son template et son styles dans un shadowRoot, qui est le DOM Shadow particulier de ce Component.
+* En réalité, Angular ne crée pas de Shadow DOM natif mais utilise un émulation (les navigateurs ne support pas le Shadow DOM natif)
+* Cependant, on peut avec Angular générer su Shadow DOM natif pour un Component
+* Il existe trois types d'encapsulation dans Angular:
+    - ViewEncapsulation.None     - Pas de Shadow DOM, pas d'encapsulation de style aussi.
+    - ViewEncapsulation.Emulated - Pas de Shadow DOM, mais avec une encapsulation de style.
+    - ViewEncapsulation.Native   - Shadow DOM natif.
+```typescript
+import {ViewEncapsulation} from '@angular/core';
+
+@Component({
+  moduleId: module.id,
+  selector: 'my-comp',
+  templateUrl: 'my-comp.component.html',
+  styles: [`
+    .my-comp {
+      background: green;
+    }
+  `],
+  encapsulation: ViewEncapsulation.None
+})
+class MyComponent {}
+```

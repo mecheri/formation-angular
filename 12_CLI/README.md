@@ -29,7 +29,7 @@ Scaffold  | Usage
 [Module](https://github.com/angular/angular-cli/wiki/generate-module)       | `ng g module my-module`
 
 * angular-cli ajoutera automatiquement une référence aux Components, Directives, Pipes et Services dans le fichier `app.module.ts` (module principal)
-* pour référencer à partir d'un autre module 
+* pour référencer à partir d'un autre module
     - `ng g module new-module` pour créer le module
     - `ng g component new-module/new-component` pour ajouter la réference dans le nouveau module
 
@@ -65,12 +65,12 @@ Fichier   | Définition
 ---       | ---
 app/app.component.{ts,html,css,spec.ts} | composant racine qui deviendra un arbre de composants imbriqués au fur et à mesure que l'application évolue
 app/app.module.ts                       | module racine qui indique à Angular l'ensemble des éléments qui forme l'application
-assets/*                                | Dossier contenant les ressources statiques et externes 
+assets/*                                | Dossier contenant les ressources statiques et externes
 environments/*                          | Dossier contenant un fichier pour chaque environnement avec une variable de configuration. Les fichiers sont chargés à la volée
 favicon.ico                             | Icône de la barre de favoris
 index.html                              | Page HTML principale et unique de l'application. Angular CLI ajoute automatiquement le CSS/Javascript à la page
 main.ts                                 | Point d'entrée de application. Lance la compilation et amorce le module racine (AppModule) pour l'exécuter dans le navigateur
-polyfills.ts                            | Gérer les differences d'implementation des standards Web par les navigateur, javascript pour simuler des fonctionnalités natives indisponible dans les anciens navigateurs
+polyfills.ts                            | Ce sont des bibliothèques JavaScript destinées à émuler des fonctionnalités qui ne sont pas encore implémentées nativement dans les navigateurs
 test.ts                                 | Point d'entrée pour lancer les tests unitaires
 tsconfig.{app|spec}.json                | Configuration du compilateur typscript de l'application pour le dev et les tests unitaires
 
