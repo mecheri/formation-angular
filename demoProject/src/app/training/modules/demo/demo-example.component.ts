@@ -5,6 +5,6 @@ import { Component } from '@angular/core';
     <p> Hello i am a Component from a lazy loaded Module <p>
   `,
 })
-export class DemoComponent {
+export class DemoExampleComponent {
 
 }

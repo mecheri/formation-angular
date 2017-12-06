@@ -32,10 +32,16 @@
 * Crée une instance du composant et l'insère dans la balise racine identifiée par le sélecteur du Component racine.
 
 
-# Modules de fonctionnalité (custom)
+# Modules de fonctionnalité (FeatureModule)
 * Un module de fonctionnalité fournit un ensemble cohérent de fonctionnalités axées sur un domaine d'activité d'application (business logic)
 * Un module de fonctionnalité aident à partitionner l'application dans des domaines d'intérêt et de finalité spécifiques.
 * Un module de fonctionnalité interagit avec le module racine et avec d'autres NgModules via les services, les Components/Directives/Pipes
+* FeatureModule importe CommonModule mais pas BrowserModule. Les Components/Directives/Pipes d'un module de fonctionnalité ont besoin des directives Angular communes fournit par. BrowserModule n'est pas nécessaire pour un FeatureModule car il prend en charge le bootrstraping de l'appli.
+* FeatureModule importe le FormsModule car ses futurs Components/Directives/Pipes utiliseront NgModel
+* FeatureModule n'hérite pas de l'accès aux déclarations du modules racine ou de tout autre NgModule (Chaque NgModule doit importer ce dont il a besoin).
+* Un Component de FeatureModule peut être déclaré uniquement dans FeatureModule
+* FeatureService appartient au domaine de FeatureModule. Les classes dans le reste de l'application n'ont pas besoin de FeatureService et ne doivent pas l'injecter. Mais réelement, n'importe quelle classe peut injecter le FeatureService, car les Providers de FeatureModule ont la portée de la racine. Car Angular enregistre tous les Providers NgModule avec l'injecteur racine de l'application
+* FeatureModule a son propre module de routage qui lui export le RouterModule d'Angular
 
 ## Lazy loading
 * Des modules chargés en mode Lazy signifie quils ne sont pas chargés (pre-chargés) coté navigateur jusqu'à ce que l'utilisateur navigue vers une Route qui corréspond à un de leurs Component.
@@ -49,3 +55,6 @@
 * Le SharedModule doit importer CommonModule et FormsModule puis les ré-exporter, cela permet aux autre Modules de ne pas les importer mais uiliser directement depuis le shared
 
 ## Core module
+* CoreModule permet de rassembler les Services et Componets qui seront importés une seule fois lorsque l'application démarre et qui ne seront jamais importés ailleurs.
+* CoreModule est l'emplacement idéale des Services Singleton (AuthService ...), qui doivent être enregistré une fois, dans l'injecteur racine de l'application, lorsque l'application démarre.
+* Seule le module racine doit importer CoreModule, il ne faut surtout pas qu'un module chargé en mode lazy l'importe.

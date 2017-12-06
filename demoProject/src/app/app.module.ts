@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
+// import { AppRoutingModule }   from './app-routing.module';
 
 // Training
 // Components
@@ -39,7 +40,6 @@ import { DemoEditComponent } from './training/navigation/demo-edit.component';
 import { PageNotFoundComponent } from './training/navigation/page-not-found.component';
 import { AuthGuard } from './training/navigation/auth-guard';
 import { SaveFormsGuard } from './training/navigation/save-forms-guard';
-
 const appRoutes: Routes = [
   {
     path: 'demo',
@@ -97,6 +97,7 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    // AppRoutingModule
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- pour le debugage

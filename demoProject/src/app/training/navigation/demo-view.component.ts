@@ -23,8 +23,6 @@ import { Demo } from './demo';
   <div style="margin-bottom: 1em">
     <button type="button" class="btn btn-primary" (click)="goToDemoEdit(demo.id)">Editer</button>
   </div>
-
-  <router-outlet></router-outlet>
 `,
 })
 export class DemoViewComponent {

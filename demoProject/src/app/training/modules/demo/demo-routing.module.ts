@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
-import { ModuleWithProviders } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
-import { DemoComponent } from "./demo.component";
+import { DemoExampleComponent } from "./demo-example.component";
 
 const routes = [
-  { path: '', component: DemoComponent}
+  { path: '', component: DemoExampleComponent}
 ];
 
 @NgModule({
