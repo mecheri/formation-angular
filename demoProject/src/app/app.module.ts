@@ -54,8 +54,12 @@ const appRoutes: Routes = [
     children: [
       { path: '', redirectTo: 'view/:id', pathMatch: 'full' },
       { path: 'view/:id', component: DemoViewComponent },
-      { path: 'edit/:id', component: DemoEditComponent, canDeactivate: [SaveFormsGuard] }       
+      { path: 'edit/:id', component: DemoEditComponent, canDeactivate: [SaveFormsGuard] }
     ]
+  },
+  {
+    path: 'demo-from-custom-module',
+    loadChildren: './training/modules/demo/demo.module#DemoModule', // Lazy load
   },
   {
     path: '',
@@ -89,14 +93,14 @@ const appRoutes: Routes = [
     PageNotFoundComponent
   ],
   imports: [
-    RouterModule.forRoot(
-      appRoutes,
-      { enableTracing: true } // <-- pour le debugage
-    ),
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: true } // <-- pour le debugage
+    )
   ],
   providers: [
     DemoService,
