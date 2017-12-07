@@ -1,11 +1,11 @@
-## Node.js 
+## Node.js
 # https://nodejs.org/en/
 * Environnement d’exécution JavaScript construit sur le moteur JavaScript V8 de Chrome
 * Pas un framework web
 * Execution Javascript coté serveur --> interaction avec le système
 * Moteur asynchrone et orienté événnement
 
-# V8 
+# V8
 Moteur d’exécution JavaScript open source de Google, écrit en C ++ et utilisé dans Google Chrome et Node.js. Il implémente la norme ECMAScript
 
 # Boucle d'événnement et mode asynchrone
@@ -32,13 +32,13 @@ fs.readFile('file.txt', (err, content) => {
 })
 ```
 
-## NPM
-# https://www.npmjs.com/
+# NPM
+## https://www.npmjs.com/
 * Gestionnaire de paquets ou modules de Node.js
 * Gestionnaire de dépendances pour une application
 
-# Gestion locale
-# package.json
+## Gestion locale
+## package.json
 * Documente les packages dont le projet dépend
 * Deux champs sont obligatoires: "name" et "version"
 * Spécifie les versions des differents packages
@@ -48,32 +48,32 @@ fs.readFile('file.txt', (err, content) => {
 * "dependencies": requis par le projet en production
 * "devDependencies": requis uniquement en dev et test
 
-# Gestion globale
+## Gestion globale
 Pour utilisation comme un outil de ligne de commande
 
-# Package
+## Package
 Dossier contenant un programme décrit par un fichier package.json
 
-# Module
+## Module
 * Tout ce qui peut être chargé avec "require" ou "import" dans un programme Node.js
 * Un dossier avec un fichier package.json contenant un champ "main"
 * Un dossier avec un fichier index.js dedans
 * un fichier Javascript
 * La plupart des packages npm sont des modules
 
-# Structures de dossiers et fichiers
+## Structures de dossiers et fichiers
 * Installation locale: ./node_modules du package courant
-* Installation globale: /usr/local 
+* Installation globale: /usr/local
 
-# Semantic-versioning
-# Pour publier 
+## Semantic-versioning
+### Pour publier
 * 1er  compteur: version majeure
 * 2eme compteur: version mineure
 * 3eme compteur: bug fix, patch
 
-# Pour consommer 
-Si on commence avec un package version 1.0.4, 
+### Pour consommer
+Si on commence avec un package version 1.0.4,
 Voici comment spécifierier les changements de versions:
 * Patch  : 1.0 ou 1.0.x ou ~1.0.4
 * Mineur : 1 ou 1.x ou ^1.0.4
-* Majeur : * ou x 
+* Majeur : * ou x
