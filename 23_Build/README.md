@@ -1,19 +1,19 @@
-## Support navigateurs
+# Support navigateurs
 Chrome  : latest
 Firefox : latest
 Edge    : 14, 13
 IE      : 11, 10, 9
 Safari  : 10, 9, 8, 7
 
-## Polyfills
+# Polyfills
 * Angular est construit sur les dernières normes Web. c'est difficle de cibler l'ensemble des navigateurs et leurs versions anterieurs
 * Les polyfills proposés par Angualr. On peut avoir besoin de polyfills supplémentaires pour prendre en charge les fonctionnalités non couvertes par cette liste.
 * Les Polyfills sont activés dans le fichier src / polyfills.ts
 * Les Polyfills obligatoires (tels que zone.js) sont installés automatiquement par CLI
 * Les Polyfills optionnels, seront acités en installant les packages npm correspondant
 
-## Angular Packages
-### Dependencies
+# Angular Packages
+## Dependencies
 * Angular packages: noyau Angular + modules Angular optionnels.
     - @angular/animations: librairie Angular pour les effets d'animations
     - @angular/common                   : Directives, Pipes, HttpClient ...
@@ -29,11 +29,11 @@ Safari  : 10, 9, 8, 7
     - zone.js: Permet à Angular de détécter les événements déclenchés par des opérations JavaScript natives.
 * Polyfill packages: corrigent les differences d'implementation JS des navigateurs.
 
-### DevDependencies
+## DevDependencies
 * @angular/cli: Les outils CLI Angular
 * @angular/compiler-cli: le compilateur Angular, qui est invoqué par les commandes CLI
 
-## Configuration TypeScript
+# Configuration TypeScript
 * Les navigateurs ne peuvent pas exécuter TypeScript directement.
 * Typescript doit être "transpilé" en JavaScript en utilisant le compilateur tsc, ce qui nécessite une certaine configuration.
 * tsconfig.json permet de configurer le compilateur lors de la génération des fichiers JavaScript.
@@ -51,17 +51,17 @@ Safari  : 10, 9, 8, 7
 }
 ```
 
-## Compilation
+# Compilation
 * Une application Angular se compose principalement de Components et de leurs Templates HTML.
 * Avant que le navigateur ne rende l'application, les Components et les Templates sont convertis en JavaScript exécutable par le compilateur Angular
 * Angular propose 2 modes de compilation:
-### Just-in-Time (JIT): (par défaut)
+## Just-in-Time (JIT): (par défaut)
 * compile l'application dans le navigateur lors de l'exécution su Javascript
     - ng build
     - ng serve
     - ng build --prod --aot=false
 
-### Ahead-of-Time (AOT):
+## Ahead-of-Time (AOT):
 * Compile l'application au moment de la construction du Javascript
     - ng build --aot
     - ng serve --aot

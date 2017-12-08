@@ -18,41 +18,39 @@
         var bobby = new Dog();
         var felix = new Dog();
 
-        (boddy.bark == felix.bark); // returns false. They both declared their own method.
+        (boddy.bark == felix.bark); // retourne false. les deux instances declarent leur propore methode
 
 
         //##########################
-        var Dog = function() {}; // declaring constructor
-        Dog.prototype; // prints "{}" : prototype exists and is empty
+        var Dog = function() {}; // déclaration du constructeur
+        Dog.prototype; // affiche "{}" : prototype vide
 
-        Dog.prototype.bark = function() { // defining a method on the Dog prototype
+        Dog.prototype.bark = function() { // définition d'un méthode sur le prototype Dog
             console.log("wouf wouf");
         };
 
         var bobby = new Dog();
-        bobby.bark(); // using the prototype declaration - prints "wouf wouf" to the console
+        bobby.bark(); // utilisation du prototype - affiche "wouf wouf" dans la console
 
         var felix = new Dog();
-        (bobby.bark == felix.bark); // instances share same reference - returns true;
+        (bobby.bark == felix.bark); // instances partagent la meme référence - retourne true;
 
 
         //##########################
-        var Dog = function() {}; // declaring constructor
-        Dog.prototype; // prints "{}" : prototype exists and is empty
-
-        Dog.prototype.bark = function() { // defining a method on the Dog prototype
+        var Dog = function() {};
+        Dog.prototype;
+        Dog.prototype.bark = function() {
             console.log("wouf wouf");
         };
 
         var bobby = new Dog();
-
-        bobby.bark(); // prints "wouf wouf" to the console
+        bobby.bark(); // affiche "wouf wouf" dans la console
 
         Dog.prototype.bark = function() {
                 console.log("meow meow");
-            } // overrides the prototype bark method
+            } // surcharge du prototype
 
-        bobby.bark(); // now prints "meow meow" to the console.
+        bobby.bark(); // affiche "meow meow" dans la console
     </script>
 </body>
 

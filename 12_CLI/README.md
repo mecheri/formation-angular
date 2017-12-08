@@ -1,21 +1,21 @@
+https://cli.angular.io/
+
 # Angular CLI
-## https://cli.angular.io/
+Interface de ligne de commande qui permet de créer un projet, d'ajouter des fichiers et d'exécuter des tâches de développement Angular.
 
-Interface de ligne de commande qui permet de créer un projet, d'ajouter des fichiers et d'exécuter des tâches de développement.
-
-# Installation
+### Installation
 ```bash
 npm install -g @angular/cli
 ```
 
-# Générer et lancer un projet Angular via server web de dev
+## Générer et lancer un projet Angular via server web de dev
 ```bash
 ng new NOM-DU-PROJET
 cd NOM-DU-PROJET
 ng serve
 ```
 
-# Génération de Components, Directives, Pipes et Services
+## Génération de Components, Directives, Pipes et Services
 Scaffold  | Usage
 ---       | ---
 [Component](https://github.com/angular/angular-cli/wiki/generate-component) | `ng g component my-new-component`
@@ -34,18 +34,18 @@ Scaffold  | Usage
     - `ng g component new-module/new-component` pour ajouter la réference dans le nouveau module
 
 
-# Empaquetage
+## packaging
 ```bash
 ng build --prod
 ```
 
-# Test unitaire et bout en bout
+## Test unitaire et bout en bout
 ```bash
 ng test
 ng e2e
 ```
 
-# Mise à jour
+## Mise à jour
 ```bash
 npm uninstall --save-dev angular-cli
 npm install --save-dev @angular/cli@latest
@@ -56,15 +56,15 @@ npm cache clean
 npm install -g @angular/cli@latest
 ```
 
-# Configuration
-## https://github.com/angular/angular-cli/wiki/angular-cli
+## Configuration
+https://github.com/angular/angular-cli/wiki/angular-cli
 
-# Structure de fichiers
-## Dossier src --> fichiers applicatifs
+## Structure de fichiers
+### Dossier src --> fichiers applicatifs
 Fichier   | Définition
 ---       | ---
-app/app.component.{ts,html,css,spec.ts} | composant racine qui deviendra un arbre de composants imbriqués au fur et à mesure que l'application évolue
-app/app.module.ts                       | module racine qui indique à Angular l'ensemble des éléments qui forme l'application
+app/app.component.{ts,html,css,spec.ts} | Composant racine qui deviendra un arbre de composants imbriqués au fur et à mesure que l'application évolue
+app/app.module.ts                       | Module racine qui indique à Angular l'ensemble des éléments qui forme l'application
 assets/*                                | Dossier contenant les ressources statiques et externes
 environments/*                          | Dossier contenant un fichier pour chaque environnement avec une variable de configuration. Les fichiers sont chargés à la volée
 favicon.ico                             | Icône de la barre de favoris
@@ -74,7 +74,7 @@ polyfills.ts                            | Ce sont des bibliothèques JavaScript 
 test.ts                                 | Point d'entrée pour lancer les tests unitaires
 tsconfig.{app|spec}.json                | Configuration du compilateur typscript de l'application pour le dev et les tests unitaires
 
-## Dossier racine --> fichiers pour le packaging, test et deploiment
+### Dossier racine --> fichiers pour le packaging, test et deploiment
 Fichier   | Définition
 ---       | ---
 e2e/                | Dossier pour les tests de bout en bout
@@ -84,5 +84,5 @@ node_modules/       | Dossier crée par Node.js dans lequel se trouvent tous les
 .karma.conf.js      | Configuration des tests unitaires
 .package.json       | Metadonnées de l'application et configuration des modules tiers dont dépend l'application
 .protractor.conf.js | Configuration des tests de bout en bout
-tsconfig.json       | Configuration du compilateur typscript de l'IDE
+tsconfig.json       | Configuration du compilateur typescript de l'IDE
 tslint.json         | Configuration de l'audit de code typescript pour garder un code cohérent

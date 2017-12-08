@@ -4,7 +4,7 @@
     - Cliquer sur les liens
     - Cliquer sur les boutons Précédent et Suivant du navigateur pour naviguer en avant et arrière
 
-## Interet du Routing
+## Intérêt du Routing
 * Implémenter des applications modulaires
 * Implémenter l'application en fonction des rôles (certains rôles ont accès à certaines URL)
 
@@ -19,7 +19,7 @@ import { RouterModule, Routes } from '@angular/router';
 ## base href
 * Le Router utilise "history.pushState" du navigateur pour naviguer --> https://developer.mozilla.org/fr/docs/Web/Guide/DOM/Manipuler_historique_du_navigateur#Adding_and_modifying_history_entries
 * Les applications de routage (SPA) doivent ajouter une balise "base href" au fichier index.html 
-* La balise "base href" est le premier enfant de la balise head esst utilisée pour activer le "history.pushState"
+* La balise "base href" est le premier enfant de la balise head est utilisée pour activer le "history.pushState"
 * Le navigateur utilise la valeur "base href" pour préfixer les URL relatives lors du chargement des fichiers CSS, de scripts et d'images.
 
 ## Configuration
@@ -123,7 +123,7 @@ goToDemoDetail(id) {
     - CanDeactivate    : Détermine si une route peut être désactivée
     - CanLoad          : Détermine si un module peut être chargé de manière "Lazy"
 * Un Guard est une fonction qui renvoie soit Observable de boolean, Promise de boolean ou boolean. 
-* Les Guards sont des service enregistrés dans le tableau des providers, ils peuvent donc être injectés par Angular
+* Les Guards sont des services enregistrés dans le tableau des providers, ils peuvent donc être injectés par Angular
 
 ## Optional Parameters
 * Query parameters permettent de transmettre des paramètres facultatifs à une Route, tels que des informations de pagination. (localhost:4200/demo-list?page=2)
@@ -138,7 +138,7 @@ goToPage(pageNum) {
 ```
 
 ## LocationStrategy and browser URL styles
-* Lorsque le routeur accède à une nouvelle vue d'un Component, il met à jour l'historique du navigateur avec l'URL de cette vue. 
+* Lorsque le Router accède à une nouvelle vue d'un Component, il met à jour l'historique du navigateur avec l'URL de cette vue. 
 * Cette URL est strictement locale. Le navigateur ne doit pas envoyer cette URL au serveur et ne doit pas recharger la page.
 * Les navigateurs HTML5 modernes prennent en charge history.pushState, qui modifie l'historique d'un navigateur sans déclencher de demande de page coté serveur. (localhost:4200/demo/)
 * Les navigateurs anciens envoient des demandes au serveur lorsque l'URL change sauf si la modification se produit après un "#" (hash). (localhost:4200/src/#/demo/)

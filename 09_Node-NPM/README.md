@@ -1,14 +1,15 @@
-## Node.js
-# https://nodejs.org/en/
+https://nodejs.org/en/
+
+# Node.js
 * Environnement d’exécution JavaScript construit sur le moteur JavaScript V8 de Chrome
 * Pas un framework web
 * Execution Javascript coté serveur --> interaction avec le système
-* Moteur asynchrone et orienté événnement
+* Moteur asynchrone et orienté événnements
 
-# V8
-Moteur d’exécution JavaScript open source de Google, écrit en C ++ et utilisé dans Google Chrome et Node.js. Il implémente la norme ECMAScript
+## V8
+Moteur d’exécution JavaScript open source de Google, écrit en C++ et utilisé dans Google Chrome et Node.js. Il implémente la norme ECMAScript
 
-# Boucle d'événnement et mode asynchrone
+## Boucle d'événnement et mode asynchrone
 ![alt text](https://github.com/mecheri/formation-angular/blob/master/img/event-loop.jpg)
 
 ```javascript
@@ -21,8 +22,8 @@ console.log(content);
 
 ```javascript
 // Code non bloquant -> asynchrone
-// Lorsque le fichier sera lu, code de la fonction passée en parametre sera exécuté
-// Si il y a du code apres cette instruction, node.js pourra l'executer en attendant d'avoir les informations sur le fichier en cours // de lecture
+// Lorsque le fichier sera lu, le code de la fonction passée en parametre sera exécuté
+// Si il y a du code apres cette instruction, node.js pourra l'executer en attendant d'avoir les informations sur le fichier en cours de lecture
 // Un disque dur faible --> exécution plus rapidement
 fs.readFile('file.txt', (err, content) => {
     if(err) {
@@ -38,13 +39,13 @@ fs.readFile('file.txt', (err, content) => {
 * Gestionnaire de dépendances pour une application
 
 ## Gestion locale
-## package.json
+### package.json
 * Documente les packages dont le projet dépend
 * Deux champs sont obligatoires: "name" et "version"
 * Spécifie les versions des differents packages
 * Facilite le partage avec d'autres dev
 * npm-update pour mettre à jour
-# 2 types de dépendances
+### 2 types de dépendances
 * "dependencies": requis par le projet en production
 * "devDependencies": requis uniquement en dev et test
 
@@ -63,7 +64,7 @@ Dossier contenant un programme décrit par un fichier package.json
 
 ## Structures de dossiers et fichiers
 * Installation locale: ./node_modules du package courant
-* Installation globale: /usr/local
+* Installation globale: "/usr/local" ou "C:\Users\m.mecheri\AppData\Roaming\npm\node_modules"
 
 ## Semantic-versioning
 ### Pour publier

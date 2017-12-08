@@ -15,7 +15,7 @@ export class Demo {
 }
 ```
 * La classe Demo crée tout ce dont elle a besoin à l'intérieur de son constructeur --> Classe fragile, inflexible, difficile à tester
-* si la classe Dep1 évolue et que son constructeur nécessite un paramètre --> la classe Demo doit changer --> fragilité
+* Si la classe Dep1 évolue et que son constructeur nécessite un paramètre --> la classe Demo doit changer --> fragilité
 * De plus, la classe Demo ne présente pas la possibilté de partager des dépendances communes avec d'autres classes
 * Lorsque on ne peut pas contrôler les dépendances, une classe devient difficile à tester
 * comment faire ? DI 
@@ -61,7 +61,7 @@ export class DemoFactory {
     - La durée de vie est limité à celle du Component --> à chaque nouvelle instance du component le service est injecté 
     - La DI d'Angular est un système d'injection hiérarchique, les injecteurs peuvent etre imbriqués et créer leurs propres instances de service.
     - Lorsque Angular crée une nouvelle instance d'un Component, il crée un nouvel injecteur enfant pour cette instance
-    - Lorsque Angular détruit lune de Component, il détruit aussi l'injecteur du Component et les instances de service de cet injecteur.
+    - Lorsque Angular détruit un Component, il détruit aussi l'injecteur du Component et les instances de service de cet injecteur.
 * Le décorateur @Injectable() identifie une classe de service qui peut nécessiter des dépendances injectées
 * Il faut toujours mettre le décorateur @Injectable(), meme si le service n'a pas de dépendances --> style de code cohérent
 ### Providers
