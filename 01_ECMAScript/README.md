@@ -50,3 +50,35 @@ Version  | Navigateur
 * "self-contained" avec des fonctionnalités distinctes
 * ajoutés, supprimés, modifiés si necessaire sans perturber l'ensemble du systeme
 * Réutilisation
+
+## CommonJs
+* CommonJS spécifie un standard de modules JavaScript en s'assurant que chaque module est exécuté dans son propre espace de noms.
+* Les modules exportent explicitement les variables qu'ils veulent exposer, et en définissant les autres modules requis pour fonctionner correctement.
+* Pour faire cela: 
+    - la fonction require(), qui permet d'importer un module donné dans la portée actuelle
+    - l'objet module, qui vous permet d'exporter quelque chose de la portée actuelle
+* L'implémentation dominante de CommonJS est dans Node.js
+* Conçu pour le chargement synchrone
+* Utilisation principale coté serveur
+
+## AMD (Asynchronous Module Definition)
+* Spécifie une norme pour le JavaScript de sorte que les modules puissent charger leurs dépendances de façon asynchrone, résolvant les problèmes associés au chargement synchrone
+* L'API est constituée de deux fonctions: 
+    - define: qui définit un module en renvoyant une valeur ou une fonction
+    - require: qui est similaire mais se contente d'effectuer un simple callback
+* L'implémentation dominante de AMD est dans RequireJS
+* Conçu pour le chargement asynchrone
+* Utilisation principale coté navigateurs
+
+## UMD
+* Pour les projets qui nécessitent la prise en charge les fonctionnalités AMD et CommonJS, il existe un autre format: Universal Module Definition (UMD).
+UMD crée un moyen d'utiliser l'un des deux, tout en prenant en charge la définition de variable globale (modules Globals)
+* Les modules UMD sont capables de fonctionner à la fois sur le client et sur le serveur
+
+## ES6 <=> ES2015
+* Pour satisfaire les utilisateurs de CommonJS et d'AMD
+* Similaire à CommonJS, avec une syntaxe compacte, une préférence pour les exportations uniques
+* Similaire à AMD, ils supportent directement le chargement asynchrone et le chargement de modules configurables
+* La norme du module ES6 comporte deux parties:
+    - Syntaxe déclarative (pour l'importation et l'exportation)
+    - API du chargeur programmatique: pour configurer le chargement et le chargement conditionnel des modules
