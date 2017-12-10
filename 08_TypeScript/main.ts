@@ -139,7 +139,7 @@ class Demo3 {
 //#region vendors 
 // importer une librairie tierce de nodeJS
 // typescript ne connais le type de scrollTo
-// il faut un fichier de definition qui decrit comment fonctionne un module
+// il faut un fichier de declaration qui decrit comment fonctionne un module
 import scrollTo from 'scroll-to';
 
 scrollTo(500, 1200, {
@@ -147,7 +147,7 @@ scrollTo(500, 1200, {
     duration: 1500
 });
 
-// Creer un fichier de declation pour jQuery peut prendre beacoup de temps
+// Creer un fichier de declation pour jQuery peut prendre beaucoup de temps
 // heureusement y a un outil --> @types
 // declare const $: JQueryStatic;
 import * as $ from 'jquery';
