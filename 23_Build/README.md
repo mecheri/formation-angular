@@ -17,12 +17,11 @@
 * Angular packages: noyau Angular + modules Angular optionnels.
     - @angular/animations: librairie Angular pour les effets d'animations
     - @angular/common                   : Directives, Pipes, HttpClient ...
-    - @angular/core                     : necessaire pour l'exécution d'une appli Angular, inclut les décorateurs: Component, Directives, di...
+    - @angular/core                     : necessaire pour l'exécution d'une appli Angular, inclut les décorateurs: Component, Directives ...
     - @angular/compiler                 : Parse les Templates pour les convertir en code qui fonctionne coté navigateur grâce à platform-browser-dynamic
     - @angular/forms                    : pour les formulaires template-driven et reactive forms
     - @angular/platform-browser         : prend en charge tout ce qui concerne la génération du DOM coté navigateur
     - @angular/platform-browser-dynamic : inclut les méthodes pour compiler et exécuter sur le client avec le compilateur JIT
-    - @angular/router                   : pour la navigation
     - @angular/router                   : pour la navigation
 * Support packages: libraries tierces.
     - rxjs
