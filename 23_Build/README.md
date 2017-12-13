@@ -1,9 +1,9 @@
 # Support navigateurs
-Chrome  : latest
-Firefox : latest
-Edge    : 14, 13
-IE      : 11, 10, 9
-Safari  : 10, 9, 8, 7
+- Chrome  : latest
+- Firefox : latest
+- Edge    : 14, 13
+- IE      : 11, 10, 9
+- Safari  : 10, 9, 8, 7
 
 # Polyfills
 * Angular est construit sur les dernières normes Web. c'est difficle de cibler l'ensemble des navigateurs et leurs versions anterieurs
