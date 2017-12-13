@@ -7,7 +7,7 @@
 
 # Polyfills
 * Angular est construit sur les dernières normes Web. c'est difficle de cibler l'ensemble des navigateurs et leurs versions anterieurs
-* Les polyfills proposés par Angualr. On peut avoir besoin de polyfills supplémentaires pour prendre en charge les fonctionnalités non couvertes par cette liste.
+* On peut avoir besoin de polyfills supplémentaires pour prendre en charge les fonctionnalités non couvertes par cette liste.
 * Les Polyfills sont activés dans le fichier src / polyfills.ts
 * Les Polyfills obligatoires (tels que zone.js) sont installés automatiquement par CLI
 * Les Polyfills optionnels, seront acités en installant les packages npm correspondant
