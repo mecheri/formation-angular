@@ -1,5 +1,5 @@
 Formation Angular
-=================
+-----------------
 Apprendre à maîtriser le Framework Front-End Angular avec TypeScript
 
 ## Public visé
