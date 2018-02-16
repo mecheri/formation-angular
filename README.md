@@ -11,38 +11,59 @@ Connaissance générale des principes du web. Connaissances basiques de l’HTML
 ## Durée
 3 jours.
 
-## Formule classique
+=================
+
+## Formule classique --> 3 jours
 #### Jour 1
-* Rappel sur la norme ECMAScript
-* Modules Javascript : Globals, CommonJs, AMD, UMD ...
-* Présentation générale ES7/ES6
-* TypeScript : configuration, utilisation et compilation.
-* NodeJS, NPM et les Node modules.
+* Présentation générale ES6/ES7
+* TypeScript: configurer, utiliser et compiler
+* NodeJS, NPM et les Node modules
 * Ecosystème de développement et installation du kit
-
 #### Jour 2
-* Angular CLI: scaffolder, configurer et lancer l’application
+* Angular CLI: scaffolder, configurer et lancer
 * Architecture générale
-* Les Components et leurs interactions
 * Templating et data-binding
-* Les directives et les pipes
-* Les formulaires
-* Les services et l’injection de dépendances
-* Appels Ajax avec requêtes HTTP / HttpClient
-* Les Observables avec RxJS
-* Le Routing
-* Les modules
+* Components et leurs interactions
+* Directives et Pipes
+* Formulaires et validation
+* Services et Injection de Dépendances
+* Requêtes HTTP
+* RxJS et les Observables
+* Routing
+* Modules
 * Compilation et packaging
-
 #### Jour 3
 L’objectif de la troisième journée est de mettre en pratique les concepts acquis lors des deux jours précédents : développement d’une application « starter » avec le formateur en mode interactif, avec la possibilité en fin de formation de récupérer le code source qui pourra servir de support pour de futurs développements.
 
-## Formule complète
+=================
+
+## Formule complète --> 4 jours
 #### Jour 1
-
+* ECMAScript: rappel sur la norme
+* Globals
+* Modules CommonJs
+* Modules AMD, 
+* Modules UMD
+* ECMAScript 6 (ES2015) 
+* ECMAScript 7 (ES2016)
+* TypeScript: configurer, utiliser et compiler
+* NodeJS, NPM et les Node modules
+* Ecosystème de développement et installation du kit
 #### Jour 2
-
+* Angular CLI: scaffolder, configurer et lancer
+* Architecture générale
+* Templating et data-binding
+* Components et leurs interactions
+* Directives et Pipes
+* Formulaires et validation
+* Injection de dépendances
+* Services
 #### Jour 3
-
+* Requêtes HTTP
+* RxJS et les Observables
+* Routing
+* Modules
+* Compilation 
+* Packaging
 #### Jour 4
 L’objectif de la troisième journée est de mettre en pratique les concepts acquis lors des deux jours précédents : développement d’une application « starter » avec le formateur en mode interactif, avec la possibilité en fin de formation de récupérer le code source qui pourra servir de support pour de futurs développements.
