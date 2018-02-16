@@ -11,9 +11,7 @@ Connaissance générale des principes du web. Connaissances basiques de l’HTML
 ## Durée
 3 jours.
 
-=================
-
-## Formule classique --> 3 jours
+## Formule classique (3 jours)
 #### Jour 1
 * Présentation générale ES6/ES7
 * TypeScript: configurer, utiliser et compiler
@@ -35,9 +33,7 @@ Connaissance générale des principes du web. Connaissances basiques de l’HTML
 #### Jour 3
 L’objectif de la troisième journée est de mettre en pratique les concepts acquis lors des deux jours précédents : développement d’une application « starter » avec le formateur en mode interactif, avec la possibilité en fin de formation de récupérer le code source qui pourra servir de support pour de futurs développements.
 
-=================
-
-## Formule complète --> 4 jours
+## Formule complète (4 jours)
 #### Jour 1
 * ECMAScript: rappel sur la norme
 * Globals
