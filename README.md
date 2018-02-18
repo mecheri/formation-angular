@@ -9,7 +9,7 @@ Architectes, Leads Tech, Développeurs et Chefs de projets web
 Connaissance générale des principes du web. Connaissances basiques de l’HTML et du Javascript. 
 
 ## Durée
-3 jours.
+3/4 jours.
 
 ## Formule classique (3 jours)
 #### Jour 1
