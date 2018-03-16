@@ -40,4 +40,4 @@ Connaissance générale des principes du web. Connaissances basiques de l’HTML
 * Compilation 
 * Packaging
 #### Jour 4
-L’objectif de la troisième journée est de mettre en pratique les concepts acquis lors des deux jours précédents : développement d’une application « starter » avec le formateur en mode interactif, avec la possibilité en fin de formation de récupérer le code source qui pourra servir de support pour de futurs développements.
+L’objectif de la troisième journée est de mettre en pratique les concepts acquis lors des trois jours précédents : développement d’une application « starter » avec le formateur en mode interactif, avec la possibilité en fin de formation de récupérer le code source qui pourra servir de support pour de futurs développements.
