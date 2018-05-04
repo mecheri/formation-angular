@@ -1,21 +1,9 @@
-# Angular event bindings
-* Permet de répondre à n'importe quel événement DOM
-* Permet d'obtenir des informations de l'utilisateur
-``` html
-<button (click)="onClick()">Click event!</button>
-```
-## $event
-* Les événements DOM transportent des informations utiles vers le Component -> l'objet $event contient ses informations
-
-## Template reference variable
-* Fournit un accès direct à un élément à partir du Template
-
 # Forms
+
 ## Template-driven forms (Formulaire basé sur le Template)
 * FormsModule de @angular/forms
 * Formulaire orienté HTML via des directives Angular dédiées
 * Formulaire asynchrones --> la création des côntroles est faite par les Directives
-* Pour éviter le "modifié après vérification", les Directives effectuent plus cycles asynchrones de côntroles
 
 ## NgForm
 * NgForm est une directive spéciale ajoutée automatiquement quand Agular parse une balise "form" dans une vue
@@ -23,9 +11,9 @@
 * L'attribut "name" est obligatoire lors de l'utilisation de "[(ngModel)]" en combinaison avec un formulaire
 * En interne, Angular crée une instance "FormControl" pour chaque élément avec un attribut "name" à l'interieur d'un formulaire.
 * L'utilisation de ngModel dans un formulaire permet de vérifier si les valeurs sont valides grace aux statuts de contrôle:
-    - ng-touched / ng-untouched (Champ visité      --> oui/non)
-    - ng-dirty / ng-pristine (Changement de valeur --> oui/non)
-    - ng-valid / ng-invalid (valeur non valide     --> oui/non)
+    - ng-touched / ng-untouched (oui/non) --> Champ visité
+    - ng-dirty   / ng-pristine  (oui/non) --> Changement de valeur 
+    - ng-valid   / ng-invalid   (oui/non) --> Valeur non valide
 
 ## Reactive Forms (Formulaires réactifs)
 * ReactiveFormsModule de @angular/forms

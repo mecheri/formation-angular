@@ -8,8 +8,8 @@
     - une interface de ligne de commande
 * Angular facilite la séparation de la logique d'affichage (Components) et de la logique métier (Services) pour que plusieurs équipes puissent travailler sur différents aspects de la même application.
 
-## Concepts & Architecture générale
 
+## Concepts & Architecture générale
 ### Processus général
 1. Templates HTML avec balisage Angular
 2. Components pour gérer les templates
@@ -37,7 +37,7 @@
 
 
 ### Components
-* Un Component représente un morceau d'écran appelé une vue avec une logique applicative
+* Un Component représente un morceau d'écran avec une logique applicative
 * Un Component est une classe liée à un template HTML (vue)
 * La classe interagit avec la vue via une API de propriétés et de méthodes
 * Angular crée, met à jour et détruit des Components lorsque l'utilisateur navigue dans l'application
@@ -52,7 +52,7 @@
 ### Metadata
 * Indiquent à Angular comment traiter une classe
 * Si une classe n'est pas décorée de @Component alors ce n'est pas un Component Angular
-* @Component prend en parametre un objet d'options nécessaire pour créer un Component et définir son Template
+* @Component prend en parametre un objet d'options nécessaire pour créer un Component et définit son Template
 * Les options les plus connues sont: selector, templateUrl, providers ...
 * Il existe d'autres décorateurs @Injectable, @Input, and @Output
 * Pour que Angular sache quoi faire, il faut décorer les classes avec des métadonnées
@@ -60,18 +60,20 @@
 
 ### Data binding
 * Afficher les données coté HTML sans un Framework comme Angular est très fastidieux, source d'erreurs et difficile à lire
-* Le Data binding d'Angular est un mécanisme de coordination des Templates et de Components
+* Le Data binding d'Angular est un mécanisme de coordination des Templates et des Components
 * Balisage de liaison au Template HTML
 #### to the DOM
-* interpolation {{demo.label}} : Affiche la valeur de la propriété
+* interpolation {{ demo.label }} : Affiche la valeur de la propriété
 * property binding [demo] : Passe la valeur a la propriété demo
 #### from the DOM
 * event binding (click) : Appelle le Component quand l'utilisateur clique
 #### both
 * Two-way data binding ngModel: combine le property et event binding
 
+
 ### Angular Change detection
 Angular scrute les changements de valeurs des proriétés bindées via un processus de "Change detection" qui s'exécute après chaque événement DOM (frappe, déplacement de la souris, timer, réponse de serveur).
+
 
 ### Directives
 * Les Templates Angular sont dynamiques.
@@ -82,14 +84,14 @@ Angular scrute les changements de valeurs des proriétés bindées via un proces
 * Modifient la structure d'une vue en ajoutant, supprimant et remplaçant des éléments du DOM
     - ex: *ngIf, *ngFor
 #### Attribute Directives
-*  modifient l'apparence ou le comportement d'un élément existant du DOM
+* Modifient l'apparence ou le comportement d'un élément existant du DOM
     - ex: ngModel
 
 
 ### Services
 * Un service est une classe avec un objectif spécifique et bien défini (logger, data, messages).
 * Les Services effectuent des taches spécifiques à la place des Components.
-* Un bon Component permet uniquement l'experience utilisateur avec des propriétés et des fonctions pour le data-binding
+* Un bon Component permet uniquement l'UX avec des propriétés et des fonctions pour le data-binding
 * Les Components consomment beaucoup de services et en dépendent
 * Les Services peuvent dépendre d'autres Services
 #### Injection de dépendances
@@ -108,6 +110,7 @@ Angular scrute les changements de valeurs des proriétés bindées via un proces
 #### Dans un Component
 * Enregistrer un Service dans un Component -> une nouvelle instance du service est disponible avec chaque nouvelle instance du Component
 
+
 ## Les WebComponents
 https://www.webcomponents.org/introduction
 * Les components Angular reprennent le principe d'encapsulation et la possibilité de réutilisation des WebComponents
@@ -119,12 +122,11 @@ https://www.webcomponents.org/introduction
     - HTML Templates: squelette pour créer des éléments HTML instanciables.
     - Shadow DOM: permet d'encapsuler le JavaScript et le CSS des éléments.
     - HTML Imports: pour packager ses composants (CSS, JavaScript, etc.) et permettre leur intégration dans d'autres pages.
-* L'utilisation de composants WebComponents dans les applications Angular est très simple et Les mécanismes de syntaxe, de liaison de propriété et de gestion des événements qui ne changent pas.
+
 
 ### Shadow DOM
 * Shadow DOM fait partie de la norme WebComponents et permet l'encapsulation de l'arborescence DOM et du style
 * Shadow DOM permet d'appliquer des styles uniquement dans le scope de l'élement encapsulé sans aucun impact sur les éléments externes
-
 ### Shadow DOM & Angular
 * Angular offre la possibilité de construire des Components.
 * Un component est une classe avec un modèle et des styles qui lui appartiennent.

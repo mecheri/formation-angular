@@ -1,6 +1,20 @@
 <div class="container">
 
     <!--***********-->
+    <!-- Template -->
+    <!--***********-->
+    <!-- <h2>Template</h2>
+    <p>La somme de 1 + 1 est {{1 + 1}}</p>
+    <div *ngFor="let demo of demos">
+        <li [style.font-size.px]="(1===1) ? 18 : 12">{{ demo.label }}</li>
+    </div>
+    <div *ngFor="let demo of demos">
+        <li [hidden]="demo.id === 1">{{ demo.label }}</li>
+    </div>
+    <button (click)="tempTest()">Delete demo</button>
+    <hr> -->
+
+    <!--***********-->
     <!-- Two-way bindings 1 -->
     <!--***********-->
     <!-- <h2>Two-way bindings 1</h2>
@@ -12,8 +26,9 @@
     <!-- Two-way bindings 2  -->
     <!--***********-->
     <!-- <h2>Two-way bindings 2</h2>
-    <sizer [(size)]="fontSizePx"></sizer>
     <div [style.font-size.px]="fontSizePx">Resizable Text</div>
+    <br>
+    <sizer [(size)]="fontSizePx"></sizer>
     <sizer [size]="fontSizePx" (sizeChange)="fontSizePx=$event"></sizer>
     <hr> -->
 
@@ -30,36 +45,29 @@
     <!-- Interactions des Components -->
     <!--***********-->
     <!-- <h2>Interactions des Components</h2>
-    <h3>Exemple {{ interEx }}</h3> -->
-    <!-- 01 -->
-    <!-- <div *ngIf="interEx===1">
+    <h3>Exemple {{ interEx }}</h3>
+    <div *ngIf="interEx===1">
         <interactions-demo [code]="interCode" [label]="interLabel" [ex]="interEx"></interactions-demo>
-    </div> -->
-    <!-- 02 -->
-    <!-- <div *ngIf="interEx===2">
+    </div>
+    <div *ngIf="interEx===2">
         <interactions-demo [prop]="interSetter" [ex]="interEx"></interactions-demo>
-    </div> -->
-    <!-- 03 -->
-    <!-- <div *ngIf="interEx===3">
+    </div>
+    <div *ngIf="interEx===3">
         <input type="text" [(ngModel)]="interCode">
         <interactions-demo [code]="interCode" [ex]="interEx"></interactions-demo>
-    </div> -->
-    <!-- 04 -->
-    <!-- <div *ngIf="interEx===4">
-        <interactions-demo (onAccept)="interOnAccept($event)" [ex]="interEx"></interactions-demo>
-        <span>{{interAccept}}</span>
-    </div> -->
-    <!-- 05 -->
-    <!-- <div *ngIf="interEx===5">
+    </div>
+    <div *ngIf="interEx===4">
+        <interactions-demo (onAccept)="interOnAccept($event)" [ex]="interEx"></interactions-demo>{{interAccept}}
+    </div>
+    <div *ngIf="interEx===5">
         <interactions-demo #localVar [ex]="interEx"></interactions-demo>
         <span>{{localVar.hello}}</span>
-    </div> -->
-    <!-- 06 -->
-    <!-- <div *ngIf="interEx===6">
+    </div>
+    <div *ngIf="interEx===6">
+        <interactions-demo [ex]="interEx"></interactions-demo>
         <span>{{interViewChild}}</span>
-    </div> -->
-    <!-- 07 -->
-    <!-- <div *ngIf="interEx===7">
+    </div>
+    <div *ngIf="interEx===7">
         <button (click)="broadcastParent()">Broadcast from parent</button>
         <span>{{dataFromChild}}</span>
         <interactions-demo [ex]="interEx"></interactions-demo>
@@ -107,21 +115,14 @@
     <!--***********-->
     <!-- Forms -->
     <!--***********-->
-    <!-- <h2>Events Bindings</h2>
-    <input (keyup)="onKey($event)"><br>
-    <input (keyup)="onKeyWithType($event)"><br>
-    <input #input1 (keyup)="onKeyWithRef(input1.value)"><br>
-    <input #input2 (keyup.enter)="onEnter(input2.value)"><br>
-    <hr> -->
-
     <!-- Template-based Forms -->
-    <!-- <h2>Template-based Forms</h2>
-    <demo-form></demo-form>
+    <!-- <h2>Template-driven Forms</h2>
+    <template-driven-form></template-driven-form>
     <hr> -->
 
     <!-- Reactive Forms -->
     <!-- <h1>Reactive Forms</h1>
-    <demo-react-form></demo-react-form>
+    <reactive-form></reactive-form>
     <hr> -->
 
     <!--***********-->
@@ -147,7 +148,7 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-9">
                 <ul class="nav navbar-nav">
-                    <li><a routerLink="/demo-from-custom-module" routerLinkActive="active">Link to Component from cutom Module</a></li>
+                    <li><a routerLink="/demo-from-lazy-module" routerLinkActive="active">Link to Component from Lazy Loaded Module</a></li>
                 </ul>
             </div>
         </div>

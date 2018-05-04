@@ -16,7 +16,7 @@ Connaissance générale des principes du web. Connaissances basiques de l’HTML
 * ECMAScript: rappel sur la norme
 * Globals
 * Modules CommonJs
-* Modules AMD, 
+* Modules AMD
 * Modules UMD
 * ECMAScript 6 (ES2015) 
 * ECMAScript 7 (ES2016)
@@ -33,8 +33,8 @@ Connaissance générale des principes du web. Connaissances basiques de l’HTML
 * Injection de dépendances
 * Services
 #### Jour 3
-* Requêtes HTTP
 * RxJS et les Observables
+* Requêtes HTTP
 * Routing
 * Modules
 * Compilation 

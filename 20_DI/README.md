@@ -16,8 +16,6 @@ export class Demo {
 ```
 * La classe Demo crée tout ce dont elle a besoin à l'intérieur de son constructeur --> Classe fragile, inflexible, difficile à tester
 * Si la classe Dep1 évolue et que son constructeur nécessite un paramètre --> la classe Demo doit changer --> fragilité
-* De plus, la classe Demo ne présente pas la possibilté de partager des dépendances communes avec d'autres classes
-* Lorsque on ne peut pas contrôler les dépendances, une classe devient difficile à tester
 * comment faire ? DI 
 ```typescript
 export class Demo {
@@ -33,9 +31,8 @@ let demo = new Demo(new Dep1(), new Dep2());
 * Maintenant, pour créer une classe Demo il faut aussi créer une la classe Dep1 et Dep2 
 ```typescript
 export class DemoFactory {
-  createCar() {
-    let demo = new Demo(new Dep1(), new Dep2());
-    return demo;
+  createDemo() {
+    return new Demo(new Dep1(), new Dep2());
   }
 }
 ```
@@ -52,20 +49,20 @@ export class DemoFactory {
 ### @Component vs @NgModule Providers
 * La différence se porte sur la portée et la durée du vie de l'instance du service
 * Les services de @NgModule 
-    - Sont enregistés avec l'injecteur racine --> "Application Level"
+    - Sont enregistés avec l'injecteur racine --> Application Level
     - L'injecter racine d'Angular crée une seule instance du serivce accessible dans toute l'appli
-    - La durée de vie du service est la meme que celle de l'appli
+    - La durée de vie du service est la même que celle de l'appli
 * Les services de @Component
-    - Sont enregistrés avec le propre injecteur de chaque instance de Component --> "Component Level"
+    - Sont enregistrés avec le propre injecteur de Component --> Component Level
     - Angular intejcte ces services uniquement dans l'instance du Component et de ses enfants
     - La durée de vie est limité à celle du Component --> à chaque nouvelle instance du component le service est injecté 
     - La DI d'Angular est un système d'injection hiérarchique, les injecteurs peuvent etre imbriqués et créer leurs propres instances de service.
     - Lorsque Angular crée une nouvelle instance d'un Component, il crée un nouvel injecteur enfant pour cette instance
     - Lorsque Angular détruit un Component, il détruit aussi l'injecteur du Component et les instances de service de cet injecteur.
 * Le décorateur @Injectable() identifie une classe de service qui peut nécessiter des dépendances injectées
-* Il faut toujours mettre le décorateur @Injectable(), meme si le service n'a pas de dépendances --> style de code cohérent
+* Il faut toujours mettre le décorateur @Injectable(), même si le service n'a pas de dépendances --> par convention et pour un style de code cohérent
 ### Providers
-* La configuration de l'injecteur et du tableau de providers est multile:
+* La configuration de l'injecteur et du tableau de providers est multiple:
 * providers: [Logger] <=> [{ provide: Logger, useClass: Logger }]
     - La propriété provide contient le token qui sert de clé pour enregistrer le service.
     - La deuxième propriété est toujours un objet de définition du service
@@ -84,7 +81,7 @@ const objectLogger = {
 ```typescript
 let demoServiceFactory = (logger: Logger) => {
     /* .....   */
-  return new HeroService(logger);
+  return new DemoService(logger);
 };
 ```
 ### DI Tokens
@@ -100,7 +97,7 @@ export const DEMO_CONFIG: AppConfig = {
 };
 
 // AppConfig est une Interface TypeScript
-// Le type Interface TypeScript ne peut pas être utilisée comme token d'injection pas Angular
+// Le type Interface TypeScript ne peut pas être utilisée comme token d'injection par Angular
 // A la transpliation l'Interface TypeScript disparaît du JavaScript généré.
 // --> il faut injecter le token aussi
 import { InjectionToken } from '@angular/core';

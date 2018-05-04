@@ -6,7 +6,7 @@
 * Typescipt/Angular/HTML/CSS intellisense, et formattage automatique
 * Web Server 
     - Apache, IIS
-    - Basé sur Node.js (http-server, live-server,...)
+    - Basé sur Node.js (live-server,...)
 * Angular CLI
 * Transpiler (compiler)
     - Typescript
