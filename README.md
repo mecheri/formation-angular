@@ -1,4 +1,4 @@
-![alt text](https://github.com/mecheri/formation-angular/blob/master/Images/event-loop.jpg)
+![alt text](https://github.com/mecheri/formation-angular/blob/master/Images/angular.png)
 
 Formation Angular
 =================
