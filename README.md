@@ -1,4 +1,4 @@
-![](https://github.com/mecheri/formation-angular/blob/master/Images/angular.png | width=100)
+![image](https://github.com/mecheri/formation-angular/blob/master/Images/angular.png | width=100)
 
 Formation Angular
 =================
