@@ -1,6 +1,5 @@
-- https://www.typescriptlang.org/docs/handbook/basic-types.html
-- https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types
-- https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/jquery/index.d.ts
+- [Site officiel](https://www.typescriptlang.org/docs/handbook/basic-types.html)
+- [@types](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types)
 
 # TypeScript
 * Langage de programmation open source développé par Microsoft

@@ -1,5 +1,5 @@
-- https://github.com/lukehoban/es6features
-- https://babeljs.io/repl
+- [ES6 features](https://github.com/lukehoban/es6features)
+- [Babel](https://babeljs.io/repl)
 
 # ES6 <=> ES2015
 * Pour satisfaire les utilisateurs de CommonJS et AMD

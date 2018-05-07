@@ -1,8 +1,8 @@
 # Http
 * Les applications Font-end communiquent avec les services backend via le protocole HTTP. 
 * Les navigateurs proposent 2 API différentes pour effectuer des requêtes HTTP: 
-    - l'interface XMLHttpRequest --> https://developer.mozilla.org/fr/docs/Web/API/XMLHttpRequest
-    - l'API fetch()              --> https://developer.mozilla.org/fr/docs/Web/API/Fetch_API/Using_Fetch
+    - [l'interface XMLHttpRequest](https://developer.mozilla.org/fr/docs/Web/API/XMLHttpRequest)
+    - [l'API fetch()](https://developer.mozilla.org/fr/docs/Web/API/Fetch_API/Using_Fetch)
 ## HttpClient
 * HttpClient d'Angular fournit une API pour la fonctionnalité HTTP, en s'appuyant sur l'interface XMLHttpRequest des navigateurs
 * Les avantages de HttpClient: 

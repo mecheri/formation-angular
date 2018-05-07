@@ -1,6 +1,5 @@
-https://cli.angular.io/
-
 # Angular CLI
+[Site officiel](https://cli.angular.io/)
 Interface de ligne de commande qui permet de créer un projet, d'ajouter des fichiers et d'exécuter des tâches de développement Angular.
 
 ### Installation
@@ -57,7 +56,7 @@ npm install -g @angular/cli@latest
 ```
 
 ## Configuration
-https://github.com/angular/angular-cli/wiki/angular-cli
+[Module](https://github.com/angular/angular-cli/wiki/angular-cli) 
 
 ## Structure de fichiers
 ### Dossier src --> fichiers applicatifs

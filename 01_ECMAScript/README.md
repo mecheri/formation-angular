@@ -1,5 +1,3 @@
-https://fr.wikipedia.org/wiki/ECMAScript
-
 # ECMAScript
 Standard (ensemble de normes) pour les langages de programmation de type script (JavaScript, ActionScript ...)
 
