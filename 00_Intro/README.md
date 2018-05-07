@@ -7,9 +7,9 @@
 * Angular est une réécriture complète de plate-forme AngularJS développée par la même équipe.
 
 # Documentation
-[Site officiel](https://angular.io/)
-[Rangle.io](https://angular-2-training-book.rangle.io/)
-[Todd Motto](https://toddmotto.com/)
+* [Site officiel](https://angular.io/)
+* [Rangle.io](https://angular-2-training-book.rangle.io/)
+* [Todd Motto](https://toddmotto.com/)
 
 # Que peut-on faire avec Angular ?
-[Angular Expo](http://angularexpo.com/)
+* [Angular Expo](http://angularexpo.com/)
