@@ -1,3 +1,5 @@
+![alt text](https://github.com/mecheri/formation-angular/blob/master/Images/event-loop.jpg)
+
 Formation Angular
 =================
 Apprendre à maîtriser le Framework Front-End Angular avec TypeScript
