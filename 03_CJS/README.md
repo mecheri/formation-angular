@@ -1,3 +1,7 @@
+<p align="center">
+    <img src="https://github.com/mecheri/formation-angular/blob/master/Images/cjs.png" width="200" height="200" style="display:block;margin: 0 auto;">
+</p>
+
 # CommonJs
 * CommonJS spécifie un standard de modules JavaScript en s'assurant que chaque module s'exécute dans son propre espace de noms.
 * Les modules exportent explicitement les variables qu'ils veulent exposer, et en définissant les autres modules requis pour fonctionner correctement.

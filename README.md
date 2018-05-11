@@ -1,4 +1,6 @@
-<img src="https://github.com/mecheri/formation-angular/blob/master/Images/angular.png" width="200" height="200" align="center">
+<p align="center">
+    <img src="https://github.com/mecheri/formation-angular/blob/master/Images/angular.png" width="200" height="200" style="display:block;margin: 0 auto;">
+</p>
 
 Formation Angular
 =================

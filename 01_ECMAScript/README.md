@@ -1,3 +1,7 @@
+<p align="center">
+    <img src="https://github.com/mecheri/formation-angular/blob/master/Images/ecma.jpg" width="200" height="200" style="display:block;margin: 0 auto;">
+</p>
+
 # ECMAScript
 Standard (ensemble de normes) pour les langages de programmation de type script (JavaScript, ActionScript ...)
 

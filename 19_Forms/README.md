@@ -11,9 +11,9 @@
 * L'attribut "name" est obligatoire lors de l'utilisation de "[(ngModel)]" en combinaison avec un formulaire
 * En interne, Angular crée une instance "FormControl" pour chaque élément avec un attribut "name" à l'interieur d'un formulaire.
 * L'utilisation de ngModel dans un formulaire permet de vérifier si les valeurs sont valides grace aux statuts de contrôle:
-    - ng-touched / ng-untouched (oui/non) --> Champ visité
-    - ng-dirty   / ng-pristine  (oui/non) --> Changement de valeur 
-    - ng-valid   / ng-invalid   (oui/non) --> Valeur non valide
+    - ng-touched / ng-untouched (oui / non) --> Champ visité
+    - ng-dirty   / ng-pristine  (oui / non) --> Changement de valeur 
+    - ng-valid   / ng-invalid   (oui / non) --> Valeur non valide
 
 ## Reactive Forms (Formulaires réactifs)
 * ReactiveFormsModule de @angular/forms
