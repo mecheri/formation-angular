@@ -1,0 +1,8 @@
+@import "~primeng/resources/themes/bootstrap/theme.css";
+@import "~primeng/resources/primeng.min.css";
+.ui-menuitem-link {
+    background-color: white !important;
+    &:hover {
+        text-decoration: underline !important;
+    }
+}

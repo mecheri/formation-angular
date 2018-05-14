@@ -1,0 +1,11 @@
+<div style="text-align:center">
+    <img width="100" alt="property as one-way binding" [src]="image">
+    <h2>{{ user.firstname }} {{ user.lastname }} Details : </h2>
+    <div><span>id: </span>{{user.id}}</div>
+    <div><span>email: </span>{{user.email}}</div>
+    <div><span>birth date: </span>{{user.birthdate | date}}</div>
+
+    <!-- AfterViewInit Hook -->
+    <br>
+    <div><input #input type="text"></div>
+</div>
