@@ -42,12 +42,14 @@
     - Generate and Apply attributes directives (ng generate directive)
 
 06. User detail component (child component)
-    - Generate the user detail component
+    - Clean Workspace
+    - Generate the userDetailComponent (ng generate component User/UserDetail)
     - Add @Input property 
     - Display the user detail component
     - Show the different types of components interaction
 
 07. User service
+    - Clean Workspace
     - Generate User service
     - Get user data
     - Provide the user servive
