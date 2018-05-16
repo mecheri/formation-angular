@@ -2,7 +2,7 @@
 
 ## Todo
 
-    - Add custom SASS files and
+    - Add custom SASS files
     - Update styles and styleExt in .angular-cli.json
     - Install devDependency package bootstrap-sass (npm install --save-dev bootstrap-sass)
     - Install devDependency package font-awesome (npm install --save-dev font-awesome)
