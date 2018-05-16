@@ -7,10 +7,23 @@
                 <span highlight>{{user.id}} - {{user.firstname}} {{user.lastname}} </span>
             </li>
         </ul>
+
+        <br>
+        <!-- Interaction 07 -->
+        <!-- <button class="btn btn-primary" (click)="broadcastParent()">Broadcast from parent</button> -->
     </div>
 
-    <app-user-detail #userDetailVar [user]="selectedUser" [avatar]="image" [avatar2]="image2" (onAction)="onActionFromUserDetail($event)"></app-user-detail>
-    <span>{{userDetailVar.hello}}</span>
-    <button class="btn btn-primary" (click)="broadcastParent()">Broadcast from parent</button>
+    <!-- Interaction 01 -->
+    <!-- <app-user-detail [user]="selectedUser" [avatar]="image"></app-user-detail> -->
+
+    <!-- Interaction 02 -->
+    <!-- <app-user-detail [user]="selectedUser" [avatar]="image" [avatar2]="image2"></app-user-detail> -->
+
+    <!-- Interaction 04 -->
+    <!-- <app-user-detail [user]="selectedUser" [avatar]="image" (onAction)="onActionFromUserDetail($event)"></app-user-detail> -->
+
+    <!-- Interaction 05 & 06 -->
+    <!-- <app-user-detail #userDetailVar [user]="selectedUser" [avatar]="image"></app-user-detail>
+    <span>{{userDetailVar.hello}}</span> -->
 
 </div>

@@ -1,15 +1,16 @@
-# Tuto Steps 
+# Tuto Steps
 
 01. Generating  an Angular project (ng new)
-    - Add custom SASS files and 
+    - Add custom SASS files and
     - Update styles and styleExt in .angular-cli.json
     - Install devDependency package bootstrap-sass (npm install --save-dev bootstrap-sass)
     - Install devDependency package font-awesome (npm install --save-dev font-awesome)
     - Install dependency package primeng (npm install --save primeng)
     - Serve the app in dev mode
+    - Show app bootsraping
 
 02. User component
-    - Update the AppComponent view 
+    - Update the AppComponent view
     - Generate UserComponent (ng generate component User)
     - Create User class
     - Show the user object
@@ -22,16 +23,16 @@
     - Update and clean UserComponent view
     - Implement OnChanges
     - Implement AfterViewInit, Renderer and ViewChild (html input focus)
-    - Implement AfterViewChecked 
+    - Implement AfterViewChecked
     - Implement OnDestroy
 
 04. User editor
-    - Update and clean UserComponent view 
+    - Update and clean UserComponent view
     - Add Some bootstrap classes (container-fluid, form-control)
     - Show Two-way binding
     - Missing FormsModule
     - Import FormsModule in AppModule
-    
+
 05. Display a List of users
     - Update and clean UserComponent and view
     - Mock users
@@ -39,12 +40,12 @@
     - Show One-way binding: event binding (from-the-dom)
     - Display user detail
     - Handle empty user detail with *ngIf (structural directive)
-    - Generate and Apply attributes directives (ng generate directive)
+    - Generate and apply attributes directives (ng generate directive)
 
 06. User detail component (child component)
     - Clean Workspace
     - Generate the userDetailComponent (ng generate component User/UserDetail)
-    - Add @Input property 
+    - Add @Input property
     - Display the user detail component
     - Show the different types of components interaction
 
@@ -60,18 +61,20 @@
     - Subscribe to Observable in the user component
 
 08. Routing
+    - Clean Workspace
     - Add AppRoutingModule
     - Add routes
     - Import RouterModule.forRoot()
     - Add RouterOutlet
     - Add route to user component
-    - Update user component table (add primeng DataTable library)
+    - Update user component table (use primeng DataTable library)
     - Add route to user detail component
     - Extract user ID from Route Parameters
     - Update user service to get specific user by his ID
     - Create Home component
     - Add route to home component
-    - Create Navbar component for navigation links
+    - Add some styles
+    - Add NavbarComponent for navigation links
 
 09. User CRUD Forms
     - Create user new component and his route
@@ -80,7 +83,7 @@
     - Update navigation links
     - Show Template-driven forms (example only)
     - Import ReactiveFormsModule
-    - Build Reactive Forms 
+    - Build Reactive Forms
     - Show FormControl
     - Show FormGroup
     - Show FormBuilder
@@ -90,14 +93,14 @@
     - Add HttpClientModule
     - Update user service by replacing Mocks to HttpClient Calls
     - Show HttpClient API samples
-    - Show Error Handling 
+    - Show Error Handling
     - Inject custom service httpResponseService
     - GET user by ID
     - POST new user
     - PUT existing user
     - DELETE existing user
     - Update user CRUD forms (add angular2-notification library)
-    
+
 11. Core Module
     - Add factories
     - Add handlers
@@ -107,7 +110,7 @@
     - Add global application resources (res folder) and update .angular-cli.json
 
 12. Shared Module
-    - Import and export CommonModule, ReactiveFormsModule 
+    - Import and export CommonModule, ReactiveFormsModule
     - Add components (move Navbar component here)
     - Add services
     - Update CoreModule
@@ -121,11 +124,11 @@
     - Add LazyLoading to both modules
 
 14. Login And Register Modules
-    - Add LoginModule 
-    - Add LoginRoutingModule 
+    - Add LoginModule
+    - Add LoginRoutingModule
     - Add LoginComponent
     - Add RegisterModule
-    - Add RegisterRoutingModule 
+    - Add RegisterRoutingModule
     - Add RegisterComponent
     - Update AppRoutingModule
     - Add LazyLoading to both modules
