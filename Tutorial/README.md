@@ -17,7 +17,8 @@
     - Show One-way binding: interpolation (to-the-dom)
     - Show One-way binding: property (to-the-dom)
     - Apply Angular standard pipes
-    - Generate and apply custom pipes (ng generate pipe Exponential)
+    - Generate and apply
+    custom pipes (ng generate pipe Exponential)
 
 03. User component Lifecycle Hooks
     - Update and clean UserComponent view
