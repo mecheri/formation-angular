@@ -1,0 +1,9 @@
+<div *ngIf="user" class="col-md-8">
+    <br>
+    <img width="100" alt="property as one-way binding" [src]="image">
+    <h2>{{ user.firstname }} {{ user.lastname }} Details : </h2>
+    <div><span>id: </span>{{user.id}}</div>
+    <input class="form-control" [(ngModel)]="user.firstname">
+    <input class="form-control" [(ngModel)]="user.lastname">
+    <input class="form-control" [(ngModel)]="user.email">
+</div>

@@ -35,7 +35,7 @@
     - Import FormsModule in AppModule
 
 05. Display a List of users
-    - Update and clean UserComponent and view
+    - Update and clean UserComponent and his view
     - Mock users
     - Display users with *ngFor (structural directive)
     - Show One-way binding: event binding (from-the-dom)
@@ -44,19 +44,20 @@
     - Generate and apply attributes directives (ng generate directive)
 
 06. User detail component (child component)
-    - Clean Workspace
     - Generate the userDetailComponent (ng generate component User/UserDetail)
+    - Update and clean UserComponent and his view
     - Add @Input property
     - Display the user detail component
     - Show the different types of components interaction
 
 07. User service
-    - Clean Workspace
-    - Generate User service
-    - Get user data
+    - Clean Workspace (remove Pipes, Directives, Interaction07Service and update User and UserDetail Components AppModule)
+    - Generate User service (ng g service User)
+    - Get users function
     - Provide the user servive
     - Inject the user service
     - Call it in ngOnInit()
+    - Import RxJS library
     - Enhance user service with Observable (from synchronous to asynchronous service)
     - Show RxJS
     - Subscribe to Observable in the user component

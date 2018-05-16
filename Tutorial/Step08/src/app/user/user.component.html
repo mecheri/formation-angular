@@ -1,0 +1,19 @@
+<h2>Users</h2>
+<hr>
+<div class="row">
+    <div class="col-md-4">
+        <ul>
+            <li *ngFor="let user of users" [class.active-line]="selectedUser && selectedUser.id === user.id" (click)="onSelect(user)">
+                <span highlight>{{user.id}} - {{user.firstname}} {{user.lastname}} </span>
+            </li>
+        </ul>
+
+        <ul>
+            <li *ngFor="let user of usersAsync" [class.active-line]="selectedUser && selectedUser.id === user.id" (click)="onSelect(user)">
+                <span highlight>{{user.id}} - {{user.firstname}} {{user.lastname}} </span>
+            </li>
+        </ul>
+    </div>
+
+    <app-user-detail [user]="selectedUser" [avatar]="image"></app-user-detail>
+</div>
