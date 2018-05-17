@@ -63,25 +63,32 @@
     - Subscribe to Observable in the user component
 
 08. Routing
-    - Clean Workspace
-    - Add AppRoutingModule
-    - Add routes
-    - Import RouterModule.forRoot()
+    - Create HomeComponent (ng generate component Home)
+    - Add AppRoutingModule (ng generate module app-routing --flat)
+    - Use RouterModule.forRoot()
+    - Export RouterModule from created AppRoutingModule
     - Add RouterOutlet
-    - Add route to user component
-    - Update user component table (use primeng DataTable library)
-    - Add route to user detail component
-    - Extract user ID from Route Parameters
+    - Import created AppRoutingModule in AppModule
+    - Add route to UserComponent
+    - Add route to UserDetailComponent
+    - Add route to HomeComponent
+    - Add a default route
+    - Create NavbarComponent for navigation links (ng generate component Navbar)
+    - Install dependency package primeng (npm install --save ngx-bootstrap)
+    - Import ngx-bootstrap CollapseModule and BsDropdownModule modules in AppModule
+    - Navigate to UserComponent
+    - Import primeng UI modules in AppModule
+    - Update UserComponent view (use primeng DataTable, breadcrumb library)
+    - Import Missing BrowserAnimationsModule in AppModule
+    - Navigate to UserDetailComponent
+    - Update to UserDetailComponent
+    - Extract user ID from ActivatedRoute Parameters
     - Update user service to get specific user by his ID
-    - Create Home component
-    - Add route to home component
-    - Add some styles
-    - Add NavbarComponent for navigation links
 
 09. User CRUD Forms
-    - Create user new component and his route
-    - Create user edit component and his route
-    - Create user delete component
+    - Create UserNewComponent and his route
+    - Create UserEditComponent and his route
+    - Create UserDeleteComponent
     - Update navigation links
     - Show Template-driven forms (example only)
     - Import ReactiveFormsModule
