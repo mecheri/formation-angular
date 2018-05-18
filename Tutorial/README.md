@@ -112,7 +112,7 @@
 
 11. CoreModule 
     - Create folder app/modules
-    - Generate CoreModule (ng generate module modules/Core) 
+    - Generate CoreModule (ng generate module modules/core) 
     - Add factories 
     - Add handlers
     - Add services
@@ -121,10 +121,11 @@
     - Add global application resources (res folder) and update .angular-cli.json
 
 12. SharedModule
+    - Generate SharedModule (ng generate module modules/shared)
     - Import and export CommonModule, ReactiveFormsModule
-    - Add components (move Navbar component here)
-    - Add services
+    - Add shared components (move Navbar component here and )
     - Update CoreModule
+    - Update AppModule
 
 13. Home and User components in separated modules as FeatureModules
     - Add UserModule
