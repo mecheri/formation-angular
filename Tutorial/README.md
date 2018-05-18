@@ -99,16 +99,16 @@
     - Show Validators and custom Validators
 
 10. HttpClient in user service
-    - Add HttpClientModule
-    - Update user service by replacing Mocks to HttpClient Calls
-    - Show HttpClient API samples
-    - Show Error Handling
-    - Inject custom service httpResponseService
+    - Enable HTTP services (HttpClientModule)
+    - Inject HttpClient into UserService
+    - Update UserService by replacing Mocks to HttpClient Calls
+    - Show HttpClient API examples
     - GET user by ID
     - POST new user
     - PUT existing user
     - DELETE existing user
-    - Update user CRUD forms (add angular2-notification library)
+    - Install dependency package angular2-notification (npm install --save angular2-notifications)
+    - Inject Angular2-notifications service in User CRUD Components
 
 11. Core Module
     - Add factories
