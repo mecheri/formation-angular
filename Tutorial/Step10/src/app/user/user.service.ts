@@ -7,6 +7,8 @@ import { User } from './user';
 export const USERS: User[] = [
   {
     id: 1,
+    username: 'm.mecheri',
+    password: 'test',
     email: 'mehdi.mecheri@viveris.fr',
     firstname: 'Mehdi',
     lastname: 'Mecheri',
@@ -14,6 +16,8 @@ export const USERS: User[] = [
   },
   {
     id: 2,
+    username: 'l.messi',
+    password: 'test',
     email: 'lionel.messi@barca.es',
     firstname: 'Lionel',
     lastname: 'Messi',
@@ -21,6 +25,8 @@ export const USERS: User[] = [
   },
   {
     id: 3,
+    username: 'c.ronaldo',
+    password: 'test',
     email: 'cristiano.ronaldo@real.es',
     firstname: 'Cristiano',
     lastname: 'Ronaldo',
@@ -28,6 +34,8 @@ export const USERS: User[] = [
   },
   {
     id: 4,
+    username: 'j.neymarr',
+    password: 'test',
     email: 'neymar.jr@psg.fr',
     firstname: 'Neymar',
     lastname: 'JR',

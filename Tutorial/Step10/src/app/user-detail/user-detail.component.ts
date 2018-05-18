@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { User } from '../user/user';
 import { UserService } from '../user/user.service';
@@ -13,7 +13,14 @@ export class UserDetailComponent implements OnInit {
 
   user: User;
 
+  bcItems = [
+    { label: 'Home', routerLink: '/home' },
+    { label: 'Users', routerLink: '/user' },
+    { label: 'User Details' }
+  ];;
+
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private userService: UserService
   ) { }
@@ -26,5 +33,13 @@ export class UserDetailComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     this.userService.getUser(id)
       .subscribe(user => this.user = user);
+  }
+
+  cancel() {
+    this.router.navigate(['user']);
+  }
+
+  edit() {
+    this.router.navigate(['user', 'edit', +this.route.snapshot.paramMap.get('id')]);
   }
 }

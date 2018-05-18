@@ -1,0 +1,28 @@
+<div class="breadcrumb-wrapper">
+    <p-breadcrumb [model]="bcItems"></p-breadcrumb>
+</div>
+<h2>Users</h2>
+
+<div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+    <input #gb type="text" pInputText size="50" placeholder="Filtre général">
+</div>
+<p-dataTable class="table-hover" [value]="users" [rows]="4" [paginator]="true" [editable]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" [responsive]="true" [globalFilter]="gb">
+    <p-column field="email" header="Email" [sortable]="true" [filter]="true" filterPlaceholder="Rechercher"></p-column>
+    <p-column field="firstname" header="First Name" [sortable]="true" [filter]="true" filterPlaceholder="Rechercher"></p-column>
+    <p-column field="lastname" header="Last Name" [sortable]="true" [filter]="true" filterPlaceholder="Rechercher"></p-column>
+    <p-column [style]="{'width':'200px'}">
+        <ng-template let-usr="rowData" pTemplate="body">
+            <button type="button" (click)="detail(usr)" class="btn btn-primary"><span class="fa fa-search"></span></button>
+            <button type="button" (click)="edit(usr)" class="btn btn-primary"><span class="fa fa-pencil"></span></button>
+            <button type="button" (click)="showDeleteModal(usr)" class="btn btn-primary"><span class="fa fa-remove"></span></button>
+        </ng-template>
+    </p-column>
+    <p-footer>
+        <div class="ui-helper-clearfix">
+            <button type="button" class="btn btn-primary pull-left" (click)="add()"><span class="fa fa-plus"></span></button>
+        </div>
+    </p-footer>
+</p-dataTable>
+
+<app-user-delete *ngIf="displayDeleteModal" [data]="userToDelete" [display]="displayDeleteModal" (onAction)="onActionDelete($event)"></app-user-delete>

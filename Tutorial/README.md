@@ -17,8 +17,7 @@
     - Show One-way binding: interpolation (to-the-dom)
     - Show One-way binding: property (to-the-dom)
     - Apply Angular standard pipes
-    - Generate and apply
-    custom pipes (ng generate pipe Exponential)
+    - Generate and apply custom pipes (ng generate pipe Exponential)
 
 03. User component Lifecycle Hooks
     - Update and clean UserComponent view
@@ -53,7 +52,7 @@
 07. User service
     - Clean Workspace (remove Pipes, Directives, Interaction07Service and update User and UserDetail Components AppModule)
     - Generate User service (ng g service User)
-    - Get users function
+    - Add getUsers function
     - Provide the user servive
     - Inject the user service
     - Call it in ngOnInit()
@@ -86,10 +85,11 @@
     - Update user service to get specific user by his ID
 
 09. User CRUD Forms
-    - Create UserNewComponent and his route
-    - Create UserEditComponent and his route
-    - Create UserDeleteComponent
-    - Update navigation links
+    - Update User class (add username, password properties) 
+    - Create UserNewComponent and his route (ng generate component UserNew)
+    - Create UserEditComponent and his route (ng generate component UserEdit)
+    - Create UserDeleteComponent and import primeng DialogModule in AppModule (ng generate component UserDelete)
+    - Update navigation links in users dataTable
     - Show Template-driven forms (example only)
     - Import ReactiveFormsModule
     - Build Reactive Forms
