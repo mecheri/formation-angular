@@ -128,11 +128,10 @@
     - Update AppModule
 
 13. Home and User components in separated modules as FeatureModules
-    - Add UserModule
-    - Add UserRoutingModule
-    - Add HomeModule
-    - Add HomeRoutingModule
-    - Update AppRoutingModule
+    - Generate UserModule and UserRoutingModule (ng generate module modules/user --routing)
+    - Generate HomeModule and HomeRoutingModule (ng generate module modules/home --routing)
+    - Move user and home components into the generated modules
+    - Update AppModule AppRoutingModule
     - Add LazyLoading to both modules
 
 14. Login And Register Modules
