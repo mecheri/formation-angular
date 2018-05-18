@@ -30,7 +30,7 @@ export class UserDeleteComponent implements OnInit {
       .subscribe(
         resp => {
           this.notifService.success(null, 'Success', { timeOut: 3000 });
-          this.onAction.emit(true);
+          setTimeout(() => this.onAction.emit(true), 3000);
         },
         error => this.notifService.error('Erreur', error));
   }

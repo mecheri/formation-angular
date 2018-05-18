@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 // RxJS
 import { Observable } from 'rxjs/Rx';
@@ -69,16 +69,14 @@ export class UserService {
   }
 
   createUser(user: User): Observable<any> {
-    const body = JSON.stringify(user);
     return this.http
-      .post(`https://aspnetcoreapistarter.azurewebsites.net/api/User`, body)
+      .post(`https://aspnetcoreapistarter.azurewebsites.net/api/User`, user)
       .catch((resp) => Observable.throw(resp.error.message));
   }
 
   updateUser(user: User): Observable<any> {
-    const body = JSON.stringify(user);
     return this.http
-      .put(`https://aspnetcoreapistarter.azurewebsites.net/api/User/${user.id}`, body)
+      .put(`https://aspnetcoreapistarter.azurewebsites.net/api/User/${user.id}`, user)
       .catch((resp) => Observable.throw(resp.error.message));
   }
 

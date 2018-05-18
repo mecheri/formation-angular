@@ -77,7 +77,7 @@ export class UserEditComponent implements OnInit {
         resp => {
           this.isFormSaved = true;
           this.notifService.success(null, 'Success', { timeOut: 3000 });
-          this.router.navigate(['user', 'view', resp.id]);
+          setTimeout(() => this.router.navigate(['user', resp.id]), 3000);
         },
         error => this.notifService.error('Erreur', error));
   }
