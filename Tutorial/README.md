@@ -135,18 +135,14 @@
     - Add LazyLoading to both modules
 
 14. Login And Register Modules
-    - Add LoginModule
-    - Add LoginRoutingModule
-    - Add LoginComponent
-    - Add RegisterModule
-    - Add RegisterRoutingModule
-    - Add RegisterComponent
+    - Add LoginModule and LoginRoutingModule and LoginComponent
+    - Add RegisterModule and RegisterRoutingModule and RegisterComponent
     - Update AppRoutingModule
     - Add LazyLoading to both modules
     - Add JWT Security
     - Add Interceptors
-    - Add Authentication Guards
-    - Add User Forms Guards
+    - Add Authentication Guards (canActivate)
+    - Add User Forms Guards (canDeactivate)
 
 15. IndexModule as Portal
     - Add IndexModule

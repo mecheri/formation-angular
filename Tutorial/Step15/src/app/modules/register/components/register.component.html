@@ -1,0 +1,86 @@
+<div class="container-fluid text-center">
+    <div class="row col-md-6 col-md-offset-3" style="margin-top:2%">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>{{ rsc.title }}</h3>
+            </div>
+            <div class="panel-body">
+                <h2>{{ rsc.subTitle }}</h2>
+
+                <form [formGroup]="registerForm" (ngSubmit)="save()" novalidate>
+                    <div [class.has-error]="username.invalid && (username.dirty || username.touched)">
+                        <div class="form-group">
+                            <input name="username" id="username" class="form-control" formControlName="username" [(ngModel)]="user.username" [placeholder]="rsc.login">
+                            <div *ngIf="username.invalid && (username.dirty || username.touched)">
+                                <div *ngIf="username.errors.required">
+                                    <span class="help-block">{{ constants.MANDATORY_FIELD_MSG }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div [class.has-error]="password.invalid && (username.dirty || username.touched)">
+                        <div class="form-group">
+                            <input name="password" id="password" type="password" class="form-control" formControlName="password" [(ngModel)]="user.password" [placeholder]="rsc.password">
+                            <div *ngIf="password.invalid && (password.dirty || password.touched)">
+                                <div *ngIf="password.errors.required">
+                                    <span class="help-block">{{ constants.MANDATORY_FIELD_MSG }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div [class.has-error]="email.invalid && (email.dirty || email.touched)">
+                        <div class="form-group">
+                            <input name="email" id="email" class="form-control" formControlName="email" [(ngModel)]="user.email" [placeholder]="rsc.email">
+                            <div *ngIf="email.invalid && (email.dirty || email.touched)">
+                                <div *ngIf="email.errors.required">
+                                    <span class="help-block">{{ constants.MANDATORY_FIELD_MSG }}</span>
+                                </div>
+                                <div *ngIf="email.errors.email">
+                                    <span class="help-block">{{ constants.INVALID_EMAIL_MSG }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div [class.has-error]="firstname.invalid && (firstname.dirty || firstname.touched)">
+                        <div class="form-group">
+                            <input name="firstname" id="firstname" class="form-control" formControlName="firstname" [(ngModel)]="user.firstname" [placeholder]="rsc.firstname">
+                            <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)">
+                                <div *ngIf="firstname.errors.required">
+                                    <span class="help-block">{{ constants.MANDATORY_FIELD_MSG }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div [class.has-error]="lastname.invalid && (lastname.dirty || lastname.touched)">
+                        <div class="form-group">
+                            <input name="lastname" id="lastname" class="form-control" formControlName="lastname" [(ngModel)]="user.lastname" [placeholder]="rsc.lastname">
+                            <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)">
+                                <div *ngIf="lastname.errors.required">
+                                    <span class="help-block">{{ constants.MANDATORY_FIELD_MSG }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row pull-right">
+                        <div class="col-md-12">
+                            <button class="btn btn-default" (click)="cancel()">{{ rsc.buttons.cancel }}</button>
+                            <button type="submit" class="btn btn-primary" [disabled]="!registerForm.valid">{{ rsc.buttons.save }}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- notify -->
+<simple-notifications [options]="mixinService.notifOpts"></simple-notifications>
+
+<!-- spinner -->
+<spinner></spinner>
