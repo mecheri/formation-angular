@@ -110,15 +110,17 @@
     - Install dependency package angular2-notification (npm install --save angular2-notifications)
     - Inject Angular2-notifications service in User CRUD Components
 
-11. Core Module
-    - Add factories
+11. CoreModule 
+    - Create folder app/modules
+    - Generate CoreModule (ng generate module modules/Core) 
+    - Add factories 
     - Add handlers
     - Add services
     - Add interceptors
     - Update AppModule
     - Add global application resources (res folder) and update .angular-cli.json
 
-12. Shared Module
+12. SharedModule
     - Import and export CommonModule, ReactiveFormsModule
     - Add components (move Navbar component here)
     - Add services

@@ -1,0 +1,102 @@
+{
+    "roles": {
+        "ADM": "ADM",
+        "USR": "USR"
+    },
+    "menu": {
+        "home": {
+            "name": "Accueil",
+            "id": "home",
+            "class": "",
+            "icon": "fa fa-home",
+            "url": "/home"
+        },
+        "user": {
+            "name": "Utilisateurs",
+            "id": "user",
+            "class": "",
+            "icon": "",
+            "url": "/user"
+        },
+        "ui": {
+            "name": "UI",
+            "id": "ui",
+            "class": "",
+            "icon": "fa fa-home",
+            "url": "/ui"
+        },
+        "admin": {
+            "name": "Administration",
+            "id": "admin",
+            "class": "dropdown",
+            "icon": "fa fa-home",
+            "url": "#",
+            "subItems": [{
+                    "name": "SubItem 1",
+                    "id": "subitem1",
+                    "url": "/admin/subitem1"
+                },
+                {
+                    "name": "SubItem 2",
+                    "id": "subitem2",
+                    "url": "/admin/subitem2"
+                },
+                {
+                    "name": "SubItem 3",
+                    "id": "subitem3",
+                    "url": "/admin/subitem3"
+                }
+            ]
+        }
+    },
+    "pages": {
+        "login": {
+            "title": "ANGULAR CLI STARTER",
+            "subTitle": "Authentification",
+            "loginPLH": "Identifiant",
+            "passwordPLH": "Mot de passe",
+            "buttons": {
+                "connect": "CONNEXION",
+                "register": "INSCRIPTION"
+            }
+        },
+        "register": {
+            "title": "ANGULAR CLI STARTER",
+            "subTitle": "Inscription",
+            "login": "Identifiant*",
+            "password": "Mot de passe*",
+            "email": "Email*",
+            "firstname": "Prénom*",
+            "lastname": "Nom*",
+            "buttons": {
+                "save": "ENREGISTRER",
+                "cancel": "ANNULER"
+            }
+        },
+        "user": {
+            "title": "Liste des utilisateurs",
+            "titleView": "Detail d'un utilisateur",
+            "titleNew": "Création d'un utilisateur",
+            "titleEdit": "Modification d'un utilisateur",
+            "titleDelete": "Suppression d'un utilisateur",
+            "login": "Identifiant*",
+            "password": "Mot de passe*",
+            "email": "Email*",
+            "firstname": "Prénom*",
+            "lastname": "Nom*",
+            "table": {
+                "id": "N°",
+                "username": "Identifiant",
+                "email": "Email",
+                "firstname": "Prénom",
+                "lastname": "Nom"
+            },
+            "buttons": {
+                "save": "ENREGISTRER",
+                "cancel": "ANNULER",
+                "edit": "MODIFIER",
+                "delete": "SUPPRIMER"
+            }
+        }
+    }
+}
