@@ -146,11 +146,11 @@
     - Add Authentication Guards (canActivate)
     - Add User CRUD Forms Guards (canDeactivate)
 
-15. IndexModule as Portal (Second RouterOutlet)
-    - Add IndexModule
-    - Add IndexRoutingModule
-    - Add LazyLoading
-    - Add second RouterOutlet
+15. IndexModule as a portal (Second RouterOutlet)
+    - Generate IndexModule and IndexRoutingModule (ng generate module modules/index --routing)
     - Update AppRoutingModule
-
-16. Final State (Angular CLI Starter)
+    - Load lazily IndexModule in AppRoutingModule
+    - Load lazily UserModule and HomeModule in IndexRoutingModule
+    - Add second RouterOutlet in IndexComponent view
+    - Move Navbar tag from AppComponent to IndexComponent view
+    - Update AppComponent view (let only the RouterOutlet tag)

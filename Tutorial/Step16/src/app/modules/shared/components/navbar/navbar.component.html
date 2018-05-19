@@ -1,0 +1,24 @@
+<!-- Fixed navbar -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" (click)="isCollapsed = !isCollapsed">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+            <a class="navbar-brand" routerLink="/home"><strong>ANGULAR CLI STARTER</strong></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse" [collapse]="isCollapsed">
+            <ul class="nav navbar-nav">
+                <li *ngFor="let item of items" class="{{ item.class }}" dropdown (onToggle)="toggled($event)">
+                    <a *ngIf="item.url" routerLink="{{ item.url }}" id="{{ item.id }}"><span>{{ item.name }}</span></a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="active"><a type="button" class="btn-logout" (click)="logout()">Logout<span class="sr-only"></span></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
