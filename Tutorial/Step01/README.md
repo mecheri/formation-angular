@@ -1,6 +1,6 @@
 # STEP01
 
-## TODO 
+### TODO 
 - Add custom SASS files
 - Update styles and styleExt in .angular-cli.json
 - Install devDependency package bootstrap-sass 
@@ -12,6 +12,6 @@
 - Serve the app in dev mode
 - Show app bootsraping
 
-## DONE 
+### DONE 
 - Step00
 
