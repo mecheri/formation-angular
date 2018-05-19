@@ -1,6 +1,8 @@
 # Tuto Steps
 
-01. Generating  an Angular project (ng new)
+00. Generating  an Angular project (ng new)
+
+01. Project configuration 
     - Add custom SASS files
     - Update styles and styleExt in .angular-cli.json
     - Install devDependency package bootstrap-sass (npm install --save-dev bootstrap-sass)
