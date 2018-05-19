@@ -10,7 +10,7 @@
                 <form [formGroup]="registerForm" (ngSubmit)="save()" novalidate>
                     <div [class.has-error]="username.invalid && (username.dirty || username.touched)">
                         <div class="form-group">
-                            <input name="username" id="username" class="form-control" formControlName="username" [(ngModel)]="user.username" [placeholder]="rsc.login">
+                            <input name="username" id="username" class="form-control" formControlName="username" [(ngModel)]="user.username" [placeholder]="rsc.loginPLH">
                             <div *ngIf="username.invalid && (username.dirty || username.touched)">
                                 <div *ngIf="username.errors.required">
                                     <span class="help-block">{{ constants.MANDATORY_FIELD_MSG }}</span>
@@ -21,7 +21,7 @@
 
                     <div [class.has-error]="password.invalid && (username.dirty || username.touched)">
                         <div class="form-group">
-                            <input name="password" id="password" type="password" class="form-control" formControlName="password" [(ngModel)]="user.password" [placeholder]="rsc.password">
+                            <input name="password" id="password" type="password" class="form-control" formControlName="password" [(ngModel)]="user.password" [placeholder]="rsc.passwordPLH">
                             <div *ngIf="password.invalid && (password.dirty || password.touched)">
                                 <div *ngIf="password.errors.required">
                                     <span class="help-block">{{ constants.MANDATORY_FIELD_MSG }}</span>

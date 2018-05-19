@@ -16,6 +16,9 @@
                     <a *ngIf="item.url" routerLink="{{ item.url }}" id="{{ item.id }}"><span>{{ item.name }}</span></a>
                 </li>
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="active"><a type="button" class="btn-logout" (click)="logout()">Logout<span class="sr-only"></span></a></li>
+            </ul>
         </div>
     </div>
 </nav>

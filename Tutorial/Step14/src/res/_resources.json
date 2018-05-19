@@ -3,7 +3,7 @@
         "login": {
             "title": "ANGULAR CLI STARTER",
             "subTitle": "Authentication",
-            "loginPLH": "Login",
+            "loginPLH": "Username",
             "passwordPLH": "Password",
             "buttons": {
                 "connect": "CONNECTION",
@@ -13,11 +13,11 @@
         "register": {
             "title": "ANGULAR CLI STARTER",
             "subTitle": "Authentication",
-            "loginPLH": "Username",
+            "loginPLH": "Username*",
             "passwordPLH": "Password*",
             "email": "Email*",
-            "firstname": "First Name",
-            "lastname": "Last Name",
+            "firstname": "First Name*",
+            "lastname": "Last Name*",
             "buttons": {
                 "save": "REGISTER",
                 "cancel": "CANCEL"

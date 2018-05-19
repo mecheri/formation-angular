@@ -10,6 +10,7 @@ import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { UserDeleteComponent } from './components/user-delete/user-delete.component';
 
 import { UserService } from './services/user.service';
+import { UserGuardService } from './services/user-guard.service';
 
 @NgModule({
   imports: [
@@ -23,6 +24,9 @@ import { UserService } from './services/user.service';
     UserEditComponent,
     UserDeleteComponent
   ],
-  providers: [UserService]
+  providers: [
+    UserService,
+    UserGuardService
+  ]
 })
 export class UserModule { }

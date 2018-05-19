@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
+import { Constants } from '../../../core/services/constants.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +11,10 @@ export class NavbarComponent implements OnInit {
 
   items: any[];
 
-  constructor() {
+  constructor(
+    private router: Router,
+    private constants: Constants,
+  ) {
     this.initItems();
   }
 
@@ -33,4 +37,9 @@ export class NavbarComponent implements OnInit {
     ];
   }
 
+  logout() {
+    localStorage.removeItem(this.constants.ACCESS_TOKEN);
+    localStorage.removeItem(this.constants.APP_USER);
+    this.router.navigate(["/login"]);
+  }
 }
