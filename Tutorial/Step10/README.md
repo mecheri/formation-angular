@@ -1,5 +1,19 @@
-# Step10
+# STEP10
 
-## Todo
+### TODO
+- Enable HTTP services (HttpClientModule)
+- Inject HttpClient into UserService
+- Update UserService by replacing Mocks to HttpClient Calls
+- Show HttpClient API examples
+- GET user by ID
+- POST new user
+- PUT existing user
+- DELETE existing user
+- Install dependency package angular2-notification 
+    ```bash
+    npm install --save angular2-notifications
+    ``` 
+- Inject Angular2-notifications service in User CRUD Components
 
-## Done
+### DONE
+- Step09

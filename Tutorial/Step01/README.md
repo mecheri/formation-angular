@@ -16,6 +16,9 @@
     npm install --save primeng
     ```
 - Serve the app in dev mode
+    ```bash
+    ng serve -o
+    ```
 - Show app bootsraping
 
 ### DONE 

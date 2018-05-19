@@ -1,5 +1,14 @@
-# Step11
+# STEP12
 
-## Todo
+### TODO
+- Generate SharedModule 
+    ```bash
+    ng generate module modules/shared
+    ```
+- Import and export CommonModule, ReactiveFormsModule
+- Add shared components (move Navbar component here and )
+- Update CoreModule
+- Update AppModule
 
-## Done
+### DONE
+- Step11

@@ -1,5 +1,17 @@
-# Step11
+# STEP11
 
-## Todo
+### TODO
+- Create folder app/modules
+- Generate CoreModule 
+    ```bash
+    ng generate module modules/core
+    ``` 
+- Add factories 
+- Add handlers
+- Add services
+- Add interceptors
+- Update AppModule
+- Add global application resources (res folder) and update .angular-cli.json
 
-## Done
+### DONE
+- Step10

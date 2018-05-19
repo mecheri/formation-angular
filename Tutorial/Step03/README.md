@@ -1,5 +1,11 @@
-# Step03
+# STEP03
 
-## Todo
+### TODO
+- Update and clean UserComponent view
+- Implement OnChanges
+- Implement AfterViewInit, Renderer and ViewChild (html input focus)
+- Implement AfterViewChecked
+- Implement OnDestroy
 
-## Done
+### DONE
+- Step02
