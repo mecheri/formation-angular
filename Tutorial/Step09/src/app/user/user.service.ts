@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 // RxJS
-import { Observable } from 'rxjs/Rx';
+import { Observable, of } from 'rxjs';
 
 import { User } from './user';
 
@@ -41,10 +41,10 @@ export class UserService {
   constructor() { }
 
   getUsers(): Observable<User[]> {
-    return Observable.of(USERS);
+    return of(USERS);
   }
 
   getUser(id: number): Observable<User> {
-    return Observable.of(USERS.find(user => user.id === id));
+    return of(USERS.find(user => user.id === id));
   }
 }

@@ -2,14 +2,13 @@
 
 00. Generating  an Angular project (ng new)
 
-01. Project configuration 
-    - Add custom SASS files
-    - Update styles and styleExt in .angular-cli.json
+01. Initial configuration 
+    - Add application SASS files (with scss extension) from Step02
+    - Update styles config in angular.json file
     - Install devDependency package bootstrap-sass (npm install --save-dev bootstrap-sass)
     - Install devDependency package font-awesome (npm install --save-dev font-awesome)
     - Install dependency package primeng (npm install --save primeng)
     - Serve the app in dev mode
-    - Show app bootsraping
 
 02. User component
     - Update the AppComponent view

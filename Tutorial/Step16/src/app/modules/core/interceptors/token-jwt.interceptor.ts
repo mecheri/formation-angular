@@ -7,7 +7,7 @@ import {
     HttpResponse,
     HttpEvent
 } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 // Services
 import { AuthService } from './../services/auth.service';

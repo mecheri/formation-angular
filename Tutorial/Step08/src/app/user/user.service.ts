@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 // RxJS
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs';
 
 import { User } from './user';
 

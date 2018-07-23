@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges, OnChanges, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 import { User } from '../user/user';
 import { Interaction07Service } from '../interaction07.service';

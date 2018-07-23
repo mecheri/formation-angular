@@ -2,9 +2,8 @@ import { Component, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 
 // RxJS
-import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 // Services
 import { Logger } from './logger.service';
@@ -57,14 +56,15 @@ export class AuthService {
         let headers = new HttpHeaders().set('Content-Type', 'application/json-patch+json');
         return this.http
             .post<HttpResponse<any>>(`${this.settingsService.get().apiUrl}/api/Auth/login`,
-                auth,
-                { headers: headers })
-            .map((res: any) => {
-                this.storeToken(res.token);
-                this.storeUserContext({ username: res.username });
-                this.logger.trace('Auth is done');
-            })
-            .catch(this.httpRespService.handleError);
+                auth, { headers: headers })
+            .pipe(
+                map((res: any) => {
+                    this.storeToken(res.token);
+                    this.storeUserContext({ username: res.username });
+                    this.logger.trace('Auth is done');
+                }),
+                catchError(this.httpRespService.handleError)
+            );
     }
 
     /**
@@ -78,9 +78,8 @@ export class AuthService {
         const body = JSON.stringify(user);
         let headers = new HttpHeaders().set('Content-Type', 'application/json-patch+json');
         return this.http
-            .post(`${this.settingsService.get().apiUrl}/api/User`, user,
-                { headers: headers })
-            .catch(this.httpRespService.handleError);
+            .post(`${this.settingsService.get().apiUrl}/api/User`, user, { headers: headers })
+            .pipe(catchError(this.httpRespService.handleError));
     }
 
     /**

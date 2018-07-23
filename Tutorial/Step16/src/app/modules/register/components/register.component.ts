@@ -3,8 +3,7 @@ import { AbstractControl, FormControl, FormGroup, FormBuilder, Validators, Valid
 import { Router } from '@angular/router';
 
 // RxJS
-import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/finally';
+import { finalize } from 'rxjs/operators';
 
 // Services
 import { NotificationsService } from 'angular2-notifications';
@@ -118,7 +117,7 @@ export class RegisterComponent implements OnInit {
     save() {
         this.spinner.show();
         this.authService.register(this.user)
-            .finally(() => this.spinner.hide())
+            .pipe(finalize(() => this.spinner.hide()))
             .subscribe(
                 resp => {
                     this.notifService.success(null, 'Inscription effectuée avec succès', { timeOut: 3000 });

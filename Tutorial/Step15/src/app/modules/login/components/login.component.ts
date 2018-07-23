@@ -2,7 +2,7 @@
 import { Router } from '@angular/router';
 
 // RxJS
-import 'rxjs/add/operator/finally';
+import { finalize } from 'rxjs/operators';
 
 // Services
 import { Spinner } from './../../core/services/spinner.service';
@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit {
     login() {
         this.spinner.show();
         this.authService.check(this.model)
-            .finally(() => this.spinner.hide())
+            .pipe(finalize(() => this.spinner.hide()))
             .subscribe(
                 () => this.router.navigate(['home']),
                 (error) => this.message = error

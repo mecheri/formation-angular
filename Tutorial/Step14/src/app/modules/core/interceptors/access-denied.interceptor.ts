@@ -3,8 +3,8 @@ import { HttpInterceptor, HttpHandler, HttpHeaders, HttpRequest, HttpResponse, H
 import { Router } from '@angular/router';
 
 // RxJS
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/do';
+import { Observable } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 
 // Environment
 import { environment } from './../../../../environments/environment';
@@ -37,18 +37,20 @@ export class AccessDeniedInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next
             .handle(req)
-            .do((ev: HttpEvent<any>) => { return; })
-            .catch(response => {
-                if (response instanceof HttpErrorResponse
-                    && !/\/Auth/.test(req.url)) {
-                    if ([401, 403].includes(response.status)) {
-                        this.mixinService.clearLocalStorageData();
-                        const settingsService = this.injector.get(SettingsService);
-                        this.injector.get(Router).navigate(['login']);
-                        return;
+            .pipe(
+                tap((ev: HttpEvent<any>) => { return; }),
+                catchError(response => {
+                    if (response instanceof HttpErrorResponse
+                        && !/\/Auth/.test(req.url)) {
+                        if ([401, 403].includes(response.status)) {
+                            this.mixinService.clearLocalStorageData();
+                            const settingsService = this.injector.get(SettingsService);
+                            this.injector.get(Router).navigate(['login']);
+                            return;
+                        }
                     }
-                }
-                return next.handle(req);
-            });
+                    return next.handle(req);
+                })
+            );
     }
 }

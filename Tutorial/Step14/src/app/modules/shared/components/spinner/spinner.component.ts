@@ -1,5 +1,5 @@
 ﻿import { Component, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 import { SpinnerState, Spinner } from './../../../core/services/spinner.service';
 
