@@ -34,10 +34,9 @@ export class TokenJwtInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const auth = this.injector.get(AuthService);
-        const token = auth.getToken();
-        if (token) {
+        if (auth.isLoggedIn()) {
             const rsc = this.injector.get(ResourcesService);
-            req = req.clone({ headers: req.headers.set('Authorization', `Bearer ${token}`) });
+            req = req.clone({ headers: req.headers.set('Authorization', `Bearer ${auth.getToken()}`) });
             req = req.clone({ headers: req.headers.set('Content-Type', 'application/json; charset=utf-8') });
         }
         return next.handle(req);

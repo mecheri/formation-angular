@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { User } from './../../models/user';
+// Services 
 import { UserService } from './../../services/user.service';
 import { NotificationsService } from 'angular2-notifications';
+
+// Models
+import { User } from './../../models/user';
 
 @Component({
   selector: 'app-user-edit',
@@ -37,9 +40,7 @@ export class UserEditComponent implements OnInit {
     private fb: FormBuilder,
     private userService: UserService,
     private notifService: NotificationsService
-  ) {
-    this.user = new User();
-  }
+  ) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => this.userId = +params['id']);
@@ -51,19 +52,24 @@ export class UserEditComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     this.userService.getUser(id)
       .subscribe(
-        user => this.user = user,
+        user => {
+          this.user = user;
+          this.editForm.patchValue(this.user);
+        },
         error => this.notifService.error('Erreur', error)
-      );
+      )
   }
 
   createForm() {
     if (this.editForm) { this.editForm.reset(); }
     this.editForm = this.fb.group({
+      id: [''],
       username: ['', Validators.required],
       password: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
+      birthdate: [''],
     });
   }
 
@@ -72,7 +78,7 @@ export class UserEditComponent implements OnInit {
   }
 
   save() {
-    this.userService.updateUser(this.user)
+    this.userService.updateUser(<User>this.editForm.value)
       .subscribe(
         resp => {
           this.isFormSaved = true;

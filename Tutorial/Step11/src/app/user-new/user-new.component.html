@@ -6,49 +6,11 @@
 <div class="row">
     <div class="col-md-8">
 
-        <!-- Template driven form -->
-        <!-- <form (ngSubmit)="save()" #demoForm="ngForm">
-            <div [class.has-error]="firstname.invalid && (firstname.dirty || firstname.touched)">
-                <div class="form-group">
-                    <label for="firstname">First Name</label>
-                    <input type="text" class="form-control" name="firstname" id="firstname" required minlength="4" [(ngModel)]="user.firstname" #firstname="ngModel">
-
-                    <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)">
-                        <div *ngIf="firstname.errors.required">
-                            <span class="help-block">Ce champ est obligatoire</span>
-                        </div>
-                        <div *ngIf="firstname.errors.minlength">
-                            <span class="help-block">Minimum 4 caractères</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div [class.has-error]="lastname.invalid && (lastname.dirty || lastname.touched)">
-                <div class="form-group">
-                    <label for="lastname">Last Name</label>
-                    <input type="text" class="form-control" name="lastname" id="lastname" required [(ngModel)]="user.lastname" #lastname="ngModel">
-                    <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="alert alert-danger">
-                        <div *ngIf="lastname.errors.required">
-                            <span class="help-block">Ce champ est obligatoire</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row pull-right">
-                <div class="col-md-12">
-                    <button type="submit" class="btn btn-primary" [disabled]="!demoForm.valid">SAVE</button>
-                </div>
-            </div>
-        </form> -->
-
-
         <!-- Reactive form -->
         <form [formGroup]="creationForm" (ngSubmit)="save()" novalidate>
             <div [class.has-error]="username.invalid && (username.dirty || username.touched)">
                 <div class="form-group">
-                    <input name="username" id="username" class="form-control" formControlName="username" [(ngModel)]="user.username" placeholder="User Name">
+                    <input name="username" id="username" class="form-control" formControlName="username" placeholder="User Name">
                     <div *ngIf="username.invalid && (username.dirty || username.touched)">
                         <div *ngIf="username.errors.required">
                             <span class="help-block">Ce champ est obligatoire</span>
@@ -58,7 +20,7 @@
             </div>
             <div [class.has-error]="password.invalid && (password.dirty || password.touched)">
                 <div class="form-group">
-                    <input name="password" id="password" type="password" class="form-control" formControlName="password" [(ngModel)]="user.password" placeholder="Password">
+                    <input name="password" id="password" type="password" class="form-control" formControlName="password" placeholder="Password">
                     <div *ngIf="password.invalid && (password.dirty || password.touched)">
                         <div *ngIf="password.errors.required">
                             <span class="help-block">Ce champ est obligatoire</span>
@@ -68,7 +30,7 @@
             </div>
             <div [class.has-error]="email.invalid && (email.dirty || email.touched)">
                 <div class="form-group">
-                    <input name="email" id="email" class="form-control" formControlName="email" [(ngModel)]="user.email" placeholder="Email">
+                    <input name="email" id="email" class="form-control" formControlName="email" placeholder="Email">
                     <div *ngIf="email.invalid && (email.dirty || email.touched)">
                         <div *ngIf="email.errors.required">
                             <span class="help-block">Ce champ est obligatoire</span>
@@ -81,7 +43,7 @@
             </div>
             <div [class.has-error]="firstname.invalid && (firstname.dirty || firstname.touched)">
                 <div class="form-group">
-                    <input name="firstname" id="firstname" class="form-control" formControlName="firstname" [(ngModel)]="user.firstname" placeholder="First Name">
+                    <input name="firstname" id="firstname" class="form-control" formControlName="firstname" placeholder="First Name">
                     <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)">
                         <div *ngIf="firstname.errors.required">
                             <span class="help-block">Ce champ est obligatoire</span>
@@ -94,7 +56,7 @@
             </div>
             <div [class.has-error]="lastname.invalid && (lastname.dirty || lastname.touched)">
                 <div class="form-group">
-                    <input name="lastname" id="lastname" class="form-control" formControlName="lastname" [(ngModel)]="user.lastname" placeholder="Last Name">
+                    <input name="lastname" id="lastname" class="form-control" formControlName="lastname" placeholder="Last Name">
                     <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)">
                         <div *ngIf="lastname.errors.required">
                             <span class="help-block">Ce champ est obligatoire</span>
@@ -102,66 +64,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Reactive form child -->
-            <!-- <div formGroupName="creationFormChild" class="well well-lg">
-                <div [class.has-error]="usernameC.invalid && (usernameC.dirty || usernameC.touched)">
-                    <div class="form-group">
-                        <input name="usernameC" id="usernameC" class="form-control" formControlName="usernameC" placeholder="User Name">
-                        <div *ngIf="usernameC.invalid && (usernameC.dirty || usernameC.touched)">
-                            <div *ngIf="usernameC.errors.required">
-                                <span class="help-block">Ce champ est obligatoire</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div [class.has-error]="passwordC.invalid && (passwordC.dirty || passwordC.touched)">
-                    <div class="form-group">
-                        <input name="password" id="passwordC" type="password" class="form-control" formControlName="passwordC" placeholder="Password">
-                        <div *ngIf="passwordC.invalid && (passwordC.dirty || passwordC.touched)">
-                            <div *ngIf="passwordC.errors.required">
-                                <span class="help-block">Ce champ est obligatoire</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div [class.has-error]="emailC.invalid && (emailC.dirty || emailC.touched)">
-                    <div class="form-group">
-                        <input name="emailC" id="emailC" class="form-control" formControlName="emailC" placeholder="Email">
-                        <div *ngIf="emailC.invalid && (emailC.dirty || email.touched)">
-                            <div *ngIf="emailC.errors.required">
-                                <span class="help-block">Ce champ est obligatoire</span>
-                            </div>
-                            <div *ngIf="emailC.errors.email">
-                                <span class="help-block">Invalid email</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div [class.has-error]="firstnameC.invalid && (firstnameC.dirty || firstnameC.touched)">
-                    <div class="form-group">
-                        <input name="firstnameC" id="firstnameC" class="form-control" formControlName="firstnameC" placeholder="First Name">
-                        <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)">
-                            <div *ngIf="firstnameC.errors.required">
-                                <span class="help-block">Ce champ est obligatoire</span>
-                            </div>
-                            <div *ngIf="firstnameC.errors.forbidden">
-                                <span class="help-block">Chaîne non autorisée</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div [class.has-error]="lastnameC.invalid && (lastnameC.dirty || lastnameC.touched)">
-                    <div class="form-group">
-                        <input name="lastnameC" id="lastnameC" class="form-control" formControlName="lastnameC" placeholder="Last Name">
-                        <div *ngIf="lastnameC.invalid && (lastnameC.dirty || lastnameC.touched)">
-                            <div *ngIf="lastnameC.errors.required">
-                                <span class="help-block">Ce champ est obligatoire</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
 
             <div class="row pull-right">
                 <div class="col-md-12">
@@ -173,4 +75,5 @@
     </div>
 </div>
 
-<simple-notifications [options]="{position: ['bottom', 'right'], clickToClose: true, maxLength: 100}"></simple-notifications>
+<!-- notify -->
+<simple-notifications></simple-notifications>

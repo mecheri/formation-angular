@@ -1,17 +1,13 @@
 import { Injectable, Injector } from '@angular/core';
-import { HttpInterceptor, HttpHandler, HttpHeaders, HttpRequest, HttpResponse, HttpErrorResponse, HttpEvent } from '@angular/common/http';
+import { HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse, HttpEvent } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 // RxJS
 import { Observable } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 
-// Environment
-import { environment } from './../../../../environments/environment';
-
 // Services
 import { MixinService } from './../services/mixin.service';
-import { SettingsService } from './../services/settings.service';
 
 /**
  * Application access denied Interceptor
@@ -44,7 +40,6 @@ export class AccessDeniedInterceptor implements HttpInterceptor {
                         && !/\/Auth/.test(req.url)) {
                         if ([401, 403].includes(response.status)) {
                             this.mixinService.clearLocalStorageData();
-                            const settingsService = this.injector.get(SettingsService);
                             this.injector.get(Router).navigate(['login']);
                             return;
                         }

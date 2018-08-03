@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, FormBuilder, Validators, ValidatorFn } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { User } from '../user/user';
-import { UserService } from '../user/user.service';
+import { UserService } from './../user/user.service';
 
 @Component({
   selector: 'app-user-new',
@@ -12,7 +11,6 @@ import { UserService } from '../user/user.service';
 })
 export class UserNewComponent implements OnInit {
 
-  user: User;
   creationForm: FormGroup;
 
   get username() { return this.creationForm.get('username'); }
@@ -39,9 +37,7 @@ export class UserNewComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private userService: UserService
-  ) {
-    this.user = new User();
-  }
+  ) { }
 
   ngOnInit() {
     this.createForm();

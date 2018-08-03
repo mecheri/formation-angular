@@ -6,3 +6,11 @@
         text-decoration: underline !important;
     }
 }
+
+.ui-paginator .ui-paginator-pages .ui-paginator-page {
+    padding: 0 !important;
+}
+
+.ui-datatable .ui-paginator {
+    padding: 5px !important;
+}

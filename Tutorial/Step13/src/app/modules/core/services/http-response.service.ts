@@ -1,6 +1,6 @@
 ﻿import { Component, Injectable, Injector } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
+import { throwError } from 'rxjs';
 
 // Services
 import { Logger } from '../services/logger.service';
@@ -22,17 +22,19 @@ export class HttpResponseService {
     */
     constructor() { }
 
+
     /**
-    * Handle Http Errors Responses
-    *
-    * @param {*} resp
-    * @returns {Observable<any>}
-    * @memberof HttpResponseService
-    */
-    handleError(resp: any): Observable<any> {
-        let respBody, reject: string;
+     * Handle Http Errors Responses
+     *
+     * @param {HttpErrorResponse} error
+     * @returns
+     * @memberof HttpResponseService
+     */
+    handleError(error: HttpErrorResponse) {
         this.logger = new Logger();
-        this.logger.error(resp.error.message);
-        return Observable.throw(resp.error.message);
-    }
+        let msgError = error.error.message;
+        // return an observable with a user-facing error message
+        this.logger.error(msgError);
+        return throwError(msgError);
+    };
 }

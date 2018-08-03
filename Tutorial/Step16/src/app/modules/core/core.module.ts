@@ -5,6 +5,7 @@ import { SharedModule } from './../../modules/shared/shared.module';
 // Interceptors
 import { TokenJwtInterceptor } from './interceptors/token-jwt.interceptor';
 import { AccessDeniedInterceptor } from './interceptors/access-denied.interceptor';
+import { SpinnerInterceptor } from './interceptors/spinner.interceptor';
 
 // Prevent re-import of the core module
 import { throwIfAlreadyLoaded } from './module-import-guard';
@@ -70,6 +71,11 @@ import { SettingsFactory } from './factories/settings.factory';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AccessDeniedInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: SpinnerInterceptor,
       multi: true
     },
     {
