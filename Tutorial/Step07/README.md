@@ -1,19 +1,16 @@
 # STEP07
 
 ### TODO
-- Clean Workspace (remove Pipes, Directives, Interaction07Service and update User and UserDetail Components AppModule)
-- Generate User service 
-    ```bash
-    ng generate service User
-    ```
-- Add getUsers function
-- Provide the user servive
-- Inject the user service
+- Clean Workspace (remove Pipes, Directives, Interaction07Service and update the User and UserDetail Components and AppModule)
+- Generate the UserService (ng g service User)
+- Add getUsers() function
+- Provide the generated UserService
+- Inject the UserService
 - Call it in ngOnInit()
 - Import RxJS library
-- Enhance user service with Observable (from synchronous to asynchronous service)
-- Show RxJS
-- Subscribe to Observable in the user component
+- Enhance the UserService with Observable (from synchronous to asynchronous service)
+- Show RxJS API
+- Subscribe to Observable in the UserComponent
 
 ### DONE
 - Step06

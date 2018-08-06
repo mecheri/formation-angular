@@ -32,7 +32,9 @@ enum Colors {
  * @export
  * @class Logger
  */
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class Logger {
 
     private Levels: typeof Levels = Levels;

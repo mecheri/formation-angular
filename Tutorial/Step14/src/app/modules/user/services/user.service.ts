@@ -11,7 +11,9 @@ import { HttpResponseService } from '../../core/services/http-response.service';
 // Models
 import { User } from '../models/user';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UserService {
 
   constructor(

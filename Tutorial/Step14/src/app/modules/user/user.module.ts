@@ -9,8 +9,6 @@ import { UserNewComponent } from './components/user-new/user-new.component';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { UserDeleteComponent } from './components/user-delete/user-delete.component';
 
-import { UserService } from './services/user.service';
-
 @NgModule({
   imports: [
     SharedModule,
@@ -22,7 +20,6 @@ import { UserService } from './services/user.service';
     UserNewComponent,
     UserEditComponent,
     UserDeleteComponent
-  ],
-  providers: [UserService]
+  ]
 })
 export class UserModule { }

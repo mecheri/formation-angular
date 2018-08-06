@@ -17,7 +17,9 @@ export interface SpinnerState {
  * @export
  * @class Spinner
  */
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class Spinner {
     private spinnerSubject = new Subject<SpinnerState>();
 

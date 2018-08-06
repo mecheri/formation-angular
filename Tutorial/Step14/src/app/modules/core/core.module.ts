@@ -2,33 +2,27 @@ import { NgModule, Optional, SkipSelf, ErrorHandler, APP_INITIALIZER } from '@an
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SharedModule } from './../../modules/shared/shared.module';
 
+// Prevent re-import of the core module
+import { throwIfAlreadyLoaded } from './module-import-guard';
+
 // Interceptors
 import { TokenJwtInterceptor } from './interceptors/token-jwt.interceptor';
 import { AccessDeniedInterceptor } from './interceptors/access-denied.interceptor';
 import { SpinnerInterceptor } from './interceptors/spinner.interceptor';
 
-// Prevent re-import of the core module
-import { throwIfAlreadyLoaded } from './module-import-guard';
-
 // Services
-import { Logger } from './services/logger.service';
-import { Spinner } from './services/spinner.service';
-import { Constants } from './services/constants.service';
-import { AuthService } from './services/auth.service';
-import { AuthGuardService } from './services/auth-guard.service';
-import { HttpResponseService } from './services/http-response.service';
 import { SettingsService } from './services/settings.service';
 import { ResourcesService } from './services/resources.service';
-import { MixinService } from './services/mixin.service';
-import { EventService } from './services/event.service';
-import { NotificationsService } from 'angular2-notifications';
 
-// Handlers
-import { GlobalErrorHandler } from './handlers/global-error.handler';
+// Services Vendor
+import { NotificationsService } from 'angular2-notifications';
 
 // Factories
 import { ResourcesFactory } from './factories/resources.factory';
 import { SettingsFactory } from './factories/settings.factory';
+
+// Handlers
+import { GlobalErrorHandler } from './handlers/global-error.handler';
 
 @NgModule({
   imports: [
@@ -40,15 +34,7 @@ import { SettingsFactory } from './factories/settings.factory';
     SharedModule
   ],
   providers: [
-    Logger,
-    Spinner,
-    Constants,
-    AuthService,
-    AuthGuardService,
-    HttpResponseService,
     NotificationsService,
-    MixinService,
-    EventService,
     SettingsService,
     {
       provide: APP_INITIALIZER,

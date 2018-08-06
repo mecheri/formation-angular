@@ -8,7 +8,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
-import { UserService } from './user/user.service';
 import { HomeComponent } from './home/home.component';
 import { UserNewComponent } from './user-new/user-new.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
@@ -29,9 +28,6 @@ import { UserDeleteComponent } from './user-delete/user-delete.component';
     BrowserAnimationsModule,
     CoreModule,
     AppRoutingModule
-  ],
-  providers: [
-    UserService
   ],
   bootstrap: [AppComponent]
 })

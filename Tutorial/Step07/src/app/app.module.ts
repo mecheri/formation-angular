@@ -10,8 +10,6 @@ import { ExponentialPipe } from './exponential.pipe';
 import { HighlightDirective } from './highlight.directive';
 import { InputMaxLengthDirective } from './input-max-length.directive';
 
-import { Interaction07Service } from './interaction07.service';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +23,6 @@ import { Interaction07Service } from './interaction07.service';
     BrowserModule,
     FormsModule
   ],
-  providers: [Interaction07Service],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -11,7 +11,9 @@ import { Constants } from './constants.service';
  * @export
  * @class MixinService
  */
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class MixinService {
     public fr: any;
     public notifOpts: any;

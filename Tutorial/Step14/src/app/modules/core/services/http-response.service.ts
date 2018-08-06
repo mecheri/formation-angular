@@ -11,7 +11,9 @@ import { Logger } from '../services/logger.service';
  * @export
  * @class HttpResponseService
  */
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class HttpResponseService {
 
     private logger: Logger;

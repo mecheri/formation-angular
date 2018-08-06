@@ -7,7 +7,9 @@ import { map, catchError } from 'rxjs/operators';
 
 import { User } from './user';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UserService {
 
   constructor(

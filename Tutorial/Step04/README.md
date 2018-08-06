@@ -1,10 +1,10 @@
 # STEP04
 
 ### TODO
-- Update and clean UserComponent view
-- Add Some bootstrap classes (container-fluid, form-control)
+- Update and clean the UserComponent view
+- Add Some Html Bootstrap classes (container-fluid, form-control)
 - Show Two-way binding
-- Missing FormsModule
+- Missing FormsModule !!!
 - Import FormsModule in AppModule
 
 ### DONE

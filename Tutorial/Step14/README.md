@@ -1,16 +1,16 @@
 # STEP14
 
 ### TODO
-- Add LoginModule and LoginRoutingModule and LoginComponent  
-- Add RegisterModule and RegisterRoutingModule and RegisterComponent
+- Add LoginModule, LoginRoutingModule and LoginComponent  
+- Add RegisterModule, RegisterRoutingModule and RegisterComponent
 - Update AppRoutingModule
-- Add fallback route for not found route 
+- Add fallback route for unknown routes,
 - Add LazyLoading to both modules
-- Add JWT Security    
+- Add JWT Security
 - Add Interceptors
-- Update Navbar by adding logout action and current user
+- Update Navbar by adding logout action and current user context
 - Add Authentication Guards (canActivate)
-- Add User CRUD Forms Guards (canDeactivate)
+- Add User's CRUD Forms Guards (canDeactivate)
 
 ### DONE
 - Step13

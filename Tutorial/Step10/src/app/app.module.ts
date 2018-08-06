@@ -12,7 +12,6 @@ import { BsDropdownModule, CollapseModule } from 'ngx-bootstrap';
 import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
-import { UserService } from './user/user.service';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { UserNewComponent } from './user-new/user-new.component';
@@ -42,7 +41,6 @@ import { UserDeleteComponent } from './user-delete/user-delete.component';
     BsDropdownModule.forRoot(),
     CollapseModule.forRoot(),
   ],
-  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

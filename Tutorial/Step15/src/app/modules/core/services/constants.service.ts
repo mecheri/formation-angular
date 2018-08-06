@@ -6,7 +6,9 @@ import { Injectable } from '@angular/core';
  * @export
  * @class Constants
  */
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class Constants {
     // Application code
     public readonly APP_CODE = 'ANGULARCLISTARTER';

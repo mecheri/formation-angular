@@ -35,7 +35,9 @@ export const USERS: User[] = [
   }
 ];
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UserService {
 
   constructor() { }

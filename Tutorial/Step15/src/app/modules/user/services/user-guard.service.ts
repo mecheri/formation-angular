@@ -10,7 +10,9 @@ import { ResourcesService } from './../../core/services/resources.service';
 import { UserNewComponent } from './../components/user-new/user-new.component';
 import { UserEditComponent } from './../components/user-edit/user-edit.component';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class UserGuardService implements CanDeactivate<UserNewComponent | UserEditComponent> {
 
     /**
