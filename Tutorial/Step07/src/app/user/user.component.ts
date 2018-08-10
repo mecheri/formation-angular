@@ -1,4 +1,4 @@
-import { Component, Renderer, ViewChild, SimpleChanges, OnChanges, OnInit, AfterViewInit, AfterViewChecked, OnDestroy } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { User } from './user';
 import { Interaction07Service } from '../interaction07.service';
 import { UserDetailComponent } from '../user-detail/user-detail.component';

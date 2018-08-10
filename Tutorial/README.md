@@ -8,6 +8,7 @@
     - Install devDependency package bootstrap-sass (npm install --save-dev bootstrap-sass)
     - Install devDependency package font-awesome (npm install --save-dev font-awesome)
     - Install dependency package primeng (npm install --save primeng)
+    - Install dependency package primeicons (npm install --save primeicons)
     - Serve the app in dev mode
 
 02. User component
@@ -74,11 +75,11 @@
     - Add the HomeComponent route
     - Add a default route
     - Create NavbarComponent for navigation links (ng generate component Navbar)
-    - Install dependency package primeng (npm install --save ngx-bootstrap)
+    - Install dependency package ngx-bootstrap (npm install --save ngx-bootstrap)
     - Import CollapseModule and BsDropdownModule modules in AppModule from ngx-bootstrap
     - Navigate to the UserComponent
     - Import primeng UI modules in AppModule
-    - Update the UserComponent view with primeng UI components (DataTable, breadcrumb...)
+    - Update the UserComponent view with primeng UI components (Table, Breadcrumb...)
     - Import Missing BrowserAnimationsModule in AppModule
     - Navigate to the UserDetailComponent
     - Update the UserDetailComponent

@@ -6,7 +6,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 
 // Vendor modules
-import { BreadcrumbModule, DataTableModule, DialogModule } from 'primeng/primeng';
+import { TableModule } from 'primeng/table';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { DialogModule } from 'primeng/dialog';
 import { BsDropdownModule, CollapseModule } from 'ngx-bootstrap';
 
 import { AppComponent } from './app.component';
@@ -36,8 +38,8 @@ import { UserDeleteComponent } from './user-delete/user-delete.component';
     BrowserAnimationsModule,
     AppRoutingModule,
     BreadcrumbModule,
-    DataTableModule,
     DialogModule,
+    TableModule,
     BsDropdownModule.forRoot(),
     CollapseModule.forRoot(),
   ],

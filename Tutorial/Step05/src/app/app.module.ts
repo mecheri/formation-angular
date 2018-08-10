@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
 import { ExponentialPipe } from './exponential.pipe';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,7 +16,6 @@ import { ExponentialPipe } from './exponential.pipe';
     BrowserModule,
     FormsModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

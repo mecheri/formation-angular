@@ -8,7 +8,6 @@ import { ExponentialPipe } from './exponential.pipe';
 import { HighlightDirective } from './highlight.directive';
 import { InputMaxLengthDirective } from './input-max-length.directive';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +20,6 @@ import { InputMaxLengthDirective } from './input-max-length.directive';
     BrowserModule,
     FormsModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

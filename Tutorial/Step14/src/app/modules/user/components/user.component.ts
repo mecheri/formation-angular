@@ -1,4 +1,4 @@
-import { Component, Renderer, ViewChild, SimpleChanges, OnChanges, OnInit, AfterViewInit, AfterViewChecked, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { User } from './../models/user';
@@ -18,9 +18,15 @@ export class UserComponent implements OnInit {
   displayDeleteModal: boolean = false;
 
   bcItems = [
-    { label: 'Home', routerLink: '/home' },
+    { label: 'Home', routerLink: '/home', icon: 'pi pi-home' },
     { label: 'Users', }
   ];;
+
+  cols = [
+    { field: 'id', header: 'ID' },
+    { field: 'firstname', header: 'First Name' },
+    { field: 'lastname', header: 'Last Name' }
+  ];
 
   constructor(
     private router: Router,

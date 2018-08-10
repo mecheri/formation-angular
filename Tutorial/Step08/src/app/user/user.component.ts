@@ -1,4 +1,4 @@
-import { Component, Renderer, ViewChild, SimpleChanges, OnChanges, OnInit, AfterViewInit, AfterViewChecked, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User } from './user';
 
 import { UserService } from './user.service';
@@ -16,7 +16,7 @@ export class UserComponent implements OnInit {
 
   image = 'https://assets-cdn.github.com/images/icons/emoji/unicode/1f471.png?v8';
 
-  constructor(private userService: UserService){ }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
     this.users = this.userService.getUsers();

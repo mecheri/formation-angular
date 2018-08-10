@@ -7,7 +7,9 @@ import { CoreModule } from './modules/core/core.module';
 import { AppRoutingModule } from './app-routing.module';
 
 // Vendor modules
-import { BreadcrumbModule, DataTableModule, DialogModule } from 'primeng/primeng';
+import { TableModule } from 'primeng/table';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { DialogModule } from 'primeng/dialog';
 import { BsDropdownModule, CollapseModule } from 'ngx-bootstrap';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 
@@ -40,8 +42,8 @@ import { UserDeleteComponent } from './user-delete/user-delete.component';
     SimpleNotificationsModule.forRoot(),
     AppRoutingModule,
     BreadcrumbModule,
-    DataTableModule,
     DialogModule,
+    TableModule,
     BsDropdownModule.forRoot(),
     CollapseModule.forRoot(),
   ],

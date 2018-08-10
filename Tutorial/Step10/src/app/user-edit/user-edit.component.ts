@@ -25,7 +25,7 @@ export class UserEditComponent implements OnInit {
   public isFormSaved: boolean;
 
   bcItems = [
-    { label: 'Home', routerLink: '/home' },
+    { label: 'Home', routerLink: '/home', icon: 'pi pi-home' },
     { label: 'Users', routerLink: '/user' },
     { label: 'User Edit' }
   ];;

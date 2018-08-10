@@ -6,7 +6,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 
 // Vendor modules
-import { BreadcrumbModule, DataTableModule } from 'primeng/primeng';
+import { TableModule } from 'primeng/table';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { BsDropdownModule, CollapseModule } from 'ngx-bootstrap';
 
 import { AppComponent } from './app.component';
@@ -29,7 +30,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     BrowserAnimationsModule,
     AppRoutingModule,
     BreadcrumbModule,
-    DataTableModule,
+    TableModule,
     BsDropdownModule.forRoot(),
     CollapseModule.forRoot(),
   ],

@@ -1,4 +1,4 @@
-import { Component, Renderer, ViewChild, SimpleChanges, OnChanges, OnInit, AfterViewInit, AfterViewChecked, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { User } from './user';
@@ -14,7 +14,16 @@ export class UserComponent implements OnInit {
   users: User[];
   selectedUser: User;
 
-  bcItems: any[];
+  bcItems = [
+    { label: 'Home', routerLink: '/home', icon: 'pi pi-home' },
+    { label: 'Users', }
+  ];
+
+  cols = [
+    { field: 'id', header: 'ID' },
+    { field: 'firstname', header: 'First Name' },
+    { field: 'lastname', header: 'Last Name' }
+  ];
 
   constructor(
     private router: Router,
@@ -27,11 +36,6 @@ export class UserComponent implements OnInit {
         (data: User[]) => this.users = data,
         (error) => console.log(error)
       );
-
-    this.bcItems = [
-      { label: 'Home', routerLink: '/home' },
-      { label: 'Users', }
-    ];
   }
 
   onSelect(user: User): void {

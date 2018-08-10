@@ -15,7 +15,7 @@ export class UserDetailComponent implements OnInit {
   user: User;
 
   bcItems = [
-    { label: 'Home', routerLink: '/home' },
+    { label: 'Home', routerLink: '/home', icon: 'pi pi-home' },
     { label: 'Users', routerLink: '/user' },
     { label: 'User Details' }
   ];;
