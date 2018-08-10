@@ -4,7 +4,7 @@
     "description": "",
     "main": "main.js",
     "scripts": {
-        "webpack": "webpack ./main.js ./main.bundle.js"
+        "webpack": "webpack ./js/main.js ./main.bundle.js"
     },
     "keywords": [],
     "author": "",

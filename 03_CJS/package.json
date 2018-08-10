@@ -4,8 +4,8 @@
     "description": "",
     "main": "main.js",
     "scripts": {
-        "browserify": "browserify ./main.js -o ./main.bundle.js",
-        "webpack": "webpack ./main.js ./main.bundle.js"
+        "browserify": "browserify ./js/main.js -o ./main.bundle.js",
+        "webpack": "webpack ./js/main.js ./main.bundle.js"
     },
     "keywords": [],
     "author": "",
