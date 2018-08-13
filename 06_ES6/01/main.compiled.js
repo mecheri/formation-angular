@@ -1,7 +1,7 @@
 "use strict";
 
 //#region let, const
-if ([1, 2, 3].length == 2) {
+if ([1, 2, 3].length == 3) {
     var _test = "salut";
 }
 console.log(_test); // test is undefined

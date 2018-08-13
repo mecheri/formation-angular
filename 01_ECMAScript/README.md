@@ -13,7 +13,7 @@ Version  | Description
 1999 ECMAScript 3 | RegEx et try/catch
 ECMAScript 4	  | Annulée
 2009 ECMAScript 5 | "strict mode" et support JSON.
-2015 ECMAScript 6 | Classes et modules.
+2015 ECMAScript 6 | Fonctions Flêchées, Classes, Modules --> une vraie révolution du Javascript
 2016 ECMAScript 7 | Exponential operator (**), Array.prototype.includes
 
 # Support navigateurs
@@ -25,6 +25,10 @@ ECMAScript 6 | supporté partiellement par les navigateurs
 ECMAScript 7 | supporté très faiblement par les navigateurs
 
 # Implementations navigateurs
+Aujourd’hui tous les navigateurs modernes sont capables de comprendre le Javascript de norme ES5.
+Et ils evoluent pour comprendre les normes encore plus avancées. Mais ils ne sont pas encore capables de comprendre 100% des ajouts d’ES6 et encore moins d’ES7
+
+[Quel navigateur supporte quelle fonctionnalité](http://kangax.github.io/compat-table)
 Version  | Navigateur
 ---      | ---
 6 | Chrome (support partiel)
@@ -38,6 +42,10 @@ Version  | Navigateur
 5 | Opera 15
 5 | Edge 12
 5 | IE 10
+
+Pour résoudre ces problemes et développer moderne avec ces nouveaux standards dès aujourd’hui, on utilisera des polyfills et des transpilers.
+- Polyfills: du code qui permet aux navigateurs web qui ne disposent pas certaines fonctionnalités d’ES6 ou ES7 de fonctionner correctement. 
+- Transpilers: permet de traduire du code écrit avec la syntaxe ES6 ou ES7 en code ES5 équivalent.
 
 # Programmtion Orientée Prototype
 * Est une forme de programmation orientée objet sans classe, fondée sur la notion de prototype.

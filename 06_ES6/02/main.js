@@ -10,14 +10,16 @@ console.log(lib.diag(4, 3)); // 5
 
 
 // //#region default exports: functions
-// import libFunc from 'lib';
+// import libFunc from './lib';
 // libFunc();
 // //#endregion
 
+
 // //#region default exports: classes
-// import LibClass from 'lib';
+// import LibClass from './lib';
 // let inst = new LibClass();
 // //#endregion
+
 
 // //#region default and named exports 
 // import Lib, { square, diag } from 'lib';

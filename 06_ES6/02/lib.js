@@ -10,14 +10,14 @@ export function diag(x, y) {
 
 //#region default exports: function
 // export default function() {
-//     console.log('toto');
+//     console.log('Hello from exported function');
 // }
 //#endregion
 
 //#region default exports: class
 // export default class {
 //     constructor() {
-//         console.log('toto');
+//         console.log('Hello from exported class');
 //     }
 // }
 //#endregion
