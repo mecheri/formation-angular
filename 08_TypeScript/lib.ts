@@ -1,5 +1,9 @@
 export default class Lib {
-    private options;
+    private _hello;
     constructor() {
+        this._hello = 'salut';
+    }
+    hello() {
+        return this._hello
     }
 }

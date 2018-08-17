@@ -4,6 +4,5 @@ interface Options {
 }
 
 declare module 'scroll-to' {
-    function scrollTo(x: number, y: number, options?: Options);
-    export default scrollTo;
+    export default function scrollTo(x: number, y: number, options?: Options);
 }
