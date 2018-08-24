@@ -6,8 +6,7 @@ import { SharedModule } from './../../modules/shared/shared.module';
 import { throwIfAlreadyLoaded } from './module-import-guard';
 
 // Interceptors
-import { TokenJwtInterceptor } from './interceptors/token-jwt.interceptor';
-import { AccessDeniedInterceptor } from './interceptors/access-denied.interceptor';
+import { TokenInterceptor } from './interceptors/token.interceptor';
 import { SpinnerInterceptor } from './interceptors/spinner.interceptor';
 
 // Services
@@ -51,12 +50,7 @@ import { GlobalErrorHandler } from './handlers/global-error.handler';
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: TokenJwtInterceptor,
-      multi: true
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AccessDeniedInterceptor,
+      useClass: TokenInterceptor,
       multi: true
     },
     {

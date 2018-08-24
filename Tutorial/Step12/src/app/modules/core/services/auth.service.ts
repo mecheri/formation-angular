@@ -15,7 +15,9 @@ import { HttpResponseService } from './http-response.service';
 import { Auth } from './../models/auth';
 import { User } from './../models/user';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class AuthService {
 
     // store the URL so we can redirect after logging in

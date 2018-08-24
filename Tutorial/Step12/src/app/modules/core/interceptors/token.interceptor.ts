@@ -8,22 +8,29 @@ import { tap, catchError } from 'rxjs/operators';
 
 // Services
 import { MixinService } from './../services/mixin.service';
+import { AuthService } from './../services/auth.service';
 
 /**
- * Application access denied Interceptor
+ * Application auth token Interceptor
  *
  * @export
- * @class AccessDeniedInterceptor
+ * @class TokenInterceptor
  * @implements {HttpInterceptor}
  */
 @Injectable()
-export class AccessDeniedInterceptor implements HttpInterceptor {
+export class TokenInterceptor implements HttpInterceptor {
+
+    private _addAuthHeader(request) {
+        const auth = this.injector.get(AuthService);
+        if (!auth.getToken()) { return request }
+        return request.clone({ setHeaders: { 'Authorization': `Bearer ${auth.getToken()}`, 'Content-Type': 'application/json; charset=utf-8' } });
+    }
 
     /**
-     * Creates an instance of AccessDeniedInterceptor.
+     * Creates an instance of TokenInterceptor.
      * @param {Injector} injector
      * @param {MixinService} mixinService
-     * @memberof AccessDeniedInterceptor
+     * @memberof TokenInterceptor
      */
     constructor(
         private injector: Injector,
@@ -31,6 +38,8 @@ export class AccessDeniedInterceptor implements HttpInterceptor {
     ) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        req = this._addAuthHeader(req);
+
         return next
             .handle(req)
             .pipe(
