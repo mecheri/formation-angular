@@ -88,6 +88,8 @@
 //     constructor(options: IDemo) {
 //         this.options = options;
 //     }
+//     // TypeScript ne permet pas une surcharge des constructeur 
+//     // constructor() { } 
 // }
 
 // let demo = new Demo({
