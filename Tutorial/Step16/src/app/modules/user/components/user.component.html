@@ -5,10 +5,8 @@
 
 <p-table #dt [columns]="cols" [value]="users" [paginator]="true" [rows]="5" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
     <ng-template pTemplate="caption">
-        <div style="min-height: 38px">
-            <input class="form-control" type="text" pInputText size="50" placeholder="Global filter" (input)="dt.filterGlobal($event.target.value, 'contains')">
-            <button type="button" class="btn btn-primary pull-left" (click)="add()"><i class="material-icons">note_add</i></button>
-        </div>
+        <button mz-button class="right" (click)="add()"><i class="material-icons">note_add</i></button>
+        <input class="form-control" type="text" pInputText size="50" placeholder="Global filter" (input)="dt.filterGlobal($event.target.value, 'contains')">
     </ng-template>
     <ng-template pTemplate="header" let-columns>
         <tr>
@@ -31,11 +29,9 @@
                 {{user[col.field]}}
             </td>
             <td>
-                <div class="text-center">
-                    <button type="button" (click)="detail(user)" class="btn btn-primary" style="margin-right:5px;"><i class="material-icons">search</i></button>
-                    <button type="button" (click)="edit(user)" class="btn btn-primary" style="margin-right:5px;"><i class="material-icons">edit</i></button>
-                    <button type="button" (click)="showDeleteModal(user)" class="btn btn-primary" style="margin-right:5px;"><i class="material-icons">delete_forever</i></button>
-                </div>
+                <button mz-button (click)="detail(user)" style="margin-right:5px;"><i class="material-icons">search</i></button>
+                <button mz-button (click)="edit(user)" style="margin-right:5px;"><i class="material-icons">edit</i></button>
+                <button mz-button (click)="showDeleteModal(user)" style="margin-right:5px;"><i class="material-icons">delete_forever</i></button>
             </td>
         </tr>
     </ng-template>
