@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router, CanDeactivate, CanActivate, CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-
-// Services
-import { Constants } from './../../core/services/constants.service';
-import { MixinService } from './../../core/services/mixin.service';
-import { ResourcesService } from './../../core/services/resources.service';
+import { CanDeactivate } from '@angular/router';
 
 // Components
 import { UserNewComponent } from './../components/user-new/user-new.component';
@@ -19,8 +14,7 @@ export class UserGuardService implements CanDeactivate<UserNewComponent | UserEd
      * Creates an instance of UserGuardService.
      * @memberof UserGuardService
      */
-    constructor(
-    ) { }
+    constructor() { }
 
     /**
      * Indicates if a route can be deactivated

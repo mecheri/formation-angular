@@ -1,10 +1,6 @@
-import { Component, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-
-// Services
-import { Logger } from './../services/logger.service';
-import { Constants } from './../services/constants.service';
-import { HttpResponseService } from './http-response.service';
+import { Injectable, Injector, LOCALE_ID } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import * as Hjson from 'hjson';
 
 /**
  * Service to handle global application resources
@@ -14,65 +10,42 @@ import { HttpResponseService } from './http-response.service';
  */
 @Injectable()
 export class ResourcesService {
-    public rsc: any;
+
+    private _rsc: any;
+
+    get rsc(): any {
+        return this._rsc;
+    }
 
     /**
      * Creates an instance of ResourcesService.
      * @param {HttpClient} http
-     * @param {Logger} logger
-     * @param {HttpResponseService} httpRespService
+     * @param {Injector} injector
      * @memberof ResourcesService
      */
     constructor(
         private http: HttpClient,
-        private logger: Logger,
-        private constants: Constants,
-        private httpRespService: HttpResponseService) {
-    };
+        private injector: Injector,
+    ) { }
 
     /**
-     * Load application resources
+     * Load localized resources file - by default the current app locale is used
      *
-     * @returns
+     * @param {string} [locale]
      * @memberof ResourcesService
      */
-    load() {
-        let headers = new HttpHeaders();
-        headers.append('Cache-Control', 'no-cache');
-        headers.append('Pragma', 'no-cache');
-        return new Promise(resolve => {
-            this.http
-                .get(`res/_resources.json`, { headers: headers })
-                .subscribe(
-                    (rsc) => {
-                        this.rsc = rsc;
-                        resolve(true);
-                    },
-                    (error) => this.httpRespService.handleError,
-                    () => this.logger.trace('Resources loaded')
-                );
-        });
-    }
+    load(locale?: string): void {
+        let currentLocale = this.injector.get(LOCALE_ID).split('-')[0];
+        if (locale) { currentLocale = locale.split('-')[0]; }
 
-    /**
-     * Read resources
-     *
-     * @returns
-     *
-     * @memberOf ResourcesService
-     */
-    get() {
-        return this.rsc;
-    }
+        const headers = new HttpHeaders()
+            .append('Cache-Control', 'no-cache')
+            .append('Pragma', 'no-cache');
 
-    /**
-     * Read user context data
-     *
-     * @returns
-     *
-     * @memberOf ResourcesService
-     */
-    getUserContext() {
-        return JSON.parse(localStorage.getItem(this.constants.APP_USER));
+        this.http.get(`resources/resources.${currentLocale}.hjson`, { headers: headers, responseType: 'text' }).subscribe(
+            res => this._rsc = Hjson.parse(res),
+            (error) => { throw error; },
+            () => console.log('Resources loaded')
+        );
     }
 }

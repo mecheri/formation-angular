@@ -1,4 +1,4 @@
-import { NgModule, Optional, SkipSelf, ErrorHandler, APP_INITIALIZER } from '@angular/core';
+import { NgModule, Optional, SkipSelf, ErrorHandler, APP_INITIALIZER, LOCALE_ID } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SharedModule } from './../../modules/shared/shared.module';
 
@@ -23,6 +23,9 @@ import { SettingsFactory } from './factories/settings.factory';
 // Handlers
 import { GlobalErrorHandler } from './handlers/global-error.handler';
 
+// Environment
+import { environment } from '../../../environments/environment';
+
 @NgModule({
   imports: [
     HttpClientModule,
@@ -35,6 +38,10 @@ import { GlobalErrorHandler } from './handlers/global-error.handler';
   providers: [
     NotificationsService,
     SettingsService,
+    {
+      provide: LOCALE_ID,
+      useValue: environment.locale
+    },
     {
       provide: APP_INITIALIZER,
       useFactory: SettingsFactory,

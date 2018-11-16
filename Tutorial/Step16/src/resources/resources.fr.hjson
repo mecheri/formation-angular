@@ -1,0 +1,52 @@
+{
+    pages: {
+        login: {
+            title: ANGULAR CLI STARTER
+            subTitle: Authentication
+            loginPLH: Username
+            passwordPLH: Password
+            buttons: {
+                connect: CONNECTION
+                register: REGISTER
+            }
+        },
+        register: {
+            title: ANGULAR CLI STARTER
+            subTitle: Authentication
+            loginPLH: Username*
+            passwordPLH: Password*
+            email: Email*
+            firstname: First Name*
+            lastname: Last Name*
+            buttons: {
+                save: REGISTER
+                cancel: CANCEL
+            }
+        },
+        user: {
+            title: Users,
+            titleView: User Detail
+            titleNew: New User
+            titleEdit: Edit User
+            titleDelete: Delete User
+            login: Username*
+            password: Password*
+            email: Email*
+            firstname: First Name
+            lastname: Last Name
+            table: {
+                id: ID
+                username: Username
+                email: Email
+                firstname: First Name
+                lastname: Last Name
+            },
+            buttons: {
+                save: SAVE
+                cancel: CANCEL
+                edit: EDIT
+                delete: DELETE
+            }
+        }
+    }
+}

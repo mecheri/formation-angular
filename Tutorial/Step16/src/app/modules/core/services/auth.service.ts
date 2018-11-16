@@ -57,7 +57,7 @@ export class AuthService {
         let body = urlSearchParams.toString();
         let headers = new HttpHeaders().set('Content-Type', 'application/json-patch+json');
         return this.http
-            .post<HttpResponse<any>>(`${this.settingsService.get().apiUrl}/api/Auth/login`,
+            .post<HttpResponse<any>>(`${this.settingsService.config.apiUrl}/api/Auth/login`,
                 auth, { headers: headers })
             .pipe(
                 map((res: any) => {
@@ -80,7 +80,7 @@ export class AuthService {
         const body = JSON.stringify(user);
         let headers = new HttpHeaders().set('Content-Type', 'application/json-patch+json');
         return this.http
-            .post(`${this.settingsService.get().apiUrl}/api/User`, user, { headers: headers })
+            .post(`${this.settingsService.config.apiUrl}/api/User`, user, { headers: headers })
             .pipe(catchError(this.httpRespService.handleError));
     }
 

@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
      * @memberof LoginComponent
      */
     loadResources() {
-        this.rsc = this.rscService.get().pages.login;
+        this.rsc = this.rscService.rsc.pages.login;
     }
 
     /**

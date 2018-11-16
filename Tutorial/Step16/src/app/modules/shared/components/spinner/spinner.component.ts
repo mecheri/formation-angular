@@ -4,8 +4,9 @@ import { Subscription } from 'rxjs';
 import { SpinnerState, Spinner } from './../../../core/services/spinner.service';
 
 @Component({
-  selector: 'spinner',
+  selector: 'app-spinner',
   templateUrl: './spinner.component.html',
+  styleUrls: ['./spinner.component.scss']
 })
 export class SpinnerComponent implements OnInit, OnDestroy {
   private visible: boolean;

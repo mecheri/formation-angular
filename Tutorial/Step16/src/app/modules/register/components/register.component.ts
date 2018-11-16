@@ -81,7 +81,7 @@ export class RegisterComponent implements OnInit {
      * @memberof RegisterComponent
      */
     loadResources() {
-        this.rsc = this.rscService.get().pages.register;
+        this.rsc = this.rscService.rsc.pages.register;
     }
 
     /**

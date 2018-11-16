@@ -1,10 +1,8 @@
-import { Component, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import * as Hjson from 'hjson';
 
-// Services
-import { Logger } from './../services/logger.service';
-import { HttpResponseService } from './../services/http-response.service';
-
+// export const Hjson = require('hjson');
 /**
  * App config interface
  *
@@ -23,53 +21,42 @@ interface IConfig {
  */
 @Injectable()
 export class SettingsService {
-    public config: IConfig;
 
-    /**
-     * Creates an instance of SettingsService.
-     * @param {HttpClient} http
-     * @param {Logger} logger
-     * @param {HttpResponseService} httpRespService
-     * @memberof SettingsService
-     */
-    constructor(
-        private http: HttpClient,
-        private logger: Logger,
-        private httpRespService: HttpResponseService
-    ) { }
-
-    /**
-     * Load Application Settings
-     *
-     * @returns
-     * @memberof SettingsService
-     */
-    load() {
-        let headers = new HttpHeaders();
-        headers.set('Cache-Control', 'no-cache');
-        headers.set('Pragma', 'no-cache');
-        return new Promise(resolve => {
-            this.http
-                .get(`res/_settings.json`, { headers: headers })
-                .subscribe(
-                    (config: IConfig) => {
-                        this.config = config;
-                        resolve(true);
-                    },
-                    (error) => this.httpRespService.handleError,
-                    () => this.logger.trace('Settings loaded')
-                );
-        });
-    }
+    private _config: IConfig;
 
     /**
      * Read settings
      *
-     * @returns
-     *
-     * @memberOf SettingsService
+     * @readonly
+     * @type {IConfig}
+     * @memberof SettingsService
      */
-    get() {
-        return this.config;
+    get config(): IConfig {
+        return this._config;
+    }
+
+    /**
+     *Creates an instance of SettingsService.
+     * @param {HttpClient} http
+     * @memberof SettingsService
+     */
+    constructor(private http: HttpClient) { }
+
+
+    /**
+     * Load Application Settings
+     *
+     * @memberof SettingsService
+     */
+    load(): void {
+        const headers = new HttpHeaders()
+            .append('Cache-Control', 'no-cache')
+            .append('Pragma', 'no-cache');
+
+        this.http.get(`resources/settings.hjson`, { headers: headers, responseType: 'text' }).subscribe(
+            res => this._config = Hjson.parse(res),
+            (error) => { throw error; },
+            () => console.log('Settings loaded')
+        );
     }
 }
