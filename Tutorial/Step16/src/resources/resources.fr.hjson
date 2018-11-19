@@ -12,8 +12,8 @@
         },
         register: {
             title: ANGULAR CLI STARTER
-            subTitle: Authentication
-            loginPLH: Username*
+            subTitle: Registration
+            usernamePLH: Username*
             passwordPLH: Password*
             email: Email*
             firstname: First Name*
@@ -21,6 +21,24 @@
             buttons: {
                 save: REGISTER
                 cancel: CANCEL
+            }
+            validation: {
+                username: {
+                    required: 'Login is required.',
+                }
+                password: {
+                    required: 'Password is required.',
+                },
+                email: {
+                    required: 'Email is required.',
+                    email: 'Invalid Email',
+                },
+                firstname: {
+                    required: 'First name is required.',
+                },
+                lastname: {
+                    required: 'Last name is required.',
+                },
             }
         },
         user: {

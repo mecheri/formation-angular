@@ -1,2 +1,11 @@
 @import '~materialize-css/dist/css/materialize.min.css';
 @import './../assets/fonts/material-icons/material-icons.css';
+button {
+    margin-right: 5px;
+}
+
+.card-panel {
+    &.red {
+        color: #fff;
+    }
+}

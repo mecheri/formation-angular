@@ -29,7 +29,6 @@ import { User } from './../../core/models/user';
 })
 export class RegisterComponent implements OnInit {
     private rsc: any;
-    private user: User;
     private registerForm: FormGroup;
 
     get username() { return this.registerForm.get('username'); }
@@ -61,9 +60,7 @@ export class RegisterComponent implements OnInit {
         private mixinService: MixinService,
         private rscService: ResourcesService,
         private authService: AuthService
-    ) {
-        this.user = new User();
-    }
+    ) { }
 
     /**
      * Component init
@@ -116,7 +113,7 @@ export class RegisterComponent implements OnInit {
      */
     save() {
         this.spinner.show();
-        this.authService.register(this.user)
+        this.authService.register(this.registerForm.value)
             .pipe(finalize(() => this.spinner.hide()))
             .subscribe(
                 resp => {

@@ -1,4 +1,4 @@
-<div class="container-fluid text-center">
+<!-- <div class="container-fluid text-center">
     <div class="row col-md-6 col-md-offset-3" style="margin-top:2%">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -76,7 +76,44 @@
             </div>
         </div>
     </div>
+</div> -->
+
+
+<div class="container">
+
+    <h3>{{ rsc.title }}</h3>
+    <div class="divider"></div>
+
+    <h2>{{ rsc.subTitle }}</h2>
+
+    <form [formGroup]="registerForm" (ngSubmit)="save()" novalidate>
+        <div class="row">
+            <mz-input-container class="col s12 m12">
+                <input mz-input mz-validation required id="username" formControlName="username" type="text" [errorMessageResource]="rsc.validation.username" [label]="rsc.usernamePLH" [placeholder]="rsc.usernamePLH" />
+            </mz-input-container>
+
+            <mz-input-container class="col s12 m12">
+                <input mz-input mz-validation required id="password" formControlName="password" type="password" [errorMessageResource]="rsc.validation.password" [label]="rsc.passwordPLH" [placeholder]="rsc.passwordPLH" />
+            </mz-input-container>
+
+            <mz-input-container class="col s12 m12">
+                <input mz-input mz-validation required id="email" formControlName="email" type="text" [errorMessageResource]="rsc.validation.email" [label]="rsc.email" [placeholder]="rsc.email" />
+            </mz-input-container>
+
+            <mz-input-container class="col s12 m12">
+                <input mz-input mz-validation required id="firstname" formControlName="firstname" type="text" [errorMessageResource]="rsc.validation.firstname" [label]="rsc.firstname" [placeholder]="rsc.firstname" />
+            </mz-input-container>
+
+            <mz-input-container class="col s12 m12">
+                <input mz-input mz-validation required id="lastname" formControlName="lastname" type="text" [errorMessageResource]="rsc.validation.lastname" [label]="rsc.lastname" [placeholder]="rsc.lastname" />
+            </mz-input-container>
+        </div>
+
+        <button mz-button class="red" (click)="cancel()" type="button">{{ rsc.buttons.cancel }}</button>
+        <button mz-button [disabled]="!registerForm.valid" type="submit">{{ rsc.buttons.save }}</button>
+    </form>
 </div>
+
 
 <!-- notify -->
 <simple-notifications></simple-notifications>
