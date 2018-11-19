@@ -22,7 +22,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
     private _addAuthHeader(request) {
         const auth = this.injector.get(AuthService);
-        if (!auth.getToken()) { return request }
+        if (!auth.getToken()) { return request; }
         return request.clone({ setHeaders: { 'Authorization': `Bearer ${auth.getToken()}`, 'Content-Type': 'application/json; charset=utf-8' } });
     }
 

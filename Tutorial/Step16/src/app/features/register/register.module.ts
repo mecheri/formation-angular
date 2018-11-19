@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from './../../modules/shared/shared.module';
+import { SharedModule } from './../../shared/shared.module';
 
 // Components
 import { RegisterComponent } from './components/register.component';

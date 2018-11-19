@@ -17,11 +17,11 @@ const indexRoutes: Routes = [
       },
       {
         path: 'home',
-        loadChildren: './../../modules/home/home.module#HomeModule',
+        loadChildren: './../../features/home/home.module#HomeModule',
       },
       {
         path: 'user',
-        loadChildren: './../../modules/user/user.module#UserModule',
+        loadChildren: './../../features/user/user.module#UserModule',
       }
     ]
   }

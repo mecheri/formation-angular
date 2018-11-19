@@ -1,5 +1,5 @@
-import { Component, ViewChild, OnInit, AfterViewInit, HostBinding } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, FormBuilder, Validators, ValidatorFn } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 // RxJS
@@ -7,15 +7,12 @@ import { finalize } from 'rxjs/operators';
 
 // Services
 import { NotificationsService } from 'angular2-notifications';
-import { Logger } from '../../core/services/logger.service';
-import { Spinner } from '../../core/services/spinner.service';
-import { Constants } from './../../core/services/constants.service';
-import { MixinService } from '../../core/services/mixin.service';
-import { ResourcesService } from '../../core/services/resources.service';
-import { AuthService } from './../../core/services/auth.service';
-
-// Models
-import { User } from './../../core/models/user';
+import { Logger } from '../../../core/services/logger.service';
+import { Spinner } from '../../../core/services/spinner.service';
+import { Constants } from '../../../core/services/constants.service';
+import { MixinService } from '../../../core/services/mixin.service';
+import { ResourcesService } from '../../../core/services/resources.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 /**
  * Register Component
@@ -116,7 +113,7 @@ export class RegisterComponent implements OnInit {
         this.authService.register(this.registerForm.value)
             .pipe(finalize(() => this.spinner.hide()))
             .subscribe(
-                resp => {
+                () => {
                     this.notifService.success(null, 'Inscription effectuée avec succès', { timeOut: 3000 });
                     this.mixinService.startTimer(3000).then(() => this.router.navigate(['login']));
                 },

@@ -5,12 +5,12 @@ import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 
 // Services
-import { Spinner } from './../../core/services/spinner.service';
-import { AuthService } from './../../core/services/auth.service';
-import { ResourcesService } from './../../core/services/resources.service';
+import { Spinner } from './../../../core/services/spinner.service';
+import { AuthService } from './../../../core/services/auth.service';
+import { ResourcesService } from './../../../core/services/resources.service';
 
 // Models
-import { Auth } from './../../core/models/auth';
+import { Auth } from './../../../core/models/auth';
 
 /**
  * Login Componenet
