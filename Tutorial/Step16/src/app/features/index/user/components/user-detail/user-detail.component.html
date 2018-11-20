@@ -1,0 +1,28 @@
+<p-breadcrumb [model]="bcItems"></p-breadcrumb>
+
+<h2>User Details : </h2>
+
+<div class="row">
+    <mz-input-container class="col s12 m12">
+        <input mz-input id="username" type="text" [(ngModel)]="user.username" [label]="rsc.username" [placeholder]="rsc.username" disabled/>
+    </mz-input-container>
+
+    <mz-input-container class="col s12 m12">
+        <input mz-input id="password" type="password" [(ngModel)]="user.password" [label]="rsc.password" [placeholder]="rsc.password" disabled/>
+    </mz-input-container>
+
+    <mz-input-container class="col s12 m12">
+        <input mz-input id="email" [(ngModel)]="user.email" [label]="rsc.email" [placeholder]="rsc.email" disabled/>
+    </mz-input-container>
+
+    <mz-input-container class="col s12 m12">
+        <input mz-input id="firstname" [(ngModel)]="user.firstname" [label]="rsc.firstname" [placeholder]="rsc.firstname" disabled/>
+    </mz-input-container>
+
+    <mz-input-container class="col s12 m12">
+        <input mz-input id="lastname" [(ngModel)]="user.lastname" [label]="rsc.lastname" [placeholder]="rsc.lastname" disabled/>
+    </mz-input-container>
+</div>
+
+<button mz-button class="blue-grey lighten-1" (click)="cancel()" type="button">CANCEL</button>
+<button mz-button (click)="edit()">EDIT</button>

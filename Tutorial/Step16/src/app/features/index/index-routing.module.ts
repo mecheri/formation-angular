@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
-import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // Components
-import { IndexComponent } from './components/index.component';
+import { IndexComponent } from './index.component';
 
 const indexRoutes: Routes = [
   {
@@ -17,11 +16,11 @@ const indexRoutes: Routes = [
       },
       {
         path: 'home',
-        loadChildren: './../../features/home/home.module#HomeModule',
+        loadChildren: './home/home.module#HomeModule',
       },
       {
         path: 'user',
-        loadChildren: './../../features/user/user.module#UserModule',
+        loadChildren: './user/user.module#UserModule',
       }
     ]
   }

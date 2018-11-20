@@ -14,7 +14,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import { BsDropdownModule, CollapseModule } from 'ngx-bootstrap';
 
 // Ngx Materialize
-import { MzNavbarModule, MzInputModule, MzSelectModule, MzTimepickerModule, MzButtonModule, MzValidationModule, MzProgressModule, MzSpinnerModule } from 'ngx-materialize'
+import { MzNavbarModule, MzInputModule, MzSelectModule, MzTimepickerModule, MzButtonModule, MzValidationModule, MzSpinnerModule, MzModalModule } from 'ngx-materialize'
 
 // Custom components
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -38,7 +38,6 @@ import { FooterComponent } from './components/footer/footer.component';
     MzTimepickerModule,
     MzButtonModule,
     MzValidationModule,
-    MzProgressModule,
     MzSpinnerModule
   ],
   declarations: [
@@ -65,7 +64,6 @@ import { FooterComponent } from './components/footer/footer.component';
     MzTimepickerModule,
     MzButtonModule,
     MzValidationModule,
-    MzProgressModule,
     MzSpinnerModule
   ],
   providers: []

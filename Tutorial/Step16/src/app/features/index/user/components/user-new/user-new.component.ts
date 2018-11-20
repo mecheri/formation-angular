@@ -3,6 +3,7 @@ import { AbstractControl, FormControl, FormGroup, FormBuilder, Validators, Valid
 import { Router } from '@angular/router';
 
 import { UserService } from './../../services/user.service';
+import { ResourcesService } from '../../../../../core/services/resources.service';
 import { NotificationsService } from 'angular2-notifications';
 
 @Component({
@@ -11,7 +12,7 @@ import { NotificationsService } from 'angular2-notifications';
   styleUrls: ['./user-new.component.scss']
 })
 export class UserNewComponent implements OnInit {
-
+  rsc: any;
   creationForm: FormGroup;
 
   get username() { return this.creationForm.get('username'); }
@@ -26,17 +27,32 @@ export class UserNewComponent implements OnInit {
     { label: 'Home', routerLink: '/home', icon: 'pi pi-home' },
     { label: 'Users', routerLink: '/user' },
     { label: 'User New' }
-  ];;
+  ];
 
+  /**
+   * Creates an instance of UserNewComponent.
+   * @param {Router} router
+   * @param {FormBuilder} fb
+   * @param {UserService} userService
+   * @param {ResourcesService} rscService
+   * @param {NotificationsService} notifService
+   * @memberof UserNewComponent
+   */
   constructor(
     private router: Router,
     private fb: FormBuilder,
     private userService: UserService,
+    private rscService: ResourcesService,
     private notifService: NotificationsService
   ) { }
 
   ngOnInit() {
+    this.loadResources();
     this.createForm();
+  }
+
+  loadResources() {
+    this.rsc = this.rscService.rsc.pages.user;
   }
 
   createForm() {

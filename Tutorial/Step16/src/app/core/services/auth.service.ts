@@ -1,8 +1,9 @@
-import { Component, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpResponse, HttpRequest } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 // RxJS
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 // Services
@@ -26,6 +27,7 @@ export class AuthService {
     /**
      * Creates an instance of AuthService.
      * @param {HttpClient} http
+     * @param {Router} router
      * @param {Logger} logger
      * @param {Constants} constants
      * @param {SettingsService} settingsService
@@ -34,6 +36,7 @@ export class AuthService {
      */
     constructor(
         private http: HttpClient,
+        private router: Router,
         private logger: Logger,
         private constants: Constants,
         private settingsService: SettingsService,
@@ -51,45 +54,38 @@ export class AuthService {
      * @memberOf AuthService
      */
     check(auth: Auth): Observable<any> {
-        let urlSearchParams = new URLSearchParams();
-        urlSearchParams.append('username', auth.username);
-        urlSearchParams.append('password', auth.password);
-        let body = urlSearchParams.toString();
         let headers = new HttpHeaders().set('Content-Type', 'application/json-patch+json');
         return this.http
             .post<HttpResponse<any>>(`${this.settingsService.config.apiUrl}/api/Auth/login`,
-                auth, { headers: headers })
+            auth, { headers: headers })
             .pipe(
                 map((res: any) => {
                     this.storeToken(res.token);
                     this.storeUserContext({ username: res.username });
                     this.logger.trace('Auth is done');
                 }),
-                catchError(this.httpRespService.handleError)
+                catchError((error) => throwError(error.error.message))
             );
     }
 
     /**
      * Register user
-     * 
-     * @param {User} user 
-     * @returns {Observable<any>} 
+     *
+     * @param {User} user
+     * @returns {Observable<any>}
      * @memberof AuthService
      */
     register(user: User): Observable<any> {
-        const body = JSON.stringify(user);
         let headers = new HttpHeaders().set('Content-Type', 'application/json-patch+json');
         return this.http
-            .post(`${this.settingsService.config.apiUrl}/api/User`, user, { headers: headers })
-            .pipe(catchError(this.httpRespService.handleError));
+            .post(`${this.settingsService.config.apiUrl}/api/User`, user, { headers: headers });
     }
 
     /**
      * Stockage du token d'authentification
      *
      * @param {*} token
-     *
-     * @memberOf AuthService
+     * @memberof AuthService
      */
     storeToken(token: any) {
         if (token) {
@@ -111,8 +107,7 @@ export class AuthService {
      * Stockage des données de l'utilisateur courant
      *
      * @param {*} data
-     *
-     * @memberOf AuthService
+     * @memberof AuthService
      */
     storeUserContext(data: any) {
         if (data) { localStorage.setItem(this.constants.APP_USER, JSON.stringify(data)); }
@@ -122,10 +117,41 @@ export class AuthService {
      * Vérifie si l'utilisateur est connecté
      *
      * @returns
-     *
-     * @memberOf AuthService
+     * @memberof AuthService
      */
     isLoggedIn() {
         return localStorage.getItem(this.constants.ACCESS_TOKEN) !== null;
+    }
+
+    /**
+     * Set authorisation headers
+     *
+     * @param {HttpRequest<any>} request
+     * @returns
+     * @memberof AuthService
+     */
+    addAuthorizationHeader(request: HttpRequest<any>) {
+        if (!this.getToken()) { return request; }
+        return request.clone({ setHeaders: { 'Authorization': `Bearer ${this.getToken()}`, 'Content-Type': 'application/json; charset=utf-8' } });
+    }
+
+    /**
+     * Clear local storage data
+     *
+     * @memberof AuthService
+     */
+    clearLocalStorageData(): void {
+        localStorage.removeItem(this.constants.APP_USER);
+        localStorage.removeItem(this.constants.ACCESS_TOKEN);
+    }
+
+    /**
+     * Logout from app
+     *
+     * @memberof AuthService
+     */
+    logout(): void {
+        this.clearLocalStorageData();
+        this.router.navigate(['login']);
     }
 }

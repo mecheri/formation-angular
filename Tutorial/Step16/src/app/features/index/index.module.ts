@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from './../../shared/shared.module';
 
 // Components
-import { IndexComponent } from './components/index.component';
+import { IndexComponent } from './index.component';
 
 // Routing Module
 import { IndexRoutingModule } from "./index-routing.module";

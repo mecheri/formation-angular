@@ -1,9 +1,10 @@
-import { ErrorHandler, Injectable, Injector } from '@angular/core';
+import { ErrorHandler, Injectable, Injector, NgZone } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 // Services
 import { Logger } from '../services/logger.service';
+import { AuthService } from '../services/auth.service';
 import { NotificationsService } from 'angular2-notifications';
 
 @Injectable()
@@ -11,7 +12,8 @@ export class GlobalErrorHandler implements ErrorHandler {
 
     constructor(
         // Le ErrorHandler étant créé avant les services, nous utilisons l'injecteur pour les récupérer
-        private injector: Injector
+        private injector: Injector,
+        private zone: NgZone
     ) { }
 
     /**
@@ -23,6 +25,7 @@ export class GlobalErrorHandler implements ErrorHandler {
     handleError(error: Error | HttpErrorResponse): void {
         const router: Router = this.injector.get(Router);
         const logger: Logger = this.injector.get(Logger);
+        const authService: AuthService = this.injector.get(AuthService);
         const notifier: NotificationsService = this.injector.get(NotificationsService);
 
         // Log the error anyway
@@ -35,9 +38,15 @@ export class GlobalErrorHandler implements ErrorHandler {
                 // Pas de connexion à internet
                 notifier.alert('No Internet Connection');
             } else {
-                // Erreur HTTP (error.status === 403, 404...)
-                // On affiche une alerte à l'utilisateur
-                notifier.error('Erreur', error.error.message);
+                if (router.url !== 'login' && [401, 403].includes(error.status)) {
+                    // Erreur HTTP (error.status === 401, 403)
+                    // Déconnexion
+                    this.zone.run(() => authService.logout());
+                } else {
+                    // Erreur HTTP (error.status === 404, 400, 500...)
+                    // On affiche une alerte à l'utilisateur
+                    notifier.error('Erreur', error.error.message);
+                }
             }
         } else {
             // Erreur JS coté client (Angular Error, ReferenceError...)

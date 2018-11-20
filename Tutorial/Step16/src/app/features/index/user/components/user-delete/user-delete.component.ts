@@ -1,6 +1,7 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { User } from './../../models/user';
 import { UserService } from './../../services/user.service';
+import { ResourcesService } from '../../../../../core/services/resources.service';
 import { NotificationsService } from 'angular2-notifications';
 
 @Component({
@@ -9,17 +10,32 @@ import { NotificationsService } from 'angular2-notifications';
   styleUrls: ['./user-delete.component.scss']
 })
 export class UserDeleteComponent implements OnInit {
+  private rsc: any;
 
   @Input('data') user: User;
   @Input() display: boolean;
   @Output() onAction = new EventEmitter<boolean>();
 
+  /**
+   * Creates an instance of UserDeleteComponent.
+   * @param {UserService} userService
+   * @param {ResourcesService} rscService
+   * @param {NotificationsService} notifService
+   * @memberof UserDeleteComponent
+   */
   constructor(
     private userService: UserService,
+    private rscService: ResourcesService,
     private notifService: NotificationsService
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.loadResources();
+  }
+
+  loadResources() {
+    this.rsc = this.rscService.rsc.pages.register;
+  }
 
   cancel() {
     this.onAction.emit(false);

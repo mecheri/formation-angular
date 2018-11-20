@@ -2,6 +2,7 @@
 import { Router } from '@angular/router';
 
 // RxJS
+import { throwError } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
 // Services
@@ -26,7 +27,7 @@ export class LoginComponent implements OnInit {
     // props
     rsc: any;
     model: Auth;
-    message: string;
+    errorMessage: any;
 
     /**
      * Creates an instance of LoginComponent.
@@ -47,7 +48,7 @@ export class LoginComponent implements OnInit {
 
     /**
      * Component Init
-     * 
+     *
      * @memberof LoginComponent
      */
     ngOnInit() {
@@ -65,7 +66,7 @@ export class LoginComponent implements OnInit {
 
     /**
      * Login to the app.
-     * 
+     *
      * @memberof LoginComponent
      */
     login() {
@@ -74,13 +75,16 @@ export class LoginComponent implements OnInit {
             .pipe(finalize(() => this.spinner.hide()))
             .subscribe(
                 () => this.router.navigate(['home']),
-                (error) => this.message = error
+                (error) => {
+                    console.log(error);
+                    this.errorMessage = error;
+                }
             );
     }
 
     /**
      * Go to register page.
-     * 
+     *
      * @memberof LoginComponent
      */
     register() {
@@ -89,8 +93,8 @@ export class LoginComponent implements OnInit {
 
     /**
      * Event handle on enter keypress event
-     * 
-     * @param {number} keyCode 
+     *
+     * @param {number} keyCode
      * @memberof LoginComponent
      */
     eventHandler(keyCode: number) {

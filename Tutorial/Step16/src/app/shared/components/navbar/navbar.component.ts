@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
-import { Constants } from '../../../core/services/constants.service';
+
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +14,7 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private constants: Constants,
+    private authService: AuthService,
   ) {
     this.initItems();
   }
@@ -38,8 +39,6 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem(this.constants.ACCESS_TOKEN);
-    localStorage.removeItem(this.constants.APP_USER);
-    this.router.navigate(["/login"]);
+    this.authService.logout();
   }
 }

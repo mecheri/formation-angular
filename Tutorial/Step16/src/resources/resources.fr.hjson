@@ -13,11 +13,11 @@
         register: {
             title: ANGULAR CLI STARTER
             subTitle: Registration
-            usernamePLH: Username*
-            passwordPLH: Password*
-            email: Email*
-            firstname: First Name*
-            lastname: Last Name*
+            usernamePLH: Username
+            passwordPLH: Password
+            email: Email
+            firstname: First Name
+            lastname: Last Name
             buttons: {
                 save: REGISTER
                 cancel: CANCEL
@@ -47,9 +47,9 @@
             titleNew: New User
             titleEdit: Edit User
             titleDelete: Delete User
-            login: Username*
-            password: Password*
-            email: Email*
+            username: Username
+            password: Password
+            email: Email
             firstname: First Name
             lastname: Last Name
             table: {
@@ -64,6 +64,25 @@
                 cancel: CANCEL
                 edit: EDIT
                 delete: DELETE
+            }
+            validation: {
+                username: {
+                    required: 'User name is required.',
+                }
+                password: {
+                    required: 'Password is required.',
+                },
+                email: {
+                    required: 'Email is required.',
+                    email: 'Invalid Email',
+                },
+                firstname: {
+                    required: 'First name is required.',
+                    forbidden: 'Unauthorized string.',
+                },
+                lastname: {
+                    required: 'Last name is required.',
+                }
             }
         }
     }

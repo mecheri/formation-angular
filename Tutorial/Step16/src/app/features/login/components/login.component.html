@@ -4,16 +4,16 @@
 
     <h2>{{ rsc.subTitle }}</h2>
 
-    <div *ngIf="message" class="card-panel red lighten-1">{{ message }}</div>
+    <div *ngIf="errorMessage" class="card-panel red lighten-1">{{ errorMessage }}</div>
 
     <div (keypress)="eventHandler($event.keyCode)">
         <div class="row">
             <mz-input-container class="col s12 m12">
-                <input mz-input type="text" [(ngModel)]="model.username" [placeholder]="rsc.loginPLH" />
+                <input mz-input type="text" [(ngModel)]="model.username" [label]="rsc.loginPLH" [placeholder]="rsc.loginPLH" />
             </mz-input-container>
 
             <mz-input-container class="col s12 m12">
-                <input mz-input type="password" [(ngModel)]="model.password" [placeholder]="rsc.passwordPLH" />
+                <input mz-input type="password" [(ngModel)]="model.password" [label]="rsc.loginPLH" [placeholder]="rsc.passwordPLH" />
             </mz-input-container>
         </div>
 

@@ -4,3 +4,8 @@
 a.ui-menuitem-link.ui-state-active {
     background-color: transparent !important;
 }
+.ui-breadcrumb {
+    &.ui-corner-all {
+        border-radius: 0px;
+    }
+}

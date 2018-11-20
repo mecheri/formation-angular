@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
-// Services 
+// Services
 import { UserService } from './../../services/user.service';
+import { ResourcesService } from '../../../../../core/services/resources.service';
 import { NotificationsService } from 'angular2-notifications';
 
 // Models
@@ -15,7 +16,7 @@ import { User } from './../../models/user';
   styleUrls: ['./user-edit.component.scss']
 })
 export class UserEditComponent implements OnInit {
-
+  rsc: any;
   user: User;
   userId: number;
   editForm: FormGroup;
@@ -34,18 +35,35 @@ export class UserEditComponent implements OnInit {
     { label: 'User Edit' }
   ];;
 
+
+  /**
+   *Creates an instance of UserEditComponent.
+   * @param {Router} router
+   * @param {ActivatedRoute} route
+   * @param {FormBuilder} fb
+   * @param {UserService} userService
+   * @param {ResourcesService} rscService
+   * @param {NotificationsService} notifService
+   * @memberof UserEditComponent
+   */
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private userService: UserService,
+    private rscService: ResourcesService,
     private notifService: NotificationsService
   ) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => this.userId = +params['id']);
+    this.loadResources();
     this.getUser();
     this.createForm();
+  }
+
+  loadResources() {
+      this.rsc = this.rscService.rsc.pages.user;
   }
 
   getUser(): void {

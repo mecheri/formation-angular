@@ -1,9 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Location } from '@angular/common';
-import { NgForm } from '@angular/forms';
-
-// Constants
-import { Constants } from './constants.service';
 
 /**
  * Application mixin service
@@ -28,45 +23,11 @@ export class MixinService {
      *
      * @memberOf MixinService
      */
-    constructor(
-        private location: Location,
-        private constants: Constants,
-    ) {
-        this.fr = {
-            firstDayOfWeek: 0,
-            dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
-            dayNamesShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
-            dayNamesMin: ['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa'],
-            monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
-            monthNamesShort: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jui', 'Juil', 'Auo', 'Sep', 'Oct', 'Nov', 'Dec']
-        };
+    constructor() {
         this.notifOpts = {
             position: ['bottom', 'right'],
             clickToClose: true,
             maxLength: 100
-        };
-        this.emptyMessage = 'Aucun résultat trouvé';
-    }
-
-    /**
-     * Get calender options
-     *
-     * @param {((date: string) => void)} onClose
-     * @returns {*}
-     * @memberof MixinService
-     */
-    calendarOpts(onClose: ((date: string) => void)): any {
-        return {
-            altFormat: 'dd/mm/yy',
-            dateFormat: 'dd/mm/yy',
-            yearRange: '1900:+1',
-            changeYear: true,
-            changeMonth: true,
-            dayNamesMin: ['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa'],
-            dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
-            monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
-            monthNamesShort: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
-            onClose: onClose,
         };
     }
 
@@ -256,42 +217,6 @@ export class MixinService {
 
         // other browsers
         return false;
-    }
-
-    /**
-     * Get percentage
-     *
-     * @param {number} num
-     * @param {number} total
-     * @returns {number}
-     * @memberof MixinService
-     */
-    per(num: number, total: number, precision?: number): number {
-        return (total && total > 0) ? (this.round((num * 100 / total), precision || 0)) : 0;
-    }
-
-    /**
-     * Add round with precision
-     *
-     * @param {number} value
-     * @param {number} precision
-     * @returns {number}
-     * @memberof MixinService
-     */
-    round(value: number, precision: number): number {
-        const multiplier = Math.pow(10, precision || 0);
-        return Math.round(value * multiplier) / multiplier;
-    }
-
-    /**
-     * Clear local storage data
-     *
-     * @memberof MixinService
-     */
-    clearLocalStorageData(): void {
-        localStorage.removeItem(this.constants.APP_USER);
-        localStorage.removeItem(this.constants.ACCESS_TOKEN);
-        localStorage.removeItem(this.constants.ACCESS_TOKEN_DURATION);
     }
 }
 

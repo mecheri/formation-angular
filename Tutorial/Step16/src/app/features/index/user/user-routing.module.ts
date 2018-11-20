@@ -5,7 +5,6 @@ import { UserComponent } from './components/user.component';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
 import { UserNewComponent } from './components/user-new/user-new.component';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
-import { UserDeleteComponent } from './components/user-delete/user-delete.component';
 
 // Services
 import { UserGuardService } from './services/user-guard.service';

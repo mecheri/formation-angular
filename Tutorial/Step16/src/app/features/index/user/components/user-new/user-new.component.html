@@ -1,39 +1,35 @@
-<div class="breadcrumb-wrapper">
-    <p-breadcrumb [model]="bcItems"></p-breadcrumb>
-</div>
-<h2>User Edit : </h2>
+<p-breadcrumb [model]="bcItems"></p-breadcrumb>
 
-<div class="row">
-    <div class="col-md-8">
-        <form *ngIf="user" [formGroup]="editForm" (ngSubmit)="save()" novalidate>
+<h2>User New : </h2>
+
+<!-- OLD VERSION -->
+<!-- <form [formGroup]="creationForm" (ngSubmit)="save()" novalidate>
             <div [class.has-error]="username.invalid && (username.dirty || username.touched)">
                 <div class="form-group">
                     <input name="username" id="username" class="form-control" formControlName="username" placeholder="User Name">
                     <div *ngIf="username.invalid && (username.dirty || username.touched)">
                         <div *ngIf="username.errors.required">
-                            <span class="help-block">Ce champ est obligatoir</span>
+                            <span class="help-block">Ce champ est obligatoire</span>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div [class.has-error]="password.invalid && (username.dirty || username.touched)">
+            <div [class.has-error]="password.invalid && (password.dirty || password.touched)">
                 <div class="form-group">
                     <input name="password" id="password" type="password" class="form-control" formControlName="password" placeholder="Password">
                     <div *ngIf="password.invalid && (password.dirty || password.touched)">
                         <div *ngIf="password.errors.required">
-                            <span class="help-block">Ce champ est obligatoir</span>
+                            <span class="help-block">Ce champ est obligatoire</span>
                         </div>
                     </div>
                 </div>
             </div>
-
             <div [class.has-error]="email.invalid && (email.dirty || email.touched)">
                 <div class="form-group">
                     <input name="email" id="email" class="form-control" formControlName="email" placeholder="Email">
                     <div *ngIf="email.invalid && (email.dirty || email.touched)">
                         <div *ngIf="email.errors.required">
-                            <span class="help-block">Ce champ est obligatoir</span>
+                            <span class="help-block">Ce champ est obligatoire</span>
                         </div>
                         <div *ngIf="email.errors.email">
                             <span class="help-block">Invalid email</span>
@@ -41,24 +37,25 @@
                     </div>
                 </div>
             </div>
-
             <div [class.has-error]="firstname.invalid && (firstname.dirty || firstname.touched)">
                 <div class="form-group">
                     <input name="firstname" id="firstname" class="form-control" formControlName="firstname" placeholder="First Name">
                     <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)">
                         <div *ngIf="firstname.errors.required">
-                            <span class="help-block">Ce champ est obligatoir</span>
+                            <span class="help-block">Ce champ est obligatoire</span>
+                        </div>
+                        <div *ngIf="firstname.errors.forbidden">
+                            <span class="help-block">Chaîne non autorisée</span>
                         </div>
                     </div>
                 </div>
             </div>
-
             <div [class.has-error]="lastname.invalid && (lastname.dirty || lastname.touched)">
                 <div class="form-group">
                     <input name="lastname" id="lastname" class="form-control" formControlName="lastname" placeholder="Last Name">
                     <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)">
                         <div *ngIf="lastname.errors.required">
-                            <span class="help-block">Ce champ est obligatoir</span>
+                            <span class="help-block">Ce champ est obligatoire</span>
                         </div>
                     </div>
                 </div>
@@ -67,12 +64,37 @@
             <div class="row pull-right">
                 <div class="col-md-12">
                     <button class="btn btn-default" (click)="cancel()">CANCEL</button>
-                    <button type="submit" class="btn btn-primary" [disabled]="!editForm.valid">SAVE</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="!creationForm.valid">SAVE</button>
                 </div>
             </div>
-        </form>
+        </form> -->
+
+<form [formGroup]="creationForm" (ngSubmit)="save()" novalidate>
+    <div class="row">
+        <mz-input-container class="col s12 m12">
+            <input mz-input mz-validation required id="username" formControlName="username" type="text" [errorMessageResource]="rsc.validation.username" [label]="rsc.username" [placeholder]="rsc.username" />
+        </mz-input-container>
+
+        <mz-input-container class="col s12 m12">
+            <input mz-input mz-validation required id="password" formControlName="password" type="password" [errorMessageResource]="rsc.validation.password" [label]="rsc.password" [placeholder]="rsc.password" />
+        </mz-input-container>
+
+        <mz-input-container class="col s12 m12">
+            <input mz-input mz-validation required id="email" formControlName="email" type="text" [errorMessageResource]="rsc.validation.email" [label]="rsc.email" [placeholder]="rsc.email" />
+        </mz-input-container>
+
+        <mz-input-container class="col s12 m12">
+            <input mz-input mz-validation required id="firstname" formControlName="firstname" type="text" [errorMessageResource]="rsc.validation.firstname" [label]="rsc.firstname" [placeholder]="rsc.firstname" />
+        </mz-input-container>
+
+        <mz-input-container class="col s12 m12">
+            <input mz-input mz-validation required id="lastname" formControlName="lastname" type="text" [errorMessageResource]="rsc.validation.lastname" [label]="rsc.lastname" [placeholder]="rsc.lastname" />
+        </mz-input-container>
     </div>
-</div>
+
+    <button mz-button class="blue-grey lighten-1" (click)="cancel()" type="button">{{ rsc.buttons.cancel }}</button>
+    <button mz-button [disabled]="!creationForm.valid" type="submit">{{ rsc.buttons.save }}</button>
+</form>
 
 <!-- notify -->
 <simple-notifications></simple-notifications>

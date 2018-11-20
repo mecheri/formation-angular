@@ -3,11 +3,10 @@ import { HttpClient } from '@angular/common/http';
 
 // RxJS
 import { Observable } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 // Services
-import { SettingsService } from '../../../core/services/settings.service';
-import { HttpResponseService } from '../../../core/services/http-response.service';
+import { SettingsService } from '../../../../core/services/settings.service';
 
 // Models
 import { User } from '../models/user';
@@ -19,8 +18,7 @@ export class UserService {
 
   constructor(
     private http: HttpClient,
-    private settingsService: SettingsService,
-    private httpResponseService: HttpResponseService,
+    private settingsService: SettingsService
   ) { }
 
   getUsers(): Observable<User[]> {

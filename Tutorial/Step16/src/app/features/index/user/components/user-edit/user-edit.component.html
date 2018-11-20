@@ -1,0 +1,33 @@
+<p-breadcrumb [model]="bcItems"></p-breadcrumb>
+
+<h2>User Edit : </h2>
+
+<form *ngIf="user" [formGroup]="editForm" (ngSubmit)="save()" novalidate>
+    <div class="row">
+        <mz-input-container class="col s12 m12">
+            <input mz-input mz-validation required id="username" formControlName="username" type="text" [errorMessageResource]="rsc.validation.username" [label]="rsc.username" [placeholder]="rsc.username" />
+        </mz-input-container>
+
+        <mz-input-container class="col s12 m12">
+            <input mz-input mz-validation required id="password" formControlName="password" type="password" [errorMessageResource]="rsc.validation.password" [label]="rsc.password" [placeholder]="rsc.password" />
+        </mz-input-container>
+
+        <mz-input-container class="col s12 m12">
+            <input mz-input mz-validation required id="email" formControlName="email" type="text" [errorMessageResource]="rsc.validation.email" [label]="rsc.email" [placeholder]="rsc.email" />
+        </mz-input-container>
+
+        <mz-input-container class="col s12 m12">
+            <input mz-input mz-validation required id="firstname" formControlName="firstname" type="text" [errorMessageResource]="rsc.validation.firstname" [label]="rsc.firstname" [placeholder]="rsc.firstname" />
+        </mz-input-container>
+
+        <mz-input-container class="col s12 m12">
+            <input mz-input mz-validation required id="lastname" formControlName="lastname" type="text" [errorMessageResource]="rsc.validation.lastname" [label]="rsc.lastname" [placeholder]="rsc.lastname" />
+        </mz-input-container>
+    </div>
+
+    <button mz-button class="blue-grey lighten-1" (click)="cancel()" type="button">{{ rsc.buttons.cancel }}</button>
+    <button mz-button [disabled]="!editForm.valid" type="submit">{{ rsc.buttons.save }}</button>
+</form>
+
+<!-- notify -->
+<simple-notifications></simple-notifications>
