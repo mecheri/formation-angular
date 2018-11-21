@@ -1,4 +1,4 @@
-﻿import { Component, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
+﻿import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { SpinnerState, Spinner } from './../../../core/services/spinner.service';
@@ -9,9 +9,9 @@ import { SpinnerState, Spinner } from './../../../core/services/spinner.service'
   styleUrls: ['./spinner.component.scss']
 })
 export class SpinnerComponent implements OnInit, OnDestroy {
-  private visible: boolean;
 
-  private spinnerStateChanged: Subscription;
+  visible: boolean;
+  spinnerStateChanged: Subscription;
 
   /**
    * Creates an instance of SpinnerComponent.

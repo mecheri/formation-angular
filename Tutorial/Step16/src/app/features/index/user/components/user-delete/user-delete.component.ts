@@ -10,7 +10,7 @@ import { NotificationsService } from 'angular2-notifications';
   styleUrls: ['./user-delete.component.scss']
 })
 export class UserDeleteComponent implements OnInit {
-  private rsc: any;
+  rsc: any;
 
   @Input('data') user: User;
   @Input() display: boolean;

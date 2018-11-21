@@ -16,10 +16,6 @@ import { ResourcesService } from './services/resources.service';
 // Services Vendor
 import { NotificationsService } from 'angular2-notifications';
 
-// Factories
-import { ResourcesFactory } from './factories/resources.factory';
-import { SettingsFactory } from './factories/settings.factory';
-
 // Handlers
 import { GlobalErrorHandler } from './handlers/global-error.handler';
 
@@ -44,14 +40,14 @@ import { environment } from '../../environments/environment';
     },
     {
       provide: APP_INITIALIZER,
-      useFactory: SettingsFactory,
+      useFactory: (config: SettingsService) => () => config.load(),
       deps: [SettingsService],
       multi: true
     },
     ResourcesService,
     {
       provide: APP_INITIALIZER,
-      useFactory: ResourcesFactory,
+      useFactory: (resources: ResourcesService) => () => resources.load(),
       deps: [ResourcesService],
       multi: true
     },

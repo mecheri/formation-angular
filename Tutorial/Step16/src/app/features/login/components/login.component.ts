@@ -24,7 +24,6 @@ import { Auth } from './../../../core/models/auth';
     templateUrl: './login.component.html'
 })
 export class LoginComponent implements OnInit {
-    // props
     rsc: any;
     model: Auth;
     errorMessage: any;

@@ -16,7 +16,7 @@ import { AuthService } from '../../../core/services/auth.service';
 
 /**
  * Register Component
- * 
+ *
  * @export
  * @class RegisterComponent
  * @implements {OnInit}
@@ -25,8 +25,8 @@ import { AuthService } from '../../../core/services/auth.service';
     templateUrl: './register.component.html'
 })
 export class RegisterComponent implements OnInit {
-    private rsc: any;
-    private registerForm: FormGroup;
+    rsc: any;
+    registerForm: FormGroup;
 
     get username() { return this.registerForm.get('username'); }
     get password() { return this.registerForm.get('password'); }
@@ -36,15 +36,15 @@ export class RegisterComponent implements OnInit {
 
     /**
      * Creates an instance of RegisterComponent.
-     * @param {Router} router 
-     * @param {FormBuilder} fb 
-     * @param {NotificationsService} notifService 
-     * @param {Logger} logger 
-     * @param {Spinner} spinner 
-     * @param {Constants} constants 
-     * @param {MixinService} mixinService 
-     * @param {ResourcesService} rscService 
-     * @param {AuthService} authService 
+     * @param {Router} router
+     * @param {FormBuilder} fb
+     * @param {NotificationsService} notifService
+     * @param {Logger} logger
+     * @param {Spinner} spinner
+     * @param {Constants} constants
+     * @param {MixinService} mixinService
+     * @param {ResourcesService} rscService
+     * @param {AuthService} authService
      * @memberof RegisterComponent
      */
     constructor(
@@ -61,7 +61,7 @@ export class RegisterComponent implements OnInit {
 
     /**
      * Component init
-     * 
+     *
      * @memberof RegisterComponent
      */
     ngOnInit() {
@@ -71,7 +71,7 @@ export class RegisterComponent implements OnInit {
 
     /**
      * Load resources
-     * 
+     *
      * @memberof RegisterComponent
      */
     loadResources() {
@@ -80,7 +80,7 @@ export class RegisterComponent implements OnInit {
 
     /**
      * Load form
-     * 
+     *
      * @memberof RegisterComponent
      */
     loadForm() {
@@ -96,7 +96,7 @@ export class RegisterComponent implements OnInit {
 
     /**
      * Cancel registration
-     * 
+     *
      * @memberof RegisterComponent
      */
     cancel() {
@@ -105,7 +105,7 @@ export class RegisterComponent implements OnInit {
 
     /**
      * Save regsitration
-     * 
+     *
      * @memberof RegisterComponent
      */
     save() {

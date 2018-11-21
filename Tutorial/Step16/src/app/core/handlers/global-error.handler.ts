@@ -22,30 +22,30 @@ export class GlobalErrorHandler implements ErrorHandler {
      * @param {(Error | HttpErrorResponse)} error Erreur interceptée
      * @memberof ErrorsHandler
      */
-    handleError(error: Error | HttpErrorResponse): void {
+    handleError(resp: Error | HttpErrorResponse): void {
         const router: Router = this.injector.get(Router);
         const logger: Logger = this.injector.get(Logger);
         const authService: AuthService = this.injector.get(AuthService);
         const notifier: NotificationsService = this.injector.get(NotificationsService);
 
         // Log the error anyway
-        logger.error(error);
+        logger.error(resp);
 
-        if (error instanceof HttpErrorResponse) {
+        if (resp instanceof HttpErrorResponse) {
             // Erreur HTTP => affichage d'une popup avec le message "user-friendly"
             // Erreur serveur ou erreur de connexion
             if (!navigator.onLine) {
                 // Pas de connexion à internet
                 notifier.alert('No Internet Connection');
             } else {
-                if (router.url !== 'login' && [401, 403].includes(error.status)) {
+                if (router.url !== 'login' && [401, 403].includes(resp.status)) {
                     // Erreur HTTP (error.status === 401, 403)
                     // Déconnexion
                     this.zone.run(() => authService.logout());
                 } else {
                     // Erreur HTTP (error.status === 404, 400, 500...)
                     // On affiche une alerte à l'utilisateur
-                    notifier.error('Erreur', error.error.message);
+                    notifier.error('Erreur', resp.error.message);
                 }
             }
         } else {

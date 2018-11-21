@@ -64,7 +64,7 @@ export class AuthService {
                     this.storeUserContext({ username: res.username });
                     this.logger.trace('Auth is done');
                 }),
-                catchError((error) => throwError(error.error.message))
+                catchError((err) => throwError(err.error.message))
             );
     }
 
