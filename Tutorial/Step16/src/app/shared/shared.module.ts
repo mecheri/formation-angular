@@ -10,9 +10,6 @@ import { DialogModule } from 'primeng/dialog';
 // Simple notifcations
 import { SimpleNotificationsModule } from 'angular2-notifications';
 
-// Ngx Bootstrap
-import { BsDropdownModule, CollapseModule } from 'ngx-bootstrap';
-
 // Ngx Materialize
 import { MzNavbarModule, MzInputModule, MzSelectModule, MzTimepickerModule, MzButtonModule, MzValidationModule, MzSpinnerModule, MzModalModule } from 'ngx-materialize'
 
@@ -30,8 +27,6 @@ import { FooterComponent } from './components/footer/footer.component';
     DialogModule,
     TableModule,
     SimpleNotificationsModule.forRoot(),
-    BsDropdownModule.forRoot(),
-    CollapseModule.forRoot(),
     MzNavbarModule,
     MzInputModule,
     MzSelectModule,
@@ -53,8 +48,6 @@ import { FooterComponent } from './components/footer/footer.component';
     DialogModule,
     TableModule,
     SimpleNotificationsModule,
-    BsDropdownModule,
-    CollapseModule,
     NavbarComponent,
     SpinnerComponent,
     FooterComponent,

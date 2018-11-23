@@ -2,31 +2,189 @@
 
 00. Generating  an Angular project (ng new)
 
-01. Initial configuration 
-    - Add SASS folder from Step02
-    - Update styles config in angular.json file
-    - Install devDependency package bootstrap-sass (npm install --save-dev bootstrap-sass)
-    - Install devDependency package font-awesome (npm install --save-dev font-awesome)
-    - Install dependency package primeng (npm install --save primeng)
-    - Install dependency package primeicons (npm install --save primeicons)
-    - Serve the app in dev mode
+01. Initial configuration (Packages / Styles / Fonts)
+    - Copy Step02/src/sass directory to Step01/src
+    - Set this as styles property in angular.json file:
+        ```javascript
+             "styles": [
+                "src/sass/app.scss"
+            ],
+        ```
+    - Install ngx-materialize:
+        ```bash
+            npm install --save ngx-materialize
+        ``` 
+    - Copy Step02/src/sass directory to Step01/src
+    - Install jquery and it's types
+        ```bash
+            npm install --save jquery
+            npm install --save @types/jquery
+        ``` 
+    - Install primeng and it's icons
+        ```bash
+            npm install --save primeng
+            npm install --save primeicons
+        ``` 
+    - Set this as scripts property in angular.json file: 
+        ```javascript
+            "scripts": [
+                "node_modules/jquery/dist/jquery.min.js",
+                "node_modules/materialize-css/dist/js/materialize.min.js"
+            ]
+        ```
 
 02. User component
-    - Update the AppComponent view
-    - Generate UserComponent (ng generate component User)
-    - Create User class
-    - Dispaly the user object
-    - Show One-way binding: interpolation (to-the-dom)
-    - Show One-way binding: property (to-the-dom)
-    - Apply some of Angular's standard pipes
-    - Generate and apply custom pipe (ng generate pipe Exponential)
+    - Generate UserComponent
+        ```bash
+            ng generate component user
+        ```
+    - Clean the AppComponent template
+        ```html
+            <div style="text-align:center">
+                <h1>
+                    Welcome to {{ title }}!
+                </h1>
+                <img width="100" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+            </div>
 
+            <app-user></app-user>
+        ```
+    - Create User class:
+        ```typescript
+            // path: src/app/user/user.ts
+            export class User {
+                id: number;
+                username: string;
+                password: string;
+                email: string;
+                firstname: string;
+                lastname: string;
+                birthdate: Date;
+            }
+        ```
+    - Display the user object:
+         ```typescript
+            // path: src/app/user/user.component.ts
+            user: User = {
+                id: 1,
+                username: 'test',
+                password: 'pa$$word',
+                email: 'mehdi.mecheri@viveris.fr',
+                firstname: 'Mehdi',
+                lastname: 'Mecheri',
+                birthdate: new Date(2018, 5, 22)
+            };
+            dateFormat = "MM/dd/yy";
+            image = 'https://assets-cdn.github.com/images/icons/emoji/unicode/1f471.png?v8';
+        ```
+        ```html
+             <!-- path: src/app/user/user.component.ts -->
+            <div style="text-align:center">
+                <img width="100" alt="property as one-way binding" [src]="image">
+                <h2>{{ user.firstname }} {{ user.lastname }} Details : </h2>
+                <div><span>id: </span>{{user.id}}</div>
+                <div><span>email: </span>{{user.email}}</div>
+                <div><span>birth date: </span>{{user.birthdate}}</div>
+            </div>
+        ```
+    - One-way binding: interpolation (to-the-dom)
+    - One-way binding: property (to-the-dom)
+    - Apply some of Angular's standard pipes:
+        ```html
+            <!-- path: src/app/user/user.component.ts -->
+            <!-- Pipes -->
+            <div><span>birth date: </span>{{user.birthdate | date}}</div>
+            <div><span>birth date: </span>{{user.birthdate | date: "MM/dd/yy"}}</div>
+            <div><span>birth date: </span>{{user.birthdate | date: dateFormat}}</div>
+            <div><span>birth date: </span>{{user.birthdate | date | uppercase}}</div>
+            <div>Exponentielle: {{2 | exponential: 2}}</div>
+        ```
+    - Generate and apply custom pipe:
+        ```bash
+            ng generate pipe exponential
+        ```
+        ```typescript
+            // path: src/app/user/user.component.ts
+            import { Pipe, PipeTransform } from '@angular/core';
+
+            @Pipe({
+            name: 'exponential'
+            })
+            export class ExponentialPipe implements PipeTransform {
+                transform(value: number, exponent: string): number {
+                    let exp = parseFloat(exponent);
+                    return Math.pow(value, isNaN(exp) ? 1 : exp);
+                }
+            }
+        ```
+        ```html
+            <!-- path: src/app/user/user.component.ts -->
+            <div>Exponentielle: {{2 | exponential: 2}}</div>
+        ```
 03. User component Lifecycle Hooks
-    - Update and clean the UserComponent view
-    - Implement OnChanges
-    - Implement AfterViewInit, Renderer and ViewChild (html input focus)
-    - Implement AfterViewChecked
-    - Implement OnDestroy
+    - Clean the UserComponent template:
+        ```html
+             <!-- path: src/app/user/user.component.ts -->
+            <div style="text-align:center">
+                <img width="100" alt="property as one-way binding" [src]="image">
+                <h2>{{ user.firstname }} {{ user.lastname }} Details : </h2>
+                <div><span>id: </span>{{user.id}}</div>
+                <div><span>email: </span>{{user.email}}</div>
+                <div><span>birth date: </span>{{user.birthdate}}</div>
+            </div>
+        ```
+    - Lifecycle Hooks Interfaces implementation:
+        ```typescript
+            @Component({
+                selector: 'app-user',
+                templateUrl: './user.component.html',
+                styleUrls: ['./user.component.css']
+            })
+            export class UserComponent implements OnChanges, OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
+        ```
+    - OnChanges: 
+        ```typescript
+            // path: src/app/user/user.component.ts
+            ngOnChanges(changes: SimpleChanges) {
+                console.log('---> OnChanges Can\'t fire here <---');
+            }
+        ```
+    - OnInit:
+        ```typescript
+            // path: src/app/user/user.component.ts
+            ngOnInit() {
+                console.log('---> OnInit fires <---');
+            }
+        ```
+    - AfterViewInit, Renderer, ViewChild (HTML input auto-focus):
+         ```typescript
+            // path: src/app/user/user.component.ts
+            @ViewChild('input') input;
+            constructor(private renderer: Renderer) { }
+            ngAfterViewInit() {
+                console.log('---> AfterViewInit fires <---');
+                this.renderer.invokeElementMethod(this.input.nativeElement, 'focus');
+            }
+        ```
+        ```html
+            <!-- AfterViewInit Hook -->
+            <div style="margin: 2% 5% 0 5%;display:inline-block;">
+                <input #input type="text" placeholder="Test input for auto-focus">
+            </div>
+        ```
+    - AfterViewChecked:
+        ```typescript
+            ngAfterViewChecked() {
+                console.log('---> AfterViewChecked fires <---');
+            }
+        ```
+    - OnDestroy:
+        ```typescript
+            // path: src/app/user/user.component.ts
+            ngOnDestroy() {
+                console.log('---> OnDestroy fires <---');
+            }
+        ```
 
 04. User editor
     - Update and clean the UserComponent view

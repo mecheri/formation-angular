@@ -14,7 +14,7 @@ import { HttpResponseService } from './http-response.service';
 
 // Models
 import { Auth } from './../models/auth';
-import { User } from './../models/user';
+import { User } from './../../features/index/user/models/user';
 
 @Injectable({
     providedIn: 'root',
@@ -57,7 +57,7 @@ export class AuthService {
         let headers = new HttpHeaders().set('Content-Type', 'application/json-patch+json');
         return this.http
             .post<HttpResponse<any>>(`${this.settingsService.config.apiUrl}/api/Auth/login`,
-            auth, { headers: headers })
+                auth, { headers: headers })
             .pipe(
                 map((res: any) => {
                     this.storeToken(res.token);

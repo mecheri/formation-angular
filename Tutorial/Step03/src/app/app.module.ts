@@ -14,6 +14,7 @@ import { ExponentialPipe } from './exponential.pipe';
   imports: [
     BrowserModule
   ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

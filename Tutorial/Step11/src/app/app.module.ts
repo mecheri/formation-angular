@@ -1,52 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
-
-import { AppRoutingModule } from './app-routing.module';
-
-// Vendor modules
-import { TableModule } from 'primeng/table';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
-import { DialogModule } from 'primeng/dialog';
-import { BsDropdownModule, CollapseModule } from 'ngx-bootstrap';
-import { SimpleNotificationsModule } from 'angular2-notifications';
 
 import { AppComponent } from './app.component';
-import { UserComponent } from './user/user.component';
-import { UserDetailComponent } from './user-detail/user-detail.component';
-import { HomeComponent } from './home/home.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { UserNewComponent } from './user-new/user-new.component';
-import { UserEditComponent } from './user-edit/user-edit.component';
-import { UserDeleteComponent } from './user-delete/user-delete.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    UserComponent,
-    UserDetailComponent,
-    HomeComponent,
-    NavbarComponent,
-    UserNewComponent,
-    UserEditComponent,
-    UserDeleteComponent
+    AppComponent
   ],
   imports: [
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    SimpleNotificationsModule.forRoot(),
-    AppRoutingModule,
-    BreadcrumbModule,
-    DialogModule,
-    TableModule,
-    BsDropdownModule.forRoot(),
-    CollapseModule.forRoot(),
+    BrowserModule
   ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
