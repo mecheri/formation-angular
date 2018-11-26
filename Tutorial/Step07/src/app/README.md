@@ -1,11 +1,11 @@
 # Tuto Steps
 
-## 00. Generating an Angular project
+00. Generating an Angular project
         ```bash
             ng new MY-PROJECT-NAME --style=scss
         ```
 
-## 01. Initial configuration (Packages / Styles / Fonts)
+01. Initial configuration (Packages / Styles / Fonts)
     - Copy Step02/src/sass directory to Step01/src
     - Set this as styles property in angular.json file:
         ```javascript
@@ -34,7 +34,7 @@
             ]
         ```
 
-## 02. User component
+02. User component
     - Generate UserComponent
         ```bash
             ng generate component user
@@ -122,8 +122,7 @@
             <!-- path: src/app/user/user.component.ts -->
             <div>Exponentielle: {{2 | exponential: 2}}</div>
         ```
-
-## 03. User component Lifecycle Hooks
+03. User component Lifecycle Hooks
     - Remove exponential.pipe.ts and exponential.pipe.spec.ts
     - Clean the UserComponent template:
         ```html
@@ -198,7 +197,7 @@
             }
         ```
 
-## 04. User editor
+04. User editor
     - Replace UserComponent template content by this:
         ```html
             <!-- path: src/app/user/user.component.ts -->
@@ -235,7 +234,7 @@
         ```
     - Two-way binding
 
-## 05. Display a List of users
+05. Display a List of users
     - Clean the UserComponent class:
         ```typescript
             import { Component, OnInit } from '@angular/core';
@@ -433,14 +432,14 @@
                 <input type="text" [(ngModel)]="selectedUser.firstname" [appInputMaxLength]="30">
             ```
 
-## 06. User detail component (child component)
+06. User detail component (child component)
     - Generate the UserDetailComponent (ng generate component User/UserDetail)
     - Update and clean the UserComponent class and view
     - Add @Input property
     - Display the user detail component
     - Show the different types of components interaction
 
-## 07. User service
+07. User service
     - Clean Workspace (remove Pipes, Directives, Interaction07Service and update the User and UserDetail Components and AppModule)
     - Generate the UserService (ng g service User)
     - Add getUsers() function
@@ -452,7 +451,7 @@
     - Show RxJS API
     - Subscribe to Observable in the UserComponent
 
-## 08. Routing
+08. Routing
     - Create HomeComponent (ng generate component Home)
     - Add AppRoutingModule (ng generate module app-routing --flat)
     - Use RouterModule.forRoot()
