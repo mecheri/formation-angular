@@ -49,7 +49,6 @@ export class UserComponent implements OnInit {
 
   users: User[];
   selectedUser: User;
-
   image = 'https://assets-cdn.github.com/images/icons/emoji/unicode/1f471.png?v8';
 
   constructor() { }

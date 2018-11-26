@@ -1,0 +1,20 @@
+<h2>Users</h2>
+<hr>
+<div class="row">
+    <div class="col m4">
+        <ul>
+            <li *ngFor="let user of users" [class.active-line]="selectedUser && selectedUser.id === user.id" (click)="onSelect(user)">
+                <span appHighlight>{{user.id}} - {{user.firstname}} {{user.lastname}} </span>
+            </li>
+        </ul>
+    </div>
+    <div *ngIf="selectedUser" class="col m8">
+        <br>
+        <img width="100" alt="property as one-way binding" [src]="image">
+        <h2>{{ selectedUser.firstname }} {{ selectedUser.lastname }} Details : </h2>
+        <div><span>id: </span>{{selectedUser.id}}</div>
+        <input type="text" [(ngModel)]="selectedUser.firstname" [appInputMaxLength]="30">
+        <input type="text" [(ngModel)]="selectedUser.lastname">
+        <input type="text" [(ngModel)]="selectedUser.email">
+    </div>
+</div>

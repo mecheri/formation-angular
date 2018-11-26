@@ -1,6 +1,9 @@
 # Tuto Steps
 
-00. Generating  an Angular project (ng new)
+00. Generating an Angular project
+        ```bash
+            ng new MY-PROJECT-NAME --style=scss
+        ```
 
 01. Initial configuration (Packages / Styles / Fonts)
     - Copy Step02/src/sass directory to Step01/src
@@ -122,6 +125,7 @@
             <div>Exponentielle: {{2 | exponential: 2}}</div>
         ```
 03. User component Lifecycle Hooks
+    - Remove exponential.pipe.ts and exponential.pipe.spec.ts
     - Clean the UserComponent template:
         ```html
              <!-- path: src/app/user/user.component.ts -->
@@ -167,9 +171,18 @@
             }
         ```
         ```html
-            <!-- AfterViewInit Hook -->
-            <div style="margin: 2% 5% 0 5%;display:inline-block;">
-                <input #input type="text" placeholder="Test input for auto-focus">
+        <!-- path: src/app/user/user.component.ts -->
+            <div style="text-align:center">
+                <img width="100" alt="property as one-way binding" [src]="image">
+                <h2>{{ user.firstname }} {{ user.lastname }} Details : </h2>
+                <div><span>id: </span>{{user.id}}</div>
+                <div><span>email: </span>{{user.email}}</div>
+                <div><span>birth date: </span>{{user.birthdate}}</div>
+
+                <!-- AfterViewInit Hook -->
+                <div style="margin: 2% 5% 0 5%;display:inline-block;">
+                    <input #input type="text" placeholder="Test input for auto-focus">
+                </div>
             </div>
         ```
     - AfterViewChecked:
@@ -187,20 +200,242 @@
         ```
 
 04. User editor
-    - Update and clean the UserComponent view
-    - Add Some Html Bootstrap classes (container-fluid, form-control)
-    - Show Two-way binding
-    - Missing FormsModule !!!
-    - Import FormsModule in AppModule
+    - Replace UserComponent template content by this:
+        ```html
+            <!-- path: src/app/user/user.component.ts -->
+            <div style="text-align:center">
+                <img width="100" alt="property as one-way binding" [src]="image">
+                <h2>{{ user.firstname }} {{ user.lastname }} Details : </h2>
+                <div><span>id: </span>{{user.id}}</div>
+                <div><span>email: </span>{{user.email}}</div>
+                <div><span>birth date: </span>{{user.birthdate}}</div>
 
+                <div style="margin: 2% 5% 0 5%;display:inline-block;">
+                    <!-- AfterViewInit Hook -->
+                    <input #input type="text" placeholder="Test input for auto-focus">
+                    <!-- Two-way binding -->
+                    <input type="text" [(ngModel)]="user.firstname">
+                    <input type="text" [(ngModel)]="user.lastname">
+                    <input type="text" [(ngModel)]="user.email">
+                </div>
+            </div>
+        ```
+    - Error: Missing FormsModule !!! -> import it in AppModule
+        ```typescript
+            // path: src/app/app.module.ts
+            import { FormsModule } from '@angular/forms';
+            @NgModule({
+                ...
+                imports: [
+                    ...,
+                    FormsModule,
+                    ...
+                ],
+                ...
+            })
+        ```
+    - Two-way binding
+
+<details><summary>CLICK ME</summary>
+<p>
 05. Display a List of users
-    - Update and clean the UserComponent class and view
-    - Mock users
+    - Clean the UserComponent class:
+        ```typescript
+            import { Component, OnInit } from '@angular/core';
+            import { User } from './user';
+
+            @Component({
+                selector: 'app-user',
+                templateUrl: './user.component.html',
+                styleUrls: ['./user.component.css']
+            })
+            export class UserComponent implements OnInit {
+                image = 'https://assets-cdn.github.com/images/icons/emoji/unicode/1f471.png?v8';
+
+                constructor() { }
+
+                ngOnInit() { }
+            }
+        ```
+    - Clean the UserComponent template:
+        ```html
+            <h2>Users</h2>
+            <hr>
+            <div class="row">
+                <div class="col m4">
+                    <!-- TODO: Display users list -->
+                </div>
+                <div class="col m8">
+                    <!-- TODO: Display user detail on select one -->
+                </div>
+            </div>
+        ```
+    - Mock users data: 
+        ```typescript
+             // path: src/app/user/user.component.ts
+            export const USERS: User[] = [
+                {
+                    id: 1,
+                    email: 'mehdi.mecheri@viveris.fr',
+                    firstname: 'Mehdi',
+                    lastname: 'Mecheri',
+                    birthdate: new Date(2018, 5, 22)
+                },
+                {
+                    id: 2,
+                    email: 'lionel.messi@barca.es',
+                    firstname: 'Lionel',
+                    lastname: 'Messi',
+                    birthdate: new Date(2018, 5, 22)
+                },
+                {
+                    id: 3,
+                    email: 'cristiano.ronaldo@real.es',
+                    firstname: 'Cristiano',
+                    lastname: 'Ronaldo',
+                    birthdate: new Date(2018, 5, 22)
+                },
+                {
+                    id: 4,
+                    email: 'neymar.jr@psg.fr',
+                    firstname: 'Neymar',
+                    lastname: 'JR',
+                    birthdate: new Date(2018, 5, 22)
+                }
+            ];
+        ```
+    - Initializing the users variable:
+        ```typescript
+            // path: src/app/user/user.component.ts
+            ...
+            users: User[];
+            
+            ngOnInit() {
+                this.users = USERS;
+            }
+        ```
     - Display users with *ngFor (structural directive)
-    - Show One-way binding: event binding (from-the-dom)
-    - Display the user detail
+        ```html
+            <h2>Users</h2>
+            <hr>
+            <div class="row">
+                <div class="col m4">
+                    <ul>
+                        <li *ngFor="let user of users">
+                            <span>{{user.id}} - {{user.firstname}} {{user.lastname}}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col m8">
+                    <!-- TODO: Display user detail on select one -->
+                </div>
+            </div>
+        ```
+    - One-way binding: event binding (from-the-dom)
+        ```html
+            <li *ngFor="let user of users" (click)="onSelect(user)">
+                <span>{{user.id}} - {{user.firstname}} {{user.lastname}} </span>
+            </li>
+        ```
+        ```typescript
+            selectedUser: User;
+            onSelect(user: User): void {
+                this.selectedUser = user;
+            }
+        ```
+    - Display the user detail -> Error before selecting user !!!
+        ```html
+            <div class="col m8">
+                <br>
+                <img width="100" alt="property as one-way binding" [src]="image">
+                <h2>{{ selectedUser.firstname }} {{ selectedUser.lastname }} Details : </h2>
+                <div><span>id: </span>{{selectedUser.id}}</div>
+                <input type="text" [(ngModel)]="selectedUser.firstname">
+                <input type="text" [(ngModel)]="selectedUser.lastname">
+                <input type="text" [(ngModel)]="selectedUser.email">
+            </div>
+        ```
     - Handle empty user detail with *ngIf (structural directive)
-    - Generate and apply attributes directives (ng generate directive)
+        ```html
+            <div class="col m8" *ngIf="selectedUser">
+        ```
+    - Generate and apply custom attributes directives (ng generate directive)
+        * Highlight directive
+            ```bash
+                ng generate directive highlight
+            ```
+            ```typescript
+                // path: src/app/highlight.directive.ts
+                import { Directive, ElementRef, HostListener } from '@angular/core';
+
+                @Directive({
+                    selector: '[appHighlight]'
+                })
+                export class HighlightDirective {
+                    // ElementRef permet d'acceder un element natif du DOM
+                    // ElementRef permet d'éviter de communiquer directement avec l'API DOM qui est une mauvaise pratique
+                    constructor(private el: ElementRef) {
+                        this.el.nativeElement.style.backgroundColor = '';
+                    }
+
+                    // @HostListener permet de s'abonner aux événements de l'élément DOM qui héberge la directive
+                    @HostListener('mouseenter') onMouseEnter() {
+                        this.highlight('yellow');
+                    }
+
+                    @HostListener('mouseleave') onMouseLeave() {
+                        this.highlight(null);
+                    }
+
+                    private highlight(color: string) {
+                        this.el.nativeElement.style.backgroundColor = color;
+                    }
+                }
+            ```
+            ```scss
+                // path: src/app/user.component.scss
+                li {
+                    cursor: pointer;
+                    &.active-line {
+                        font-weight: bold;
+                    }
+                }
+            ```
+            ```html
+                <!-- path: src/app/user.component.html -->
+                <li *ngFor="let user of users" [class.active-line]="selectedUser && selectedUser.id === user.id" (click)="onSelect(user)">
+                    <span appHighlight>{{user.id}} - {{user.firstname}} {{user.lastname}} </span>
+                </li>
+            ```
+        * InputMaxLength directive
+            ```bash
+                ng generate directive InputMaxLength
+            ```
+            ```typescript
+                // path: src/app/highlight.directive.ts
+                import { Directive, Input, ElementRef, HostListener } from '@angular/core';
+
+                @Directive({
+                    selector: '[appInputMaxLength]'
+                })
+                export class InputMaxLengthDirective {
+
+                    @Input() appInputMaxLength: string;
+
+                    constructor(private el: ElementRef) { }
+                        @HostListener('keypress', ['$event']) onMouseEnter($event: any) {
+                            if ($event.srcElement.value.length === this.appInputMaxLength) {
+                            $event.preventDefault();
+                            }
+                        }
+                    }
+            ```
+            ```html
+                <!-- path: src/app/user.component.html -->
+                <input type="text" [(ngModel)]="selectedUser.firstname" [appInputMaxLength]="30">
+            ```
+</p>
+</details>
 
 06. User detail component (child component)
     - Generate the UserDetailComponent (ng generate component User/UserDetail)
