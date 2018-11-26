@@ -5,34 +5,38 @@
             ng new MY-PROJECT-NAME --style=scss
         ```
 
-01. Initial configuration (Packages / Styles / Fonts)
-    - Copy Step02/src/sass directory to Step01/src
-    - Set this as styles property in angular.json file:
-        ```javascript
-             "styles": [
-                "src/sass/app.scss"
-            ],
-        ```
-    - Install ngx-materialize:
-        ```bash
-            npm install --save ngx-materialize
-        ``` 
-    - Copy Step02/src/sass directory to Step01/src
-    - Install jquery and it's types
-        ```bash
-            npm install --save jquery @types/jquery
-        ``` 
-    - Install primeng and it's icons
-        ```bash
-            npm install --save primeng primeicons
-        ``` 
-    - Set this as scripts property in angular.json file: 
-        ```javascript
-            "scripts": [
-                "node_modules/jquery/dist/jquery.min.js",
-                "node_modules/materialize-css/dist/js/materialize.min.js"
-            ]
-        ```
+<details>
+<summary>## 01. Initial configuration (Packages / Styles / Fonts)</summary>
+  
+- Copy Step02/src/sass directory to Step01/src
+- Set this as styles property in angular.json file:
+    ```javascript
+    "styles": [
+        "src/sass/app.scss"
+    ],
+    ```
+- Install ngx-materialize:
+    ```bash
+    npm install --save ngx-materialize
+    ``` 
+- Copy Step02/src/sass directory to Step01/src
+- Install jquery and it's types
+    ```bash
+    npm install --save jquery @types/jquery
+    ``` 
+- Install primeng and it's icons
+    ```bash
+    npm install --save primeng primeicons
+    ``` 
+- Set this as scripts property in angular.json file: 
+    ```javascript
+    "scripts": [
+        "node_modules/jquery/dist/jquery.min.js",
+        "node_modules/materialize-css/dist/js/materialize.min.js"
+    ]
+    ```
+</details>
+
 
 02. User component
     - Generate UserComponent
