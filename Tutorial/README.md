@@ -1,11 +1,11 @@
 # Tuto Steps
 
-00. Generating an Angular project
+00. ## Generating an Angular project
         ```bash
             ng new MY-PROJECT-NAME --style=scss
         ```
 
-01. Initial configuration (Packages / Styles / Fonts)
+01. ## Initial configuration (Packages / Styles / Fonts)
     - Copy Step02/src/sass directory to Step01/src
     - Set this as styles property in angular.json file:
         ```javascript
@@ -36,7 +36,7 @@
             ]
         ```
 
-02. User component
+02. ## User component
     - Generate UserComponent
         ```bash
             ng generate component user
@@ -236,8 +236,6 @@
         ```
     - Two-way binding
 
-<details><summary>CLICK ME</summary>
-<p>
 05. Display a List of users
     - Clean the UserComponent class:
         ```typescript
@@ -406,6 +404,7 @@
                 <li *ngFor="let user of users" [class.active-line]="selectedUser && selectedUser.id === user.id" (click)="onSelect(user)">
                     <span appHighlight>{{user.id}} - {{user.firstname}} {{user.lastname}} </span>
                 </li>
+
             ```
         * InputMaxLength directive
             ```bash
@@ -434,8 +433,6 @@
                 <!-- path: src/app/user.component.html -->
                 <input type="text" [(ngModel)]="selectedUser.firstname" [appInputMaxLength]="30">
             ```
-</p>
-</details>
 
 06. User detail component (child component)
     - Generate the UserDetailComponent (ng generate component User/UserDetail)
