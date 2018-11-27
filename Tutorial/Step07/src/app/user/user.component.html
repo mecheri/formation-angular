@@ -7,14 +7,11 @@
                 <span appHighlight>{{user.id}} - {{user.firstname}} {{user.lastname}} </span>
             </li>
         </ul>
+
+        <button class="btn" (click)="broadcastParent()">BROADCAST PARENT</button>
     </div>
-    <div *ngIf="selectedUser" class="col m8">
-        <br>
-        <img width="100" alt="property as one-way binding" [src]="image">
-        <h2>{{ selectedUser.firstname }} {{ selectedUser.lastname }} Details : </h2>
-        <div><span>id: </span>{{selectedUser.id}}</div>
-        <input type="text" [(ngModel)]="selectedUser.firstname" [appInputMaxLength]="30">
-        <input type="text" [(ngModel)]="selectedUser.lastname">
-        <input type="text" [(ngModel)]="selectedUser.email">
-    </div>
+
+    <!-- user detail tag -->
+    <app-user-detail #localVar [user]="selectedUser" [avatar]="image"></app-user-detail>
+    <span>{{ localVar.hello }}</span>
 </div>

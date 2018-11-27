@@ -16,17 +16,17 @@
     - Install ngx-materialize:
         ```bash
         npm install --save ngx-materialize
-        ``` 
+        ```
     - Copy Step02/src/sass directory to Step01/src
     - Install jquery and it's types
         ```bash
         npm install --save jquery @types/jquery
-        ``` 
+        ```
     - Install primeng and it's icons
         ```bash
         npm install --save primeng primeicons
-        ``` 
-    - Set this as scripts property in angular.json file: 
+        ```
+    - Set this as scripts property in angular.json file:
         ```javascript
         "scripts": [
             "node_modules/jquery/dist/jquery.min.js",
@@ -145,7 +145,7 @@
         })
         export class UserComponent implements OnChanges, OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
         ```
-    - OnChanges: 
+    - OnChanges:
         ```typescript
         // path: src/app/user/user.component.ts
         ngOnChanges(changes: SimpleChanges) {
@@ -267,7 +267,7 @@
             </div>
         </div>
         ```
-    - Mock users data: 
+    - Mock users data:
         ```typescript
         // path: src/app/user/user.component.ts
         export const USERS: User[] = [
@@ -306,7 +306,7 @@
         // path: src/app/user/user.component.ts
         ...
         users: User[];
-        
+
         ngOnInit() {
             this.users = USERS;
         }
@@ -390,7 +390,7 @@
             }
             ```
             ```scss
-            // path: src/app/user.component.scss
+            // path: src/app/user/user.component.scss
             li {
                 cursor: pointer;
                 &.active-line {
@@ -399,7 +399,7 @@
             }
             ```
             ```html
-            <!-- path: src/app/user.component.html -->
+            <!-- path: src/app/user/user.component.html -->
             <li *ngFor="let user of users" [class.active-line]="selectedUser && selectedUser.id === user.id" (click)="onSelect(user)">
                 <span appHighlight>{{user.id}} - {{user.firstname}} {{user.lastname}} </span>
             </li>
@@ -434,11 +434,237 @@
             ```
 
 06. User detail component (child component)
-    - Generate the UserDetailComponent (ng generate component User/UserDetail)
-    - Update and clean the UserComponent class and view
-    - Add @Input property
-    - Display the user detail component
-    - Show the different types of components interaction
+    - Clean the UserComponent template
+        ```html
+        <!-- path: src/app/user/user.component.html -->
+        <h2>Users</h2>
+        <hr>
+        <div class="row">
+            <div class="col m4">
+                <ul>
+                    <li *ngFor="let user of users" [class.active-line]="selectedUser && selectedUser.id === user.id" (click)="onSelect(user)">
+                        <span appHighlight>{{user.id}} - {{user.firstname}} {{user.lastname}} </span>
+                    </li>
+                </ul>
+            </div>
+            <!-- TODO: invoke user detail tag -->
+        </div>
+        ```
+    - Generate UserDetailComponent
+        ```bash
+        ng generate component /user/userDetail
+        ```
+        ```html
+        <!-- path: src/app/user/user-detail/user-detail.component.html -->
+        <div *ngIf="user" class="col m8">
+            <br>
+            <img width="100" alt="property as one-way binding" [src]="image">
+            <h2>{{ user.firstname }} {{ user.lastname }} Details : </h2>
+            <div><span>id: </span>{{user.id}}</div>
+            <input type="text" [(ngModel)]="user.firstname" [appInputMaxLength]="30">
+            <input type="text" [(ngModel)]="user.lastname">
+            <input type="text" [(ngModel)]="user.email">
+        </div>
+        ```
+
+    - Display user detail --> nothing happens !!! it's normal
+        ```html
+        <!-- path: src/app/user/user.component.html -->
+        <h2>Users</h2>
+        <hr>
+        <div class="row">
+            <div class="col m4">
+                <ul>
+                    <li *ngFor="let user of users" [class.active-line]="selectedUser && selectedUser.id === user.id" (click)="onSelect(user)">
+                        <span appHighlight>{{user.id}} - {{user.firstname}} {{user.lastname}} </span>
+                    </li>
+                </ul>
+            </div>
+            <!-- user detail tag -->
+            <app-user-detail></app-user-detail>
+        </div>
+        ```
+    - Components interaction
+        1. Interaction 01: Parent->child via @Input
+            ```typescript
+            // path: src/app/user/user-detail/user-detail.component.ts
+            import { Component, OnInit, Input } from '@angular/core';
+            import { User } from '../user';
+            ...
+            @Input() user: User;
+            @Input('avatar') image: User;
+
+            constructor() { }
+            ...
+            ```
+            ```html
+            <!-- path: src/app/user/user-detail/user-detail.component.html -->
+            <app-user-detail [user]="selectedUser" [avatar]="image"></app-user-detail>
+            ```
+        2. Interaction 02: Parent->child via @Input Setter
+            ```typescript
+            // path: src/app/user/user.component.ts
+            image2 = '               https://assets-cdn.github.com/images/icons/emoji/unicode/1f471.png?v8';
+
+            // path: src/app/user/user-detail/user-detail.component.ts
+            private _image2 = '';
+            @Input('avatar2') set image2(data: string) {
+                this._image2 = (data && data.trim()) || '<no data found>';
+            }
+            get image2(): string { return this._image2; }
+            ```
+            ```html
+            <!-- path: src/app/user/user.component.html -->
+            <app-user-detail [user]="selectedUser" [avatar]="image" [avatar2]="image2"></app-user-detail>
+
+            <!-- path: src/app/user-detail/user-detail.component.html -->
+            <img width="100" alt="property as one-way binding" [src]="image2">
+            ```
+        3. Interaction 03: Parent->child via ngOnChanges()
+            ```typescript
+            // path: src/app/user/user-detail/user-detail.component.ts
+            import { Component, OnInit, Input, OnChanges, SimpleChanges} from '@angular/core';
+            ...
+            export class UserDetailComponent implements OnChanges, OnInit {
+                ...
+                constructor() { }
+
+                ngOnChanges(changes: SimpleChanges) {
+                    for (let propName in changes) {
+                    let chng = changes[propName];
+                    let cur = JSON.stringify(chng.currentValue);
+                    let prev = JSON.stringify(chng.previousValue);
+                    console.log(`${propName}: currentValue = ${cur}, previousValue = ${prev}`);
+                    }
+                }
+
+                ngOnInit() { }
+                ...
+            }
+            ```
+        4. Interaction 04: Child  -> parent via @Output
+            ```typescript
+            // path: src/app/user/user-detail/user-detail.component.ts
+            import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter} from '@angular/core';
+            ...
+            @Output() onAction = new EventEmitter<string>();
+            action(msg: string) {
+                this.onAction.emit(msg);
+            }
+            ...
+
+            // path: src/app/user/user.component.ts
+            ...
+            onActionFromUserDetail(msg: string) {
+                console.log(msg);
+            }
+            ...
+            ```
+            ```html
+            <!-- path: src/app/user/user-detail/user-detail.component.html -->
+            <button (click)="action('Hello from User-detail-component @Output')">Hello</button>
+
+            <!-- path: src/app/user/user.component.html -->
+            <app-user-detail [user]="selectedUser" [avatar]="image" (onAction)="onActionFromUserDetail($event)"></app-user-detail>
+            ```
+        5. Interaction 05: Parent -> child via Local variable
+            ```typescript
+            // path: src/app/user/user-detail/user-detail.component.ts
+            public hello = 'Hello from User-detail-component local variable';
+            ```
+            ```html
+            <!-- path: src/app/user/user.component.html -->
+            <app-user-detail #localVar [user]="selectedUser" [avatar]="image"></app-user-detail>
+            <span>{{ localVar.hello }}</span>
+            ```
+        6. Interaction 06: Parent -> child via @ViewChild()
+            ```typescript
+            // path: src/app/user/user.component.ts
+            import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+            import { UserDetailComponent } from './user-detail/user-detail.component';
+            ...
+            export class UserComponent implements OnInit, AfterViewInit {
+                ...
+                @ViewChild(UserDetailComponent) ud: UserDetailComponent;
+                ngAfterViewInit() {
+                    if (this.ud) {
+                    console.log(this.ud.hello);
+                    }
+                }
+                ...
+            }
+            ```
+        7. Interaction 07: Parent <-> child via Service
+            ```bash
+            ng generate service interaction07
+            ```
+            ```typescript
+            // path: src/app/interaction07.component.ts
+            import { Injectable } from '@angular/core';
+            import { Subject } from 'rxjs';
+
+            @Injectable({
+                providedIn: 'root'
+            })
+            export class Interaction07Service {
+                // Observable:
+                //  * Data producer alone
+                //  * Simple Observable with only one Obeserver
+                // Subject:
+                //  * Special type of Observable
+                //  * Multiple observers listen to data
+                //  * Proxy between Observable and Observer
+                private broadcastParentSource = new Subject<string>();
+                private broadcastChildSource = new Subject<string>();
+
+                // Observable string streams
+                broadcastParentStream$ = this.broadcastParentSource.asObservable();
+                broadcastChildStream$ = this.broadcastChildSource.asObservable();
+
+                broadcastParent(data: string) {
+                    this.broadcastParentSource.next(data);
+                }
+                broadcastChild(data: string) {
+                    this.broadcastChildSource.next(data);
+                }
+            }
+
+            // path: src/app/user/user.component.ts
+            import { Interaction07Service } from '../interaction07.service';
+
+            constructor(private service: Interaction07Service) {
+                service.broadcastChildStream$.subscribe((dataFromChild) => console.log(dataFromChild));
+            }
+
+            broadcastParent() {
+                this.service.broadcastParent('Hello from parent');
+            }
+
+            // path: src/app/user/user-detail/user-detail.component.ts
+            import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter, OnDestroy} from '@angular/core';
+            import { Subscription } from 'rxjs';
+            import { Interaction07Service } from '../../interaction07.service';
+
+            export class UserDetailComponent implements OnChanges, OnInit, OnDestroy {
+                ...
+                subscription: Subscription;
+                constructor(private service: Interaction07Service) {
+                    this.subscription = service.broadcastParentStream$.subscribe((dataFromParent) => console.log(dataFromParent));
+                }
+
+                ngOnDestroy() {
+                    this.subscription.unsubscribe(); // prevent memory leak
+                }
+            }
+            ```
+
+            ```html
+                <!-- path: src/app/user/user.component.html -->
+                <button (click)="broadcastParent()">BROADCAST PARENT</button>
+
+                <!-- path: src/app/user/user-detail/user-detail.component.html -->
+                <button (click)="broadcastChild()">BROADCAST CHILD</button>
+            ```
 
 07. User service
     - Clean Workspace (remove Pipes, Directives, Interaction07Service and update the User and UserDetail Components and AppModule)
@@ -449,7 +675,7 @@
     - Call it in ngOnInit()
     - Import RxJS library
     - Enhance the UserService with Observable (from synchronous to asynchronous service)
-    - Show RxJS API
+    - RxJS API demo
     - Subscribe to Observable in the UserComponent
 
 08. Routing
@@ -476,7 +702,7 @@
     - Update the UserService to get specific user by ID
 
 09. User CRUD Forms
-    - Update the User class (add username, password properties) 
+    - Update the User class (add username, password properties)
     - Create UserNewComponent and its route (ng generate component UserNew)
     - Create UserEditComponent and its route (ng generate component UserEdit)
     - Create UserDeleteComponent and import primeng DialogModule in AppModule (ng generate component UserDelete)
@@ -526,7 +752,7 @@
     - Add LazyLoading to both modules
 
 14. Login And Register Modules
-    - Add LoginModule, LoginRoutingModule and LoginComponent  
+    - Add LoginModule, LoginRoutingModule and LoginComponent
     - Add RegisterModule, RegisterRoutingModule and RegisterComponent
     - Update AppRoutingModule
     - Add fallback route for unknown routes,

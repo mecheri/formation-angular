@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
 import { HighlightDirective } from './highlight.directive';
 import { InputMaxLengthDirective } from './input-max-length.directive';
+import { UserDetailComponent } from './user/user-detail/user-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserComponent,
     HighlightDirective,
-    InputMaxLengthDirective
+    InputMaxLengthDirective,
+    UserDetailComponent
   ],
   imports: [
     BrowserModule,

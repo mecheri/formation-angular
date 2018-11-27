@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { User } from './user';
+
+import { UserDetailComponent } from './user-detail/user-detail.component';
+import { Interaction07Service } from '../interaction07.service';
 
 export const USERS: User[] = [
   {
@@ -45,19 +48,37 @@ export const USERS: User[] = [
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, AfterViewInit {
 
   users: User[];
   selectedUser: User;
   image = 'https://assets-cdn.github.com/images/icons/emoji/unicode/1f471.png?v8';
+  image2 = '        https://assets-cdn.github.com/images/icons/emoji/unicode/1f471.png?v8';
 
-  constructor() { }
+  constructor(private service: Interaction07Service) {
+    service.broadcastChildStream$.subscribe((dataFromChild) => console.log(dataFromChild));
+  }
 
   ngOnInit() {
     this.users = USERS;
   }
 
+  broadcastParent() {
+    this.service.broadcastParent('Hello from parent');
+  }
+
+  @ViewChild(UserDetailComponent) ud: UserDetailComponent;
+  ngAfterViewInit() {
+    if (this.ud) {
+      console.log(this.ud.hello);
+    }
+  }
+
   onSelect(user: User): void {
     this.selectedUser = user;
+  }
+
+  onActionFromUserDetail(msg: string) {
+    console.log(msg);
   }
 }
