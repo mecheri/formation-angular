@@ -659,24 +659,276 @@
             ```
 
             ```html
-                <!-- path: src/app/user/user.component.html -->
-                <button (click)="broadcastParent()">BROADCAST PARENT</button>
+            <!-- path: src/app/user/user.component.html -->
+            <button (click)="broadcastParent()">BROADCAST PARENT</button>
 
-                <!-- path: src/app/user/user-detail/user-detail.component.html -->
-                <button (click)="broadcastChild()">BROADCAST CHILD</button>
+            <!-- path: src/app/user/user-detail/user-detail.component.html -->
+            <button (click)="broadcastChild()">BROADCAST CHILD</button>
             ```
 
 07. User service
-    - Clean Workspace (remove Pipes, Directives, Interaction07Service and update the User and UserDetail Components and AppModule)
-    - Generate the UserService (ng g service User)
-    - Add getUsers() function
-    - Provide the generated UserService
-    - Inject the UserService
-    - Call it in ngOnInit()
-    - Import RxJS library
-    - Enhance the UserService with Observable (from synchronous to asynchronous service)
+    - Clean Workspace
+        * Remove custom Pipes, custom Directives and Interaction07Service
+
+        * Update the User and UserDetail Components and AppModule imports
+        ```typescript
+        // path: src/app/app.module.ts
+        import { BrowserModule } from '@angular/platform-browser';
+        import { NgModule } from '@angular/core';
+        import { FormsModule } from '@angular/forms';
+
+        import { AppComponent } from './app.component';
+        import { UserComponent } from './user/user.component';
+        import { UserDetailComponent } from './user/user-detail/user-detail.component';
+
+        @NgModule({
+        declarations: [
+            AppComponent,
+            UserComponent,
+            UserDetailComponent
+        ],
+        imports: [
+            BrowserModule,
+            FormsModule
+        ],
+        providers: [],
+        bootstrap: [AppComponent]
+        })
+        export class AppModule { }
+
+
+
+        // path: src/app/user/user.component.ts
+        import { Component, OnInit } from '@angular/core';
+        import { User } from './user';
+
+        export const USERS: User[] = [
+            {
+                id: 1,
+                username: 'test',
+                password: 'pa$$word',
+                email: 'mehdi.mecheri@viveris.fr',
+                firstname: 'Mehdi',
+                lastname: 'Mecheri',
+                birthdate: new Date(2018, 5, 22)
+            },
+            {
+                id: 2,
+                username: 'test',
+                password: 'pa$$word',
+                email: 'lionel.messi@barca.es',
+                firstname: 'Lionel',
+                lastname: 'Messi',
+                birthdate: new Date(2018, 5, 22)
+            },
+            {
+                id: 3,
+                username: 'test',
+                password: 'pa$$word',
+                email: 'cristiano.ronaldo@real.es',
+                firstname: 'Cristiano',
+                lastname: 'Ronaldo',
+                birthdate: new Date(2018, 5, 22)
+            },
+            {
+                id: 4,
+                username: 'test',
+                password: 'pa$$word',
+                email: 'neymar.jr@psg.fr',
+                firstname: 'Neymar',
+                lastname: 'JR',
+                birthdate: new Date(2018, 5, 22)
+            }
+        ];
+
+        @Component({
+            selector: 'app-user',
+            templateUrl: './user.component.html',
+            styleUrls: ['./user.component.scss']
+        })
+        export class UserComponent implements OnInit {
+
+            users: User[];
+            selectedUser: User;
+
+            image = 'https://assets-cdn.github.com/images/icons/emoji/unicode/1f471.png?v8';
+
+            constructor() {}
+
+            ngOnInit() {
+                this.users = USERS;
+            }
+
+            onSelect(user: User): void {
+                this.selectedUser = user;
+            }
+        }
+
+
+        // path: src/app/user/user-detail/user-detail.component.ts
+        import { Component, Input, OnInit } from '@angular/core';
+        import { User } from '../user';
+
+        @Component({
+            selector: 'app-user-detail',
+            templateUrl: './user-detail.component.html',
+            styleUrls: ['./user-detail.component.scss']
+        })
+        export class UserDetailComponent implements OnInit {
+
+            @Input() user: User;
+            @Input('avatar') image: User;
+
+            constructor() { }
+
+            ngOnInit() { }
+        }
+        ```
+        ```html
+        <!-- path: src/app/user/user.component.html -->
+        <h2>Users</h2>
+        <hr>
+        <div class="row">
+            <div class="col m4">
+                <ul>
+                    <li *ngFor="let user of users" [class.active-line]="selectedUser && selectedUser.id === user.id" (click)="onSelect(user)">
+                        <span>{{user.id}} - {{user.firstname}} {{user.lastname}} </span>
+                    </li>
+                </ul>
+            </div>
+
+            <app-user-detail [user]="selectedUser" [avatar]="image"></app-user-detail>
+        </div>
+
+        <!-- path: src/app/user/user-detail/user-detail.component.html -->
+        <div *ngIf="user" class="col m8">
+            <br>
+            <img width="100" alt="property as one-way binding" [src]="image">
+            <h2>{{ user.firstname }} {{ user.lastname }} Details : </h2>
+            <div><span>id: </span>{{user.id}}</div>
+            <input type="text" [(ngModel)]="user.firstname">
+            <input type="text" [(ngModel)]="user.lastname">
+            <input type="text" [(ngModel)]="user.email">
+        </div>
+        ```
+    - Generate the User Service
+        ```bash
+        ng generate service user/user
+        ```
+    - Move USERS table from userComponent to the generated UserService
+        ```typescript
+        // path: src/app/user/user.service.ts
+        import { Injectable } from '@angular/core';
+        import { Observable } from 'rxjs';
+        import { User } from './user';
+
+        export const USERS: User[] = [
+            {
+                id: 1,
+                email: 'mehdi.mecheri@viveris.fr',
+                firstname: 'Mehdi',
+                lastname: 'Mecheri',
+                birthdate: new Date(2018, 5, 22)
+            },
+            {
+                id: 2,
+                email: 'lionel.messi@barca.es',
+                firstname: 'Lionel',
+                lastname: 'Messi',
+                birthdate: new Date(2018, 5, 22)
+            },
+            {
+                id: 3,
+                email: 'cristiano.ronaldo@real.es',
+                firstname: 'Cristiano',
+                lastname: 'Ronaldo',
+                birthdate: new Date(2018, 5, 22)
+            },
+            {
+                id: 4,
+                email: 'neymar.jr@psg.fr',
+                firstname: 'Neymar',
+                lastname: 'JR',
+                birthdate: new Date(2018, 5, 22)
+            }
+        ];
+
+        @Injectable({
+            providedIn: 'root'
+        })
+        export class UserService {
+            constructor() { }
+        }
+        ```
+    - Inject the generated UserService into UserComponent and load users Synchronously and Asynchronously
+        ```typescript
+        // path: src/app/user/user.component.ts
+        import { UserService } from './user.service';
+
+        constructor(private userService: UserService) {}
+        ```
+
+    - Load users synchronously
+        ```typescript
+        // path: src/app/user/user.service.ts
+        getUsers(): User[] {
+            return USERS;
+        }
+
+        // path: src/app/user/user.component.ts
+        users: User[];
+        ngOnInit() {
+            this.users = this.userService.getUsers();
+            ...
+        }
+        ```
+    - Load users asynchronously with Observables
+        ```typescript
+        // path: src/app/user/user.service.ts
+        import { Observable } from 'rxjs';
+        // The UserService must wait for the server to respond
+        // getUsers() cannot return immediately with data,
+        // and the browser will not block while the service waits
+        getUsersAsync(): Observable<User[]> {
+            return new Observable((observer) => {
+            setTimeout(() => {
+                observer.next(USERS);
+                observer.complete();
+            }, 3000);
+
+            try {
+                // throw Error("Boom");
+            } catch (e) {
+                observer.error(e);
+            }
+            });
+
+            // return Observable.of(USERS);
+        }
+
+        // path: src/app/user/user.component.ts
+        usersAsync: User[];
+        ngOnInit() {
+            ...
+            this.userService.getUsersAsync()
+                .subscribe(
+                    (data: User[]) => this.usersAsync = data,
+                    (error) => console.log(error)
+                );
+        }
+        ```
+        ```html
+        <!-- path: src/app/user/user.component.html -->
+        <div *ngIf="usersAsync">
+            <hr>
+            <ul>
+                <li *ngFor="let user of usersAsync" [class.active-line]="selectedUser && selectedUser.id === user.id" (click)="onSelect(user)">
+                    <span highlight>{{user.id}} - {{user.firstname}} {{user.lastname}} </span>
+                </li>
+            </ul>
+        </div>
+        ```
     - RxJS API demo
-    - Subscribe to Observable in the UserComponent
 
 08. Routing
     - Create HomeComponent (ng generate component Home)
