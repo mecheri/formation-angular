@@ -5,7 +5,18 @@ a.ui-menuitem-link.ui-state-active {
     background-color: transparent !important;
 }
 .ui-breadcrumb {
+    margin-top: 5px !important;
     &.ui-corner-all {
-        border-radius: 0px;
+        border-radius: 0px !important;
+    }
+}
+
+.ui-paginator {
+    .ui-paginator-pages {
+        .ui-paginator-page {
+            &.ui-state-active {
+                background-color: #26a69a !important;
+            }
+        }
     }
 }

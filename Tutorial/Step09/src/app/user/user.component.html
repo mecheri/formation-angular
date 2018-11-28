@@ -1,10 +1,8 @@
 <p-breadcrumb [model]="bcItems"></p-breadcrumb>
-
 <h2>Users</h2>
 
 <p-table #dt [columns]="cols" [value]="users" [paginator]="true" [rows]="5" [pageLinks]="3">
     <ng-template pTemplate="caption">
-        <button mz-button class="right" (click)="add()"><i class="material-icons">add</i></button>
         <input type="text" pInputText size="50" placeholder="Global filter" (input)="dt.filterGlobal($event.target.value, 'contains')">
     </ng-template>
     <ng-template pTemplate="header" let-columns>
@@ -29,14 +27,7 @@
             </td>
             <td>
                 <button mz-button (click)="detail(user)"><i class="material-icons">search</i></button>
-                <button mz-button (click)="edit(user)"><i class="material-icons">edit</i></button>
-                <button mz-button (click)="showDeleteModal(user)" class="red"><i class="material-icons">delete_forever</i></button>
             </td>
         </tr>
     </ng-template>
 </p-table>
-
-<app-user-delete *ngIf="displayDeleteModal" [data]="userToDelete" [display]="displayDeleteModal" (onAction)="onActionDelete($event)"></app-user-delete>
-
-<!-- notify -->
-<simple-notifications></simple-notifications>

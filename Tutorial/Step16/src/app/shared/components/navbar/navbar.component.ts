@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
 
 import { AuthService } from '../../../core/services/auth.service';
 
@@ -13,7 +12,6 @@ export class NavbarComponent implements OnInit {
   items: any[];
 
   constructor(
-    private router: Router,
     private authService: AuthService,
   ) {
     this.initItems();

@@ -24,7 +24,7 @@
         ```
     - Install primeng and it's icons
         ```bash
-        npm install --save primeng primeicons
+        npm install --save primeng@6.1.0 primeicons
         ```
     - Set this as scripts property in angular.json file:
         ```javascript
@@ -669,7 +669,6 @@
 07. User service
     - Clean Workspace
         * Remove custom Pipes, custom Directives and Interaction07Service
-
         * Update the User and UserDetail Components and AppModule imports
         ```typescript
         // path: src/app/app.module.ts
@@ -825,6 +824,8 @@
         export const USERS: User[] = [
             {
                 id: 1,
+                username: 'test',
+                password: 'pa$$word',
                 email: 'mehdi.mecheri@viveris.fr',
                 firstname: 'Mehdi',
                 lastname: 'Mecheri',
@@ -832,6 +833,8 @@
             },
             {
                 id: 2,
+                username: 'test',
+                password: 'pa$$word',
                 email: 'lionel.messi@barca.es',
                 firstname: 'Lionel',
                 lastname: 'Messi',
@@ -839,6 +842,8 @@
             },
             {
                 id: 3,
+                username: 'test',
+                password: 'pa$$word',
                 email: 'cristiano.ronaldo@real.es',
                 firstname: 'Cristiano',
                 lastname: 'Ronaldo',
@@ -846,6 +851,8 @@
             },
             {
                 id: 4,
+                username: 'test',
+                password: 'pa$$word',
                 email: 'neymar.jr@psg.fr',
                 firstname: 'Neymar',
                 lastname: 'JR',
@@ -885,7 +892,7 @@
     - Load users asynchronously with Observables
         ```typescript
         // path: src/app/user/user.service.ts
-        import { Observable } from 'rxjs';
+        import { Observable, of } from 'rxjs';
         // The UserService must wait for the server to respond
         // getUsers() cannot return immediately with data,
         // and the browser will not block while the service waits
@@ -903,7 +910,7 @@
             }
             });
 
-            // return Observable.of(USERS);
+            // return of(USERS);
         }
 
         // path: src/app/user/user.component.ts
@@ -923,7 +930,7 @@
             <hr>
             <ul>
                 <li *ngFor="let user of usersAsync" [class.active-line]="selectedUser && selectedUser.id === user.id" (click)="onSelect(user)">
-                    <span highlight>{{user.id}} - {{user.firstname}} {{user.lastname}} </span>
+                    <span>{{user.id}} - {{user.firstname}} {{user.lastname}}</span>
                 </li>
             </ul>
         </div>
@@ -931,28 +938,394 @@
     - RxJS API demo
 
 08. Routing
-    - Create HomeComponent (ng generate component Home)
-    - Add AppRoutingModule (ng generate module app-routing --flat)
-    - Use RouterModule.forRoot()
-    - Export RouterModule from created AppRoutingModule
-    - Add RouterOutlet
-    - Import created AppRoutingModule in AppModule
-    - Add the UserComponent route
-    - Add the UserDetailComponent route
-    - Add the HomeComponent route
-    - Add a default route
-    - Create NavbarComponent for navigation links (ng generate component Navbar)
-    - Install dependency package ngx-bootstrap (npm install --save ngx-bootstrap)
-    - Import CollapseModule and BsDropdownModule modules in AppModule from ngx-bootstrap
-    - Navigate to the UserComponent
-    - Import primeng UI modules in AppModule
-    - Update the UserComponent view with primeng UI components (Table, Breadcrumb...)
-    - Import Missing BrowserAnimationsModule in AppModule
-    - Navigate to the UserDetailComponent
-    - Update the UserDetailComponent
-    - Extract user ID from ActivatedRoute Parameters
-    - Update the UserService to get specific user by ID
+    - Generate AppRoutingModule
+        ```bash
+        ng generate module app-routing --flat
+        ```
+    - Export RouterModule from generated AppRoutingModule
+        ```typescript
+        // path: src/app/app-routing.module.ts
+        import { NgModule } from '@angular/core';
+        import { CommonModule } from '@angular/common';
+        import { RouterModule } from '@angular/router';
 
+        @NgModule({
+            imports: [
+                CommonModule
+            ],
+            exports: [
+                RouterModule
+            ]
+        })
+        export class AppRoutingModule { }
+        ```
+    - Generate HomeComponent
+        ```bash
+        ng generate component home
+        ```
+    - Add routes for user, userDetail and home components
+        ```typescript
+        // path: src/app/app-routing.module.ts
+        import { NgModule } from '@angular/core';
+        import { CommonModule } from '@angular/common';
+        import { RouterModule, Routes } from '@angular/router';
+
+        import { HomeComponent } from './home/home.component';
+        import { UserComponent } from './user/user.component';
+        import { UserDetailComponent } from './user/user-detail/user-detail.component';
+
+        const routes: Routes = [
+            { path: 'home', component: HomeComponent },
+            { path: 'user', component: UserComponent },
+            { path: 'user/:id', component: UserDetailComponent },
+        ];
+
+        @NgModule({
+            imports: [
+                CommonModule,
+                RouterModule.forRoot(routes)
+            ],
+            exports: [
+                RouterModule
+            ]
+        })
+        export class AppRoutingModule { }
+        ```
+    - Add a default route
+        ```typescript
+        // path: src/app/app-routing.module.ts
+        const routes: Routes = [
+            { path: '', redirectTo: '/home', pathMatch: 'full' },
+            ...
+        ];
+        ```
+    - Import created AppRoutingModule in AppModule
+        ```typescript
+        // path: src/app/app-routing.module.ts
+        const routes: Routes = [
+            { path: '', redirectTo: '/home', pathMatch: 'full' },
+            ...
+        ];
+        ```
+    - Move AppComponent template conetent to HomeComponent template without UserComponent tag
+        ```html
+        <!-- path: src/app/home/home.component.html -->
+        <div style="text-align:center">
+            <h1>
+                Welcome to {{ title }}!
+            </h1>
+            <img width="100" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+        </div>
+        ```
+    - Add RouterOutlet in AppComponent template
+        ```html
+        <!-- path: src/app/app.component.html -->
+        <router-outlet></router-outlet>
+        ```
+    - Import newly AppRoutingModule in AppModule
+        ```typescript
+            // path: src/app/app.module.ts
+            import { AppRoutingModule } from './app-routing.module';
+
+            imports: [
+                ...
+                AppRoutingModule
+            ],
+        ```
+    - Import some ngx-materialize UI Modules in AppModule
+        ```typescript
+            // path: src/app/app.module.ts
+            import { MzNavbarModule, MzInputModule, MzButtonModule, MzValidationModule, MzSpinnerModule } from 'ngx-materialize';
+
+            imports: [
+                ...
+                MzNavbarModule,
+                MzInputModule,
+                MzButtonModule,
+                MzValidationModule,
+                MzSpinnerModule
+            ],
+        ```
+    - Generate NavbarComponent for navigation links
+        ```bash
+        ng generate component navbar
+        ```
+        ```typescript
+        // path: src/app/navbar/navbar.component.ts
+        import { Component, OnInit } from '@angular/core';
+
+        @Component({
+            selector: 'app-navbar',
+            templateUrl: './navbar.component.html',
+            styleUrls: ['./navbar.component.scss']
+        })
+        export class NavbarComponent implements OnInit {
+            items: any[];
+
+            constructor() {}
+
+            ngOnInit() {
+                this.initItems();
+            }
+
+            initItems() {
+                this.items = [
+                    {
+                        name: 'Home',
+                        id: 'home',
+                        class: '',
+                        url: '/home',
+                    },
+                    {
+                        name: 'Users',
+                        id: 'user',
+                        class: '',
+                        url: '/user',
+                    }
+                ];
+            }
+        }
+        ```
+        ```html
+        <!-- path: src/app/navbar/navbar.component.html -->
+        <mz-navbar navbarClass="teal">
+            <div class="container">
+                <a href="#" class="brand-logo hide-on-med-and-down">ANGULAR CLI STARTER</a>
+                <mz-navbar-item-container [align]="'right'">
+                    <mz-navbar-item *ngFor="let item of items">
+                        <a routerLink="{{ item.url }}" id="{{ item.id }}">{{ item.name }}</a>
+                    </mz-navbar-item>
+                </mz-navbar-item-container>
+            </div>
+        </mz-navbar>
+        ```
+    - Update AppComponent template and invoke Navbar tag outside RouterOutlet
+        ```html
+        <!-- path: src/app/app.component.html -->
+        <app-navbar></app-navbar>
+        <div class="container">
+            <router-outlet></router-outlet>
+        </div>
+        ```
+    - Import some primeng UI Modules in AppModule
+        ```typescript
+            // path: src/app/app.module.ts
+            import { TableModule } from 'primeng/table';
+            import { BreadcrumbModule } from 'primeng/breadcrumb';
+
+            imports: [
+                ...
+                TableModule,
+                BreadcrumbModule,
+            ],
+        ```
+    - Enhance and clean UserComponent with injected Router and primeng UI components (Table, Breadcrumb)
+        ```typescript
+        // path: src/app/user/user.component.ts
+        import { Component, OnInit } from '@angular/core';
+        import { Router } from '@angular/router';
+
+        import { User } from './user';
+        import { UserService } from './user.service';
+
+        @Component({
+            selector: 'app-user',
+            templateUrl: './user.component.html',
+            styleUrls: ['./user.component.scss']
+        })
+        export class UserComponent implements OnInit {
+            users: User[];
+            selectedUser: User;
+
+            bcItems = [
+                { label: 'Home', routerLink: '/home', icon: 'pi pi-home' },
+                { label: 'Users', }
+            ];
+
+            cols = [
+                { field: 'id', header: 'ID' },
+                { field: 'firstname', header: 'First Name' },
+                { field: 'lastname', header: 'Last Name' }
+            ];
+
+            constructor(
+                private router: Router,
+                private userService: UserService
+            ) { }
+
+            ngOnInit() {
+                this.userService.getUsers()
+                .subscribe(
+                    (data: User[]) => this.users = data,
+                    (error) => console.log(error)
+                );
+            }
+
+            onSelect(user: User): void {
+                this.selectedUser = user;
+            }
+
+            detail(user: User) {
+                this.router.navigate(['user', user.id]);
+            }
+        }
+        ```
+        ```html
+        <!-- path: src/app/user/user.component.html -->
+        <p-breadcrumb [model]="bcItems"></p-breadcrumb>
+        <h2>Users</h2>
+        <p-table #dt [columns]="cols" [value]="users" [paginator]="true" [rows]="5" [pageLinks]="3">
+            <ng-template pTemplate="caption">
+                <input type="text" pInputText size="50" placeholder="Global filter" (input)="dt.filterGlobal($event.target.value, 'contains')">
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.field" style="width: 20%">
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                    </th>
+                    <th style="width: 30%">Actions</th>
+                </tr>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        <input pInputText type="text" placeholder="Column filter" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                    </th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-user let-columns="columns">
+                <tr>
+                    <td *ngFor="let col of columns">
+                        {{user[col.field]}}
+                    </td>
+                    <td>
+                        <button mz-button (click)="detail(user)"><i class="material-icons">search</i></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        ```
+    - Clean UserService class
+        ```typescript
+        // path: src/app/user/user.service.ts
+        import { Injectable } from '@angular/core';
+        import { Observable, of } from 'rxjs';
+
+        import { User } from './user';
+
+        export const USERS: User[] = [
+            {
+                id: 1,
+                username: 'test',
+                password: 'pa$$word',
+                email: 'mehdi.mecheri@viveris.fr',
+                firstname: 'Mehdi',
+                lastname: 'Mecheri',
+                birthdate: new Date(2018, 5, 22)
+            },
+            {
+                id: 2,
+                username: 'test',
+                password: 'pa$$word',
+                email: 'lionel.messi@barca.es',
+                firstname: 'Lionel',
+                lastname: 'Messi',
+                birthdate: new Date(2018, 5, 22)
+            },
+            {
+                id: 3,
+                username: 'test',
+                password: 'pa$$word',
+                email: 'cristiano.ronaldo@real.es',
+                firstname: 'Cristiano',
+                lastname: 'Ronaldo',
+                birthdate: new Date(2018, 5, 22)
+            },
+            {
+                id: 4,
+                username: 'test',
+                password: 'pa$$word',
+                email: 'neymar.jr@psg.fr',
+                firstname: 'Neymar',
+                lastname: 'JR',
+                birthdate: new Date(2018, 5, 22)
+            }
+        ];
+
+        @Injectable({
+            providedIn: 'root'
+        })
+        export class UserService {
+            constructor() { }
+
+            getUsers(): Observable<User[]> {
+                return of(USERS);
+            }
+        }
+        ```
+    - Error Missing BrowserAnimationsModule !!!
+        ```typescript
+            // path: src/app/app.module.ts
+            import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+            imports: [
+                ...
+                BrowserAnimationsModule,
+                ...
+            ],
+        ```
+    - Navigate to the User detail -> nothing displayed !!!
+    - Enhance UserDetailComponent and Extract user ID from ActivatedRoute Parameters
+        ```typescript
+        // path: src/app/user/user-detail/user-detail.component.ts
+        import { Component, OnInit } from '@angular/core';
+        import { ActivatedRoute } from '@angular/router';
+
+        import { User } from '../user';
+        import { UserService } from '../user.service';
+
+        @Component({
+            selector: 'app-user-detail',
+            templateUrl: './user-detail.component.html',
+            styleUrls: ['./user-detail.component.scss']
+        })
+        export class UserDetailComponent implements OnInit {
+            user: User;
+
+            constructor(
+                private route: ActivatedRoute,
+                private userService: UserService
+            ) { }
+
+            ngOnInit() {
+                this.getUser();
+            }
+
+            getUser(): void {
+                const id = +this.route.snapshot.paramMap.get('id');
+                this.userService.getUser(id)
+                    .subscribe(user => this.user = user);
+            }
+        }
+        ```
+        ```html
+        <!-- path: src/app/user/user-detail/user-detail.component.html -->
+        <div class="col m8">
+            <br>
+            <h2>{{ user.firstname }} {{ user.lastname }} Details : </h2>
+            <div><span>id: </span>{{user.id}}</div>
+            <input type="text" [(ngModel)]="user.firstname">
+            <input type="text" [(ngModel)]="user.lastname">
+            <input type="text" [(ngModel)]="user.email">
+        </div>
+        ```
+    - Add function in UserService to get specific user by ID
+        ```typescript
+        // path: src/app/user/user.service.ts
+        getUser(id: number): Observable<User> {
+            return of(USERS.find(user => user.id === id));
+        }
+        ```
 09. User CRUD Forms
     - Update the User class (add username, password properties)
     - Create UserNewComponent and its route (ng generate component UserNew)
