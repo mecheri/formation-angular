@@ -1128,11 +1128,13 @@
             // path: src/app/app.module.ts
             import { TableModule } from 'primeng/table';
             import { BreadcrumbModule } from 'primeng/breadcrumb';
+            import { DialogModule } from 'primeng/dialog';
 
             imports: [
                 ...
                 TableModule,
                 BreadcrumbModule,
+                DialogModule
             ],
         ```
     - Enhance and clean UserComponent with injected Router and primeng UI components (Table, Breadcrumb)
@@ -1170,15 +1172,19 @@
             ) { }
 
             ngOnInit() {
+                this.getUsers();
+            }
+
+            onSelect(user: User): void {
+                this.selectedUser = user;
+            }
+
+            getUsers() {
                 this.userService.getUsers()
                 .subscribe(
                     (data: User[]) => this.users = data,
                     (error) => console.log(error)
                 );
-            }
-
-            onSelect(user: User): void {
-                this.selectedUser = user;
             }
 
             detail(user: User) {
@@ -1342,19 +1348,461 @@
             return of(USERS.find(user => user.id === id));
         }
         ```
-09. User CRUD Forms
-    - Update the User class (add username, password properties)
-    - Create UserNewComponent and its route (ng generate component UserNew)
-    - Create UserEditComponent and its route (ng generate component UserEdit)
-    - Create UserDeleteComponent and import primeng DialogModule in AppModule (ng generate component UserDelete)
-    - Update navigation links in users dataTable
-    - Show Template-driven forms (example only)
-    - Import ReactiveFormsModule
-    - Build Reactive Forms
-    - Show FormControl
-    - Show FormGroup
-    - Show FormBuilder
-    - Show Validators and custom Validators
+09. User CRUD
+    - Generate User new, edit and delete Components and its route (ng generate component UserNew)
+        ```bash
+        ng generate component user/userNew
+        ng generate component user/userEdit
+        ng generate component user/userDelete
+        ```
+    - Add routes for newly generated components
+        ```typescript
+        // path: src/app/app-routing.module.ts
+        ...
+        import { UserNewComponent } from './user/user-new/user-new.component';
+        import { UserEditComponent } from './user/user-edit/user-edit.component';
+
+        const routes: Routes = [
+            ...
+            { path: 'user/add/new', component: UserNewComponent },
+            { path: 'user/edit/:id', component: UserEditComponent },
+        ];
+        ```
+    - Update UserComponent with navigation links to the newly created components
+        ```html
+        <!-- path: src/app/user/user.component.html -->
+        <p-table #dt [columns]="cols" [value]="users" [paginator]="true" [rows]="5" [pageLinks]="3">
+            <ng-template pTemplate="caption">
+                <button mz-button class="right" (click)="add()"><i class="material-icons">add</i></button>
+                <input type="text" pInputText size="50" placeholder="Global filter" (input)="dt.filterGlobal($event.target.value, 'contains')">
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.field" style="width: 20%">
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                    </th>
+                    <th style="width: 30%">Actions</th>
+                </tr>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        <input pInputText type="text" placeholder="Column filter" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                    </th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-user let-columns="columns">
+                <tr>
+                    <td *ngFor="let col of columns">
+                        {{user[col.field]}}
+                    </td>
+                    <td>
+                        <button mz-button (click)="detail(user)"><i class="material-icons">search</i></button>
+                        <button mz-button (click)="edit(user)"><i class="material-icons">edit</i></button>
+                        <button mz-button (click)="showDeleteModal(user)" class="red"><i class="material-icons">delete_forever</i></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+        <app-user-delete *ngIf="displayDeleteModal" [data]="userToDelete" [display]="displayDeleteModal" (onAction)="onActionDelete($event)"></app-user-delete>
+        ```
+        ```typescript
+        // path: src/app/user/user.component.ts
+        userToDelete: User;
+        displayDeleteModal: boolean = false;
+
+        add() {
+            this.router.navigate(['user', 'add', 'new']);
+        }
+
+        edit(user: User) {
+            this.router.navigate(['user', 'edit', user.id]);
+        }
+
+        showDeleteModal(user: User) {
+            this.userToDelete = user;
+            this.displayDeleteModal = true;
+        }
+
+        onActionDelete(del: boolean) {
+            this.displayDeleteModal = false;
+            if (del) {
+                this.getUsers();
+            }
+        }
+        ```
+    - Set up UserDeleteComponent
+        ```typescript
+        // path: src/app/user/user-delete/user-delete.component.ts
+        import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+        import { User } from '../user';
+
+        @Component({
+            selector: 'app-user-delete',
+            templateUrl: './user-delete.component.html',
+            styleUrls: ['./user-delete.component.scss']
+        })
+        export class UserDeleteComponent implements OnInit {
+            @Input('data') user: User;
+            @Input() display: boolean;
+            @Output() onAction = new EventEmitter<boolean>();
+
+            constructor() { }
+
+            ngOnInit() { }
+
+            cancel() {
+                this.onAction.emit(false);
+            }
+
+            delete() {
+                this.onAction.emit(true);
+            }
+        }
+        ```
+        ```html
+        <!-- path: src/app/user/user-delete/user-delete.component.html -->
+        <p-dialog header="Delete user" [(visible)]="display" [modal]="true" width="400">
+            <div class="row">
+                <mz-input-container class="col s12 m12">
+                    <input mz-input id="username" type="text" [(ngModel)]="user.username" [label]="'User name'" disabled/>
+                </mz-input-container>
+                <mz-input-container class="col s12 m12">
+                    <input mz-input id="password" type="password" [(ngModel)]="user.password" [label]="'Password'" disabled/>
+                </mz-input-container>
+                <mz-input-container class="col s12 m12">
+                    <input mz-input id="email" [(ngModel)]="user.email" [label]="'Email'" disabled/>
+                </mz-input-container>
+                <mz-input-container class="col s12 m12">
+                    <input mz-input id="firstname" [(ngModel)]="user.firstname" [label]="'First name'" disabled/>
+                </mz-input-container>
+                <mz-input-container class="col s12 m12">
+                    <input mz-input id="lastname" [(ngModel)]="user.lastname" [label]="'Last name'" disabled/>
+                </mz-input-container>
+            </div>
+            <p-footer>
+                <button mz-button class="blue-grey lighten-1" (click)="cancel()" type="button">CANCEL</button>
+                <button mz-button class="red" (click)="delete()">DELETE</button>
+            </p-footer>
+        </p-dialog>
+        ```
+    - Import ReactiveFormsModule for the app
+        ```typescript
+        // path: src/app/app.module.ts
+        import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+        imports: [
+            ...
+            FormsModule,
+            ReactiveFormsModule,
+            ...
+        ],
+        ```
+    - Update UserDetailComponent
+        ```typescript
+        // path: src/app/user/user-detail/user-detail.component.ts
+        import { Component, OnInit } from '@angular/core';
+        import { Router, ActivatedRoute } from '@angular/router';
+
+        import { User } from '../user';
+        import { UserService } from '../user.service';
+
+        @Component({
+            selector: 'app-user-detail',
+            templateUrl: './user-detail.component.html',
+            styleUrls: ['./user-detail.component.scss']
+        })
+        export class UserDetailComponent implements OnInit {
+            user: User;
+
+            bcItems = [
+                { label: 'Home', routerLink: '/home', icon: 'pi pi-home' },
+                { label: 'Users', routerLink: '/user' },
+                { label: 'User Details' }
+            ];
+
+            constructor(
+                private router: Router,
+                private route: ActivatedRoute,
+                private userService: UserService
+            ) {
+                this.user = new User();
+            }
+
+            ngOnInit() {
+                this.getUser();
+            }
+
+            getUser(): void {
+                const id = +this.route.snapshot.paramMap.get('id');
+                this.userService.getUser(id)
+                .subscribe(user => this.user = user);
+            }
+
+            cancel() {
+                this.router.navigate(['user']);
+            }
+
+            edit() {
+                this.router.navigate(['user', 'edit', +this.route.snapshot.paramMap.get('id')]);
+            }
+        }
+        ```
+        ```html
+        <!-- path: src/app/user/user-detail/user-detail.component.html -->
+        <p-breadcrumb [model]="bcItems"></p-breadcrumb>
+        <h2>User Details : </h2>
+        <div class="row">
+            <mz-input-container class="col s12 m12">
+                <input mz-input id="username" type="text" [(ngModel)]="user.username" [label]="'User name'" [placeholder]="'User name'" disabled/>
+            </mz-input-container>
+            <mz-input-container class="col s12 m12">
+                <input mz-input id="password" type="password" [(ngModel)]="user.password" [label]="'Password'" [placeholder]="'Password'" disabled/>
+            </mz-input-container>
+            <mz-input-container class="col s12 m12">
+                <input mz-input id="email" [(ngModel)]="user.email" [label]="'Email'" [placeholder]="'Email'" disabled/>
+            </mz-input-container>
+            <mz-input-container class="col s12 m12">
+                <input mz-input id="firstname" [(ngModel)]="user.firstname" [label]="'First name'" [placeholder]="'First name'" disabled/>
+            </mz-input-container>
+            <mz-input-container class="col s12 m12">
+                <input mz-input id="lastname" [(ngModel)]="user.lastname" [label]="'Last name'" [placeholder]="'Last name'" disabled/>
+            </mz-input-container>
+        </div>
+        <button mz-button class="blue-grey lighten-1" (click)="cancel()" type="button">CANCEL</button>
+        <button mz-button (click)="edit()">EDIT</button>
+        ```
+    - Set up ReactiveForms (FormControl, FormGroup, FormBuilder, Validators)
+        * UserNewComponent
+            ```typescript
+            // path: src/app/user/user-new/user-new.component.ts
+            import { Component, OnInit } from '@angular/core';
+            import { AbstractControl, FormControl, FormGroup, FormBuilder, Validators, ValidatorFn } from '@angular/forms';
+            import { Router } from '@angular/router';
+
+            import { UserService } from './../../user/user.service';
+
+            @Component({
+                selector: 'app-user-new',
+                templateUrl: './user-new.component.html',
+                styleUrls: ['./user-new.component.scss']
+            })
+            export class UserNewComponent implements OnInit {
+                creationForm: FormGroup;
+
+                bcItems = [
+                    { label: 'Home', routerLink: '/home', icon: 'pi pi-home' },
+                    { label: 'Users', routerLink: '/user' },
+                    { label: 'User New' }
+                ];
+
+                validation: any = {
+                    username: {
+                        required: 'User name is required.',
+                    },
+                    password: {
+                        required: 'Password is required.',
+                    },
+                    email: {
+                        required: 'Email is required.',
+                        email: 'Invalid Email',
+                    },
+                    firstname: {
+                        required: 'First name is required.',
+                        forbidden: 'Unauthorized string.',
+                    },
+                    lastname: {
+                        required: 'Last name is required.',
+                    }
+                }
+
+                constructor(
+                    private router: Router,
+                    private fb: FormBuilder,
+                    private userService: UserService
+                ) { }
+
+                ngOnInit() {
+                    this.createForm();
+                }
+
+                createForm() {
+                    if (this.creationForm) { this.creationForm.reset(); }
+                    this.creationForm = this.fb.group({ // <==> new FormGroup({ username: new FormControl() })
+                    username: ['', Validators.required],
+                    password: ['', Validators.required],
+                    email: ['', [Validators.required, Validators.email]],
+                    firstname: ['', Validators.required],
+                    lastname: ['', Validators.required]
+                    });
+                }
+
+                cancel() {
+                    this.router.navigate(['user']);
+                }
+
+                save() {
+                    // TODO: call injected userService to save data via http call
+                }
+            }
+            ```
+            ```html
+            <!-- path: src/app/user/user-new/user-new.component.html -->
+            <p-breadcrumb [model]="bcItems"></p-breadcrumb>
+            <h2>User New : </h2>
+
+            <form [formGroup]="creationForm" (ngSubmit)="save()" novalidate>
+                <div class="row">
+                    <mz-input-container class="col s12 m12">
+                        <input mz-input mz-validation required id="username" formControlName="username" type="text" [errorMessageResource]="validation.username" [label]="'User name'" [placeholder]="'User name'" />
+                    </mz-input-container>
+                    <mz-input-container class="col s12 m12">
+                        <input mz-input mz-validation required id="password" formControlName="password" type="password" [errorMessageResource]="validation.password" [label]="'Password'" [placeholder]="'Password'" />
+                    </mz-input-container>
+                    <mz-input-container class="col s12 m12">
+                        <input mz-input mz-validation required id="email" formControlName="email" type="text" [errorMessageResource]="validation.email" [label]="'Email'" [placeholder]="'Email'" />
+                    </mz-input-container>
+                    <mz-input-container class="col s12 m12">
+                        <input mz-input mz-validation required id="firstname" formControlName="firstname" type="text" [errorMessageResource]="validation.firstname" [label]="'First name'" [placeholder]="'First name'" />
+                    </mz-input-container>
+                    <mz-input-container class="col s12 m12">
+                        <input mz-input mz-validation required id="lastname" formControlName="lastname" type="text" [errorMessageResource]="validation.lastname" [label]="'Last name'" [placeholder]="'Last name'" />
+                    </mz-input-container>
+                </div>
+
+                <button mz-button class="blue-grey lighten-1" (click)="cancel()" type="button">CANCEL</button>
+                <button mz-button [disabled]="!creationForm.valid" type="submit">SAVE</button>
+            </form>
+            ```
+        * UserEditComponent
+            ```typescript
+            // path: src/app/user/user-edit/user-edit.component.ts
+            import { Component, OnInit } from '@angular/core';
+            import { AbstractControl, FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+            import { Router, ActivatedRoute } from '@angular/router';
+
+            import { User } from '../../user/user';
+            import { UserService } from '../../user/user.service';
+
+            @Component({
+                selector: 'app-user-edit',
+                templateUrl: './user-edit.component.html',
+                styleUrls: ['./user-edit.component.scss']
+            })
+            export class UserEditComponent implements OnInit {
+                user: User;
+                userId: number;
+                editForm: FormGroup;
+
+                bcItems = [
+                    { label: 'Home', routerLink: '/home', icon: 'pi pi-home' },
+                    { label: 'Users', routerLink: '/user' },
+                    { label: 'User Edit' }
+                ];;
+
+                validation: any = {
+                    username: {
+                        required: 'User name is required.',
+                    },
+                    password: {
+                        required: 'Password is required.',
+                    },
+                    email: {
+                        required: 'Email is required.',
+                        email: 'Invalid Email',
+                    },
+                    firstname: {
+                        required: 'First name is required.',
+                    },
+                    lastname: {
+                        required: 'Last name is required.',
+                    }
+                }
+
+                constructor(
+                    private router: Router,
+                    private route: ActivatedRoute,
+                    private fb: FormBuilder,
+                    private userService: UserService
+                ) { }
+
+                ngOnInit() {
+                    this.route.params.subscribe(params => this.userId = +params['id']);
+                    this.createForm();
+                    this.getUser();
+                }
+
+                getUser(): void {
+                    const id = +this.route.snapshot.paramMap.get('id');
+                    this.userService.getUser(id).subscribe(user => {
+                        this.user = user;
+                        this.editForm.patchValue(this.user);
+                    });
+                }
+
+                createForm() {
+                    if (this.editForm) { this.editForm.reset(); }
+                    this.editForm = this.fb.group({
+                        username: ['', Validators.required],
+                        password: ['', Validators.required],
+                        email: ['', [Validators.required, Validators.email]],
+                        firstname: ['', Validators.required],
+                        lastname: ['', Validators.required],
+                    });
+                }
+
+                cancel() {
+                    this.router.navigate(['user']);
+                }
+
+                save() {
+                    // TODO: call injected userService to save data via http call
+                }
+            }
+            ```
+            ```html
+            <!-- path: src/app/user/user-edit/user-edit.component.html -->
+            <p-breadcrumb [model]="bcItems"></p-breadcrumb>
+            <h2>User Edit : </h2>
+            <form *ngIf="user" [formGroup]="editForm" (ngSubmit)="save()" novalidate>
+                <div class="row">
+                    <mz-input-container class="col s12 m12">
+                        <input mz-input mz-validation required id="username" formControlName="username" type="text" [errorMessageResource]="validation.username" [label]="'User name'" [placeholder]="'User name'" />
+                    </mz-input-container>
+                    <mz-input-container class="col s12 m12">
+                        <input mz-input mz-validation required id="password" formControlName="password" type="password" [errorMessageResource]="validation.password" [label]="'Password'" [placeholder]="'Password'" />
+                    </mz-input-container>
+                    <mz-input-container class="col s12 m12">
+                        <input mz-input mz-validation required id="email" formControlName="email" type="text" [errorMessageResource]="validation.email" [label]="'Email'" [placeholder]="'Email'" />
+                    </mz-input-container>
+                    <mz-input-container class="col s12 m12">
+                        <input mz-input mz-validation required id="firstname" formControlName="firstname" type="text" [errorMessageResource]="validation.firstname" [label]="'First name'" [placeholder]="'First name'" />
+                    </mz-input-container>
+                    <mz-input-container class="col s12 m12">
+                        <input mz-input mz-validation required id="lastname" formControlName="lastname" type="text" [errorMessageResource]="validation.lastname" [label]="'Last name'" [placeholder]="'Last name'" />
+                    </mz-input-container>
+                </div>
+                <button mz-button class="blue-grey lighten-1" (click)="cancel()" type="button">CANCEL</button>
+                <button mz-button [disabled]="!editForm.valid" type="submit">SAVE</button>
+            </form>
+            ```
+    - Set up custom validators example
+        ```typescript
+        // path: src/app/user/user-new/user-new.component.ts
+        this.creationForm = this.fb.group({
+            ...
+            firstname: ['', [Validators.required, forbiddenValidator(/test/i)]],
+            ...
+        });
+        ...
+        export function forbiddenValidator(nameRe: RegExp): ValidatorFn {
+            return (control: AbstractControl): { [key: string]: any } => {
+                const forbidden = nameRe.test(control.value);
+                return forbidden ? { 'forbidden': { value: control.value } } : null;
+            };
+        }
+        ```
 
 10. HttpClient in the UserService
     - Enable HTTP services (HttpClientModule)

@@ -58,8 +58,8 @@ export class UserEditComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => this.userId = +params['id']);
     this.loadResources();
-    this.getUser();
     this.createForm();
+    this.getUser();
   }
 
   loadResources() {

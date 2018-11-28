@@ -24,21 +24,21 @@
             }
             validation: {
                 username: {
-                    required: 'Login is required.',
+                    required: Login is required.
                 }
                 password: {
-                    required: 'Password is required.',
-                },
+                    required: Password is required.
+                }
                 email: {
-                    required: 'Email is required.',
-                    email: 'Invalid Email',
-                },
+                    required: Email is required.
+                    email: Invalid Email
+                }
                 firstname: {
-                    required: 'First name is required.',
-                },
+                    required: First name is required.
+                }
                 lastname: {
-                    required: 'Last name is required.',
-                },
+                    required: Last name is required.
+                }
             }
         },
         user: {
@@ -67,21 +67,21 @@
             }
             validation: {
                 username: {
-                    required: 'User name is required.',
+                    required: User name is required.
                 }
                 password: {
-                    required: 'Password is required.',
-                },
+                    required: Password is required.
+                }
                 email: {
-                    required: 'Email is required.',
-                    email: 'Invalid Email',
-                },
+                    required: Email is required.
+                    email: Invalid Email
+                }
                 firstname: {
-                    required: 'First name is required.',
-                    forbidden: 'Unauthorized string.',
-                },
+                    required: First name is required.
+                    forbidden: Unauthorized string.
+                }
                 lastname: {
-                    required: 'Last name is required.',
+                    required: Last name is required.
                 }
             }
         }

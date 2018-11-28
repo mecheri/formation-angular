@@ -36,7 +36,7 @@ export class UserComponent implements OnInit {
     this.getUsers();
   }
 
-  onSelect(user: User) {
+  onSelect(user: User): void {
     this.selectedUser = user;
   }
 
