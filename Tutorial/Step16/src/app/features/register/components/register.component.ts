@@ -28,12 +28,6 @@ export class RegisterComponent implements OnInit {
     rsc: any;
     registerForm: FormGroup;
 
-    get username() { return this.registerForm.get('username'); }
-    get password() { return this.registerForm.get('password'); }
-    get email() { return this.registerForm.get('email'); }
-    get firstname() { return this.registerForm.get('firstname'); }
-    get lastname() { return this.registerForm.get('lastname'); }
-
     /**
      * Creates an instance of RegisterComponent.
      * @param {Router} router

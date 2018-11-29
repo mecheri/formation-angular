@@ -1437,6 +1437,7 @@
         // path: src/app/user/user-delete/user-delete.component.ts
         import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
         import { User } from '../user';
+        import { UserService } from '../user.service';
 
         @Component({
             selector: 'app-user-delete',
@@ -1448,7 +1449,9 @@
             @Input() display: boolean;
             @Output() onAction = new EventEmitter<boolean>();
 
-            constructor() { }
+            constructor(
+                private userService: UserService,
+            ) { }
 
             ngOnInit() { }
 
@@ -1805,17 +1808,248 @@
         ```
 
 10. HttpClient in the UserService
-    - Enable HTTP services (HttpClientModule)
-    - Inject HttpClient into UserService
-    - Update the UserService by replacing Mocks to HttpClient Calls
-    - Show HttpClient API examples
-    - GET user by ID
-    - POST new user
-    - PUT existing user
-    - DELETE existing user
-    - Install dependency package angular2-notification (npm install --save angular2-notifications)
-    - Inject Angular2-notifications service in the user's CRUD Components
+    - Enable Angular's HTTP services (HttpClientModule)
+        ```typescript
+        // path: src/app/app.module.ts
+        import { HttpClientModule } from '@angular/common/http';
+        ...
+        imports: [
+            ...
+            HttpClientModule,
+        ],
+        ```
+    - Inject HttpClient into UserService and remove USERS Mocks table
+        ```typescript
+        // path: src/app/user/user.service.ts
+        import { HttpClient } from '@angular/common/http';
+        ...
+        constructor(private http: HttpClient) { }
+        ```
+    - HttpClient API examples
+        ```typescript
+        // Récupération de données JSON
+        this.http.get('https://api.github.com/emojis')
+            .subscribe(data => {
+            console.log(data['hugs']);
+            });
 
+        // Vérification du type de la réponse
+        interface EmojisResponse { hugs: string; }
+        this.http.get<EmojisResponse>('https://api.github.com/emojis')
+            .subscribe(data => {
+            console.log(data.hugs);
+            });
+
+        // Récupération de la totalité de la réponse pas le body uniquement
+        this.http.get('https://api.github.com/emojis', { observe: 'response' })
+            .subscribe(resp => console.log(resp));
+
+        // Gestion des erreurs
+        this.http.get('https://api.github.com/emojisqsd')
+            .subscribe(
+                data => console.log(data),
+                error => console.log('Erreur http -->', error)
+            );
+
+        // Récupération de données non-JSON
+        this.http.get('file.txt', { responseType: 'text' })
+            .subscribe(data => console.log(data));
+
+        // Envoyer des données a un serveur
+        // Requete POST
+        const body = { name: 'Mehdi' };
+        this.http
+            .post('/api/users/add', body)
+            .subscribe(
+                data => console.log(data),
+                error => console.log('Erreur http -->', error)
+            );
+
+        // Headers
+        const body = { name: 'Mehdi' };
+        this.http
+            .post('/api/users/add', body, {
+                headers: new HttpHeaders().set('Authorization', 'auth-token'),
+            })
+            .subscribe();
+
+        // URL Parameters  
+        const body = { name: 'Mehdi' };
+        this.http
+            .post('/api/users/add', body, {
+                params: new HttpParams().set('id', '3'),
+            })
+            .subscribe();
+        ```
+    - Import appropriate RxJS classes and operators
+        ```typescript
+        // path: src/app/user/user.service.ts
+        import { Observable, throwError } from 'rxjs';
+        import { map, catchError } from 'rxjs/operators';
+        ```
+    - Handle HTTP errors
+        ```typescript
+        // path: src/app/user/user.service.ts
+        private handleError(error: HttpErrorResponse) {
+            let msg = error.error.message;
+            // return an observable with a user-facing error message
+            console.error(msg);
+            return throwError(msg);
+        };
+        ```
+    - HTTP GET all users
+        ```typescript
+        // path: src/app/user/user.service.ts
+        getUsers(): Observable<User[]> {
+            // return of(USERS);
+            return this.http
+            .get(`https://aspnetcoreapistarter.azurewebsites.net/api/User`)
+            .pipe(
+                map((resp) => resp as User[]),
+                catchError(this.handleError)
+            );
+        }
+        ```
+    - HTTP GET user by ID
+        ```typescript
+        // path: src/app/user/user.service.ts
+        getUser(id: number): Observable<User> {
+            // return of(USERS.find(user => user.id === id));
+            return this.http
+            .get(`https://aspnetcoreapistarter.azurewebsites.net/api/User/${id}`)
+            .pipe(
+                map((resp) => resp as User),
+                catchError(this.handleError)
+            );
+        }
+        ```
+    - HTTP POST new user
+        ```typescript
+        // path: src/app/user/user.service.ts
+        createUser(user: User): Observable<any> {
+            return this.http
+            .post(`https://aspnetcoreapistarter.azurewebsites.net/api/User`, user)
+            .pipe(catchError(this.handleError))
+        }
+        ```
+    - HTTP PUT existing user
+        ```typescript
+        // path: src/app/user/user.service.ts
+        updateUser(user: User): Observable<any> {
+            return this.http
+            .put(`https://aspnetcoreapistarter.azurewebsites.net/api/User/${user.id}`, user)
+            .pipe(catchError(this.handleError))
+        }
+        ```
+    - HTTP DELETE existing user
+        ```typescript
+        // path: src/app/user/user.service.ts
+        deleteUser(id: number): Observable<any> {
+            return this.http
+            .delete(`https://aspnetcoreapistarter.azurewebsites.net/api/User/${id}`)
+            .pipe(catchError(this.handleError))
+        }
+        ```
+    - Install angular2-notification to handle notifications
+        ```bash
+        npm install --save angular2-notifications
+        ```
+    - Import angular2-notification in the AppModule
+        ```typescript
+        // path: src/app/app.module.ts
+        import { SimpleNotificationsModule } from 'angular2-notifications';
+        ...
+        imports: [
+            ...
+            SimpleNotificationsModule,
+        ],
+
+        ```
+    - Inject angular2-notifications service in the user's CRUD Components
+        ```typescript
+        import { NotificationsService } from 'angular2-notifications';
+        
+        constructor(
+            ...
+            private notifService: NotificationsService,
+        ) { }
+        ```
+    - Update User's CRUD components HTTP calls
+        ```typescript
+        // path: src/app/user/user.component.ts
+        getUsers() {
+            this.userService.getUsers()
+            .subscribe(
+                (data: User[]) => this.users = data,
+                error => this.notifService.error('Erreur', error)
+            );
+        }
+        ```
+        ```typescript
+        // path: src/app/user/user-detail/user-detail.component.ts
+        getUser(): void {
+            const id = +this.route.snapshot.paramMap.get('id');
+            this.userService.getUser(id)
+            .subscribe(
+                user => this.user = user,
+                error => this.notifService.error('Erreur', error)
+            );
+        }
+        ```
+        ```typescript
+        // path: src/app/user/user-new/user-new.component.ts
+        save() {
+            this.userService.createUser(this.creationForm.value)
+            .subscribe(
+                resp => {
+                    this.notifService.success(null, 'Success', { timeOut: 3000 });
+                    setTimeout(() => this.router.navigate(['user', resp.id]), 3000);
+                },
+                error => this.notifService.error('Erreur', error)
+            );
+        }
+        ```
+        ```typescript
+        // path: src/app/user/user-edit/user-edit.component.ts
+        getUser(): void {
+            const id = +this.route.snapshot.paramMap.get('id');
+            this.userService.getUser(id)
+            .subscribe(
+                user => {
+                    this.user = user;
+                    this.editForm.patchValue(this.user);
+                },
+                error => this.notifService.error('Erreur', error)
+            );
+        }
+
+        save() {
+            this.userService.updateUser(<User>this.editForm.value)
+            .subscribe(
+                resp => {
+                    this.notifService.success(null, 'Success', { timeOut: 3000 });
+                    setTimeout(() => this.router.navigate(['user', resp.id]), 3000);
+                },
+                error => this.notifService.error('Erreur', error));
+        }
+        ```
+        ```typescript
+        // path: src/app/user/user-delete/user-delete.component.ts
+        delete() {
+            this.userService.deleteUser(this.user.id)
+            .subscribe(
+                resp => {
+                    this.notifService.success(null, 'Success', { timeOut: 3000 });
+                    setTimeout(() => this.onAction.emit(true), 3000);
+                },
+                error => this.notifService.error('Erreur', error));
+        }
+        ```
+    - Add angular2-notifications HTML tag to User's CRUD components tempaltes
+        ```html
+        <!-- notify -->
+        <simple-notifications></simple-notifications>
+        ```
 11. CoreModule
     - Create folder app/modules
     - Generate CoreModule (ng generate module modules/core)

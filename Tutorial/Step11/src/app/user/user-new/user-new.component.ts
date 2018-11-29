@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, FormBuilder, Validators, ValidatorFn } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { UserService } from './../../services/user.service';
-import { ResourcesService } from '../../../../../core/services/resources.service';
+import { UserService } from './../../user/user.service';
 import { NotificationsService } from 'angular2-notifications';
 
 @Component({
@@ -12,10 +11,8 @@ import { NotificationsService } from 'angular2-notifications';
   styleUrls: ['./user-new.component.scss']
 })
 export class UserNewComponent implements OnInit {
-  rsc: any;
-  creationForm: FormGroup;
 
-  public isFormSaved: boolean;
+  creationForm: FormGroup;
 
   bcItems = [
     { label: 'Home', routerLink: '/home', icon: 'pi pi-home' },
@@ -23,40 +20,45 @@ export class UserNewComponent implements OnInit {
     { label: 'User New' }
   ];
 
-  /**
-   * Creates an instance of UserNewComponent.
-   * @param {Router} router
-   * @param {FormBuilder} fb
-   * @param {UserService} userService
-   * @param {ResourcesService} rscService
-   * @param {NotificationsService} notifService
-   * @memberof UserNewComponent
-   */
+  validation: any = {
+    username: {
+      required: 'User name is required.',
+    },
+    password: {
+      required: 'Password is required.',
+    },
+    email: {
+      required: 'Email is required.',
+      email: 'Invalid Email',
+    },
+    firstname: {
+      required: 'First name is required.',
+      forbidden: 'Unauthorized string.'
+    },
+    lastname: {
+      required: 'Last name is required.',
+    }
+  }
+
   constructor(
     private router: Router,
     private fb: FormBuilder,
     private userService: UserService,
-    private rscService: ResourcesService,
-    private notifService: NotificationsService
+    private notifService: NotificationsService,
   ) { }
 
   ngOnInit() {
-    this.loadResources();
     this.createForm();
-  }
-
-  loadResources() {
-    this.rsc = this.rscService.rsc.pages.user;
   }
 
   createForm() {
     if (this.creationForm) { this.creationForm.reset(); }
-    this.creationForm = this.fb.group({
+    this.creationForm = this.fb.group({ // <==> new FormGroup({ username: new FormControl() })
       username: ['', Validators.required],
       password: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       firstname: ['', [Validators.required, forbiddenValidator(/test/i)]],
-      lastname: ['', Validators.required],
+      lastname: ['', Validators.required]
     });
   }
 
@@ -68,10 +70,10 @@ export class UserNewComponent implements OnInit {
     this.userService.createUser(this.creationForm.value)
       .subscribe(
         resp => {
-          this.isFormSaved = true;
           this.notifService.success(null, 'Success', { timeOut: 3000 });
           setTimeout(() => this.router.navigate(['user', resp.id]), 3000);
-        }
+        },
+        error => this.notifService.error('Erreur', error)
       );
   }
 }
