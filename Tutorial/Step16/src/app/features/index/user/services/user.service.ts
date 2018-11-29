@@ -18,7 +18,7 @@ export class UserService {
 
   constructor(
     private http: HttpClient,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
   ) { }
 
   getUsers(): Observable<User[]> {

@@ -6,8 +6,8 @@
     ```
 
 01. Initial configuration (Packages / Styles / Fonts)
-    - Copy Step02/src/sass directory to Step01/src
-    - Set this as styles property in angular.json file:
+    - Create "sass" directory under Step01/src and copy in it Step01/src/sass content
+    - Set up this as styles property in angular.json file:
         ```javascript
         "styles": [
             "src/sass/app.scss"
@@ -2051,15 +2051,136 @@
         <simple-notifications></simple-notifications>
         ```
 11. CoreModule
-    - Create folder app/modules
-    - Generate CoreModule (ng generate module modules/core)
-    - Add factories
-    - Add handlers
-    - Add services
-    - Add interceptors
+    - Generate CoreModule
+        ```bash
+        ng generate module core
+        ```
+    - Copy Step13/src/app/core content to Step12/src/app/core
     - Update AppModule
-    - Add global application resources (res folder) and update angular.json configuration file
+        ```typescript
+        import { BrowserModule } from '@angular/platform-browser';
+        import { NgModule } from '@angular/core';
+        import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+        import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+        import { CoreModule } from './core/core.module';
+        import { AppRoutingModule } from './app-routing.module';
 
+        import { MzNavbarModule, MzInputModule, MzButtonModule, MzValidationModule, MzSpinnerModule } from 'ngx-materialize';
+        import { TableModule } from 'primeng/table';
+        import { BreadcrumbModule } from 'primeng/breadcrumb';
+        import { DialogModule } from 'primeng/dialog';
+        import { SimpleNotificationsModule } from 'angular2-notifications';
+
+        import { AppComponent } from './app.component';
+        import { UserComponent } from './user/user.component';
+        import { UserDetailComponent } from './user/user-detail/user-detail.component';
+        import { HomeComponent } from './home/home.component';
+        import { NavbarComponent } from './navbar/navbar.component';
+        import { UserNewComponent } from './user/user-new/user-new.component';
+        import { UserEditComponent } from './user/user-edit/user-edit.component';
+        import { UserDeleteComponent } from './user/user-delete/user-delete.component';
+
+        @NgModule({
+            declarations: [
+                AppComponent,
+                UserComponent,
+                UserDetailComponent,
+                HomeComponent,
+                NavbarComponent,
+                UserNewComponent,
+                UserEditComponent,
+                UserDeleteComponent
+            ],
+            imports: [
+                BrowserModule,
+                FormsModule,
+                ReactiveFormsModule,
+                BrowserAnimationsModule,
+                CoreModule,
+                AppRoutingModule,
+                MzNavbarModule,
+                MzInputModule,
+                MzButtonModule,
+                MzValidationModule,
+                MzSpinnerModule,
+                TableModule,
+                BreadcrumbModule,
+                DialogModule,
+                SimpleNotificationsModule.forRoot()
+            ],
+            providers: [],
+            bootstrap: [AppComponent]
+        })
+        export class AppModule { }
+        ```
+    - Create "resources" directory under Step12/src and copy in it Step13/src/resources content
+    - Install hjson package:
+        ```bash
+        npm install --save hjson os
+        ```
+    - Update assets array property in angular.json file:
+        ```json
+        "styles": [
+            "src/favicon.ico",
+            "src/assets",
+            "src/resources"
+        ],
+        ```
+    - Add locale property to app environment files
+        ```typescript
+        export const environment = {
+            ...
+            locale: 'fr-FR',
+        };
+        ```
+    - Inject SettingsService into UserService and Update HTTP calls
+        ```typescript
+        // path: src/app/user/user.service.ts
+        import { SettingsService } from '../core/services/settings.service';
+
+        constructor(
+            private http: HttpClient,
+            private settingsService: SettingsService,
+        ) { }
+
+        getUsers(): Observable<User[]> {
+            // return of(USERS);
+            return this.http
+            .get(`${this.settingsService.config.apiUrl}/api/User`)
+            .pipe(
+                map((resp) => resp as User[]),
+                catchError(this.handleError)
+            );
+        }
+
+        getUser(id: number): Observable<User> {
+            // return of(USERS.find(user => user.id === id));
+            return this.http
+            .get(`${this.settingsService.config.apiUrl}/api/User/${id}`)
+            .pipe(
+                map((resp) => resp as User),
+                catchError(this.handleError)
+            );
+        }
+
+        createUser(user: User): Observable<any> {
+            return this.http
+            .post(`${this.settingsService.config.apiUrl}/api/User`, user)
+            .pipe(catchError(this.handleError))
+        }
+
+        updateUser(user: User): Observable<any> {
+            return this.http
+            .put(`${this.settingsService.config.apiUrl}/api/User/${user.id}`, user)
+            .pipe(catchError(this.handleError))
+        }
+
+        deleteUser(id: number): Observable<any> {
+            return this.http
+            .delete(`${this.settingsService.config.apiUrl}/api/User/${id}`)
+            .pipe(catchError(this.handleError))
+        }
+        ```
 12. SharedModule
     - Generate SharedModule (ng generate module modules/shared)
     - Import and export CommonModule, ReactiveFormsModule
