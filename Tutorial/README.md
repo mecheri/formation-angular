@@ -2228,13 +2228,176 @@
         ```
     - Remove existing navbar directory
 
-13. Home and User components in separated modules as FeatureModules
-    - Generate UserModule and UserRoutingModule (ng generate module modules/user --routing)
-    - Generate HomeModule and HomeRoutingModule (ng generate module modules/home --routing)
-    - Move the user and home components into the generated modules
-    - Update AppModule and AppRoutingModule
-    - Add LazyLoading to both modules
+13. Feature Modules
+    - Create "features" directory under src/app
+    - Generate UserModule with routing
+        ```bash
+        ng generate module features/user --routing
+        ```
+    - Create "components", "models" and "services" directories under src/app/features/user/
+    - Move src/app/user/user.ts to src/app/features/user/models
+    - Move src/app/user/user.service.ts to src/app/features/user/services
+    - Move the remaining content to src/app/features/user/
+    - Remove old src/app/user directory
+    - Update UserModule
+        ```typescript
+        // path src/app/features/user/user.module.ts
+        import { NgModule } from '@angular/core';
+        import { SharedModule } from './../../shared/shared.module';
 
+        import { UserRoutingModule } from './user-routing.module';
+
+        import { UserComponent } from './components/user.component';
+        import { UserDetailComponent } from './components/user-detail/user-detail.component';
+        import { UserNewComponent } from './components/user-new/user-new.component';
+        import { UserEditComponent } from './components/user-edit/user-edit.component';
+        import { UserDeleteComponent } from './components/user-delete/user-delete.component';
+
+        @NgModule({
+            imports: [
+                SharedModule,
+                UserRoutingModule
+            ],
+            declarations: [
+                UserComponent,
+                UserDetailComponent,
+                UserNewComponent,
+                UserEditComponent,
+                UserDeleteComponent
+            ]
+        })
+        export class UserModule { }
+        ```
+    - Update UserRoutingModule
+        ```typescript
+        // path src/app/features/user/user-routing.module.ts
+        import { NgModule } from '@angular/core';
+        import { Routes, RouterModule } from '@angular/router';
+
+        import { UserComponent } from './components/user.component';
+        import { UserDetailComponent } from './components/user-detail/user-detail.component';
+        import { UserNewComponent } from './components/user-new/user-new.component';
+        import { UserEditComponent } from './components/user-edit/user-edit.component';
+
+        const userRoutes: Routes = [
+            { path: '', component: UserComponent },
+            { path: ':id', component: UserDetailComponent },
+            { path: 'add/new', component: UserNewComponent },
+            { path: 'edit/:id', component: UserEditComponent },
+        ];
+
+        @NgModule({
+            imports: [RouterModule.forChild(userRoutes)],
+            exports: [RouterModule]
+        })
+        export class UserRoutingModule { }
+        ```
+    - Generate HomeModule with routing
+        ```bash
+        ng generate module features/home --routing
+        ```
+    - Create "components" directory under src/app/features/home/
+    - Move src/app/home content to src/app/features/home/components
+    - Remove old src/app/home directory
+    - Update HomeModule
+        ```typescript
+        // path src/app/features/home/home.module.ts
+        import { NgModule } from '@angular/core';
+        import { CommonModule } from '@angular/common';
+
+        import { HomeRoutingModule } from './home-routing.module';
+
+        import { HomeComponent } from './components/home.component';
+
+        @NgModule({
+            imports: [
+                CommonModule,
+                HomeRoutingModule
+            ],
+            declarations: [HomeComponent]
+        })
+        export class HomeModule { }
+        ```
+    - Update HomeRoutingModule
+        ```typescript
+        // path src/app/features/home/home-routing.module.ts
+        import { NgModule } from '@angular/core';
+        import { Routes, RouterModule } from '@angular/router';
+
+        import { HomeComponent } from './components/home.component';
+
+        const homeRoutes: Routes = [
+            {
+                path: '',
+                component: HomeComponent
+            }
+        ];
+
+        @NgModule({
+            imports: [RouterModule.forChild(homeRoutes)],
+            exports: [RouterModule]
+        })
+        export class HomeRoutingModule { }
+        ```
+
+    - Update AppModule 
+        ```typescript
+        // path src/app/app.module.ts
+        import { BrowserModule } from '@angular/platform-browser';
+        import { NgModule } from '@angular/core';
+        import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+        import { CoreModule } from './core/core.module';
+        import { SharedModule } from './shared/shared.module';
+
+        import { AppRoutingModule } from './app-routing.module';
+
+        import { AppComponent } from './app.component';
+
+        @NgModule({
+            declarations: [
+                AppComponent
+            ],
+            imports: [
+                BrowserModule,
+                BrowserAnimationsModule,
+                CoreModule,
+                SharedModule,
+                AppRoutingModule,
+            ],
+            providers: [],
+            bootstrap: [AppComponent]
+        })
+        export class AppModule { }
+        ```
+    - Update AppRoutingModule with lazy loading to the newly generated feature modules
+        ```typescript
+        // path src/app/app-routing.module.ts
+        import { NgModule } from '@angular/core';
+        import { RouterModule, Routes } from '@angular/router';
+
+        const routes: Routes = [
+            {
+                path: 'home',
+                loadChildren: './modules/home/home.module#HomeModule'
+            },
+            { path: '', redirectTo: '/home', pathMatch: 'full' },
+            {
+                path: 'user',
+                loadChildren: './modules/user/user.module#UserModule'
+            },
+        ];
+
+        @NgModule({
+            imports: [
+                RouterModule.forRoot(routes)
+            ],
+            exports: [
+                RouterModule
+            ]
+        })
+        export class AppRoutingModule { }
+        ```
+        
 14. Login And Register Modules
     - Add LoginModule, LoginRoutingModule and LoginComponent
     - Add RegisterModule, RegisterRoutingModule and RegisterComponent

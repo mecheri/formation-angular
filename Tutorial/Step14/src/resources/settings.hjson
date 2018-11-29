@@ -1,0 +1,4 @@
+﻿{
+    apiUrl: https://aspnetcoreapistarter.azurewebsites.net
+    version: 1.0.0
+}
