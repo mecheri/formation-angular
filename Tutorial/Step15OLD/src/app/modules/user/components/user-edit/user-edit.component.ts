@@ -17,7 +17,6 @@ import { User } from './../../models/user';
 export class UserEditComponent implements OnInit {
 
   user: User;
-  userId: number;
   editForm: FormGroup;
 
   get username() { return this.editForm.get('username'); }
@@ -43,7 +42,6 @@ export class UserEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.route.params.subscribe(params => this.userId = +params['id']);
     this.getUser();
     this.createForm();
   }

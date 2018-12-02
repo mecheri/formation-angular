@@ -1,0 +1,89 @@
+{
+    pages: {
+        login: {
+            title: ANGULAR CLI STARTER
+            subTitle: Authentication
+            loginPLH: Username
+            passwordPLH: Password
+            buttons: {
+                connect: CONNECTION
+                register: REGISTER
+            }
+        },
+        register: {
+            title: ANGULAR CLI STARTER
+            subTitle: Registration
+            usernamePLH: Username
+            passwordPLH: Password
+            email: Email
+            firstname: First Name
+            lastname: Last Name
+            buttons: {
+                save: REGISTER
+                cancel: CANCEL
+            }
+            validation: {
+                username: {
+                    required: Login is required.
+                }
+                password: {
+                    required: Password is required.
+                }
+                email: {
+                    required: Email is required.
+                    email: Invalid Email
+                }
+                firstname: {
+                    required: First name is required.
+                }
+                lastname: {
+                    required: Last name is required.
+                }
+            }
+        },
+        user: {
+            title: Users,
+            titleView: User Detail
+            titleNew: New User
+            titleEdit: Edit User
+            titleDelete: Delete User
+            username: Username
+            password: Password
+            email: Email
+            firstname: First Name
+            lastname: Last Name
+            table: {
+                id: ID
+                username: Username
+                email: Email
+                firstname: First Name
+                lastname: Last Name
+            },
+            buttons: {
+                save: SAVE
+                cancel: CANCEL
+                edit: EDIT
+                delete: DELETE
+            }
+            validation: {
+                username: {
+                    required: User name is required.
+                }
+                password: {
+                    required: Password is required.
+                }
+                email: {
+                    required: Email is required.
+                    email: Invalid Email
+                }
+                firstname: {
+                    required: First name is required.
+                    forbidden: Unauthorized string.
+                }
+                lastname: {
+                    required: Last name is required.
+                }
+            }
+        }
+    }
+}

@@ -1695,7 +1695,6 @@
             })
             export class UserEditComponent implements OnInit {
                 user: User;
-                userId: number;
                 editForm: FormGroup;
 
                 bcItems = [
@@ -1731,7 +1730,6 @@
                 ) { }
 
                 ngOnInit() {
-                    this.route.params.subscribe(params => this.userId = +params['id']);
                     this.createForm();
                     this.getUser();
                 }
@@ -1747,6 +1745,7 @@
                 createForm() {
                     if (this.editForm) { this.editForm.reset(); }
                     this.editForm = this.fb.group({
+                        id: [''],
                         username: ['', Validators.required],
                         password: ['', Validators.required],
                         email: ['', [Validators.required, Validators.email]],
@@ -2227,7 +2226,11 @@
         export class AppModule { }
         ```
     - Remove existing navbar directory
-
+    - Add globla Spinner HTML tag
+        ```html
+        <!-- path: src/app/app.component.html -->
+        <app-spinner></app-spinner>
+        ```
 13. Feature Modules
     - Create "features" directory under src/app
     - Generate UserModule with routing
@@ -2399,16 +2402,497 @@
         ```
         
 14. Login And Register Modules
-    - Add LoginModule, LoginRoutingModule and LoginComponent
-    - Add RegisterModule, RegisterRoutingModule and RegisterComponent
-    - Update AppRoutingModule
-    - Add fallback route for unknown routes,
-    - Add LazyLoading to both modules
-    - Add JWT Security
-    - Add Interceptors
-    - Update Navbar by adding logout action and current user context
-    - Add Authentication Guards (canActivate)
-    - Add User's CRUD Forms Guards (canDeactivate)
+    - Generate LoginModule with routing under features directory
+        ```bash
+        ng generate module features/login --routing
+        ```
+    - Generate LoginComponent 
+        ```bash
+        ng generate component features/login/components/login --flat --module=login
+        ```
+        ```typescript
+        // path: src/app/features/login/components/login.component.ts
+        import { Component, OnInit } from '@angular/core';
+        import { Router } from '@angular/router';
+        import { AuthService } from './../../../core/services/auth.service';
+        import { ResourcesService } from './../../../core/services/resources.service';
+        import { Auth } from './../../../core/models/auth';
+
+        /**
+        * Login Componenet
+        *
+        * @export
+        * @class LoginComponent
+        * @implements {OnInit}
+        */
+        @Component({
+            templateUrl: './login.component.html'
+        })
+        export class LoginComponent implements OnInit {
+            rsc: any;
+            model: Auth;
+            errorMessage: any;
+
+            /**
+            * Creates an instance of LoginComponent.
+            * @param {Router} router
+            * @param {ResourcesService} rscService
+            * @param {AuthService} authService
+            * @memberof LoginComponent
+            */
+            constructor(
+                private router: Router,
+                private rscService: ResourcesService,
+                private authService: AuthService
+            ) {
+                this.model = new Auth();
+            }
+
+            /**
+            * Component Init
+            *
+            * @memberof LoginComponent
+            */
+            ngOnInit() {
+                this.loadResources();
+            }
+
+            /**
+            * Load resources
+            *
+            * @memberof LoginComponent
+            */
+            loadResources() {
+                this.rsc = this.rscService.rsc.pages.login;
+            }
+
+            /**
+            * Login to the app.
+            *
+            * @memberof LoginComponent
+            */
+            login() {
+                this.authService.check(this.model)
+                    .subscribe(
+                        () => this.router.navigate(['home']),
+                        (error) => this.errorMessage = error
+                    );
+            }
+
+            /**
+            * Go to register page.
+            *
+            * @memberof LoginComponent
+            */
+            register() {
+                this.router.navigate(['register']);
+            }
+
+            /**
+            * Event handle on enter keypress event
+            *
+            * @param {number} keyCode
+            * @memberof LoginComponent
+            */
+            eventHandler(keyCode: number) {
+                if (keyCode === 13) { this.login(); }
+            }
+        }
+        ```
+        ```html
+        <!-- path: src/app/features/login/components/login.component.html -->
+        <div class="container">
+            <h3>{{ rsc.title }}</h3>
+            <div class="divider"></div>
+
+            <h2>{{ rsc.subTitle }}</h2>
+
+            <div *ngIf="errorMessage" class="card-panel red lighten-1">{{ errorMessage }}</div>
+
+            <div (keypress)="eventHandler($event.keyCode)">
+                <div class="row">
+                    <mz-input-container class="col s12 m12">
+                        <input mz-input type="text" [(ngModel)]="model.username" [label]="rsc.loginPLH" [placeholder]="rsc.loginPLH" />
+                    </mz-input-container>
+
+                    <mz-input-container class="col s12 m12">
+                        <input mz-input type="password" [(ngModel)]="model.password" [label]="rsc.loginPLH" [placeholder]="rsc.passwordPLH" />
+                    </mz-input-container>
+                </div>
+
+                <button mz-button class="left" (click)="login()">{{ rsc.buttons.connect }}</button>
+                <button mz-button class="right blue" (click)="register()">{{ rsc.buttons.register }}</button>
+            </div>
+        </div>
+        ```
+    - Update LoginRoutingModule
+        ```typescript
+        // path: src/app/features/login/login-routing.module.ts
+        import { NgModule } from '@angular/core';
+        import { Routes, RouterModule } from '@angular/router';
+        import { LoginComponent } from './components/login.component';
+
+        const loginRoutes: Routes = [
+            {
+                path: '',
+                component: LoginComponent
+            }
+        ];
+
+        @NgModule({
+            imports: [
+                RouterModule.forChild(loginRoutes)
+            ],
+            exports: [RouterModule]
+        })
+        export class LoginRoutingModule { }
+        ```
+    - Update LoginModule
+        ```typescript
+        // path: src/app/features/login/login.module.ts
+        import { NgModule } from '@angular/core';
+        import { SharedModule } from './../../shared/shared.module';
+        import { LoginRoutingModule } from './login-routing.module';
+        import { LoginComponent } from './components/login.component';
+
+        @NgModule({
+            imports: [
+                SharedModule,
+                LoginRoutingModule
+            ],
+            declarations: [LoginComponent]
+        })
+        export class LoginModule { }
+        ```
+    - Generate RegisterModule with routing under features directory
+        ```bash
+        ng generate module features/register --routing
+        ```
+    - Generate RegisterComponent 
+        ```bash
+        ng generate component features/register/components/register --flat --module=register
+        ```
+        ```typescript
+        // path: src/app/features/register/components/register.component.ts
+        import { Component, OnInit } from '@angular/core';
+        import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+        import { Router } from '@angular/router';
+        import { NotificationsService } from 'angular2-notifications';
+        import { MixinService } from '../../../core/services/mixin.service';
+        import { ResourcesService } from '../../../core/services/resources.service';
+        import { AuthService } from '../../../core/services/auth.service';
+
+        /**
+        * Register Component
+        *
+        * @export
+        * @class RegisterComponent
+        * @implements {OnInit}
+        */
+        @Component({
+            templateUrl: './register.component.html'
+        })
+        export class RegisterComponent implements OnInit {
+            rsc: any;
+            registerForm: FormGroup;
+
+            /**
+            *Creates an instance of RegisterComponent.
+            * @param {Router} router
+            * @param {FormBuilder} fb
+            * @param {NotificationsService} notifService
+            * @param {MixinService} mixinService
+            * @param {ResourcesService} rscService
+            * @param {AuthService} authService
+            * @memberof RegisterComponent
+            */
+            constructor(
+                private router: Router,
+                private fb: FormBuilder,
+                private notifService: NotificationsService,
+                private mixinService: MixinService,
+                private rscService: ResourcesService,
+                private authService: AuthService
+            ) { }
+
+            /**
+            * Component init
+            *
+            * @memberof RegisterComponent
+            */
+            ngOnInit() {
+                this.loadResources();
+                this.loadForm();
+            }
+
+            /**
+            * Load resources
+            *
+            * @memberof RegisterComponent
+            */
+            loadResources() {
+                this.rsc = this.rscService.rsc.pages.register;
+            }
+
+            /**
+            * Load form
+            *
+            * @memberof RegisterComponent
+            */
+            loadForm() {
+                if (this.registerForm) { this.registerForm.reset(); }
+                    this.registerForm = this.fb.group({
+                    username: ['', Validators.required],
+                    password: ['', Validators.required],
+                    email: ['', [Validators.required, Validators.email]],
+                    firstname: ['', Validators.required],
+                    lastname: ['', Validators.required],
+                });
+            }
+
+            /**
+            * Cancel registration
+            *
+            * @memberof RegisterComponent
+            */
+            cancel() {
+                this.router.navigate(['home']);
+            }
+
+            /**
+            * Save regsitration
+            *
+            * @memberof RegisterComponent
+            */
+            save() {
+                this.authService.register(this.registerForm.value)
+                .subscribe(
+                    () => {
+                        this.notifService.success(null, 'Inscription effectuée avec succès', { timeOut: 3000 });
+                        this.mixinService.startTimer(3000).then(() => this.router.navigate(['login']));
+                    },
+                    error => this.notifService.error('Erreur', <any>error));
+            }
+        }
+        ```
+        ```html
+        <!-- path: src/app/features/register/components/register.component.html -->
+        <div class="container">
+            <h3>{{ rsc.title }}</h3>
+            <div class="divider"></div>
+            <h2>{{ rsc.subTitle }}</h2>
+            <form [formGroup]="registerForm" (ngSubmit)="save()" novalidate>
+                <div class="row">
+                    <mz-input-container class="col s12 m12">
+                        <input mz-input mz-validation required id="username" formControlName="username" type="text" [errorMessageResource]="rsc.validation.username" [label]="rsc.usernamePLH" [placeholder]="rsc.usernamePLH" />
+                    </mz-input-container>
+                    <mz-input-container class="col s12 m12">
+                        <input mz-input mz-validation required id="password" formControlName="password" type="password" [errorMessageResource]="rsc.validation.password" [label]="rsc.passwordPLH" [placeholder]="rsc.passwordPLH" />
+                    </mz-input-container>
+                    <mz-input-container class="col s12 m12">
+                        <input mz-input mz-validation required id="email" formControlName="email" type="text" [errorMessageResource]="rsc.validation.email" [label]="rsc.email" [placeholder]="rsc.email" />
+                    </mz-input-container>
+                    <mz-input-container class="col s12 m12">
+                        <input mz-input mz-validation required id="firstname" formControlName="firstname" type="text" [errorMessageResource]="rsc.validation.firstname" [label]="rsc.firstname" [placeholder]="rsc.firstname" />
+                    </mz-input-container>
+                    <mz-input-container class="col s12 m12">
+                        <input mz-input mz-validation required id="lastname" formControlName="lastname" type="text" [errorMessageResource]="rsc.validation.lastname" [label]="rsc.lastname" [placeholder]="rsc.lastname" />
+                    </mz-input-container>
+                </div>
+                <button mz-button class="blue-grey lighten-1" (click)="cancel()" type="button">{{ rsc.buttons.cancel }}</button>
+                <button mz-button [disabled]="!registerForm.valid" type="submit">{{ rsc.buttons.save }}</button>
+            </form>
+        </div>
+
+        <!-- notify -->
+        <simple-notifications></simple-notifications>
+        ```
+    - Update RegisterRoutingModule
+        ```typescript
+        // path: src/app/features/register/register-routing.module.ts
+        import { NgModule } from '@angular/core';
+        import { Routes, RouterModule } from '@angular/router';
+        import { RegisterComponent } from './components/register.component';
+
+        const registerRoutes: Routes = [
+            {
+                path: '',
+                component: RegisterComponent
+            }
+        ];
+
+        @NgModule({
+            imports: [
+                RouterModule.forChild(registerRoutes)
+            ],
+            exports: [RouterModule]
+        })
+        export class RegisterRoutingModule { }
+        ```
+    - Update RegisterModule
+        ```typescript
+        // path: src/app/features/register/register.module.ts
+        import { NgModule } from '@angular/core';
+        import { SharedModule } from './../../shared/shared.module';
+        import { RegisterRoutingModule } from './register-routing.module';
+        import { RegisterComponent } from './components/register.component';
+
+        @NgModule({
+            imports: [
+                SharedModule,
+                RegisterRoutingModule
+            ],
+            declarations: [RegisterComponent]
+        })
+        export class RegisterModule { }
+        ```
+    - Update AppRoutingModule and load lazily newly generated modules
+        ```typescript
+        // path: src/app/app.module.ts
+        import { NgModule } from '@angular/core';
+        import { RouterModule, Routes } from '@angular/router';
+
+        const routes: Routes = [
+            {
+                path: 'home',
+                loadChildren: './features/home/home.module#HomeModule',
+            },
+            {
+                path: 'user',
+                loadChildren: './features/user/user.module#UserModule',
+            },
+            {
+                path: 'register',
+                loadChildren: './features/register/register.module#RegisterModule',
+            },
+            {
+                path: 'login',
+                loadChildren: './features/login/login.module#LoginModule',
+            },
+            {
+                path: '', redirectTo: '/login', pathMatch: 'full'
+            }
+        ];
+
+        @NgModule({
+            imports: [
+                RouterModule.forRoot(routes)
+            ],
+            exports: [RouterModule]
+        })
+        export class AppRoutingModule { }
+        ```
+    - Add fallback route for unknown routes
+        ```typescript
+        // path: src/app/app.module.ts
+        const routes: Routes = [
+            ...
+            {
+                path: '**',
+                redirectTo: '/home'
+            }
+        ];
+        ```
+    - Add JWT Authentication Guards (CanActivate)
+        ```typescript
+        // path: src/app/app.module.ts
+        import { AuthGuardService } from './core/services/auth-guard.service';
+
+        const routes: Routes = [
+            {
+                path: 'home',
+                loadChildren: './features/home/home.module#HomeModule',
+                canActivate: [AuthGuardService]
+            },
+            {
+                path: 'user',
+                loadChildren: './features/user/user.module#UserModule',
+                canActivate: [AuthGuardService]
+            },
+            ...
+        ];
+        ```
+    - Generate User module Guard
+        ```bash
+        ng generate guard features/user/services/user --module=user
+        ```
+        ```typescript
+        // path: src/app/features/user/services/user-guard.service.ts
+        import { Injectable } from '@angular/core';
+        import { CanDeactivate } from '@angular/router';
+
+        import { UserNewComponent } from './../components/user-new/user-new.component';
+        import { UserEditComponent } from './../components/user-edit/user-edit.component';
+
+        @Injectable({
+            providedIn: 'root'
+        })
+        export class UserGuardService implements CanDeactivate<UserNewComponent | UserEditComponent> {
+
+            /**
+            * Creates an instance of UserGuardService.
+            * @memberof UserGuardService
+            */
+            constructor() { }
+
+            /**
+            * Indicates if a route can be deactivated
+            *
+            * @param {(UserNewComponent | UserEditComponent)} target
+            * @returns
+            * @memberof UserGuardService
+            */
+            canDeactivate(target: UserNewComponent | UserEditComponent) {
+                if (!target.isFormSaved) { return window.confirm('Etes-vous sûr de vouloir annuler votre saisie ?'); }
+                return true;
+            }
+        }
+        ```
+    - Update UserNewComponent by adding public "isFormSaved" property
+        ```typescript
+        // path: src/app/features/user/components/user-new/user-new.component.ts
+        ...
+        public isFormSaved: boolean;
+        ...
+        save() {
+            this.userService.createUser(this.creationForm.value)
+            .subscribe(
+                resp => {
+                this.isFormSaved = true;
+                this.notifService.success(null, 'Success', { timeOut: 3000 });
+                setTimeout(() => this.router.navigate(['user', resp.id]), 3000);
+                }
+            );
+        }
+        ```
+    - Update UserEditComponent by adding public "isFormSaved" property
+        ```typescript
+        // path: src/app/features/user/components/user-edit/user-edit.component.ts
+        ...
+        public isFormSaved: boolean;
+        ...
+        save() {
+            this.userService.updateUser(<User>this.editForm.value)
+            .subscribe(
+                resp => {
+                this.isFormSaved = true;
+                this.notifService.success(null, 'Success', { timeOut: 3000 });
+                setTimeout(() => this.router.navigate(['user', resp.id]), 3000);
+                }
+            );
+        }
+        ```
+    - Update UserRoutingModule
+        ```typescript
+        // path: src/app/features/user/user-routing.module.ts
+        import { UserGuard } from './services/user.guard';
+        ...
+        const userRoutes: Routes = [
+            ...
+            { path: 'add/new', component: UserNewComponent, canDeactivate: [UserGuard] },
+            { path: 'edit/:id', component: UserEditComponent, canDeactivate: [UserGuard] },
+        ];
+        ```
 
 15. IndexModule as a portal (Second RouterOutlet)
     - Generate IndexModule and IndexRoutingModule (ng generate module modules/index --routing)

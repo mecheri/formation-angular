@@ -1,12 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-// RxJS
-import { throwError } from 'rxjs';
-import { finalize } from 'rxjs/operators';
-
 // Services
-import { Spinner } from './../../../core/services/spinner.service';
 import { AuthService } from './../../../core/services/auth.service';
 import { ResourcesService } from './../../../core/services/resources.service';
 
@@ -31,14 +26,12 @@ export class LoginComponent implements OnInit {
     /**
      * Creates an instance of LoginComponent.
      * @param {Router} router
-     * @param {Spinner} spinner
      * @param {ResourcesService} rscService
      * @param {AuthService} authService
      * @memberof LoginComponent
      */
     constructor(
         private router: Router,
-        private spinner: Spinner,
         private rscService: ResourcesService,
         private authService: AuthService
     ) {
@@ -69,15 +62,10 @@ export class LoginComponent implements OnInit {
      * @memberof LoginComponent
      */
     login() {
-        this.spinner.show();
         this.authService.check(this.model)
-            .pipe(finalize(() => this.spinner.hide()))
             .subscribe(
                 () => this.router.navigate(['home']),
-                (error) => {
-                    console.log(error);
-                    this.errorMessage = error;
-                }
+                (error) => this.errorMessage = error
             );
     }
 

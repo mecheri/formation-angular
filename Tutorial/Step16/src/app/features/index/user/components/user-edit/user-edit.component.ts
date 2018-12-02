@@ -18,7 +18,6 @@ import { User } from './../../models/user';
 export class UserEditComponent implements OnInit {
   rsc: any;
   user: User;
-  userId: number;
   editForm: FormGroup;
 
   public isFormSaved: boolean;
@@ -49,7 +48,6 @@ export class UserEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.route.params.subscribe(params => this.userId = +params['id']);
     this.loadResources();
     this.createForm();
     this.getUser();

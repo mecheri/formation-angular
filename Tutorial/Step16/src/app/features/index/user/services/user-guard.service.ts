@@ -19,9 +19,9 @@ export class UserGuardService implements CanDeactivate<UserNewComponent | UserEd
     /**
      * Indicates if a route can be deactivated
      *
-     * @param {PharmacienNewComponent} target
+     * @param {(UserNewComponent | UserEditComponent)} target
      * @returns
-     * @memberof PharmGuardService
+     * @memberof UserGuardService
      */
     canDeactivate(target: UserNewComponent | UserEditComponent) {
         if (!target.isFormSaved) { return window.confirm('Etes-vous sûr de vouloir annuler votre saisie ?'); }

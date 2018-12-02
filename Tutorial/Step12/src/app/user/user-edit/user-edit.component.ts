@@ -13,7 +13,6 @@ import { NotificationsService } from 'angular2-notifications';
 })
 export class UserEditComponent implements OnInit {
   user: User;
-  userId: number;
   editForm: FormGroup;
 
   bcItems = [
@@ -50,7 +49,6 @@ export class UserEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.route.params.subscribe(params => this.userId = +params['id']);
     this.createForm();
     this.getUser();
   }
@@ -70,6 +68,7 @@ export class UserEditComponent implements OnInit {
   createForm() {
     if (this.editForm) { this.editForm.reset(); }
     this.editForm = this.fb.group({
+      id: [''],
       username: ['', Validators.required],
       password: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],

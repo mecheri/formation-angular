@@ -12,7 +12,6 @@ import { UserService } from '../../user/user.service';
 })
 export class UserEditComponent implements OnInit {
   user: User;
-  userId: number;
   editForm: FormGroup;
 
   bcItems = [
@@ -23,20 +22,20 @@ export class UserEditComponent implements OnInit {
 
   validation: any = {
     username: {
-        required: 'User name is required.',
+      required: 'User name is required.',
     },
     password: {
-        required: 'Password is required.',
+      required: 'Password is required.',
     },
     email: {
-        required: 'Email is required.',
-        email: 'Invalid Email',
+      required: 'Email is required.',
+      email: 'Invalid Email',
     },
     firstname: {
-        required: 'First name is required.',
+      required: 'First name is required.',
     },
     lastname: {
-        required: 'Last name is required.',
+      required: 'Last name is required.',
     }
   }
 
@@ -48,7 +47,6 @@ export class UserEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.route.params.subscribe(params => this.userId = +params['id']);
     this.createForm();
     this.getUser();
   }
@@ -64,6 +62,7 @@ export class UserEditComponent implements OnInit {
   createForm() {
     if (this.editForm) { this.editForm.reset(); }
     this.editForm = this.fb.group({
+      id: [''],
       username: ['', Validators.required],
       password: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
