@@ -58,7 +58,7 @@
 * Compile l'application dans le navigateur lors de l'exécution du Javascript
     - ng build
     - ng serve
-    - ng build --prod --aot=false
+    - ng build --prod --aot false --build-optimizer false
 
 ## Ahead-of-Time (AOT):
 * Compile l'application au moment de la construction du Javascript
@@ -89,13 +89,13 @@ export function serverFactory() {
 ```
 
 # Build
-* Environnement hors production:
+* Environnement hors production :
 ```bash
-ng build --base-href=/my/app/ -e staging
+ng build --base-href=/my/app/ --configuration=staging
 ```
 Si les fichiers de déploiment doivent être copiés dans un sous-dossier du serveur web, il faut préciser la baseHref
 
-* Environnement de production:
+* Environnement de production :
 ```bash
 ng build --base-href=/my/app/ --prod
 ng build --base-href=/my/app/ --prod --aot=false

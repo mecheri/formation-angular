@@ -2903,45 +2903,6 @@
         ```bash
         ng generate component features/index/index --flat --module=index
         ```
-    - Set up IndexComponent template
-        ```html
-        <!-- path: src/app/features/index/index.component.html -->
-        <!-- ============================================================== -->
-        <!-- Navigation  -->
-        <!-- ============================================================== -->
-        <header>
-            <app-navbar></app-navbar>
-        </header>
-        <!-- ============================================================== -->
-        <!-- End navigation  -->
-        <!-- ============================================================== -->
-
-
-
-        <!-- ============================================================== -->
-        <!-- Page wrapper  -->
-        <!-- ============================================================== -->
-        <main>
-            <div class="container">
-                <router-outlet></router-outlet>
-            </div>
-        </main>
-        <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
-        <!-- ============================================================== -->
-
-
-
-        <!-- ============================================================== -->
-        <!-- footer -->
-        <!-- ============================================================== -->
-        <footer>
-            <app-footer></app-footer>
-        </footer>
-        <!-- ============================================================== -->
-        <!-- End footer -->
-        <!-- ============================================================== -->
-        ```
     - Update AppRoutingModule 
         ```typescript
         // path: src/app/app-routing.module.ts
@@ -3017,18 +2978,92 @@
         })
         export class IndexRoutingModule { }
         ```
-    - Add second RouterOutlet in the IndexComponent view
+    - Set up IndexComponent template with the second RouterOutlet and semantic tags
         ```html
         <!-- path: src/app/features/index/index.component.html -->
+        <!-- ============================================================== -->
+        <!-- Navigation  -->
+        <!-- ============================================================== -->
+        <header>
+            <app-navbar></app-navbar>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End navigation  -->
+        <!-- ============================================================== -->
 
-        ```
-    - Move the Navbar Html tag from AppComponent view to the IndexComponent view
-        ```html
-        <!-- path: src/app/features/index/index.component.html -->
 
+
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <main>
+            <div class="container">
+                <router-outlet></router-outlet>
+            </div>
+        </main>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+
+
+
+        <!-- ============================================================== -->
+        <!-- footer -->
+        <!-- ============================================================== -->
+        <footer>
+            <app-footer></app-footer>
+        </footer>
+        <!-- ============================================================== -->
+        <!-- End footer -->
+        <!-- ============================================================== -->
         ```
-    - Update the AppComponent view (let only the RouterOutlet tag)
+    - Remove the Navbar Html tag from AppComponent template
         ```html
         <!-- path: src/app/app.component.html -->
-
+        <router-outlet></router-outlet>
+        <app-spinner></app-spinner>
+        <simple-notifications></simple-notifications>
         ```
+
+16. Compilation and Build 
+    ### Compilation
+    Une application Angular se compose principalement de Components et de leurs Templates HTML, qui sont convertis en JavaScript exécutable par le compilateur Angular.
+    * Just-in-Time (JIT) --> par défaut : Compile l'application dans le navigateur lors de l'exécution du Javascript
+        ```bash
+        ng build
+        ng serve
+        ng build --prod --aot false --build-optimizer false
+        ```
+    * Ahead-of-Time (AOT) : Compile l'application au moment de la construction du Javascript
+        ```bash
+        ng build --aot
+        ng serve --aot
+        ng build --prod (--prod compile avec AOT par défaut)
+        ```
+        - Rendu plus rapide: le navigateur télécharge une version précompilée de l'application, puis exécute directement sans attendre la compilation
+        - Moins de requêtes asynchrones: l'HTML et les CSS sont integrés dans le JavaScript, éliminant les requêtes ajax séparées pour charger ces ressources
+        - La taille baisse: il n'est plus necéssaire de charger le compilateur Angular par le navigateur car l'application est compliée (le compilateur c'est 50% de d'Angular)
+        - AOT détecte et signale les erreurs de binding Template/Component lors de la génération avant de les voir dans la console du navigateur.
+
+    ### Build
+    * Environnement hors production:
+        ```bash
+        ng build --base-href=/my/app/ --configuration=staging
+        ```
+        Si les fichiers de déploiment doivent être copiés dans un sous-dossier du serveur web, il faut préciser la base href
+
+    * Environnement de production :
+        ```bash
+        ng build --base-href=/my/app/ --prod
+        ng build --base-href=/my/app/ --prod --build-optimizer
+        ng build --base-href=/my/app/ --prod --aot false --build-optimizer false
+        ```
+        * --prod :
+            - Compilation AOT
+            - Activation du mode production: pour un fonctionnement plus rapide en désactivant les contrôles spécifiques au développement
+            - Concatènation des nombreux fichiers d'application en quelques paquets
+            - Minification: supprime les espaces, les commentaires.
+            - Uglification: réécrit le code pour utiliser des noms de variables et de fonctions courts
+            - Élimination du code mort et des imports inutilent avec le mécanisme de Tree-shaking
+
+        * --build-optimizer (par défaut avec AOT) : permet de réduire la taille des bundles JavaScript générés
