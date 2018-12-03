@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuardService } from './core/services/auth-guard.service';
+import { AuthGuard } from './core/services/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     loadChildren: './features/index/index.module#IndexModule',
-    canActivate: [AuthGuardService]
+    canActivate: [AuthGuard]
   },
   {
     path: 'register',
