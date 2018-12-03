@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
-// Components
 import { IndexComponent } from './index.component';
 
 const indexRoutes: Routes = [
@@ -30,8 +28,6 @@ const indexRoutes: Routes = [
   imports: [
     RouterModule.forChild(indexRoutes)
   ],
-  exports: [
-    RouterModule
-  ]
+  exports: [RouterModule]
 })
 export class IndexRoutingModule { }

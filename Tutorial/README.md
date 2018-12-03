@@ -2894,11 +2894,141 @@
         ];
         ```
 
-15. IndexModule as a portal (Second RouterOutlet)
-    - Generate IndexModule and IndexRoutingModule (ng generate module modules/index --routing)
-    - Update AppRoutingModule
-    - Load IndexModule lazily in AppRoutingModule
-    - Load UserModule and HomeModule lazily in IndexRoutingModule
+15. IndexModule as a portal (second RouterOutlet)
+    - Generate IndexModule with routing
+        ```bash
+        ng generate module features/index --routing
+        ```
+    - Generate IndexComponent 
+        ```bash
+        ng generate component features/index/index --flat --module=index
+        ```
+    - Set up IndexComponent template
+        ```html
+        <!-- path: src/app/features/index/index.component.html -->
+        <!-- ============================================================== -->
+        <!-- Navigation  -->
+        <!-- ============================================================== -->
+        <header>
+            <app-navbar></app-navbar>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End navigation  -->
+        <!-- ============================================================== -->
+
+
+
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <main>
+            <div class="container">
+                <router-outlet></router-outlet>
+            </div>
+        </main>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+
+
+
+        <!-- ============================================================== -->
+        <!-- footer -->
+        <!-- ============================================================== -->
+        <footer>
+            <app-footer></app-footer>
+        </footer>
+        <!-- ============================================================== -->
+        <!-- End footer -->
+        <!-- ============================================================== -->
+        ```
+    - Update AppRoutingModule 
+        ```typescript
+        // path: src/app/app-routing.module.ts
+        import { NgModule } from '@angular/core';
+        import { RouterModule, Routes } from '@angular/router';
+        import { AuthGuardService } from './core/services/auth-guard.service';
+
+        const routes: Routes = [
+            {
+                path: '',
+                loadChildren: './features/index/index.module#IndexModule',
+                canActivate: [AuthGuardService]
+            },
+            {
+                path: 'register',
+                loadChildren: './features/register/register.module#RegisterModule',
+            },
+            {
+                path: 'login',
+                loadChildren: './features/login/login.module#LoginModule',
+            },
+            {
+                path: '', redirectTo: '/login', pathMatch: 'full'
+            },
+            {
+                path: '**',
+                redirectTo: '/home'
+            }
+        ];
+
+        @NgModule({
+            imports: [
+                RouterModule.forRoot(routes)
+            ],
+            exports: [RouterModule]
+        })
+        export class AppRoutingModule { }
+        ```
+    - Set up IndexRoutingModule
+        ```typescript
+        // path: src/app/features/index/index-routing.module.ts
+        import { NgModule } from '@angular/core';
+        import { Routes, RouterModule } from '@angular/router';
+        import { IndexComponent } from './index.component';
+
+        const indexRoutes: Routes = [
+            {
+                path: '',
+                component: IndexComponent,
+                children: [
+                {
+                    path: '',
+                    redirectTo: '/home',
+                    pathMatch: 'full'
+                },
+                {
+                    path: 'home',
+                    loadChildren: './home/home.module#HomeModule',
+                },
+                {
+                    path: 'user',
+                    loadChildren: './user/user.module#UserModule',
+                }
+                ]
+            }
+        ];
+
+        @NgModule({
+            imports: [
+                RouterModule.forChild(indexRoutes)
+            ],
+            exports: [RouterModule]
+        })
+        export class IndexRoutingModule { }
+        ```
     - Add second RouterOutlet in the IndexComponent view
+        ```html
+        <!-- path: src/app/features/index/index.component.html -->
+
+        ```
     - Move the Navbar Html tag from AppComponent view to the IndexComponent view
+        ```html
+        <!-- path: src/app/features/index/index.component.html -->
+
+        ```
     - Update the AppComponent view (let only the RouterOutlet tag)
+        ```html
+        <!-- path: src/app/app.component.html -->
+
+        ```
