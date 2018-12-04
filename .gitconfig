@@ -1,4 +1,0 @@
-# .gitconfig file in your home folder
-[diff "pandoc"]
-  textconv=pandoc --to=markdown
-  prompt = false

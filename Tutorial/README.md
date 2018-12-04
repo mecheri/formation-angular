@@ -2928,13 +2928,11 @@ ng new MY-PROJECT-NAME --style=scss
     // path: src/app/app-routing.module.ts
     import { NgModule } from '@angular/core';
     import { RouterModule, Routes } from '@angular/router';
-    import { AuthGuardService } from './core/services/auth-guard.service';
 
     const routes: Routes = [
         {
             path: '',
             loadChildren: './features/index/index.module#IndexModule',
-            canActivate: [AuthGuardService]
         },
         {
             path: 'register',
@@ -2967,11 +2965,13 @@ ng new MY-PROJECT-NAME --style=scss
     import { NgModule } from '@angular/core';
     import { Routes, RouterModule } from '@angular/router';
     import { IndexComponent } from './index.component';
+    import { AuthGuard } from './../../core/services/auth.guard';
 
     const indexRoutes: Routes = [
         {
             path: '',
             component: IndexComponent,
+            canActivateChild: [AuthGuard],
             children: [
             {
                 path: '',

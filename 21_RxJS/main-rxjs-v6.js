@@ -1,15 +1,7 @@
+//----------------------------------
+//#region Création d'un Observable
 // On récupere un Observable de la librairie RxJS
 let Observable = rxjs.Observable;
-let of = rxjs.of;
-let from = rxjs.from;
-let interval = rxjs.interval;
-let timer = rxjs.timer;
-let combineLatest = rxjs.combineLatest;
-let map = rxjs.operators.map;
-let take = rxjs.operators.take;
-let tap = rxjs.operators.tap;
-
-//#region Création d'un Observable
 // On va créer un Observable
 // Pour indiquer que c'est Observale on met souvent $ a la fin
 // Il prend en parametre une fonction qui elle meme prend un objet Observer
@@ -60,9 +52,12 @@ console.log(iterateur.next().value);
 console.log(iterateur.next().value);
 console.log(iterateur.next().value);
 //#endregion
+//----------------------------------
 
+//--------------------------------------------------------
 //#region Operateurs de création d'observables of() from()
 // On peut créer un Observable directement en passant les données en parametres
+let of = rxjs.of;
 let values2$ = of("Hello", "World");
 values2$.subscribe(
     (data) => console.log(data),
@@ -71,6 +66,7 @@ values2$.subscribe(
 );
 
 // On peut créer un Observable directement à partir des données
+let from = rxjs.from;
 let array = ["pommes", "fraises"];
 let values3$ = from(array);
 values3$.subscribe(
@@ -90,10 +86,17 @@ values4$.subscribe(
     () => console.log("complete")
 );
 //#endregion
+//--------------------------------------------------------
 
+//----------------------------------------------------------
 //#region Operators interval(), timer(), take(), map(), do()
+// interval: si on produire des valeurs numerique qui s'incrémente toute les secondes
+let interval = rxjs.interval;
 
-// interval: si on produire des valeurs numerique qui s'incrémente toute les secondes 
+let map = rxjs.operators.map;
+let take = rxjs.operators.take;
+let tap = rxjs.operators.tap;
+
 let intervals$ = interval(500);
 intervals$.subscribe(
     (data) => console.log(data),
@@ -110,7 +113,7 @@ map$.subscribe(
     () => console.log("complete")
 );
 
-// take    
+// take
 let take$ = interval(500)
     .pipe(
         map(x => x * 10),
@@ -123,6 +126,7 @@ take$.subscribe(
 );
 
 // timer
+let timer = rxjs.timer;
 let timer$ = timer(3000, 500)
     .pipe(
         map(x => x * 10),
@@ -150,9 +154,12 @@ tap$.subscribe(
     () => console.log("complete")
 );
 //#endregion
+//----------------------------------------------------------
 
+//---------------------------
 //#region Combinaison de flux
 // peut etre utile pour des applications de calculs de rapports qualité/prix, poids/puissance ...
+let combineLatest = rxjs.combineLatest;
 let slowNums$ = interval(1000);
 let fastNums$ = interval(200);
 
@@ -164,3 +171,4 @@ combined$.subscribe(
     () => console.log("complete")
 );
 //#endregion
+//----------------------------

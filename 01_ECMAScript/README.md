@@ -44,7 +44,7 @@ Version  | Navigateur
 5 | IE 10
 
 Pour résoudre ces problemes et développer moderne avec ces nouveaux standards dès aujourd’hui, on utilisera des polyfills et des transpilers.
-- Polyfills: du code qui permet aux navigateurs web qui ne disposent pas certaines fonctionnalités d’ES6 ou ES7 de fonctionner correctement. 
+- Polyfills: du code qui permet aux navigateurs web qui ne disposent pas certaines fonctionnalités d’ES6 ou ES7 de fonctionner correctement.
 - Transpilers: permet de traduire du code écrit avec la syntaxe ES6 ou ES7 en code ES5 équivalent.
 
 # Programmtion Orientée Prototype
@@ -54,9 +54,8 @@ Pour résoudre ces problemes et développer moderne avec ces nouveaux standards 
 * Un prototype est un objet à partir duquel on crée de nouveaux objets, et permet à ces objets d'hériter des propriétés et méthodes de ce prototype.
 * En JavaScript, chaque objet a un prototype objet dont il hérite des méthodes et des attributs.
 * Un prototype peut lui aussi avoir son prototype objet et ainsi de suite --> chaîne de prototypage.
-* l'intérêt majeur des prototypes est l'héritage dynamique --> tout objet peut changer de parent à l'exécution.
 
-# Modules 
+# Modules
 * Des morceaux de code Javascript "self-contained" avec des fonctionnalités distinctes
 * Ces modules peuvent etre ajoutés, supprimés, modifiés si necessaire sans perturber l'ensemble du système
 * Possibilité de réutiliser ces modules
@@ -65,17 +64,17 @@ Pour résoudre ces problemes et développer moderne avec ces nouveaux standards 
 
 ### Module loaders
 * Généralement une bibliothèque qui peut charger, interpréter et exécuter des modules JavaScript avec syntaxe AMD ou CommonJS.
-* Dans une application avec plusieurs modules, il peut être assez pénible de s'assurer que tous les fichiers sont inclus et dans le bon ordre. 
-* Un Module loader s'occupera de la gestion des dépendances en s'assurant que tous les modules sont chargés lors de l'exécution de l'application. 
+* Dans une application avec plusieurs modules, il peut être assez pénible de s'assurer que tous les fichiers sont inclus et dans le bon ordre.
+* Un Module loader s'occupera de la gestion des dépendances en s'assurant que tous les modules sont chargés lors de l'exécution de l'application.
 * Les Module loaders les plus populaires sont RequireJS et SystemJS.
 
 ### Module bundlers
 * Une alternative aux Module loaders.
 * Fondamentalement, ils font la même chose (gérer et charger des modules interdépendants), mais pendant la construction de l'application avant l'exécution.
-* Au lieu de charger les dépendances telles qu'elles définient dans le code, un bundler assemble tous les modules en un seul fichier (un bundle) avant l'exécution. 
+* Au lieu de charger les dépendances telles qu'elles définient dans le code, un bundler assemble tous les modules en un seul fichier (un bundle) avant l'exécution.
 * Les Module loaders les plus populaires sont Webpack et Browserify.
 
 ### Quand utiliser quoi?
 * Le choix dépend de la structure et de la taille de l'application
-* Un bundler génère beaucoup moins de fichiers que le navigateur doit télécharger --> peut réduire le temps de chargement. 
+* Un bundler génère beaucoup moins de fichiers que le navigateur doit télécharger --> peut réduire le temps de chargement.
 * Un loader peut fournir de meilleures performances, car le chargement d'un gros fichier monolithique peut également bloquer le démarrage de l'application.
