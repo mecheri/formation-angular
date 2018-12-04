@@ -8,7 +8,7 @@ ng new MY-PROJECT-NAME --style=scss
 
 ## 01. Initial configuration (Packages / Styles / Fonts)
 --------------------------------------------------------
-- Create "sass" directory under Step01/src and copy in it Step02/src/sass content
+- Create "sass" directory under Step01/src and copy in it formation-angular/resources/sass content
 - Set up this as styles property in angular.json file:
     ```javascript
     "styles": [

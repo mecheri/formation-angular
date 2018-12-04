@@ -1,9 +1,9 @@
 <p align="center">
-    <img src="https://github.com/mecheri/formation-angular/blob/master/Images/angular.png" width="200" height="200" style="display:block;margin: 0 auto;">
+    <img src="https://github.com/mecheri/formation-angular/blob/master/resources/images/angular.png" width="200" height="200" style="display:block;margin: 0 auto;">
 </p>
 
 # Angular
-* Angular est une plate-forme d'application Web open-source basée sur TypeScript et dirigée par l'équipe Angular de Google et par une communauté de particuliers et d'entreprises. 
+* Angular est une plate-forme d'application Web open-source basée sur TypeScript et dirigée par l'équipe Angular de Google et par une communauté de particuliers et d'entreprises.
 * Angular est une réécriture complète de plate-forme AngularJS développée par la même équipe.
 
 # Documentation

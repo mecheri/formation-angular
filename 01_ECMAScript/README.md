@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://github.com/mecheri/formation-angular/blob/master/Images/ecma.jpg" width="200" height="200" style="display:block;margin: 0 auto;">
+    <img src="https://github.com/mecheri/formation-angular/blob/master/resources/images/ecma.jpg" width="200" height="200" style="display:block;margin: 0 auto;">
 </p>
 
 # ECMAScript

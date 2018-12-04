@@ -8,7 +8,7 @@
 Moteur d’exécution JavaScript open source de Google, écrit en C++ et utilisé dans Google Chrome et Node.js. Il implémente la norme ECMAScript
 
 ## Boucle d'événnement et mode asynchrone
-![](https://github.com/mecheri/formation-angular/blob/master/Images/event-loop.jpg)
+![](https://github.com/mecheri/formation-angular/blob/master/resources/images/event-loop.jpg)
 
 ```javascript
 // Code bloquant -> synchrone

@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://github.com/mecheri/formation-angular/blob/master/Images/angular.png" width="200" height="200" style="display:block;margin: 0 auto;">
+    <img src="https://github.com/mecheri/formation-angular/blob/master/resources/images/angular.png" width="200" height="200" style="display:block;margin: 0 auto;">
 </p>
 
 Formation Angular
@@ -7,10 +7,10 @@ Formation Angular
 Apprendre à maîtriser le Framework Front-End Angular avec TypeScript
 
 ## Public visé
-Architectes, Leads Tech, Développeurs et Chefs de projets web 
+Architectes, Leads Tech, Développeurs et Chefs de projets web
 
 ## Prérequis
-Connaissance générale des principes du web. Connaissances basiques de l’HTML et du Javascript. 
+Connaissance générale des principes du web. Connaissances basiques de l’HTML et du Javascript.
 
 ## Durée
 4 jours.
@@ -22,7 +22,7 @@ Connaissance générale des principes du web. Connaissances basiques de l’HTML
 * Modules CommonJs
 * Modules AMD
 * Modules UMD
-* ECMAScript 6 (ES2015) 
+* ECMAScript 6 (ES2015)
 * ECMAScript 7 (ES2016)
 * TypeScript: configurer, utiliser et compiler
 * NodeJS, NPM et les Node modules
@@ -41,7 +41,7 @@ Connaissance générale des principes du web. Connaissances basiques de l’HTML
 * Requêtes HTTP
 * Routing
 * Modules
-* Compilation 
+* Compilation
 * Packaging
 #### Jour 4
 L’objectif de la quatrième journée est de mettre en pratique les concepts acquis lors des trois jours précédents : développement d’une application « starter » avec le formateur en mode interactif, avec la possibilité en fin de formation de récupérer le code source qui pourra servir de support pour de futurs développements.
