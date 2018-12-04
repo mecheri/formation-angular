@@ -8,7 +8,7 @@ ng new MY-PROJECT-NAME --style=scss
 
 ## 01. Initial configuration (Packages / Styles / Fonts)
 --------------------------------------------------------
-- Create "sass" directory under Step01/src and copy in it Step01/src/sass content
+- Create "sass" directory under Step01/src and copy in it Step02/src/sass content
 - Set up this as styles property in angular.json file:
     ```javascript
     "styles": [
@@ -43,6 +43,7 @@ ng new MY-PROJECT-NAME --style=scss
         ```
     - Clean the AppComponent template
         ```html
+        <!-- path: src/app/app.component.html -->
         <div style="text-align:center">
             <h1>
                 Welcome to {{ title }}!
@@ -94,8 +95,7 @@ ng new MY-PROJECT-NAME --style=scss
     - One-way binding: property (to-the-dom)
     - Apply some of Angular's standard pipes:
         ```html
-        <!-- path: src/app/user/user.component.ts -->
-        <!-- Pipes -->
+        <!-- path: src/app/user/user.component.html -->
         <div><span>birth date: </span>{{user.birthdate | date}}</div>
         <div><span>birth date: </span>{{user.birthdate | date: "MM/dd/yy"}}</div>
         <div><span>birth date: </span>{{user.birthdate | date: dateFormat}}</div>
@@ -107,7 +107,7 @@ ng new MY-PROJECT-NAME --style=scss
         ng generate pipe exponential
         ```
         ```typescript
-        // path: src/app/user/user.component.ts
+        // path: src/app/exponential.pipe.ts
         import { Pipe, PipeTransform } from '@angular/core';
 
         @Pipe({
@@ -121,7 +121,7 @@ ng new MY-PROJECT-NAME --style=scss
         }
         ```
         ```html
-        <!-- path: src/app/user/user.component.ts -->
+        <!-- path: src/app/user/user.component.html -->
         <div>Exponentielle: {{2 | exponential: 2}}</div>
         ```
 
@@ -130,7 +130,7 @@ ng new MY-PROJECT-NAME --style=scss
 - Remove exponential.pipe.ts and exponential.pipe.spec.ts
 - Clean the UserComponent template:
     ```html
-    <!-- path: src/app/user/user.component.ts -->
+    <!-- path: src/app/user/user.component.html -->
     <div style="text-align:center">
         <img width="100" alt="property as one-way binding" [src]="image">
         <h2>{{ user.firstname }} {{ user.lastname }} Details : </h2>
@@ -141,6 +141,7 @@ ng new MY-PROJECT-NAME --style=scss
     ```
 - Lifecycle Hooks Interfaces implementation:
     ```typescript
+    // path: src/app/user/user.component.ts
     @Component({
         selector: 'app-user',
         templateUrl: './user.component.html',
@@ -150,30 +151,29 @@ ng new MY-PROJECT-NAME --style=scss
     ```
 - OnChanges:
     ```typescript
-    // path: src/app/user/user.component.ts
     ngOnChanges(changes: SimpleChanges) {
         console.log('---> OnChanges Can\'t fire here <---');
     }
     ```
 - OnInit:
     ```typescript
-    // path: src/app/user/user.component.ts
     ngOnInit() {
         console.log('---> OnInit fires <---');
     }
     ```
 - AfterViewInit, Renderer, ViewChild (HTML input auto-focus):
     ```typescript
-    // path: src/app/user/user.component.ts
     @ViewChild('input') input;
+
     constructor(private renderer: Renderer) { }
+
     ngAfterViewInit() {
         console.log('---> AfterViewInit fires <---');
         this.renderer.invokeElementMethod(this.input.nativeElement, 'focus');
     }
     ```
     ```html
-    <!-- path: src/app/user/user.component.ts -->
+    <!-- path: src/app/user/user.component.html -->
     <div style="text-align:center">
         <img width="100" alt="property as one-way binding" [src]="image">
         <h2>{{ user.firstname }} {{ user.lastname }} Details : </h2>
@@ -181,7 +181,6 @@ ng new MY-PROJECT-NAME --style=scss
         <div><span>email: </span>{{user.email}}</div>
         <div><span>birth date: </span>{{user.birthdate}}</div>
 
-        <!-- AfterViewInit Hook -->
         <div style="margin: 2% 5% 0 5%;display:inline-block;">
             <input #input type="text" placeholder="Test input for auto-focus">
         </div>
@@ -195,7 +194,6 @@ ng new MY-PROJECT-NAME --style=scss
     ```
 - OnDestroy:
     ```typescript
-    // path: src/app/user/user.component.ts
     ngOnDestroy() {
         console.log('---> OnDestroy fires <---');
     }
@@ -205,7 +203,7 @@ ng new MY-PROJECT-NAME --style=scss
 ------------------
 - Replace UserComponent template content by this:
     ```html
-    <!-- path: src/app/user/user.component.ts -->
+    <!-- path: src/app/user/user.component.html -->
     <div style="text-align:center">
         <img width="100" alt="property as one-way binding" [src]="image">
         <h2>{{ user.firstname }} {{ user.lastname }} Details : </h2>
@@ -214,7 +212,6 @@ ng new MY-PROJECT-NAME --style=scss
         <div><span>birth date: </span>{{user.birthdate}}</div>
 
         <div style="margin: 2% 5% 0 5%;display:inline-block;">
-            <!-- AfterViewInit Hook -->
             <input #input type="text" placeholder="Test input for auto-focus">
             <!-- Two-way binding -->
             <input type="text" [(ngModel)]="user.firstname">
@@ -243,6 +240,7 @@ ng new MY-PROJECT-NAME --style=scss
 ------------------------------
 - Clean the UserComponent class:
     ```typescript
+    // path: src/app/user/user.component.ts
     import { Component, OnInit } from '@angular/core';
     import { User } from './user';
 
@@ -261,6 +259,7 @@ ng new MY-PROJECT-NAME --style=scss
     ```
 - Clean the UserComponent template:
     ```html
+    <!-- path: src/app/user/user.component.html -->
     <h2>Users</h2>
     <hr>
     <div class="row">
@@ -318,6 +317,7 @@ ng new MY-PROJECT-NAME --style=scss
     ```
 - Display users with *ngFor (structural directive)
     ```html
+    <!-- path: src/app/user/user.component.html -->
     <h2>Users</h2>
     <hr>
     <div class="row">
@@ -510,7 +510,12 @@ ng new MY-PROJECT-NAME --style=scss
         ```typescript
         // path: src/app/user/user.component.ts
         image2 = '               https://assets-cdn.github.com/images/icons/emoji/unicode/1f471.png?v8';
-
+        ```
+        ```html
+        <!-- path: src/app/user/user.component.html -->
+        <app-user-detail [user]="selectedUser" [avatar]="image" [avatar2]="image2"></app-user-detail>
+        ```
+        ```typescript
         // path: src/app/user/user-detail/user-detail.component.ts
         private _image2 = '';
         @Input('avatar2') set image2(data: string) {
@@ -519,9 +524,6 @@ ng new MY-PROJECT-NAME --style=scss
         get image2(): string { return this._image2; }
         ```
         ```html
-        <!-- path: src/app/user/user.component.html -->
-        <app-user-detail [user]="selectedUser" [avatar]="image" [avatar2]="image2"></app-user-detail>
-
         <!-- path: src/app/user-detail/user-detail.component.html -->
         <img width="100" alt="property as one-way binding" [src]="image2">
         ```
@@ -557,7 +559,13 @@ ng new MY-PROJECT-NAME --style=scss
             this.onAction.emit(msg);
         }
         ...
+        ```
+        ```html
+        <!-- path: src/app/user/user-detail/user-detail.component.html -->
+        <button (click)="action('Hello from User-detail-component @Output')">Hello</button>
+        ```
 
+        ```typescript
         // path: src/app/user/user.component.ts
         ...
         onActionFromUserDetail(msg: string) {
@@ -566,9 +574,6 @@ ng new MY-PROJECT-NAME --style=scss
         ...
         ```
         ```html
-        <!-- path: src/app/user/user-detail/user-detail.component.html -->
-        <button (click)="action('Hello from User-detail-component @Output')">Hello</button>
-
         <!-- path: src/app/user/user.component.html -->
         <app-user-detail [user]="selectedUser" [avatar]="image" (onAction)="onActionFromUserDetail($event)"></app-user-detail>
         ```
@@ -633,7 +638,9 @@ ng new MY-PROJECT-NAME --style=scss
                 this.broadcastChildSource.next(data);
             }
         }
+        ```
 
+        ```typescript
         // path: src/app/user/user.component.ts
         import { Interaction07Service } from '../interaction07.service';
 
@@ -644,7 +651,13 @@ ng new MY-PROJECT-NAME --style=scss
         broadcastParent() {
             this.service.broadcastParent('Hello from parent');
         }
+        ```
+        ```html
+        <!-- path: src/app/user/user.component.html -->
+        <button (click)="broadcastParent()">BROADCAST PARENT</button>
+        ```
 
+        ```typescript
         // path: src/app/user/user-detail/user-detail.component.ts
         import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter, OnDestroy} from '@angular/core';
         import { Subscription } from 'rxjs';
@@ -657,20 +670,19 @@ ng new MY-PROJECT-NAME --style=scss
                 this.subscription = service.broadcastParentStream$.subscribe((dataFromParent) => console.log(dataFromParent));
             }
 
+            broadcastParent() {
+                this.service.broadcastChild('Hello from child');
+            }
+
             ngOnDestroy() {
                 this.subscription.unsubscribe(); // prevent memory leak
             }
         }
         ```
-
         ```html
-        <!-- path: src/app/user/user.component.html -->
-        <button (click)="broadcastParent()">BROADCAST PARENT</button>
-
         <!-- path: src/app/user/user-detail/user-detail.component.html -->
         <button (click)="broadcastChild()">BROADCAST CHILD</button>
         ```
-
 ## 07. User service
 -------------------
 - Clean Workspace
@@ -700,9 +712,8 @@ ng new MY-PROJECT-NAME --style=scss
         bootstrap: [AppComponent]
     })
     export class AppModule { }
-
-
-
+    ```
+    ```typescript
     // path: src/app/user/user.component.ts
     import { Component, OnInit } from '@angular/core';
     import { User } from './user';
@@ -768,8 +779,25 @@ ng new MY-PROJECT-NAME --style=scss
             this.selectedUser = user;
         }
     }
+    ```
+    ```html
+    <!-- path: src/app/user/user.component.html -->
+    <h2>Users</h2>
+    <hr>
+    <div class="row">
+        <div class="col m4">
+            <ul>
+                <li *ngFor="let user of users" [class.active-line]="selectedUser && selectedUser.id === user.id" (click)="onSelect(user)">
+                    <span>{{user.id}} - {{user.firstname}} {{user.lastname}} </span>
+                </li>
+            </ul>
+        </div>
 
+        <app-user-detail [user]="selectedUser" [avatar]="image"></app-user-detail>
+    </div>
+    ```
 
+    ```typescript
     // path: src/app/user/user-detail/user-detail.component.ts
     import { Component, Input, OnInit } from '@angular/core';
     import { User } from '../user';
@@ -790,21 +818,6 @@ ng new MY-PROJECT-NAME --style=scss
     }
     ```
     ```html
-    <!-- path: src/app/user/user.component.html -->
-    <h2>Users</h2>
-    <hr>
-    <div class="row">
-        <div class="col m4">
-            <ul>
-                <li *ngFor="let user of users" [class.active-line]="selectedUser && selectedUser.id === user.id" (click)="onSelect(user)">
-                    <span>{{user.id}} - {{user.firstname}} {{user.lastname}} </span>
-                </li>
-            </ul>
-        </div>
-
-        <app-user-detail [user]="selectedUser" [avatar]="image"></app-user-detail>
-    </div>
-
     <!-- path: src/app/user/user-detail/user-detail.component.html -->
     <div *ngIf="user" class="col m8">
         <br>
@@ -873,6 +886,7 @@ ng new MY-PROJECT-NAME --style=scss
         constructor() { }
     }
     ```
+
 - Inject the generated UserService into UserComponent and load users Synchronously and Asynchronously
     ```typescript
     // path: src/app/user/user.component.ts
@@ -895,6 +909,7 @@ ng new MY-PROJECT-NAME --style=scss
         ...
     }
     ```
+
 - Load users asynchronously with Observables
     ```typescript
     // path: src/app/user/user.service.ts
@@ -904,21 +919,22 @@ ng new MY-PROJECT-NAME --style=scss
     // and the browser will not block while the service waits
     getUsersAsync(): Observable<User[]> {
         return new Observable((observer) => {
-        setTimeout(() => {
-            observer.next(USERS);
-            observer.complete();
-        }, 3000);
+            setTimeout(() => {
+                observer.next(USERS);
+                observer.complete();
+            }, 3000);
 
-        try {
-            // throw Error("Boom");
-        } catch (e) {
-            observer.error(e);
-        }
+            try {
+                // throw Error("Boom");
+            } catch (e) {
+                observer.error(e);
+            }
         });
 
         // return of(USERS);
     }
-
+    ```
+    ```typescript
     // path: src/app/user/user.component.ts
     usersAsync: User[];
     ngOnInit() {
@@ -999,14 +1015,6 @@ ng new MY-PROJECT-NAME --style=scss
     export class AppRoutingModule { }
     ```
 - Add a default route
-    ```typescript
-    // path: src/app/app-routing.module.ts
-    const routes: Routes = [
-        { path: '', redirectTo: '/home', pathMatch: 'full' },
-        ...
-    ];
-    ```
-- Import created AppRoutingModule in AppModule
     ```typescript
     // path: src/app/app-routing.module.ts
     const routes: Routes = [
@@ -1234,7 +1242,7 @@ ng new MY-PROJECT-NAME --style=scss
         </ng-template>
     </p-table>
     ```
-- Clean UserService class
+- Clean UserService
     ```typescript
     // path: src/app/user/user.service.ts
     import { Injectable } from '@angular/core';
@@ -1303,7 +1311,7 @@ ng new MY-PROJECT-NAME --style=scss
             ...
         ],
     ```
-- Navigate to the User detail -> nothing displayed !!!
+- Navigate to the User detail -> nothing displayed !!! -> it's normal
 - Enhance UserDetailComponent and Extract user ID from ActivatedRoute Parameters
     ```typescript
     // path: src/app/user/user-detail/user-detail.component.ts
@@ -1640,12 +1648,12 @@ ng new MY-PROJECT-NAME --style=scss
 
             createForm() {
                 if (this.creationForm) { this.creationForm.reset(); }
-                this.creationForm = this.fb.group({ // <==> new FormGroup({ username: new FormControl() })
-                username: ['', Validators.required],
-                password: ['', Validators.required],
-                email: ['', [Validators.required, Validators.email]],
-                firstname: ['', Validators.required],
-                lastname: ['', Validators.required]
+                    this.creationForm = this.fb.group({ // <==> new FormGroup({ username: new FormControl() })
+                    username: ['', Validators.required],
+                    password: ['', Validators.required],
+                    email: ['', [Validators.required, Validators.email]],
+                    firstname: ['', Validators.required],
+                    lastname: ['', Validators.required]
                 });
             }
 
@@ -1814,8 +1822,8 @@ ng new MY-PROJECT-NAME --style=scss
     }
     ```
 
-## 10. HttpClient in the UserService
-------------------------------------
+## 10. HttpClient
+-----------------
 - Enable Angular's HTTP services (HttpClientModule)
     ```typescript
     // path: src/app/app.module.ts
@@ -1845,7 +1853,7 @@ ng new MY-PROJECT-NAME --style=scss
     interface EmojisResponse { hugs: string; }
     this.http.get<EmojisResponse>('https://api.github.com/emojis')
         .subscribe(data => {
-        console.log(data.hugs);
+            console.log(data.hugs);
         });
 
     // Récupération de la totalité de la réponse pas le body uniquement
@@ -1881,7 +1889,7 @@ ng new MY-PROJECT-NAME --style=scss
         })
         .subscribe();
 
-    // URL Parameters  
+    // URL Parameters
     const body = { name: 'Mehdi' };
     this.http
         .post('/api/users/add', body, {
@@ -1975,7 +1983,7 @@ ng new MY-PROJECT-NAME --style=scss
 - Inject angular2-notifications service in the user's CRUD Components
     ```typescript
     import { NotificationsService } from 'angular2-notifications';
-    
+
     constructor(
         ...
         private notifService: NotificationsService,
@@ -2353,7 +2361,7 @@ ng new MY-PROJECT-NAME --style=scss
     })
     export class HomeRoutingModule { }
     ```
-- Update AppModule 
+- Update AppModule
     ```typescript
     // path src/app/app.module.ts
     import { BrowserModule } from '@angular/platform-browser';
@@ -2382,7 +2390,7 @@ ng new MY-PROJECT-NAME --style=scss
     })
     export class AppModule { }
     ```
-- Update AppRoutingModule with lazy loading to the newly generated feature modules
+- Update AppRoutingModule with lazy loading of the newly generated feature modules
     ```typescript
     // path src/app/app-routing.module.ts
     import { NgModule } from '@angular/core';
@@ -2410,14 +2418,14 @@ ng new MY-PROJECT-NAME --style=scss
     })
     export class AppRoutingModule { }
     ```
-        
+
 ## 14. Login And Register Modules
 ---------------------------------
 - Generate LoginModule with routing under features directory
     ```bash
     ng generate module features/login --routing
     ```
-- Generate LoginComponent 
+- Generate LoginComponent
     ```bash
     ng generate component features/login/components/login --flat --module=login
     ```
@@ -2579,7 +2587,7 @@ ng new MY-PROJECT-NAME --style=scss
     ```bash
     ng generate module features/register --routing
     ```
-- Generate RegisterComponent 
+- Generate RegisterComponent
     ```bash
     ng generate component features/register/components/register --flat --module=register
     ```
@@ -2757,7 +2765,7 @@ ng new MY-PROJECT-NAME --style=scss
     })
     export class RegisterModule { }
     ```
-- Update AppRoutingModule and load lazily newly generated modules
+- Update AppRoutingModule and load lazily the newly generated modules
     ```typescript
     // path: src/app/app.module.ts
     import { NgModule } from '@angular/core';
@@ -2807,18 +2815,18 @@ ng new MY-PROJECT-NAME --style=scss
 - Add JWT Authentication Guards (CanActivate)
     ```typescript
     // path: src/app/app.module.ts
-    import { AuthGuardService } from './core/services/auth-guard.service';
+    import { AuthGuard } from './core/services/auth.guard';
 
     const routes: Routes = [
         {
             path: 'home',
             loadChildren: './features/home/home.module#HomeModule',
-            canActivate: [AuthGuardService]
+            canActivate: [AuthGuard]
         },
         {
             path: 'user',
             loadChildren: './features/user/user.module#UserModule',
-            canActivate: [AuthGuardService]
+            canActivate: [AuthGuard]
         },
         ...
     ];
@@ -2828,7 +2836,7 @@ ng new MY-PROJECT-NAME --style=scss
     ng generate guard features/user/services/user --module=user
     ```
     ```typescript
-    // path: src/app/features/user/services/user-guard.service.ts
+    // path: src/app/features/user/services/user.guard.ts
     import { Injectable } from '@angular/core';
     import { CanDeactivate } from '@angular/router';
 
@@ -2838,7 +2846,7 @@ ng new MY-PROJECT-NAME --style=scss
     @Injectable({
         providedIn: 'root'
     })
-    export class UserGuardService implements CanDeactivate<UserNewComponent | UserEditComponent> {
+    export class UserGuard implements CanDeactivate<UserNewComponent | UserEditComponent> {
 
         /**
         * Creates an instance of UserGuardService.
@@ -2911,11 +2919,11 @@ ng new MY-PROJECT-NAME --style=scss
     ```bash
     ng generate module features/index --routing
     ```
-- Generate IndexComponent 
+- Generate IndexComponent
     ```bash
     ng generate component features/index/index --flat --module=index
     ```
-- Update AppRoutingModule 
+- Update AppRoutingModule
     ```typescript
     // path: src/app/app-routing.module.ts
     import { NgModule } from '@angular/core';
