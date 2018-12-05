@@ -16,7 +16,7 @@ import { IndexRoutingModule } from "./index-routing.module";
         IndexComponent
     ],
     exports: [
-        IndexComponent
+        SharedModule
     ],
     providers: []
 })
