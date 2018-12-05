@@ -8,7 +8,7 @@ ng new MY-PROJECT-NAME --style=scss
 
 ## 01. Initial configuration (Packages / Styles / Fonts)
 --------------------------------------------------------
-- Create "sass" directory under Step01/src and copy in it formation-angular/resources/sass content
+- Copy formation-angular/resources/sass directory to /src
 - Set up this as styles property in angular.json file:
     ```javascript
     "styles": [
@@ -19,7 +19,6 @@ ng new MY-PROJECT-NAME --style=scss
     ```bash
     npm install --save ngx-materialize
     ```
-- Copy Step02/src/sass directory to Step01/src
 - Install jquery and it's types
     ```bash
     npm install --save jquery @types/jquery
@@ -2071,7 +2070,7 @@ ng new MY-PROJECT-NAME --style=scss
     ```bash
     ng generate module core
     ```
-- Copy Step13/src/app/core content to Step12/src/app/core
+- Copy formation-angular/resources/modules/core content to /src/app/core
 - Update AppModule
     ```typescript
     import { BrowserModule } from '@angular/platform-browser';
@@ -2129,7 +2128,9 @@ ng new MY-PROJECT-NAME --style=scss
     })
     export class AppModule { }
     ```
-- Create "resources" directory under Step12/src and copy in it Step13/src/resources content
+- Create "resources" directory under /src and copy in it following files
+    * formation-angular/resources/settings.hjson
+    * formation-angular/resources/resources.fr.hjson
 - Install hjson package:
     ```bash
     npm install --save hjson os
@@ -2203,7 +2204,7 @@ ng new MY-PROJECT-NAME --style=scss
     ```bash
     ng generate module shared
     ```
-- Copy Step14/src/app/shared content to Step13/src/app/shared
+- Copy formation-angular/resources/modules/shared content to /src/app/shared
 - Update AppModule
     ```typescript
     import { BrowserModule } from '@angular/platform-browser';
