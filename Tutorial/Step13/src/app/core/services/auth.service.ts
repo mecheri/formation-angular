@@ -131,7 +131,7 @@ export class AuthService {
      * @memberof AuthService
      */
     addAuthorizationHeader(request: HttpRequest<any>) {
-        if (!this.getToken()) { return request; }
+        if (!this.isLoggedIn()) { return request; }
         return request.clone({ setHeaders: { 'Authorization': `Bearer ${this.getToken()}`, 'Content-Type': 'application/json; charset=utf-8' } });
     }
 
