@@ -2,6 +2,7 @@
     <img src="https://github.com/mecheri/formation-angular/blob/master/resources/images/angular.png" width="200" height="200" style="display:block;margin: 0 auto;">
 </p>
 
+
 Formation Angular
 =================
 Apprendre à maîtriser le Framework Front-End Angular avec TypeScript
