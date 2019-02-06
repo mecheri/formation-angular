@@ -1,10 +1,9 @@
-## Outils de développement 
-* Chrome
+## Outils de développement
+* Chrome, FireFox, ...
 * VSCode, Atome, Sublime text ....
-* Node.js
-* NPM
+* Node.js & npm
 * Typescipt/Angular/HTML/CSS intellisense, et formattage automatique
-* Web Server 
+* Web Server
     - Apache, IIS
     - Basé sur Node.js (live-server,...)
 * Angular CLI

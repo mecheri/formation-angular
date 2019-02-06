@@ -5,7 +5,7 @@
 # ECMAScript
 Standard (ensemble de normes) pour les langages de programmation de type script (JavaScript, ActionScript ...)
 
-# Versions
+## Versions
 Version  | Description
 ---      | ---
 1997 ECMAScript 1 | 1er édition
@@ -16,7 +16,7 @@ ECMAScript 4	  | Annulée
 2015 ECMAScript 6 | Fonctions Flêchées, Classes, Modules --> une vraie révolution du Javascript
 2016 ECMAScript 7 | Exponential operator (**), Array.prototype.includes
 
-# Support navigateurs
+## Support navigateurs
 Version  | Support
 ---      | ---
 ECMAScript 3 | supporté par tout les navigateurs
@@ -24,57 +24,62 @@ ECMAScript 5 | supporté par tout les navigateurs modernes
 ECMAScript 6 | supporté partiellement par les navigateurs
 ECMAScript 7 | supporté très faiblement par les navigateurs
 
-# Implementations navigateurs
+## Implémentations navigateurs
 Aujourd’hui tous les navigateurs modernes sont capables de comprendre le Javascript de norme ES5.
 Et ils evoluent pour comprendre les normes encore plus avancées. Mais ils ne sont pas encore capables de comprendre 100% des ajouts d’ES6 et encore moins d’ES7
 
-[Quel navigateur supporte quelle fonctionnalité](http://kangax.github.io/compat-table)
-Version  | Navigateur
----      | ---
-6 | Chrome (support partiel)
-6 | Firefox (support partiel)
-6 | Edge (support partiel)
-6 | Safari (support partiel)
-6 | Opera (support partiel)
-5 | Chrome 23
-5 | Firefox 21
-5 | Safari 6
-5 | Opera 15
-5 | Edge 12
-5 | IE 10
+## [Quel navigateur supporte quelle fonctionnalité](http://kangax.github.io/compat-table)
 
-Pour résoudre ces problemes et développer moderne avec ces nouveaux standards dès aujourd’hui, on utilisera des polyfills et des transpilers.
-- Polyfills: du code qui permet aux navigateurs web qui ne disposent pas certaines fonctionnalités d’ES6 ou ES7 de fonctionner correctement.
-- Transpilers: permet de traduire du code écrit avec la syntaxe ES6 ou ES7 en code ES5 équivalent.
+Pour résoudre ces problemes d'implémentations.
+- <strong>Polyfills</strong>: du code qui permet aux navigateurs web qui ne disposent pas certaines fonctionnalités d’ES6 ou ES7 de fonctionner correctement.
+- <strong>Transpilers</strong>: permet de traduire du code écrit avec la syntaxe ES6 ou ES7 en code ES5 équivalent.
 
 # Programmtion Orientée Prototype
-* Est une forme de programmation orientée objet sans classe, fondée sur la notion de prototype.
+* Est une forme de programmation orientée objet sans classe, fondée sur la notion de <strong>prototype</strong>.
+    ```javascript
+    // Fonction constructeur d'objet
+    // "this" représente l'objet qui possède le code
+    function User(first, last, email) {
+        this.firstName = first;
+        this.lastName = last;
+    }
 
-# Prototype
-* Un prototype est un objet à partir duquel on crée de nouveaux objets, et permet à ces objets d'hériter des propriétés et méthodes de ce prototype.
-* En JavaScript, chaque objet a un prototype objet dont il hérite des méthodes et des attributs.
-* Un prototype peut lui aussi avoir son prototype objet et ainsi de suite --> chaîne de prototypage.
+    // Création de l'instance
+    var user = new User("Léo", "Messi");
 
-# Modules
+    // Ajout d'une Propriété à l'instance de l'objet
+    user.email = "leo.messi@barca.es";
+
+    // Ajout d'une propriété à un constructeur existant --> Impossible
+    User.nationalite = "Français";
+
+    // Pour le faire --> Utilisation de la propriété prototype
+    User.prototype.nationalite = "Français";
+
+    // On peut ajouter aussi des fonction
+    User.prototype.name = function() {
+        return this.firstName + " " + this.lastName;
+    };
+    ```
+
+# Modules JS
 * Des morceaux de code Javascript "self-contained" avec des fonctionnalités distinctes
-* Ces modules peuvent etre ajoutés, supprimés, modifiés si necessaire sans perturber l'ensemble du système
-* Possibilité de réutiliser ces modules
+* Ces modules peuvent être ajoutés, supprimés, modifiés si necessaire sans perturber l'ensemble du système avec possibilité de réutilisation
 
-## Module loaders & Module bundlers
+# Module loaders & Module bundlers
 
-### Module loaders
-* Généralement une bibliothèque qui peut charger, interpréter et exécuter des modules JavaScript avec syntaxe AMD ou CommonJS.
+## Module loaders
+* Généralement une bibliothèque qui peut charger, interpréter et exécuter des modules JavaScript.
 * Dans une application avec plusieurs modules, il peut être assez pénible de s'assurer que tous les fichiers sont inclus et dans le bon ordre.
 * Un Module loader s'occupera de la gestion des dépendances en s'assurant que tous les modules sont chargés lors de l'exécution de l'application.
 * Les Module loaders les plus populaires sont RequireJS et SystemJS.
 
-### Module bundlers
-* Une alternative aux Module loaders.
-* Fondamentalement, ils font la même chose (gérer et charger des modules interdépendants), mais pendant la construction de l'application avant l'exécution.
+## Module bundlers
+* Ils font la même chose que les Module loaders (gérer et charger des modules interdépendants), mais pendant la construction de l'application avant l'exécution.
 * Au lieu de charger les dépendances telles qu'elles définient dans le code, un bundler assemble tous les modules en un seul fichier (un bundle) avant l'exécution.
 * Les Module loaders les plus populaires sont Webpack et Browserify.
 
-### Quand utiliser quoi?
+## Quand utiliser quoi?
 * Le choix dépend de la structure et de la taille de l'application
 * Un bundler génère beaucoup moins de fichiers que le navigateur doit télécharger --> peut réduire le temps de chargement.
 * Un loader peut fournir de meilleures performances, car le chargement d'un gros fichier monolithique peut également bloquer le démarrage de l'application.

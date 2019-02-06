@@ -13,8 +13,8 @@
 //     LEFT,
 //     RIGHT
 // }
-// let up = DIRECTIONS.UP;
-// console.log(up);
+// let right = DIRECTIONS.RIGHT;
+// console.log(right);
 // //#endregion
 
 
@@ -82,16 +82,14 @@
 //     y: number;
 //     hello: (data: string) => void;
 // }
-
 // class Demo {
 //     public options: IDemo;
 //     constructor(options: IDemo) {
 //         this.options = options;
 //     }
-//     // TypeScript ne permet pas une surcharge des constructeur 
-//     // constructor() { } 
+//     // TypeScript ne permet pas une surcharge des constructeurs
+//     // constructor() { }
 // }
-
 // let demo = new Demo({
 //     x: 2,
 //     y: 2,
@@ -103,7 +101,7 @@
 
 //-----------------------------------------
 // //#region namespaces
-// // creee une self invoking function
+// // fournit une self invoking function
 // // pas indispensable si on travail avec les modules
 // namespace Viveris {
 //     let hello = 'salut'; // accessible uniquement dans le namespace
@@ -116,7 +114,7 @@
 
 
 //-----------------------------------------
-// //#region modules
+// //#region modules (dependencies)
 // import Lib from './lib';
 // let lib = new Lib();
 // console.log(lib.hello());
@@ -125,20 +123,18 @@
 
 //-----------------------------------------
 // //#region decorators
-// // Les décorateurs permettent d'ajouter des annotations 
-// // et une syntaxe de méta-programmation pour les déclarations de classe et les membres. 
+// // Les décorateurs permettent d'ajouter des annotations
+// // Une syntaxe de méta-programmation pour les déclarations de classe et les membres.
 // // Les décorateurs sont disponibles en tant que fonctionnalité expérimentale de TypeScript
 // function decorator(target) {
 //     console.log(target);
 // }
-
 // function decorator2(metadata) { // decorator factory
 //     return function (target) { // decorator
-//         // on peut faire des choses avec target et metadata
+//         // accès a target et metadata
 //         console.log(metadata, target);
 //     }
 // }
-
 // // @decorator
 // @decorator2({
 //     selector: 'demo-component'
@@ -152,22 +148,27 @@
 
 
 //-----------------------------------------
-//#region vendors 
-// importer une librairie tierce de nodeJS
-// typescript ne connais pas la librairie (module) scroll-to
-// il faut un fichier de declaration qui decrit comment fonctionne un module
-import scrollTo from 'scroll-to';
+// //#region vendors
+// // importer une librairie tierce de nodeJS
+// // typescript ne connais pas la librairie (module) scroll-to
+// // il faut un fichier de declaration de type qui decrit comment fonctionne un module
+// // npm install --save-dev scroll-to
+// import scrollTo from 'scroll-to';
+// scrollTo(500, 1200, {
+//     ease: 'out-bounce',
+//     duration: 1500
+// });
+// //#endregion
 
-scrollTo(500, 1200, {
-    ease: 'out-bounce',
-    duration: 1500
-});
 
-// Creer un fichier de declation pour jQuery peut prendre beaucoup de temps
-// heureusement y a un outil --> @types
-import * as $ from 'jquery';
-
-$('#btn').click(function () {
-    scrollTo(0, 0);
-});
-//#endregion
+//-----------------------------------------
+// //#region @types
+// // Créer un fichier de declaration pour jQuery peut prendre beaucoup de temps
+// // heureusement y a un outil --> @types
+// // npm install --save-dev @types/jquery
+// import scrollTo from 'scrollto';
+// import * as $ from 'jquery';
+// $('#btn').click(function () {
+//     scrollTo(0, 0);
+// });
+// //#endregion

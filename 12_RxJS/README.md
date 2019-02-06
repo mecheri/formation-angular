@@ -1,8 +1,7 @@
-# Reactive programming
+# [Reactive programming](http://reactivex.io/)
 * La programmation reactive permet de gérer des flux données (valeurs, requêtes asynchrone, animations) qui arrivent dans le temps
 
 ## RxJS
-[RxJS](http://reactivex.io/)
 * Une librairie javascript qui permet de retourner des données de manière synchrone ou asynchrone
 * Repose sur les "Observables" et les "Operators"
 
@@ -15,7 +14,7 @@
 * Les observables fournissent de nombreuses valeurs dans le temps. Les promesses en fournissent une
 * Les observables différencient chaînage et abonnement. Les promesses n'ont que des clauses .then()
 * Les abonnements à des observables sont annulables. Le désabonnement supprime les valeurs supplémentaires et avertit pour annuler le travail. Les promesses ne le sont pas
-* Les erreurs d'exécution pour les observables sont transmises au gestionnaire d'erreurs de l'abonné et qui se désinscrit l'observable. Les promesses poussent les erreurs aux promesses de l'enfant
+* Les erreurs d'exécution pour les observables sont transmises au gestionnaire d'erreurs de l'abonné qui se désinscrit de l'observable. Les promesses poussent les erreurs aux promesses de l'enfant
 
 ## Observables vs Events API
 * Les observables sont très similaires aux gestionnaires d'événements

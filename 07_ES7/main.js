@@ -1,6 +1,6 @@
 //#region Array.prototype.includes()
-let array1 = [1, 2, 3];
-console.log(array1.includes(2));
+let array = [1, 2, 3];
+console.log(array.includes(2));
 //#endregion
 
 

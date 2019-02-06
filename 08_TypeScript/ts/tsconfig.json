@@ -1,5 +1,5 @@
-// La présence d'un fichier tsconfig.json dans un répertoire 
-// indique que le répertoire est la racine d'un projet TypeScript. 
+// La présence d'un fichier tsconfig.json dans un répertoire
+// indique que le répertoire est la racine d'un projet TypeScript.
 // Le fichier tsconfig.json spécifie les fichiers racine et les options de compilation requises pour compiler le projet.
 {
     "compilerOptions": {
@@ -9,6 +9,6 @@
     },
     "files": [
         "./main.ts",
-        "./scrollto.d.ts"
+        // "./scrollto.d.ts"
     ]
 }

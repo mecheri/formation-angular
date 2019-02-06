@@ -19,8 +19,3 @@ console.log(lib.diag(4, 3)); // 5
 // import LibClass from './lib';
 // let inst = new LibClass();
 // //#endregion
-
-
-// //#region default and named exports 
-// import Lib, { square, diag } from 'lib';
-// //#endregion

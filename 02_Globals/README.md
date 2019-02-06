@@ -8,16 +8,16 @@
 # Variables JavaScript
 * En JavaScript, les objets et les fonctions sont aussi des variables.
 
-# Variables JavaScript locales
+## Variables JavaScript locales
 * Les variables déclarées dans une fonction JavaScript deviennent LOCALES à la fonction.
 
-# Variables JavaScript globales
+## Variables JavaScript globales
 * Une variable déclarée en dehors d'une fonction devient GLOBALE.
 * Une variable GLOBALE a un scipe GLOBALE: tous les scripts et fonctions d'une page Web peuvent y accéder.
 * En HTML, le scope globale est l'objet window. Toutes les variables globales appartiennent à l'objet window.
 * Il ne faut pas créer de variables globales car elles peuvent écraser les variables (ou fonctions) de la fenêtre.
 
-# Variables JavaScript automatiquement globales
+## Variables JavaScript automatiquement globales
 * Si vous affectez une valeur à une variable non déclarée, celle-ci deviendra automatiquement une variable GLOBALE.
 ```javascript
 myFunction();

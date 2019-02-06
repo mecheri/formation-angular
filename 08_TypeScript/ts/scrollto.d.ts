@@ -3,6 +3,6 @@ interface Options {
     duration?: number
 }
 
-declare module 'scroll-to' {
+declare module 'scrollto' {
     export default function scrollTo(x: number, y: number, options?: Options);
 }

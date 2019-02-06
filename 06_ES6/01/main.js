@@ -1,11 +1,10 @@
-//#region let, const
-if ([1, 2, 3].length == 3) {
-    let message = "salut";
-}
-console.log(message); // test is undefined
-
-const PI = 3.14;
-//#endregion
+// //#region let, const
+// if ([1, 2, 3].length == 3) {
+//     let message = "salut";
+// }
+// console.log(message); // test is undefined
+// const PI = 3.14;
+// //#endregion
 
 
 // //-----------------------------------------
@@ -24,17 +23,20 @@ const PI = 3.14;
 //     nums: [1, 2, 3],
 //     message: "salut",
 //     show: function() {
+//         console.log('--------without arrow function----------')
 //         this.nums.forEach(function(x) {
 //             console.log(this.message + ' ' + x);
 //         })
 //     },
 //     show2: function() {
+//         console.log('--------with arrow function----------')
 //         this.nums.forEach(x => {
 //             console.log(this.message + ' ' + x);
 //         })
 //     }
 // };
 // obj.show();
+// obj.show2();
 // //#endregion
 
 
@@ -87,8 +89,8 @@ const PI = 3.14;
 // //#region promises
 // function timer(duration = 1000) {
 //     return new Promise((resolve, reject) => {
-//         setTimeout(() => resolve('fin du timeout avec succes'), duration);
-//         setTimeout(() => reject('une erreur s\'est produite'), duration);
+//         // setTimeout(() => resolve('fin du timeout avec succes'), duration);
+//         // setTimeout(() => reject('une erreur s\'est produite'), duration);
 //     });
 // }
 // timer(500)
