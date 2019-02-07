@@ -1,14 +1,48 @@
 # Tuto Steps
 
+## Required tools
+- [Git](https://git-scm.com/)
+ ```bash
+ # git behind proxy
+ git config --global http.proxy http://172.16.33.50:3128
+ git config --global https.proxy http://172.16.33.50:3128
+
+ # check the currently set proxy
+ git config --global --get http.proxy
+ git config --global --get https.proxy
+ ```
+ - [Node.js](https://nodejs.org/)
+ ```bash
+ # npm behind proxy
+ npm config set proxy http://172.16.33.50:3128
+ npm config set https-proxy http://172.16.33.50:3128
+
+ # check the currently set proxy
+ npm config get proxy
+ npm config get https-proxy
+ ```
+ - [Angular CLI](https://cli.angular.io/)
+ ```bash
+ # if not installed yet
+ npm install -g @angular/cli
+
+ # if already installed
+ npm uninstall -g angular-cli
+ npm cache verify
+ npm install -g @angular/cli@latest
+ ```
 ## 00. Generating an Angular project
 ------------------------------------
 ```bash
 ng new MY-PROJECT-NAME --style=scss
+
+Would you like to add Angular routing? N
 ```
 
 ## 01. Initial configuration (Packages / Styles / Fonts)
 --------------------------------------------------------
 - Copy formation-angular/resources/sass directory to /src
+- Copy formation-angular/resources/fonts directory to /src/assets
 - Set up this as styles property in angular.json file:
     ```javascript
     "styles": [
@@ -43,6 +77,7 @@ ng new MY-PROJECT-NAME --style=scss
     - Clean the AppComponent template
         ```html
         <!-- path: src/app/app.component.html -->
+
         <div style="text-align:center">
             <h1>
                 Welcome to {{ title }}!
@@ -53,8 +88,12 @@ ng new MY-PROJECT-NAME --style=scss
         <app-user></app-user>
         ```
     - Create User class:
+        ```bash
+        ng generate class user/user
+        ```
         ```typescript
         // path: src/app/user/user.ts
+
         export class User {
             id: number;
             username: string;
@@ -62,12 +101,13 @@ ng new MY-PROJECT-NAME --style=scss
             email: string;
             firstname: string;
             lastname: string;
-            birthdate: Date;
+            birthdate?: Date;
         }
         ```
     - Display the user object:
          ```typescript
         // path: src/app/user/user.component.ts
+
         user: User = {
             id: 1,
             username: 'test',
@@ -82,8 +122,11 @@ ng new MY-PROJECT-NAME --style=scss
         ```
         ```html
         <!-- path: src/app/user/user.component.ts -->
+
         <div style="text-align:center">
+            <!-- One-way binding: property (to-the-dom) -->
             <img width="100" alt="property as one-way binding" [src]="image">
+            <!-- One-way binding: interpolation (to-the-dom) -->
             <h2>{{ user.firstname }} {{ user.lastname }} Details : </h2>
             <div><span>id: </span>{{user.id}}</div>
             <div><span>email: </span>{{user.email}}</div>
@@ -95,11 +138,11 @@ ng new MY-PROJECT-NAME --style=scss
     - Apply some of Angular's standard pipes:
         ```html
         <!-- path: src/app/user/user.component.html -->
+
         <div><span>birth date: </span>{{user.birthdate | date}}</div>
         <div><span>birth date: </span>{{user.birthdate | date: "MM/dd/yy"}}</div>
         <div><span>birth date: </span>{{user.birthdate | date: dateFormat}}</div>
         <div><span>birth date: </span>{{user.birthdate | date | uppercase}}</div>
-        <div>Exponentielle: {{2 | exponential: 2}}</div>
         ```
     - Generate and apply custom pipe:
         ```bash
@@ -107,6 +150,7 @@ ng new MY-PROJECT-NAME --style=scss
         ```
         ```typescript
         // path: src/app/exponential.pipe.ts
+
         import { Pipe, PipeTransform } from '@angular/core';
 
         @Pipe({
@@ -121,15 +165,17 @@ ng new MY-PROJECT-NAME --style=scss
         ```
         ```html
         <!-- path: src/app/user/user.component.html -->
+
         <div>Exponentielle: {{2 | exponential: 2}}</div>
         ```
 
 ## 03. User component Lifecycle Hooks
 -------------------------------------
-- Remove exponential.pipe.ts and exponential.pipe.spec.ts
+- Remove exponential.pipe.ts and exponential.pipe.spec.ts files
 - Clean the UserComponent template:
     ```html
     <!-- path: src/app/user/user.component.html -->
+
     <div style="text-align:center">
         <img width="100" alt="property as one-way binding" [src]="image">
         <h2>{{ user.firstname }} {{ user.lastname }} Details : </h2>
@@ -141,15 +187,37 @@ ng new MY-PROJECT-NAME --style=scss
 - Lifecycle Hooks Interfaces implementation:
     ```typescript
     // path: src/app/user/user.component.ts
+
+    import {
+        Component,
+        SimpleChanges,
+        OnChanges,
+        OnInit,
+        DoCheck,
+        AfterViewInit,
+        AfterViewChecked,
+        OnDestroy
+    } from '@angular/core';
+
     @Component({
         selector: 'app-user',
         templateUrl: './user.component.html',
         styleUrls: ['./user.component.css']
     })
-    export class UserComponent implements OnChanges, OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
+    export class UserComponent implements OnChanges, OnInit, DoCheck, AfterViewInit, AfterViewChecked, OnDestroy {
+
+    ...
+    ```
+- Constructor:
+    ```typescript
+    constructor () {
+        // Est appelé lorsque Angular crée un composant en appelant new de la classe.
+    }
     ```
 - OnChanges:
     ```typescript
+    // Appelé à chaque fois qu'il y a un changement dans l'une des propriétés d'entrée (@Input) du composant.
+    // SimpleChanges permet de voir quelles propriétés d'entrée ont changé (si nous en avons plusieurs) et quelles sont les valeurs précédentes et actuelles.
     ngOnChanges(changes: SimpleChanges) {
         console.log('---> OnChanges Can\'t fire here <---');
     }
@@ -157,7 +225,17 @@ ng new MY-PROJECT-NAME --style=scss
 - OnInit:
     ```typescript
     ngOnInit() {
+        // Invoqué lorsque le composant donné a été initialisé.
+        // Ce hook n'est appelé qu'une fois après le premier ngOnChanges
         console.log('---> OnInit fires <---');
+    }
+    ```
+- DoCheck:
+    ```typescript
+    ngDoCheck() {
+        // Utilisé pour détecter manuellement les modificationsla stratégie de "Change Detection" est OnPush et non par défaut. 
+        // Cela nous permet de mettre en œuvre notre propre algorithme de détection de changement pour le composant donné.
+        console.log('---> DoCheck fires <---');
     }
     ```
 - AfterViewInit, Renderer, ViewChild (HTML input auto-focus):
@@ -167,40 +245,36 @@ ng new MY-PROJECT-NAME --style=scss
     constructor(private renderer: Renderer) { }
 
     ngAfterViewInit() {
+        // Appelé lorsque la vue du composant a été complètement initialisée
         console.log('---> AfterViewInit fires <---');
         this.renderer.invokeElementMethod(this.input.nativeElement, 'focus');
     }
     ```
     ```html
     <!-- path: src/app/user/user.component.html -->
-    <div style="text-align:center">
-        <img width="100" alt="property as one-way binding" [src]="image">
-        <h2>{{ user.firstname }} {{ user.lastname }} Details : </h2>
-        <div><span>id: </span>{{user.id}}</div>
-        <div><span>email: </span>{{user.email}}</div>
-        <div><span>birth date: </span>{{user.birthdate}}</div>
 
-        <div style="margin: 2% 5% 0 5%;display:inline-block;">
-            <input #input type="text" placeholder="Test input for auto-focus">
-        </div>
+    <div style="margin: 2% 5% 0 5%;display:inline-block;">
+        <input #input type="text" placeholder="Test input for auto-focus">
     </div>
     ```
 - AfterViewChecked:
     ```typescript
     ngAfterViewChecked() {
+        // Appelé à chaque fois que la vue du composant donné a été vérifiée par le mécanisme Change Detection d'Angular.
         console.log('---> AfterViewChecked fires <---');
     }
     ```
 - OnDestroy:
     ```typescript
     ngOnDestroy() {
+        // Il est appelé pour nettoyer la logique d'un composant (events, abonnements, timers..), juste avant que ce dernier ne soit détruit.
         console.log('---> OnDestroy fires <---');
     }
     ```
 
 ## 04. User editor
 ------------------
-- Replace UserComponent template content by this:
+- Replace UserComponent template content by the following:
     ```html
     <!-- path: src/app/user/user.component.html -->
     <div style="text-align:center">
