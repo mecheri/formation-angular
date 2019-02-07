@@ -8,7 +8,7 @@ La détection de changement consiste à prendre l’état interne d’un program
 Cet état du programme javascript (modèle ou structure de données) est représenté coté navigateur (interface utilisateur) via le DOM (Document Object Model). 
 Ce mécanisme qui consiste à prendre des structures de données en entrée et générer une sortie DOM pour l'afficher à l'utilisateur, est appelé processus de rendu.
 <p align="center">
-    <img src="https://github.com/mecheri/formation-angular/blob/master/resources/images/model-dom.png" width="600" height="600" style="display:block;margin: 0 auto;">
+    <img src="https://github.com/mecheri/formation-angular/blob/master/resources/images/model-dom.png" width="600" height="400" style="display:block;margin: 0 auto;">
 </p>
 
 
