@@ -400,7 +400,6 @@ Would you like to add Angular routing? N
     ```typescript
     // path: src/app/user/user.component.ts
 
-    ...
     users: User[];
 
     ngOnInit() {
