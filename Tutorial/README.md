@@ -16,10 +16,14 @@
  # npm behind proxy
  npm config set proxy http://172.16.33.50:3128
  npm config set https-proxy http://172.16.33.50:3128
+ npm config set registry http://registry.npmjs.org/
+ npm config set strict-ssl false
 
  # check the currently set proxy
  npm config get proxy
  npm config get https-proxy
+ npm config get registry
+ npm config get strict-ssl
  ```
  - [Angular CLI](https://cli.angular.io/)
  ```bash
@@ -277,6 +281,7 @@ Would you like to add Angular routing? N
 - Replace UserComponent template content by the following:
     ```html
     <!-- path: src/app/user/user.component.html -->
+
     <div style="text-align:center">
         <img width="100" alt="property as one-way binding" [src]="image">
         <h2>{{ user.firstname }} {{ user.lastname }} Details : </h2>
@@ -296,7 +301,9 @@ Would you like to add Angular routing? N
 - Error: Missing FormsModule !!! -> import it in AppModule
     ```typescript
     // path: src/app/app.module.ts
+
     import { FormsModule } from '@angular/forms';
+
     @NgModule({
         ...
         imports: [
@@ -314,13 +321,14 @@ Would you like to add Angular routing? N
 - Clean the UserComponent class:
     ```typescript
     // path: src/app/user/user.component.ts
+
     import { Component, OnInit } from '@angular/core';
     import { User } from './user';
 
     @Component({
         selector: 'app-user',
         templateUrl: './user.component.html',
-        styleUrls: ['./user.component.css']
+        styleUrls: ['./user.component.scss']
     })
     export class UserComponent implements OnInit {
         image = 'https://assets-cdn.github.com/images/icons/emoji/unicode/1f471.png?v8';
@@ -333,6 +341,7 @@ Would you like to add Angular routing? N
 - Clean the UserComponent template:
     ```html
     <!-- path: src/app/user/user.component.html -->
+
     <h2>Users</h2>
     <hr>
     <div class="row">
@@ -347,9 +356,12 @@ Would you like to add Angular routing? N
 - Mock users data:
     ```typescript
     // path: src/app/user/user.component.ts
+
     export const USERS: User[] = [
         {
             id: 1,
+            username: 'mehdi',
+            password: 'pa$$word',
             email: 'mehdi.mecheri@viveris.fr',
             firstname: 'Mehdi',
             lastname: 'Mecheri',
@@ -357,6 +369,8 @@ Would you like to add Angular routing? N
         },
         {
             id: 2,
+            username: 'leo',
+            password: 'pa$$word',
             email: 'lionel.messi@barca.es',
             firstname: 'Lionel',
             lastname: 'Messi',
@@ -364,6 +378,8 @@ Would you like to add Angular routing? N
         },
         {
             id: 3,
+            username: 'cristiano',
+            password: 'pa$$word',
             email: 'cristiano.ronaldo@real.es',
             firstname: 'Cristiano',
             lastname: 'Ronaldo',
@@ -371,6 +387,8 @@ Would you like to add Angular routing? N
         },
         {
             id: 4,
+            username: 'neymar',
+            password: 'pa$$word',
             email: 'neymar.jr@psg.fr',
             firstname: 'Neymar',
             lastname: 'JR',
@@ -381,6 +399,7 @@ Would you like to add Angular routing? N
 - Initializing the users variable:
     ```typescript
     // path: src/app/user/user.component.ts
+
     ...
     users: User[];
 
@@ -391,6 +410,7 @@ Would you like to add Angular routing? N
 - Display users with *ngFor (structural directive)
     ```html
     <!-- path: src/app/user/user.component.html -->
+
     <h2>Users</h2>
     <hr>
     <div class="row">
@@ -408,11 +428,15 @@ Would you like to add Angular routing? N
     ```
 - One-way binding: event binding (from-the-dom)
     ```html
+    <!-- path: src/app/user/user.component.html -->
+
     <li *ngFor="let user of users" (click)="onSelect(user)">
         <span>{{user.id}} - {{user.firstname}} {{user.lastname}} </span>
     </li>
     ```
     ```typescript
+    // path: src/app/user/user.component.ts
+
     selectedUser: User;
     onSelect(user: User): void {
         this.selectedUser = user;
@@ -420,7 +444,10 @@ Would you like to add Angular routing? N
     ```
 - Display the user detail -> Error before selecting user !!!
     ```html
+    <!-- path: src/app/user/user.component.html -->
+    
     <div class="col m8">
+        <!-- TODO: Display user detail on select one -->
         <br>
         <img width="100" alt="property as one-way binding" [src]="image">
         <h2>{{ selectedUser.firstname }} {{ selectedUser.lastname }} Details : </h2>
@@ -432,22 +459,26 @@ Would you like to add Angular routing? N
     ```
 - Handle empty user detail with *ngIf (structural directive)
     ```html
+    <!-- path: src/app/user/user.component.html -->
+
     <div class="col m8" *ngIf="selectedUser">
     ```
 - Generate and apply custom attributes directives (ng generate directive)
+
     * Highlight directive
         ```bash
         ng generate directive highlight
         ```
         ```typescript
         // path: src/app/highlight.directive.ts
+
         import { Directive, ElementRef, HostListener } from '@angular/core';
 
         @Directive({
             selector: '[appHighlight]'
         })
         export class HighlightDirective {
-            // ElementRef permet d'acceder un element natif du DOM
+            // ElementRef permet d'acceder à un element natif du DOM
             // ElementRef permet d'éviter de communiquer directement avec l'API DOM qui est une mauvaise pratique
             constructor(private el: ElementRef) {
                 this.el.nativeElement.style.backgroundColor = '';
@@ -469,6 +500,7 @@ Would you like to add Angular routing? N
         ```
         ```scss
         // path: src/app/user/user.component.scss
+
         li {
             cursor: pointer;
             &.active-line {
@@ -478,17 +510,18 @@ Would you like to add Angular routing? N
         ```
         ```html
         <!-- path: src/app/user/user.component.html -->
+
         <li *ngFor="let user of users" [class.active-line]="selectedUser && selectedUser.id === user.id" (click)="onSelect(user)">
             <span appHighlight>{{user.id}} - {{user.firstname}} {{user.lastname}} </span>
         </li>
-
         ```
     * InputMaxLength directive
         ```bash
         ng generate directive InputMaxLength
         ```
         ```typescript
-        // path: src/app/highlight.directive.ts
+        // path: src/app/input-max-length.directive.ts
+
         import { Directive, Input, ElementRef, HostListener } from '@angular/core';
 
         @Directive({
@@ -499,15 +532,17 @@ Would you like to add Angular routing? N
             @Input() appInputMaxLength: string;
 
             constructor(private el: ElementRef) { }
-                @HostListener('keypress', ['$event']) onMouseEnter($event: any) {
-                    if ($event.srcElement.value.length === this.appInputMaxLength) {
+
+            @HostListener('keypress', ['$event']) onMouseEnter($event: any) {
+                if ($event.srcElement.value.length === this.appInputMaxLength) {
                     $event.preventDefault();
-                    }
                 }
             }
+        }
         ```
         ```html
         <!-- path: src/app/user.component.html -->
+
         <input type="text" [(ngModel)]="selectedUser.firstname" [appInputMaxLength]="30">
         ```
 
@@ -516,6 +551,7 @@ Would you like to add Angular routing? N
 - Clean the UserComponent template
     ```html
     <!-- path: src/app/user/user.component.html -->
+
     <h2>Users</h2>
     <hr>
     <div class="row">
@@ -526,7 +562,9 @@ Would you like to add Angular routing? N
                 </li>
             </ul>
         </div>
-        <!-- TODO: invoke user detail tag -->
+        <div class="col m8" *ngIf="selectedUser">
+            <!-- TODO: invoke user detail html tag -->
+        </div>
     </div>
     ```
 - Generate UserDetailComponent
@@ -535,19 +573,18 @@ Would you like to add Angular routing? N
     ```
     ```html
     <!-- path: src/app/user/user-detail/user-detail.component.html -->
-    <div *ngIf="user" class="col m8">
-        <br>
-        <img width="100" alt="property as one-way binding" [src]="image">
-        <h2>{{ user.firstname }} {{ user.lastname }} Details : </h2>
-        <div><span>id: </span>{{user.id}}</div>
-        <input type="text" [(ngModel)]="user.firstname" [appInputMaxLength]="30">
-        <input type="text" [(ngModel)]="user.lastname">
-        <input type="text" [(ngModel)]="user.email">
-    </div>
+
+    <img width="100" alt="property as one-way binding" [src]="image">
+    <h2>{{ user.firstname }} {{ user.lastname }} Details : </h2>
+    <div><span>id: </span>{{user.id}}</div>
+    <input type="text" [(ngModel)]="user.firstname" [appInputMaxLength]="30">
+    <input type="text" [(ngModel)]="user.lastname">
+    <input type="text" [(ngModel)]="user.email">
     ```
-- Display user detail --> nothing happens !!! it's normal
+- Display user detail --> nothing is happening !!! it's normal
     ```html
     <!-- path: src/app/user/user.component.html -->
+
     <h2>Users</h2>
     <hr>
     <div class="row">
@@ -558,17 +595,17 @@ Would you like to add Angular routing? N
                 </li>
             </ul>
         </div>
-        <!-- user detail tag -->
-        <app-user-detail></app-user-detail>
+        <div class="col m8" *ngIf="selectedUser">
+            <!-- user detail tag -->
+            <app-user-detail></app-user-detail>
+        </div>
     </div>
     ```
 - Components interaction
-    1. Interaction 01: Parent->child via @Input
+    1. Parent -> child via <strong>@Input</strong>
         ```typescript
         // path: src/app/user/user-detail/user-detail.component.ts
-        import { Component, OnInit, Input } from '@angular/core';
-        import { User } from '../user';
-        ...
+
         @Input() user: User;
         @Input('avatar') image: User;
 
@@ -576,20 +613,24 @@ Would you like to add Angular routing? N
         ...
         ```
         ```html
-        <!-- path: src/app/user/user-detail/user-detail.component.html -->
+        <!-- path: src/app/user/user.component.html -->
+        
         <app-user-detail [user]="selectedUser" [avatar]="image"></app-user-detail>
         ```
-    2. Interaction 02: Parent->child via @Input Setter
+    2. Parent -> child via <strong>@Input</strong> Setter
         ```typescript
         // path: src/app/user/user.component.ts
+
         image2 = '               https://assets-cdn.github.com/images/icons/emoji/unicode/1f471.png?v8';
         ```
         ```html
         <!-- path: src/app/user/user.component.html -->
+
         <app-user-detail [user]="selectedUser" [avatar]="image" [avatar2]="image2"></app-user-detail>
         ```
         ```typescript
         // path: src/app/user/user-detail/user-detail.component.ts
+
         private _image2 = '';
         @Input('avatar2') set image2(data: string) {
             this._image2 = (data && data.trim()) || '<no data found>';
@@ -597,24 +638,27 @@ Would you like to add Angular routing? N
         get image2(): string { return this._image2; }
         ```
         ```html
-        <!-- path: src/app/user-detail/user-detail.component.html -->
+        <!-- path: src/app/user/user-detail/user-detail.component.html -->
+
         <img width="100" alt="property as one-way binding" [src]="image2">
         ```
-    3. Interaction 03: Parent->child via ngOnChanges()
+    3. Parent -> child via <strong>ngOnChanges()</strong> hook
         ```typescript
         // path: src/app/user/user-detail/user-detail.component.ts
+
         import { Component, OnInit, Input, OnChanges, SimpleChanges} from '@angular/core';
         ...
         export class UserDetailComponent implements OnChanges, OnInit {
             ...
+
             constructor() { }
 
             ngOnChanges(changes: SimpleChanges) {
                 for (let propName in changes) {
-                let chng = changes[propName];
-                let cur = JSON.stringify(chng.currentValue);
-                let prev = JSON.stringify(chng.previousValue);
-                console.log(`${propName}: currentValue = ${cur}, previousValue = ${prev}`);
+                    let chng = changes[propName];
+                    let cur = JSON.stringify(chng.currentValue);
+                    let prev = JSON.stringify(chng.previousValue);
+                    console.log(`${propName}: currentValue = ${cur}, previousValue = ${prev}`);
                 }
             }
 
@@ -622,67 +666,65 @@ Would you like to add Angular routing? N
             ...
         }
         ```
-    4. Interaction 04: Child  -> parent via @Output
+    4. Child -> parent via <strong>@Output</strong>
         ```typescript
         // path: src/app/user/user-detail/user-detail.component.ts
-        import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter} from '@angular/core';
-        ...
+
         @Output() onAction = new EventEmitter<string>();
         action(msg: string) {
             this.onAction.emit(msg);
         }
-        ...
         ```
         ```html
         <!-- path: src/app/user/user-detail/user-detail.component.html -->
+
         <button (click)="action('Hello from User-detail-component @Output')">Hello</button>
         ```
 
         ```typescript
         // path: src/app/user/user.component.ts
-        ...
+
         onActionFromUserDetail(msg: string) {
             console.log(msg);
         }
-        ...
         ```
         ```html
         <!-- path: src/app/user/user.component.html -->
+
         <app-user-detail [user]="selectedUser" [avatar]="image" (onAction)="onActionFromUserDetail($event)"></app-user-detail>
         ```
-    5. Interaction 05: Parent -> child via Local variable
+    5. Child -> parent via Local variable
         ```typescript
         // path: src/app/user/user-detail/user-detail.component.ts
+
         public hello = 'Hello from User-detail-component local variable';
         ```
         ```html
         <!-- path: src/app/user/user.component.html -->
+
         <app-user-detail #localVar [user]="selectedUser" [avatar]="image"></app-user-detail>
         <span>{{ localVar.hello }}</span>
         ```
-    6. Interaction 06: Parent -> child via @ViewChild()
+    6. Child -> parent via <strong>@ViewChild()</strong>
         ```typescript
         // path: src/app/user/user.component.ts
-        import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
-        import { UserDetailComponent } from './user-detail/user-detail.component';
-        ...
-        export class UserComponent implements OnInit, AfterViewInit {
-            ...
-            @ViewChild(UserDetailComponent) ud: UserDetailComponent;
-            ngAfterViewInit() {
-                if (this.ud) {
+
+        @ViewChild(UserDetailComponent) ud: UserDetailComponent;
+        // Update existing function onSelect
+        onSelect(user: User): void {
+            this.selectedUser = user;
+            if (this.ud) {
                 console.log(this.ud.hello);
-                }
             }
-            ...
         }
         ```
-    7. Interaction 07: Parent <-> child via Service
+    7. Parent <-> child via Service
         ```bash
         ng generate service interaction07
         ```
         ```typescript
         // path: src/app/interaction07.component.ts
+
         import { Injectable } from '@angular/core';
         import { Subject } from 'rxjs';
 
@@ -692,11 +734,10 @@ Would you like to add Angular routing? N
         export class Interaction07Service {
             // Observable:
             //  * Data producer alone
-            //  * Simple Observable with only one Obeserver
+            //  * Simple Observable with only one Observer
             // Subject:
             //  * Special type of Observable
             //  * Multiple observers listen to data
-            //  * Proxy between Observable and Observer
             private broadcastParentSource = new Subject<string>();
             private broadcastChildSource = new Subject<string>();
 
@@ -715,6 +756,7 @@ Would you like to add Angular routing? N
 
         ```typescript
         // path: src/app/user/user.component.ts
+
         import { Interaction07Service } from '../interaction07.service';
 
         constructor(private service: Interaction07Service) {
@@ -727,35 +769,37 @@ Would you like to add Angular routing? N
         ```
         ```html
         <!-- path: src/app/user/user.component.html -->
-        <button (click)="broadcastParent()">BROADCAST PARENT</button>
+
+        <div class="col m4">
+            <!-- ... -->
+
+            <button (click)="broadcastParent()">BROADCAST PARENT</button>
+        </div>
         ```
 
         ```typescript
         // path: src/app/user/user-detail/user-detail.component.ts
-        import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter, OnDestroy} from '@angular/core';
-        import { Subscription } from 'rxjs';
-        import { Interaction07Service } from '../../interaction07.service';
 
-        export class UserDetailComponent implements OnChanges, OnInit, OnDestroy {
-            ...
-            subscription: Subscription;
-            constructor(private service: Interaction07Service) {
-                this.subscription = service.broadcastParentStream$.subscribe((dataFromParent) => console.log(dataFromParent));
-            }
+        subscription: Subscription;
+        constructor(private service: Interaction07Service) {
+            this.subscription = service.broadcastParentStream$.subscribe((dataFromParent) => console.log(dataFromParent));
+        }
 
-            broadcastParent() {
-                this.service.broadcastChild('Hello from child');
-            }
+        broadcastChild() {
+            this.service.broadcastChild('Hello from child');
+        }
 
-            ngOnDestroy() {
-                this.subscription.unsubscribe(); // prevent memory leak
-            }
+        ngOnDestroy() {
+            // do no forget to implement OnDestroy interface
+            this.subscription.unsubscribe(); // prevent memory leak
         }
         ```
         ```html
         <!-- path: src/app/user/user-detail/user-detail.component.html -->
+
         <button (click)="broadcastChild()">BROADCAST CHILD</button>
         ```
+
 ## 07. User service
 -------------------
 - Clean Workspace
@@ -763,6 +807,7 @@ Would you like to add Angular routing? N
     * Update the User and UserDetail Components and AppModule imports
     ```typescript
     // path: src/app/app.module.ts
+
     import { BrowserModule } from '@angular/platform-browser';
     import { NgModule } from '@angular/core';
     import { FormsModule } from '@angular/forms';
@@ -788,6 +833,7 @@ Would you like to add Angular routing? N
     ```
     ```typescript
     // path: src/app/user/user.component.ts
+
     import { Component, OnInit } from '@angular/core';
     import { User } from './user';
 
@@ -855,6 +901,7 @@ Would you like to add Angular routing? N
     ```
     ```html
     <!-- path: src/app/user/user.component.html -->
+
     <h2>Users</h2>
     <hr>
     <div class="row">
@@ -865,13 +912,15 @@ Would you like to add Angular routing? N
                 </li>
             </ul>
         </div>
-
-        <app-user-detail [user]="selectedUser" [avatar]="image"></app-user-detail>
+        <div class="col m8" *ngIf="selectedUser">
+            <app-user-detail [user]="selectedUser" [avatar]="image"></app-user-detail>
+        </div>        
     </div>
     ```
 
     ```typescript
     // path: src/app/user/user-detail/user-detail.component.ts
+
     import { Component, Input, OnInit } from '@angular/core';
     import { User } from '../user';
 
@@ -892,15 +941,13 @@ Would you like to add Angular routing? N
     ```
     ```html
     <!-- path: src/app/user/user-detail/user-detail.component.html -->
-    <div *ngIf="user" class="col m8">
-        <br>
-        <img width="100" alt="property as one-way binding" [src]="image">
-        <h2>{{ user.firstname }} {{ user.lastname }} Details : </h2>
-        <div><span>id: </span>{{user.id}}</div>
-        <input type="text" [(ngModel)]="user.firstname">
-        <input type="text" [(ngModel)]="user.lastname">
-        <input type="text" [(ngModel)]="user.email">
-    </div>
+
+    <img width="100" alt="property as one-way binding" [src]="image">
+    <h2>{{ user.firstname }} {{ user.lastname }} Details : </h2>
+    <div><span>id: </span>{{user.id}}</div>
+    <input type="text" [(ngModel)]="user.firstname">
+    <input type="text" [(ngModel)]="user.lastname">
+    <input type="text" [(ngModel)]="user.email">
     ```
 - Generate the User Service
     ```bash
@@ -909,6 +956,7 @@ Would you like to add Angular routing? N
 - Move USERS table from userComponent to the generated UserService
     ```typescript
     // path: src/app/user/user.service.ts
+
     import { Injectable } from '@angular/core';
     import { Observable } from 'rxjs';
     import { User } from './user';
@@ -963,7 +1011,6 @@ Would you like to add Angular routing? N
 - Inject the generated UserService into UserComponent and load users Synchronously and Asynchronously
     ```typescript
     // path: src/app/user/user.component.ts
-    import { UserService } from './user.service';
 
     constructor(private userService: UserService) {}
     ```
@@ -971,22 +1018,23 @@ Would you like to add Angular routing? N
 - Load users synchronously
     ```typescript
     // path: src/app/user/user.service.ts
+
     getUsers(): User[] {
         return USERS;
     }
 
     // path: src/app/user/user.component.ts
+
     users: User[];
     ngOnInit() {
         this.users = this.userService.getUsers();
-        ...
     }
     ```
 
 - Load users asynchronously with Observables
     ```typescript
     // path: src/app/user/user.service.ts
-    import { Observable, of } from 'rxjs';
+
     // The UserService must wait for the server to respond
     // getUsers() cannot return immediately with data,
     // and the browser will not block while the service waits
@@ -1009,6 +1057,7 @@ Would you like to add Angular routing? N
     ```
     ```typescript
     // path: src/app/user/user.component.ts
+
     usersAsync: User[];
     ngOnInit() {
         ...
@@ -1021,15 +1070,15 @@ Would you like to add Angular routing? N
     ```
     ```html
     <!-- path: src/app/user/user.component.html -->
-    <div *ngIf="usersAsync">
-        <hr>
-        <ul>
-            <li *ngFor="let user of usersAsync" [class.active-line]="selectedUser && selectedUser.id === user.id" (click)="onSelect(user)">
-                <span>{{user.id}} - {{user.firstname}} {{user.lastname}}</span>
-            </li>
-        </ul>
-    </div>
+    
+    <hr>
+    <ul>
+        <li *ngFor="let user of usersAsync" [class.active-line]="selectedUser && selectedUser.id === user.id" (click)="onSelect(user)">
+            <span>{{user.id}} - {{user.firstname}} {{user.lastname}}</span>
+        </li>
+    </ul>
     ```
+
 - RxJS API demo
 
 ## 08. Routing
@@ -1038,17 +1087,15 @@ Would you like to add Angular routing? N
     ```bash
     ng generate module app-routing --flat
     ```
-- Export RouterModule from generated AppRoutingModule
+- Clean AppRoutingModule & Export RouterModule
     ```typescript
     // path: src/app/app-routing.module.ts
+
     import { NgModule } from '@angular/core';
-    import { CommonModule } from '@angular/common';
     import { RouterModule } from '@angular/router';
 
     @NgModule({
-        imports: [
-            CommonModule
-        ],
+        imports: [],
         exports: [
             RouterModule
         ]
@@ -1062,8 +1109,8 @@ Would you like to add Angular routing? N
 - Add routes for user, userDetail and home components
     ```typescript
     // path: src/app/app-routing.module.ts
+
     import { NgModule } from '@angular/core';
-    import { CommonModule } from '@angular/common';
     import { RouterModule, Routes } from '@angular/router';
 
     import { HomeComponent } from './home/home.component';
@@ -1078,7 +1125,6 @@ Would you like to add Angular routing? N
 
     @NgModule({
         imports: [
-            CommonModule,
             RouterModule.forRoot(routes)
         ],
         exports: [
@@ -1090,14 +1136,16 @@ Would you like to add Angular routing? N
 - Add a default route
     ```typescript
     // path: src/app/app-routing.module.ts
+
     const routes: Routes = [
         { path: '', redirectTo: '/home', pathMatch: 'full' },
         ...
     ];
     ```
-- Move AppComponent template conetent to HomeComponent template without UserComponent tag
+- Move AppComponent template content to HomeComponent template and <strong>remove UserComponent html tag</strong>
     ```html
     <!-- path: src/app/home/home.component.html -->
+
     <div style="text-align:center">
         <h1>
             Welcome to {{ title }}!
@@ -1107,6 +1155,7 @@ Would you like to add Angular routing? N
     ```
     ```typescript
     // path: src/app/home/home.component.ts
+
     import { Component, OnInit } from '@angular/core';
 
     @Component({
@@ -1115,7 +1164,7 @@ Would you like to add Angular routing? N
         styleUrls: ['./home.component.scss']
     })
     export class HomeComponent implements OnInit {
-        title = 'app';
+        title = 'Angular CLI Starter';
         constructor() { }
         ngOnInit() {
         }
@@ -1124,31 +1173,34 @@ Would you like to add Angular routing? N
 - Add RouterOutlet in AppComponent template
     ```html
     <!-- path: src/app/app.component.html -->
+
     <router-outlet></router-outlet>
     ```
 - Import newly AppRoutingModule in AppModule
     ```typescript
-        // path: src/app/app.module.ts
-        import { AppRoutingModule } from './app-routing.module';
+    // path: src/app/app.module.ts
+    
+    import { AppRoutingModule } from './app-routing.module';
 
-        imports: [
-            ...
-            AppRoutingModule
-        ],
+    imports: [
+        ...
+        AppRoutingModule
+    ],
     ```
 - Import some ngx-materialize UI Modules in AppModule
     ```typescript
-        // path: src/app/app.module.ts
-        import { MzNavbarModule, MzInputModule, MzButtonModule, MzValidationModule, MzSpinnerModule } from 'ngx-materialize';
+    // path: src/app/app.module.ts
+    
+    import { MzNavbarModule, MzInputModule, MzButtonModule, MzValidationModule, MzSpinnerModule } from 'ngx-materialize';
 
-        imports: [
-            ...
-            MzNavbarModule,
-            MzInputModule,
-            MzButtonModule,
-            MzValidationModule,
-            MzSpinnerModule
-        ],
+    imports: [
+        ...
+        MzNavbarModule,
+        MzInputModule,
+        MzButtonModule,
+        MzValidationModule,
+        MzSpinnerModule
+    ],
     ```
 - Generate NavbarComponent for navigation links
     ```bash
@@ -1156,6 +1208,7 @@ Would you like to add Angular routing? N
     ```
     ```typescript
     // path: src/app/navbar/navbar.component.ts
+
     import { Component, OnInit } from '@angular/core';
 
     @Component({
@@ -1192,6 +1245,7 @@ Would you like to add Angular routing? N
     ```
     ```html
     <!-- path: src/app/navbar/navbar.component.html -->
+
     <mz-navbar navbarClass="teal">
         <div class="container">
             <a href="#" class="brand-logo hide-on-med-and-down">ANGULAR CLI STARTER</a>
@@ -1206,6 +1260,7 @@ Would you like to add Angular routing? N
 - Update AppComponent template and invoke Navbar tag outside RouterOutlet
     ```html
     <!-- path: src/app/app.component.html -->
+
     <app-navbar></app-navbar>
     <div class="container">
         <router-outlet></router-outlet>
@@ -1213,21 +1268,35 @@ Would you like to add Angular routing? N
     ```
 - Import some primeng UI Modules in AppModule
     ```typescript
-        // path: src/app/app.module.ts
-        import { TableModule } from 'primeng/table';
-        import { BreadcrumbModule } from 'primeng/breadcrumb';
-        import { DialogModule } from 'primeng/dialog';
+    // path: src/app/app.module.ts
 
-        imports: [
-            ...
-            TableModule,
-            BreadcrumbModule,
-            DialogModule
-        ],
+    import { TableModule } from 'primeng/table';
+    import { BreadcrumbModule } from 'primeng/breadcrumb';
+    import { DialogModule } from 'primeng/dialog';
+
+    imports: [
+        ...
+        TableModule,
+        BreadcrumbModule,
+        DialogModule
+    ],
+    ```
+- Import BrowserAnimationsModule 
+    ```typescript
+    // path: src/app/app.module.ts
+
+    import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+    imports: [
+        ...
+        BrowserAnimationsModule,
+        ...
+    ],
     ```
 - Enhance and clean UserComponent with injected Router and primeng UI components (Table, Breadcrumb)
     ```typescript
     // path: src/app/user/user.component.ts
+
     import { Component, OnInit } from '@angular/core';
     import { Router } from '@angular/router';
 
@@ -1282,6 +1351,7 @@ Would you like to add Angular routing? N
     ```
     ```html
     <!-- path: src/app/user/user.component.html -->
+
     <p-breadcrumb [model]="bcItems"></p-breadcrumb>
     <h2>Users</h2>
     <p-table #dt [columns]="cols" [value]="users" [paginator]="true" [rows]="5" [pageLinks]="3">
@@ -1318,6 +1388,7 @@ Would you like to add Angular routing? N
 - Clean UserService
     ```typescript
     // path: src/app/user/user.service.ts
+
     import { Injectable } from '@angular/core';
     import { Observable, of } from 'rxjs';
 
@@ -1373,21 +1444,19 @@ Would you like to add Angular routing? N
         }
     }
     ```
-- Error Missing BrowserAnimationsModule !!!
-    ```typescript
-        // path: src/app/app.module.ts
-        import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-        imports: [
-            ...
-            BrowserAnimationsModule,
-            ...
-        ],
-    ```
 - Navigate to the User detail -> nothing displayed !!! -> it's normal
+- Add function in UserService to get specific user by ID
+    ```typescript
+    // path: src/app/user/user.service.ts
+
+    getUser(id: number): Observable<User> {
+        return of(USERS.find(user => user.id === id));
+    }
+    ```
 - Enhance UserDetailComponent and Extract user ID from ActivatedRoute Parameters
     ```typescript
     // path: src/app/user/user-detail/user-detail.component.ts
+
     import { Component, OnInit } from '@angular/core';
     import { ActivatedRoute } from '@angular/router';
 
@@ -1420,25 +1489,16 @@ Would you like to add Angular routing? N
     ```
     ```html
     <!-- path: src/app/user/user-detail/user-detail.component.html -->
-    <div class="col m8">
-        <br>
-        <h2>{{ user.firstname }} {{ user.lastname }} Details : </h2>
-        <div><span>id: </span>{{user.id}}</div>
-        <input type="text" [(ngModel)]="user.firstname">
-        <input type="text" [(ngModel)]="user.lastname">
-        <input type="text" [(ngModel)]="user.email">
-    </div>
-    ```
-- Add function in UserService to get specific user by ID
-    ```typescript
-    // path: src/app/user/user.service.ts
-    getUser(id: number): Observable<User> {
-        return of(USERS.find(user => user.id === id));
-    }
+
+    <h2>{{ user.firstname }} {{ user.lastname }} Details : </h2>
+    <div><span>id: </span>{{user.id}}</div>
+    <input type="text" [(ngModel)]="user.firstname">
+    <input type="text" [(ngModel)]="user.lastname">
+    <input type="text" [(ngModel)]="user.email">
     ```
 ## 09. User CRUD
 ----------------
-- Generate User new, edit and delete Components and its route (ng generate component UserNew)
+- Generate User new, edit and delete Components and its routes (ng generate component UserNew)
     ```bash
     ng generate component user/userNew
     ng generate component user/userEdit
@@ -1447,6 +1507,7 @@ Would you like to add Angular routing? N
 - Add routes for newly generated components
     ```typescript
     // path: src/app/app-routing.module.ts
+
     ...
     import { UserNewComponent } from './user/user-new/user-new.component';
     import { UserEditComponent } from './user/user-edit/user-edit.component';
@@ -1460,6 +1521,8 @@ Would you like to add Angular routing? N
 - Update UserComponent with navigation links to the newly created components
     ```html
     <!-- path: src/app/user/user.component.html -->
+    <p-breadcrumb [model]="bcItems"></p-breadcrumb>
+    <h2>Users</h2>
     <p-table #dt [columns]="cols" [value]="users" [paginator]="true" [rows]="5" [pageLinks]="3">
         <ng-template pTemplate="caption">
             <button mz-button class="right" (click)="add()"><i class="material-icons">add</i></button>
@@ -1498,6 +1561,8 @@ Would you like to add Angular routing? N
     ```
     ```typescript
     // path: src/app/user/user.component.ts
+    ...
+
     userToDelete: User;
     displayDeleteModal: boolean = false;
 
@@ -1524,6 +1589,7 @@ Would you like to add Angular routing? N
 - Set up UserDeleteComponent
     ```typescript
     // path: src/app/user/user-delete/user-delete.component.ts
+
     import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
     import { User } from '../user';
     import { UserService } from '../user.service';
@@ -1555,6 +1621,7 @@ Would you like to add Angular routing? N
     ```
     ```html
     <!-- path: src/app/user/user-delete/user-delete.component.html -->
+
     <p-dialog header="Delete user" [(visible)]="display" [modal]="true" width="400">
         <div class="row">
             <mz-input-container class="col s12 m12">
@@ -1582,6 +1649,7 @@ Would you like to add Angular routing? N
 - Import ReactiveFormsModule for the app
     ```typescript
     // path: src/app/app.module.ts
+
     import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
     imports: [
@@ -1591,9 +1659,10 @@ Would you like to add Angular routing? N
         ...
     ],
     ```
-- Update UserDetailComponent
+- Enhance UserDetailComponent
     ```typescript
     // path: src/app/user/user-detail/user-detail.component.ts
+
     import { Component, OnInit } from '@angular/core';
     import { Router, ActivatedRoute } from '@angular/router';
 
@@ -1643,6 +1712,7 @@ Would you like to add Angular routing? N
     ```
     ```html
     <!-- path: src/app/user/user-detail/user-detail.component.html -->
+
     <p-breadcrumb [model]="bcItems"></p-breadcrumb>
     <h2>User Details : </h2>
     <div class="row">
@@ -1666,9 +1736,11 @@ Would you like to add Angular routing? N
     <button mz-button (click)="edit()">EDIT</button>
     ```
 - Set up ReactiveForms (FormControl, FormGroup, FormBuilder, Validators)
+
     * UserNewComponent
         ```typescript
         // path: src/app/user/user-new/user-new.component.ts
+
         import { Component, OnInit } from '@angular/core';
         import { AbstractControl, FormControl, FormGroup, FormBuilder, Validators, ValidatorFn } from '@angular/forms';
         import { Router } from '@angular/router';
@@ -1681,7 +1753,7 @@ Would you like to add Angular routing? N
             styleUrls: ['./user-new.component.scss']
         })
         export class UserNewComponent implements OnInit {
-            creationForm: FormGroup;
+            newForm: FormGroup;
 
             bcItems = [
                 { label: 'Home', routerLink: '/home', icon: 'pi pi-home' },
@@ -1720,8 +1792,8 @@ Would you like to add Angular routing? N
             }
 
             createForm() {
-                if (this.creationForm) { this.creationForm.reset(); }
-                    this.creationForm = this.fb.group({ // <==> new FormGroup({ username: new FormControl() })
+                if (this.newForm) { this.newForm.reset(); }
+                    this.newForm = this.fb.group({ // <==> new FormGroup({ username: new FormControl() })
                     username: ['', Validators.required],
                     password: ['', Validators.required],
                     email: ['', [Validators.required, Validators.email]],
@@ -1741,10 +1813,11 @@ Would you like to add Angular routing? N
         ```
         ```html
         <!-- path: src/app/user/user-new/user-new.component.html -->
+
         <p-breadcrumb [model]="bcItems"></p-breadcrumb>
         <h2>User New : </h2>
 
-        <form [formGroup]="creationForm" (ngSubmit)="save()" novalidate>
+        <form [formGroup]="newForm" (ngSubmit)="save()" novalidate>
             <div class="row">
                 <mz-input-container class="col s12 m12">
                     <input mz-input mz-validation required id="username" formControlName="username" type="text" [errorMessageResource]="validation.username" [label]="'User name'" [placeholder]="'User name'" />
@@ -1764,12 +1837,14 @@ Would you like to add Angular routing? N
             </div>
 
             <button mz-button class="blue-grey lighten-1" (click)="cancel()" type="button">CANCEL</button>
-            <button mz-button [disabled]="!creationForm.valid" type="submit">SAVE</button>
+            <button mz-button [disabled]="!newForm.valid" type="submit">SAVE</button>
         </form>
         ```
+
     * UserEditComponent
         ```typescript
         // path: src/app/user/user-edit/user-edit.component.ts
+
         import { Component, OnInit } from '@angular/core';
         import { AbstractControl, FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
         import { Router, ActivatedRoute } from '@angular/router';
@@ -1854,6 +1929,7 @@ Would you like to add Angular routing? N
         ```
         ```html
         <!-- path: src/app/user/user-edit/user-edit.component.html -->
+
         <p-breadcrumb [model]="bcItems"></p-breadcrumb>
         <h2>User Edit : </h2>
         <form *ngIf="user" [formGroup]="editForm" (ngSubmit)="save()" novalidate>
@@ -1881,12 +1957,12 @@ Would you like to add Angular routing? N
 - Set up custom validators example
     ```typescript
     // path: src/app/user/user-new/user-new.component.ts
-    this.creationForm = this.fb.group({
+
+    this.newForm = this.fb.group({
         ...
-        firstname: ['', [Validators.required, forbiddenValidator(/test/i)]],
-        ...
+        firstname: ['', [Validators.required, forbiddenValidator(/test/)]],
     });
-    ...
+
     export function forbiddenValidator(nameRe: RegExp): ValidatorFn {
         return (control: AbstractControl): { [key: string]: any } => {
             const forbidden = nameRe.test(control.value);
@@ -1900,6 +1976,7 @@ Would you like to add Angular routing? N
 - Enable Angular's HTTP services (HttpClientModule)
     ```typescript
     // path: src/app/app.module.ts
+    
     import { HttpClientModule } from '@angular/common/http';
     ...
     imports: [
@@ -1910,8 +1987,7 @@ Would you like to add Angular routing? N
 - Inject HttpClient into UserService and remove USERS Mocks table
     ```typescript
     // path: src/app/user/user.service.ts
-    import { HttpClient } from '@angular/common/http';
-    ...
+
     constructor(private http: HttpClient) { }
     ```
 - HttpClient API examples
@@ -1970,15 +2046,17 @@ Would you like to add Angular routing? N
         })
         .subscribe();
     ```
-- Import appropriate RxJS classes and operators
+- Import required RxJS objects and operators
     ```typescript
     // path: src/app/user/user.service.ts
+
     import { Observable, throwError } from 'rxjs';
     import { map, catchError } from 'rxjs/operators';
     ```
 - Handle HTTP errors
     ```typescript
     // path: src/app/user/user.service.ts
+
     private handleError(error: HttpErrorResponse) {
         let msg = error.error.message;
         // return an observable with a user-facing error message
@@ -1989,6 +2067,7 @@ Would you like to add Angular routing? N
 - HTTP GET all users
     ```typescript
     // path: src/app/user/user.service.ts
+
     getUsers(): Observable<User[]> {
         // return of(USERS);
         return this.http
@@ -2002,6 +2081,7 @@ Would you like to add Angular routing? N
 - HTTP GET user by ID
     ```typescript
     // path: src/app/user/user.service.ts
+
     getUser(id: number): Observable<User> {
         // return of(USERS.find(user => user.id === id));
         return this.http
@@ -2015,6 +2095,7 @@ Would you like to add Angular routing? N
 - HTTP POST new user
     ```typescript
     // path: src/app/user/user.service.ts
+
     createUser(user: User): Observable<any> {
         return this.http
         .post(`https://aspnetcoreapistarter.azurewebsites.net/api/User`, user)
@@ -2024,6 +2105,7 @@ Would you like to add Angular routing? N
 - HTTP PUT existing user
     ```typescript
     // path: src/app/user/user.service.ts
+
     updateUser(user: User): Observable<any> {
         return this.http
         .put(`https://aspnetcoreapistarter.azurewebsites.net/api/User/${user.id}`, user)
@@ -2033,6 +2115,7 @@ Would you like to add Angular routing? N
 - HTTP DELETE existing user
     ```typescript
     // path: src/app/user/user.service.ts
+
     deleteUser(id: number): Observable<any> {
         return this.http
         .delete(`https://aspnetcoreapistarter.azurewebsites.net/api/User/${id}`)
@@ -2046,17 +2129,17 @@ Would you like to add Angular routing? N
 - Import angular2-notification in the AppModule
     ```typescript
     // path: src/app/app.module.ts
+
     import { SimpleNotificationsModule } from 'angular2-notifications';
     ...
+
     imports: [
         ...
-        SimpleNotificationsModule,
+        SimpleNotificationsModule.forRoot(),
     ],
     ```
 - Inject angular2-notifications service in the user's CRUD Components
     ```typescript
-    import { NotificationsService } from 'angular2-notifications';
-
     constructor(
         ...
         private notifService: NotificationsService,
@@ -2065,6 +2148,7 @@ Would you like to add Angular routing? N
 - Update User's CRUD components HTTP calls
     ```typescript
     // path: src/app/user/user.component.ts
+
     getUsers() {
         this.userService.getUsers()
         .subscribe(
@@ -2075,6 +2159,7 @@ Would you like to add Angular routing? N
     ```
     ```typescript
     // path: src/app/user/user-detail/user-detail.component.ts
+
     getUser(): void {
         const id = +this.route.snapshot.paramMap.get('id');
         this.userService.getUser(id)
@@ -2086,8 +2171,9 @@ Would you like to add Angular routing? N
     ```
     ```typescript
     // path: src/app/user/user-new/user-new.component.ts
+
     save() {
-        this.userService.createUser(this.creationForm.value)
+        this.userService.createUser(this.newForm.value)
         .subscribe(
             resp => {
                 this.notifService.success(null, 'Success', { timeOut: 3000 });
@@ -2099,6 +2185,7 @@ Would you like to add Angular routing? N
     ```
     ```typescript
     // path: src/app/user/user-edit/user-edit.component.ts
+
     getUser(): void {
         const id = +this.route.snapshot.paramMap.get('id');
         this.userService.getUser(id)
@@ -2123,6 +2210,7 @@ Would you like to add Angular routing? N
     ```
     ```typescript
     // path: src/app/user/user-delete/user-delete.component.ts
+
     delete() {
         this.userService.deleteUser(this.user.id)
         .subscribe(
@@ -2133,7 +2221,7 @@ Would you like to add Angular routing? N
             error => this.notifService.error('Erreur', error));
     }
     ```
-- Add angular2-notifications HTML tag to User's CRUD components tempaltes
+- Add angular2-notifications HTML tag in User's CRUD components tempaltes
     ```html
     <!-- notify -->
     <simple-notifications></simple-notifications>
