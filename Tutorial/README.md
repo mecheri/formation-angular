@@ -2234,6 +2234,8 @@ Would you like to add Angular routing? N
 - Copy formation-angular/resources/modules/core content to /src/app/core
 - Update AppModule
     ```typescript
+    // path: src/app/app.module.ts
+
     import { BrowserModule } from '@angular/platform-browser';
     import { NgModule } from '@angular/core';
     import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -2298,7 +2300,9 @@ Would you like to add Angular routing? N
     ```
 - Update assets array property in angular.json file:
     ```json
-    "styles": [
+    // path: angular.json
+
+    "assets": [
         "src/favicon.ico",
         "src/assets",
         "src/resources"
@@ -2306,6 +2310,8 @@ Would you like to add Angular routing? N
     ```
 - Add locale property to app environment files
     ```typescript
+    // path: src/environments/**.ts
+
     export const environment = {
         ...
         locale: 'fr-FR',
@@ -2314,7 +2320,6 @@ Would you like to add Angular routing? N
 - Inject SettingsService into UserService and Update HTTP calls
     ```typescript
     // path: src/app/user/user.service.ts
-    import { SettingsService } from '../core/services/settings.service';
 
     constructor(
         private http: HttpClient,
@@ -2406,9 +2411,10 @@ Would you like to add Angular routing? N
     export class AppModule { }
     ```
 - Remove existing navbar directory
-- Add globla Spinner HTML tag
+- Append global Spinner HTML tag
     ```html
     <!-- path: src/app/app.component.html -->
+
     <app-spinner></app-spinner>
     ```
 ## 13. Feature Modules
@@ -2426,6 +2432,7 @@ Would you like to add Angular routing? N
 - Update UserModule
     ```typescript
     // path src/app/features/user/user.module.ts
+
     import { NgModule } from '@angular/core';
     import { SharedModule } from './../../shared/shared.module';
 
@@ -2455,6 +2462,7 @@ Would you like to add Angular routing? N
 - Update UserRoutingModule
     ```typescript
     // path src/app/features/user/user-routing.module.ts
+
     import { NgModule } from '@angular/core';
     import { Routes, RouterModule } from '@angular/router';
 
@@ -2486,6 +2494,7 @@ Would you like to add Angular routing? N
 - Update HomeModule
     ```typescript
     // path src/app/features/home/home.module.ts
+
     import { NgModule } from '@angular/core';
     import { CommonModule } from '@angular/common';
 
@@ -2505,6 +2514,7 @@ Would you like to add Angular routing? N
 - Update HomeRoutingModule
     ```typescript
     // path src/app/features/home/home-routing.module.ts
+
     import { NgModule } from '@angular/core';
     import { Routes, RouterModule } from '@angular/router';
 
@@ -2526,6 +2536,7 @@ Would you like to add Angular routing? N
 - Update AppModule
     ```typescript
     // path src/app/app.module.ts
+
     import { BrowserModule } from '@angular/platform-browser';
     import { NgModule } from '@angular/core';
     import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -2555,6 +2566,7 @@ Would you like to add Angular routing? N
 - Update AppRoutingModule with lazy loading of the newly generated feature modules
     ```typescript
     // path src/app/app-routing.module.ts
+
     import { NgModule } from '@angular/core';
     import { RouterModule, Routes } from '@angular/router';
 
@@ -2593,6 +2605,7 @@ Would you like to add Angular routing? N
     ```
     ```typescript
     // path: src/app/features/login/components/login.component.ts
+
     import { Component, OnInit } from '@angular/core';
     import { Router } from '@angular/router';
     import { AuthService } from './../../../core/services/auth.service';
@@ -2682,6 +2695,7 @@ Would you like to add Angular routing? N
     ```
     ```html
     <!-- path: src/app/features/login/components/login.component.html -->
+
     <div class="container">
         <h3>{{ rsc.title }}</h3>
         <div class="divider"></div>
@@ -2709,6 +2723,7 @@ Would you like to add Angular routing? N
 - Update LoginRoutingModule
     ```typescript
     // path: src/app/features/login/login-routing.module.ts
+
     import { NgModule } from '@angular/core';
     import { Routes, RouterModule } from '@angular/router';
     import { LoginComponent } from './components/login.component';
@@ -2731,6 +2746,7 @@ Would you like to add Angular routing? N
 - Update LoginModule
     ```typescript
     // path: src/app/features/login/login.module.ts
+
     import { NgModule } from '@angular/core';
     import { SharedModule } from './../../shared/shared.module';
     import { LoginRoutingModule } from './login-routing.module';
@@ -2755,6 +2771,7 @@ Would you like to add Angular routing? N
     ```
     ```typescript
     // path: src/app/features/register/components/register.component.ts
+
     import { Component, OnInit } from '@angular/core';
     import { FormGroup, FormBuilder, Validators } from '@angular/forms';
     import { Router } from '@angular/router';
@@ -2858,6 +2875,7 @@ Would you like to add Angular routing? N
     ```
     ```html
     <!-- path: src/app/features/register/components/register.component.html -->
+
     <div class="container">
         <h3>{{ rsc.title }}</h3>
         <div class="divider"></div>
@@ -2891,6 +2909,7 @@ Would you like to add Angular routing? N
 - Update RegisterRoutingModule
     ```typescript
     // path: src/app/features/register/register-routing.module.ts
+
     import { NgModule } from '@angular/core';
     import { Routes, RouterModule } from '@angular/router';
     import { RegisterComponent } from './components/register.component';
@@ -2913,6 +2932,7 @@ Would you like to add Angular routing? N
 - Update RegisterModule
     ```typescript
     // path: src/app/features/register/register.module.ts
+
     import { NgModule } from '@angular/core';
     import { SharedModule } from './../../shared/shared.module';
     import { RegisterRoutingModule } from './register-routing.module';
@@ -2930,6 +2950,7 @@ Would you like to add Angular routing? N
 - Update AppRoutingModule and load lazily the newly generated modules
     ```typescript
     // path: src/app/app.module.ts
+
     import { NgModule } from '@angular/core';
     import { RouterModule, Routes } from '@angular/router';
 
@@ -2965,7 +2986,8 @@ Would you like to add Angular routing? N
     ```
 - Add fallback route for unknown routes
     ```typescript
-    // path: src/app/app.module.ts
+    // path: src/app/app-routing.module.ts
+
     const routes: Routes = [
         ...
         {
@@ -2976,8 +2998,7 @@ Would you like to add Angular routing? N
     ```
 - Add JWT Authentication Guards (CanActivate)
     ```typescript
-    // path: src/app/app.module.ts
-    import { AuthGuard } from './core/services/auth.guard';
+    // path: src/app/app-routing.module.ts
 
     const routes: Routes = [
         {
@@ -2999,6 +3020,7 @@ Would you like to add Angular routing? N
     ```
     ```typescript
     // path: src/app/features/user/services/user.guard.ts
+
     import { Injectable } from '@angular/core';
     import { CanDeactivate } from '@angular/router';
 
@@ -3032,8 +3054,10 @@ Would you like to add Angular routing? N
 - Update UserNewComponent by adding public "isFormSaved" property
     ```typescript
     // path: src/app/features/user/components/user-new/user-new.component.ts
+
     ...
     public isFormSaved: boolean;
+
     ...
     save() {
         this.userService.createUser(this.creationForm.value)
@@ -3049,8 +3073,10 @@ Would you like to add Angular routing? N
 - Update UserEditComponent by adding public "isFormSaved" property
     ```typescript
     // path: src/app/features/user/components/user-edit/user-edit.component.ts
+
     ...
     public isFormSaved: boolean;
+
     ...
     save() {
         this.userService.updateUser(<User>this.editForm.value)
@@ -3066,8 +3092,7 @@ Would you like to add Angular routing? N
 - Update UserRoutingModule
     ```typescript
     // path: src/app/features/user/user-routing.module.ts
-    import { UserGuard } from './services/user.guard';
-    ...
+
     const userRoutes: Routes = [
         ...
         { path: 'add/new', component: UserNewComponent, canDeactivate: [UserGuard] },
@@ -3085,9 +3110,30 @@ Would you like to add Angular routing? N
     ```bash
     ng generate component features/index/index --flat --module=index
     ```
+- Update IndexModule
+    ```typescript
+    // path: src/app/features/index/index-routing.module.ts
+
+    import { NgModule } from '@angular/core';
+    import { SharedModule } from './../../shared/shared.module';
+
+    import { IndexRoutingModule } from './index-routing.module';
+    import { IndexComponent } from './index.component';
+
+    @NgModule({
+    declarations: [IndexComponent],
+    imports: [
+        SharedModule,
+        IndexRoutingModule
+    ]
+    })
+    export class IndexModule { }
+    ```
+- Move user and home folders to src/app/features/index and update imports paths
 - Update AppRoutingModule
     ```typescript
     // path: src/app/app-routing.module.ts
+
     import { NgModule } from '@angular/core';
     import { RouterModule, Routes } from '@angular/router';
 
@@ -3121,9 +3167,10 @@ Would you like to add Angular routing? N
     })
     export class AppRoutingModule { }
     ```
-- Set up IndexRoutingModule
+- Set up IndexRoutingModule children routes and guard
     ```typescript
     // path: src/app/features/index/index-routing.module.ts
+    
     import { NgModule } from '@angular/core';
     import { Routes, RouterModule } from '@angular/router';
     import { IndexComponent } from './index.component';
@@ -3163,6 +3210,7 @@ Would you like to add Angular routing? N
 - Set up IndexComponent template with the second RouterOutlet and semantic tags
     ```html
     <!-- path: src/app/features/index/index.component.html -->
+
     <!-- ============================================================== -->
     <!-- Navigation  -->
     <!-- ============================================================== -->
@@ -3197,9 +3245,10 @@ Would you like to add Angular routing? N
     <!-- End footer -->
     <!-- ============================================================== -->
     ```
-- Remove the Navbar Html tag from AppComponent template
+- Clean up and remove the Navbar Html tag from AppComponent template
     ```html
     <!-- path: src/app/app.component.html -->
+
     <router-outlet></router-outlet>
     <app-spinner></app-spinner>
     <simple-notifications></simple-notifications>
@@ -3241,7 +3290,7 @@ Une application Angular se compose principalement de Components et de leurs Temp
     ```
     * --prod :
         - Compilation AOT
-        - Activation du mode production: pour un fonctionnement plus rapide en désactivant les contrôles spécifiques au développement
+        - Déactivation des contrôles spécifiques au développement
         - Concatènation des nombreux fichiers d'application en quelques paquets
         - Minification: supprime les espaces, les commentaires.
         - Uglification: réécrit le code pour utiliser des noms de variables et de fonctions courts

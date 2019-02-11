@@ -1,6 +1,5 @@
 import { NgModule, Optional, SkipSelf, ErrorHandler, APP_INITIALIZER, LOCALE_ID } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { SharedModule } from './../shared/shared.module';
 
 // Prevent re-import of the core module
 import { throwIfAlreadyLoaded } from './module-import-guard';
@@ -25,11 +24,9 @@ import { environment } from '../../environments/environment';
 @NgModule({
   imports: [
     HttpClientModule,
-    SharedModule
   ],
   exports: [
     HttpClientModule,
-    SharedModule
   ],
   providers: [
     NotificationsService,

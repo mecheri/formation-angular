@@ -10,7 +10,6 @@ import { map, catchError } from 'rxjs/operators';
 import { Logger } from './logger.service';
 import { Constants } from './constants.service';
 import { SettingsService } from './settings.service';
-import { HttpResponseService } from './http-response.service';
 
 // Models
 import { Auth } from './../models/auth';
@@ -25,13 +24,12 @@ export class AuthService {
     public redirectUrl: string = '/home';
 
     /**
-     * Creates an instance of AuthService.
+     *Creates an instance of AuthService.
      * @param {HttpClient} http
      * @param {Router} router
      * @param {Logger} logger
      * @param {Constants} constants
      * @param {SettingsService} settingsService
-     * @param {HttpResponseService} httpRespService
      * @memberof AuthService
      */
     constructor(
@@ -39,8 +37,7 @@ export class AuthService {
         private router: Router,
         private logger: Logger,
         private constants: Constants,
-        private settingsService: SettingsService,
-        private httpRespService: HttpResponseService
+        private settingsService: SettingsService
     ) { };
 
     /**
@@ -131,7 +128,7 @@ export class AuthService {
      * @memberof AuthService
      */
     addAuthorizationHeader(request: HttpRequest<any>) {
-        if (!this.getToken()) { return request; }
+        if (!this.isLoggedIn()) { return request; }
         return request.clone({ setHeaders: { 'Authorization': `Bearer ${this.getToken()}`, 'Content-Type': 'application/json; charset=utf-8' } });
     }
 

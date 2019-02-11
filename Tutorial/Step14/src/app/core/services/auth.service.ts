@@ -10,11 +10,10 @@ import { map, catchError } from 'rxjs/operators';
 import { Logger } from './logger.service';
 import { Constants } from './constants.service';
 import { SettingsService } from './settings.service';
-import { HttpResponseService } from './http-response.service';
 
 // Models
 import { Auth } from './../models/auth';
-import { User } from '../../features/user/models/user';
+import { User } from './../../features/index/user/models/user';
 
 @Injectable({
     providedIn: 'root',
@@ -25,13 +24,12 @@ export class AuthService {
     public redirectUrl: string = '/home';
 
     /**
-     * Creates an instance of AuthService.
+     *Creates an instance of AuthService.
      * @param {HttpClient} http
      * @param {Router} router
      * @param {Logger} logger
      * @param {Constants} constants
      * @param {SettingsService} settingsService
-     * @param {HttpResponseService} httpRespService
      * @memberof AuthService
      */
     constructor(
@@ -39,8 +37,7 @@ export class AuthService {
         private router: Router,
         private logger: Logger,
         private constants: Constants,
-        private settingsService: SettingsService,
-        private httpRespService: HttpResponseService
+        private settingsService: SettingsService
     ) { };
 
     /**
