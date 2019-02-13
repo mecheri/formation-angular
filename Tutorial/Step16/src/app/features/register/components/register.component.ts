@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 // Services
-import { NotificationsService } from 'angular2-notifications';
+import { NotifierService } from 'angular-notifier';
 import { MixinService } from '../../../core/services/mixin.service';
 import { ResourcesService } from '../../../core/services/resources.service';
 import { AuthService } from '../../../core/services/auth.service';
@@ -26,7 +26,7 @@ export class RegisterComponent implements OnInit {
      *Creates an instance of RegisterComponent.
      * @param {Router} router
      * @param {FormBuilder} fb
-     * @param {NotificationsService} notifService
+     * @param {NotifierService} notifier
      * @param {MixinService} mixinService
      * @param {ResourcesService} rscService
      * @param {AuthService} authService
@@ -35,7 +35,7 @@ export class RegisterComponent implements OnInit {
     constructor(
         private router: Router,
         private fb: FormBuilder,
-        private notifService: NotificationsService,
+        private notifier: NotifierService,
         private mixinService: MixinService,
         private rscService: ResourcesService,
         private authService: AuthService
@@ -94,9 +94,8 @@ export class RegisterComponent implements OnInit {
         this.authService.register(this.registerForm.value)
             .subscribe(
                 () => {
-                    this.notifService.success(null, 'Inscription effectuée avec succès', { timeOut: 3000 });
-                    this.mixinService.startTimer(3000).then(() => this.router.navigate(['login']));
-                },
-                error => this.notifService.error('Erreur', <any>error));
+                    this.notifier.notify('success', 'Operation successfully done');
+                    this.router.navigate(['login']);
+                });
     }
 }

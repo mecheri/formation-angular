@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
-import { NotificationsService } from 'angular2-notifications';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-user-edit',
@@ -45,8 +45,8 @@ export class UserEditComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private userService: UserService,
-    private notifService: NotificationsService,
+    private notifier: NotifierService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -62,7 +62,7 @@ export class UserEditComponent implements OnInit {
           this.user = user;
           this.editForm.patchValue(this.user);
         },
-        error => this.notifService.error('Erreur', error)
+        error => this.notifier.notify('error', error)
       );
   }
 
@@ -87,9 +87,10 @@ export class UserEditComponent implements OnInit {
       .subscribe(
         resp => {
           this.isFormSaved = true;
-          this.notifService.success(null, 'Success', { timeOut: 3000 });
-          setTimeout(() => this.router.navigate(['user', resp.id]), 3000);
+          this.notifier.notify('success', 'Operation successfully done !');
+          this.router.navigate(['user', resp.id]);
         },
-        error => this.notifService.error('Erreur', error));
+        error => this.notifier.notify('error', error)
+      );
   }
 }

@@ -237,7 +237,7 @@ Would you like to add Angular routing? N
 - DoCheck:
     ```typescript
     ngDoCheck() {
-        // Utilisé pour détecter manuellement les modificationsla stratégie de "Change Detection" est OnPush et non par défaut. 
+        // Utilisé pour détecter manuellement les modificationsla stratégie de "Change Detection" est OnPush et non par défaut.
         // Cela nous permet de mettre en œuvre notre propre algorithme de détection de changement pour le composant donné.
         console.log('---> DoCheck fires <---');
     }
@@ -444,7 +444,7 @@ Would you like to add Angular routing? N
 - Display the user detail -> Error before selecting user !!!
     ```html
     <!-- path: src/app/user/user.component.html -->
-    
+
     <div class="col m8">
         <!-- TODO: Display user detail on select one -->
         <br>
@@ -613,7 +613,7 @@ Would you like to add Angular routing? N
         ```
         ```html
         <!-- path: src/app/user/user.component.html -->
-        
+
         <app-user-detail [user]="selectedUser" [avatar]="image"></app-user-detail>
         ```
     2. Parent -> child via <strong>@Input</strong> Setter
@@ -913,7 +913,7 @@ Would you like to add Angular routing? N
         </div>
         <div class="col m8" *ngIf="selectedUser">
             <app-user-detail [user]="selectedUser" [avatar]="image"></app-user-detail>
-        </div>        
+        </div>
     </div>
     ```
 
@@ -1069,7 +1069,7 @@ Would you like to add Angular routing? N
     ```
     ```html
     <!-- path: src/app/user/user.component.html -->
-    
+
     <hr>
     <ul>
         <li *ngFor="let user of usersAsync" [class.active-line]="selectedUser && selectedUser.id === user.id" (click)="onSelect(user)">
@@ -1178,7 +1178,7 @@ Would you like to add Angular routing? N
 - Import newly AppRoutingModule in AppModule
     ```typescript
     // path: src/app/app.module.ts
-    
+
     import { AppRoutingModule } from './app-routing.module';
 
     imports: [
@@ -1189,7 +1189,7 @@ Would you like to add Angular routing? N
 - Import some ngx-materialize UI Modules in AppModule
     ```typescript
     // path: src/app/app.module.ts
-    
+
     import { MzNavbarModule, MzInputModule, MzButtonModule, MzValidationModule, MzSpinnerModule } from 'ngx-materialize';
 
     imports: [
@@ -1280,7 +1280,7 @@ Would you like to add Angular routing? N
         DialogModule
     ],
     ```
-- Import BrowserAnimationsModule 
+- Import BrowserAnimationsModule
     ```typescript
     // path: src/app/app.module.ts
 
@@ -1975,7 +1975,7 @@ Would you like to add Angular routing? N
 - Enable Angular's HTTP services (HttpClientModule)
     ```typescript
     // path: src/app/app.module.ts
-    
+
     import { HttpClientModule } from '@angular/common/http';
     ...
     imports: [
@@ -2121,27 +2121,57 @@ Would you like to add Angular routing? N
         .pipe(catchError(this.handleError))
     }
     ```
-- Install angular2-notification to handle notifications
+- Install angular-notifier to handle notifications
     ```bash
-    npm install --save angular2-notifications
+    npm install --save angular-notifier
     ```
-- Import angular2-notification in the AppModule
+- Create new file src/sass/_notifier.scss to import newly installed notifier styles
+    ```scss
+    // path: src/sass/_notifier.scss
+
+    @import "~angular-notifier/styles/core.css";
+    @import "~angular-notifier/styles/themes/theme-material.css";
+    @import "~angular-notifier/styles/types/type-error.css";
+    @import "~angular-notifier/styles/types/type-success.css";
+    @import "~angular-notifier/styles/types/type-warning.css";
+    @import "~angular-notifier/styles/types/type-info.css";
+    ```
+- Update app.scss
+    ```scss
+    // path: src/sass/app.scss
+
+    @import "_variables";
+    @import "_materialize";
+    @import "_primeng";
+    @import "_notifier";
+    @import "_custom";
+    ```
+- Import angular-notifier in the AppModule and set up it's conf
     ```typescript
     // path: src/app/app.module.ts
 
-    import { SimpleNotificationsModule } from 'angular2-notifications';
+    import { NotifierModule } from 'angular-notifier';
     ...
 
     imports: [
         ...
-        SimpleNotificationsModule.forRoot(),
+        NotifierModule.withConfig({
+            position: {
+                horizontal: {
+                    position: 'right'
+                },
+                vertical: {
+                    distance: 35
+                }
+            }
+        })
     ],
     ```
-- Inject angular2-notifications service in the user's CRUD Components
+- Inject angular-notifier service in the user's CRUD Components
     ```typescript
     constructor(
         ...
-        private notifService: NotificationsService,
+        private notifier: NotifierService,
     ) { }
     ```
 - Update User's CRUD components HTTP calls
@@ -2152,7 +2182,7 @@ Would you like to add Angular routing? N
         this.userService.getUsers()
         .subscribe(
             (data: User[]) => this.users = data,
-            error => this.notifService.error('Erreur', error)
+            error => this.notifier.notify('error', error)
         );
     }
     ```
@@ -2163,8 +2193,8 @@ Would you like to add Angular routing? N
         const id = +this.route.snapshot.paramMap.get('id');
         this.userService.getUser(id)
         .subscribe(
-            user => this.user = user,
-            error => this.notifService.error('Erreur', error)
+            (user: User) => this.user = user,
+            error => this.notifier.notify('error', error)
         );
     }
     ```
@@ -2175,10 +2205,10 @@ Would you like to add Angular routing? N
         this.userService.createUser(this.newForm.value)
         .subscribe(
             resp => {
-                this.notifService.success(null, 'Success', { timeOut: 3000 });
-                setTimeout(() => this.router.navigate(['user', resp.id]), 3000);
+                this.notifier.notify('success', 'Operation successfully done !');
+                this.router.navigate(['user', resp.id]);
             },
-            error => this.notifService.error('Erreur', error)
+            error => this.notifier.notify('error', error)
         );
     }
     ```
@@ -2193,7 +2223,7 @@ Would you like to add Angular routing? N
                 this.user = user;
                 this.editForm.patchValue(this.user);
             },
-            error => this.notifService.error('Erreur', error)
+            error => this.notifier.notify('error', error)
         );
     }
 
@@ -2201,10 +2231,11 @@ Would you like to add Angular routing? N
         this.userService.updateUser(<User>this.editForm.value)
         .subscribe(
             resp => {
-                this.notifService.success(null, 'Success', { timeOut: 3000 });
-                setTimeout(() => this.router.navigate(['user', resp.id]), 3000);
+                this.notifier.notify('success', 'Operation successfully done !');
+                this.router.navigate(['user', resp.id]);
             },
-            error => this.notifService.error('Erreur', error));
+            error => this.notifier.notify('error', error)
+        );
     }
     ```
     ```typescript
@@ -2214,16 +2245,18 @@ Would you like to add Angular routing? N
         this.userService.deleteUser(this.user.id)
         .subscribe(
             resp => {
-                this.notifService.success(null, 'Success', { timeOut: 3000 });
-                setTimeout(() => this.onAction.emit(true), 3000);
+                this.notifier.notify('success', 'Operation successfully done !');
+                this.onAction.emit(true);
             },
-            error => this.notifService.error('Erreur', error));
+            error => this.notifier.notify('error', error)
+        );
     }
     ```
-- Add angular2-notifications HTML tag in User's CRUD components tempaltes
+- Add angular-notifier HTML tag in AppComponent template
     ```html
-    <!-- notify -->
-    <simple-notifications></simple-notifications>
+    <!-- path: src/app/app.component.html -->
+
+    <notifier-container></notifier-container>
     ```
 ## 11. CoreModule
 -----------------
@@ -2247,7 +2280,6 @@ Would you like to add Angular routing? N
     import { TableModule } from 'primeng/table';
     import { BreadcrumbModule } from 'primeng/breadcrumb';
     import { DialogModule } from 'primeng/dialog';
-    import { SimpleNotificationsModule } from 'angular2-notifications';
 
     import { AppComponent } from './app.component';
     import { UserComponent } from './user/user.component';
@@ -2284,7 +2316,6 @@ Would you like to add Angular routing? N
             TableModule,
             BreadcrumbModule,
             DialogModule,
-            SimpleNotificationsModule.forRoot()
         ],
         providers: [],
         bootstrap: [AppComponent]
@@ -2373,6 +2404,8 @@ Would you like to add Angular routing? N
 - Copy formation-angular/resources/modules/shared content to /src/app/shared
 - Update AppModule
     ```typescript
+    // path: src/app/app.module.ts
+
     import { BrowserModule } from '@angular/platform-browser';
     import { NgModule } from '@angular/core';
     import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -2414,6 +2447,7 @@ Would you like to add Angular routing? N
 - Append global Spinner HTML tag
     ```html
     <!-- path: src/app/app.component.html -->
+    ...
 
     <app-spinner></app-spinner>
     ```
@@ -2775,18 +2809,13 @@ Would you like to add Angular routing? N
     import { Component, OnInit } from '@angular/core';
     import { FormGroup, FormBuilder, Validators } from '@angular/forms';
     import { Router } from '@angular/router';
-    import { NotificationsService } from 'angular2-notifications';
+
+    // Services
+    import { NotifierService } from 'angular-notifier';
     import { MixinService } from '../../../core/services/mixin.service';
     import { ResourcesService } from '../../../core/services/resources.service';
     import { AuthService } from '../../../core/services/auth.service';
 
-    /**
-    * Register Component
-    *
-    * @export
-    * @class RegisterComponent
-    * @implements {OnInit}
-    */
     @Component({
         templateUrl: './register.component.html'
     })
@@ -2794,52 +2823,27 @@ Would you like to add Angular routing? N
         rsc: any;
         registerForm: FormGroup;
 
-        /**
-        * Creates an instance of RegisterComponent.
-        * @param {Router} router
-        * @param {FormBuilder} fb
-        * @param {NotificationsService} notifService
-        * @param {MixinService} mixinService
-        * @param {ResourcesService} rscService
-        * @param {AuthService} authService
-        * @memberof RegisterComponent
-        */
         constructor(
             private router: Router,
             private fb: FormBuilder,
-            private notifService: NotificationsService,
+            private notifier: NotifierService,
             private mixinService: MixinService,
             private rscService: ResourcesService,
             private authService: AuthService
         ) { }
 
-        /**
-        * Component init
-        *
-        * @memberof RegisterComponent
-        */
         ngOnInit() {
             this.loadResources();
             this.loadForm();
         }
 
-        /**
-        * Load resources
-        *
-        * @memberof RegisterComponent
-        */
         loadResources() {
             this.rsc = this.rscService.rsc.pages.register;
         }
 
-        /**
-        * Load form
-        *
-        * @memberof RegisterComponent
-        */
         loadForm() {
             if (this.registerForm) { this.registerForm.reset(); }
-                this.registerForm = this.fb.group({
+            this.registerForm = this.fb.group({
                 username: ['', Validators.required],
                 password: ['', Validators.required],
                 email: ['', [Validators.required, Validators.email]],
@@ -2848,28 +2852,17 @@ Would you like to add Angular routing? N
             });
         }
 
-        /**
-        * Cancel registration
-        *
-        * @memberof RegisterComponent
-        */
         cancel() {
             this.router.navigate(['home']);
         }
 
-        /**
-        * Save regsitration
-        *
-        * @memberof RegisterComponent
-        */
         save() {
             this.authService.register(this.registerForm.value)
-            .subscribe(
-                () => {
-                    this.notifService.success(null, 'Inscription effectuée avec succès', { timeOut: 3000 });
-                    this.mixinService.startTimer(3000).then(() => this.router.navigate(['login']));
-                },
-                error => this.notifService.error('Erreur', <any>error));
+                .subscribe(
+                    () => {
+                        this.notifier.notify('success', 'Operation successfully done');
+                        this.router.navigate(['login']);
+                    });
         }
     }
     ```
@@ -2902,9 +2895,6 @@ Would you like to add Angular routing? N
             <button mz-button [disabled]="!registerForm.valid" type="submit">{{ rsc.buttons.save }}</button>
         </form>
     </div>
-
-    <!-- notify -->
-    <simple-notifications></simple-notifications>
     ```
 - Update RegisterRoutingModule
     ```typescript
@@ -3060,12 +3050,12 @@ Would you like to add Angular routing? N
 
     ...
     save() {
-        this.userService.createUser(this.creationForm.value)
+        this.userService.createUser(this.newForm.value)
         .subscribe(
             resp => {
-            this.isFormSaved = true;
-            this.notifService.success(null, 'Success', { timeOut: 3000 });
-            setTimeout(() => this.router.navigate(['user', resp.id]), 3000);
+                this.isFormSaved = true;
+                this.notifier.notify('success', 'Operation successfully done !');
+                this.router.navigate(['user', resp.id]);
             }
         );
     }
@@ -3082,9 +3072,9 @@ Would you like to add Angular routing? N
         this.userService.updateUser(<User>this.editForm.value)
         .subscribe(
             resp => {
-            this.isFormSaved = true;
-            this.notifService.success(null, 'Success', { timeOut: 3000 });
-            setTimeout(() => this.router.navigate(['user', resp.id]), 3000);
+                this.isFormSaved = true;
+                this.notifier.notify('success', 'Operation successfully done !');
+                this.router.navigate(['user', resp.id]);
             }
         );
     }
@@ -3170,7 +3160,7 @@ Would you like to add Angular routing? N
 - Set up IndexRoutingModule children routes and guard
     ```typescript
     // path: src/app/features/index/index-routing.module.ts
-    
+
     import { NgModule } from '@angular/core';
     import { Routes, RouterModule } from '@angular/router';
     import { IndexComponent } from './index.component';
@@ -3251,7 +3241,7 @@ Would you like to add Angular routing? N
 
     <router-outlet></router-outlet>
     <app-spinner></app-spinner>
-    <simple-notifications></simple-notifications>
+    <notifier-container></notifier-container>
     ```
 
 ## 16. Compilation and Build

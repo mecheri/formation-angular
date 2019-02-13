@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
-import { NotificationsService } from 'angular2-notifications';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-user-detail',
@@ -22,8 +22,8 @@ export class UserDetailComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private userService: UserService,
-    private notifService: NotificationsService,
+    private notifier: NotifierService,
+    private userService: UserService
   ) {
     this.user = new User();
   }
@@ -37,7 +37,7 @@ export class UserDetailComponent implements OnInit {
     this.userService.getUser(id)
       .subscribe(
         user => this.user = user,
-        error => this.notifService.error('Erreur', error)
+        error => this.notifier.notify('error', error)
       );
   }
 

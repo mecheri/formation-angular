@@ -12,8 +12,6 @@ import { TableModule } from 'primeng/table';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { DialogModule } from 'primeng/dialog';
 
-import { SimpleNotificationsModule } from 'angular2-notifications';
-
 import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
@@ -48,8 +46,7 @@ import { UserDeleteComponent } from './user/user-delete/user-delete.component';
     MzSpinnerModule,
     TableModule,
     BreadcrumbModule,
-    DialogModule,
-    SimpleNotificationsModule.forRoot()
+    DialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

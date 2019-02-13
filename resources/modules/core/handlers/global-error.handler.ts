@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 // Services
 import { Logger } from '../services/logger.service';
 import { AuthService } from '../services/auth.service';
-import { NotificationsService } from 'angular2-notifications';
+import { NotifierService } from 'angular-notifier';
 
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
@@ -26,7 +26,7 @@ export class GlobalErrorHandler implements ErrorHandler {
         const router: Router = this.injector.get(Router);
         const logger: Logger = this.injector.get(Logger);
         const authService: AuthService = this.injector.get(AuthService);
-        const notifier: NotificationsService = this.injector.get(NotificationsService);
+        const notifier: NotifierService = this.injector.get(NotifierService);
 
         // Log the error anyway
         logger.error(resp);
@@ -36,7 +36,7 @@ export class GlobalErrorHandler implements ErrorHandler {
             // Erreur serveur ou erreur de connexion
             if (!navigator.onLine) {
                 // Pas de connexion à internet
-                notifier.alert('No Internet Connection');
+                this.zone.run(() => notifier.notify('warning', 'No Internet Connection'));
             } else {
                 if (router.url !== 'login' && [401, 403].includes(resp.status)) {
                     // Erreur HTTP (error.status === 401, 403)
@@ -45,7 +45,7 @@ export class GlobalErrorHandler implements ErrorHandler {
                 } else {
                     // Erreur HTTP (error.status === 404, 400, 500...)
                     // On affiche une alerte à l'utilisateur
-                    notifier.error('Erreur', resp.error.message);
+                    this.zone.run(() => notifier.notify('error', resp.error.message));
                 }
             }
         } else {
@@ -54,5 +54,4 @@ export class GlobalErrorHandler implements ErrorHandler {
             router.navigate(['/error']);
         }
     }
-
 }

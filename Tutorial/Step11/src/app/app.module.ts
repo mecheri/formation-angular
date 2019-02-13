@@ -12,7 +12,7 @@ import { TableModule } from 'primeng/table';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { DialogModule } from 'primeng/dialog';
 
-import { SimpleNotificationsModule } from 'angular2-notifications';
+import { NotifierModule } from 'angular-notifier';
 
 import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
@@ -49,7 +49,16 @@ import { UserDeleteComponent } from './user/user-delete/user-delete.component';
     TableModule,
     BreadcrumbModule,
     DialogModule,
-    SimpleNotificationsModule.forRoot()
+    NotifierModule.withConfig({
+      position: {
+          horizontal: {
+              position: 'right'
+          },
+          vertical: {
+              distance: 35
+          }
+      }
+  })
   ],
   providers: [],
   bootstrap: [AppComponent]

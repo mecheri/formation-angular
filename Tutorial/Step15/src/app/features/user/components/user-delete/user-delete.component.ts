@@ -2,7 +2,7 @@ import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { User } from '../../models/user';
 
 import { UserService } from '../../services/user.service';
-import { NotificationsService } from 'angular2-notifications';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-user-delete',
@@ -16,8 +16,8 @@ export class UserDeleteComponent implements OnInit {
   @Output() onAction = new EventEmitter<boolean>();
 
   constructor(
-    private userService: UserService,
-    private notifService: NotificationsService
+    private notifier: NotifierService,
+    private userService: UserService
   ) { }
 
   ngOnInit() { }
@@ -30,9 +30,10 @@ export class UserDeleteComponent implements OnInit {
     this.userService.deleteUser(this.user.id)
       .subscribe(
         resp => {
-          this.notifService.success(null, 'Success', { timeOut: 3000 });
-          setTimeout(() => this.onAction.emit(true), 3000);
+          this.notifier.notify('success', 'Operation successfully done !');
+          this.onAction.emit(true);
         },
-        error => this.notifService.error('Erreur', error));
+        error => this.notifier.notify('error', error)
+      );
   }
 }

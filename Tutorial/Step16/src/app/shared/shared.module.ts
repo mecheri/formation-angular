@@ -7,9 +7,6 @@ import { TableModule } from 'primeng/table';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { DialogModule } from 'primeng/dialog';
 
-// Simple notifcations
-import { SimpleNotificationsModule } from 'angular2-notifications';
-
 // Ngx Materialize
 import { MzNavbarModule, MzInputModule, MzSelectModule, MzTimepickerModule, MzButtonModule, MzValidationModule, MzSpinnerModule, MzModalModule } from 'ngx-materialize'
 
@@ -26,7 +23,6 @@ import { FooterComponent } from './components/footer/footer.component';
     BreadcrumbModule,
     DialogModule,
     TableModule,
-    SimpleNotificationsModule.forRoot(),
     MzNavbarModule,
     MzInputModule,
     MzSelectModule,
@@ -47,7 +43,6 @@ import { FooterComponent } from './components/footer/footer.component';
     BreadcrumbModule,
     DialogModule,
     TableModule,
-    SimpleNotificationsModule,
     NavbarComponent,
     SpinnerComponent,
     FooterComponent,

@@ -21,7 +21,7 @@
         "@angular/platform-browser-dynamic": "~7.0.0",
         "@angular/router": "~7.0.0",
         "@types/jquery": "^3.3.23",
-        "angular2-notifications": "^2.0.0",
+        "angular-notifier": "^4.1.1",
         "core-js": "^2.5.4",
         "hjson": "^3.1.2",
         "jquery": "^3.3.1",

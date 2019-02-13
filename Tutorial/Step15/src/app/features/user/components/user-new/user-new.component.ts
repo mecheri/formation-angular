@@ -3,7 +3,7 @@ import { AbstractControl, FormControl, FormGroup, FormBuilder, Validators, Valid
 import { Router } from '@angular/router';
 
 import { UserService } from '../../services/user.service';
-import { NotificationsService } from 'angular2-notifications';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-user-new',
@@ -44,8 +44,8 @@ export class UserNewComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private userService: UserService,
-    private notifService: NotificationsService,
+    private notifier: NotifierService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -72,10 +72,10 @@ export class UserNewComponent implements OnInit {
       .subscribe(
         resp => {
           this.isFormSaved = true;
-          this.notifService.success(null, 'Success', { timeOut: 3000 });
-          setTimeout(() => this.router.navigate(['user', resp.id]), 3000);
+          this.notifier.notify('success', 'Operation successfully done !');
+          this.router.navigate(['user', resp.id]);
         },
-        error => this.notifService.error('Erreur', error)
+        error => this.notifier.notify('error', error)
       );
   }
 }

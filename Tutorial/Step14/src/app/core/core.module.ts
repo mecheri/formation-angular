@@ -1,5 +1,6 @@
 import { NgModule, Optional, SkipSelf, ErrorHandler, APP_INITIALIZER, LOCALE_ID } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NotifierModule } from 'angular-notifier';
 
 // Prevent re-import of the core module
 import { throwIfAlreadyLoaded } from './module-import-guard';
@@ -12,9 +13,6 @@ import { SpinnerInterceptor } from './interceptors/spinner.interceptor';
 import { SettingsService } from './services/settings.service';
 import { ResourcesService } from './services/resources.service';
 
-// Services Vendor
-import { NotificationsService } from 'angular2-notifications';
-
 // Handlers
 import { GlobalErrorHandler } from './handlers/global-error.handler';
 
@@ -24,12 +22,22 @@ import { environment } from '../../environments/environment';
 @NgModule({
   imports: [
     HttpClientModule,
+    NotifierModule.withConfig({
+      position: {
+        horizontal: {
+          position: 'right'
+        },
+        vertical: {
+          distance: 35
+        }
+      }
+    })
   ],
   exports: [
     HttpClientModule,
+    NotifierModule
   ],
   providers: [
-    NotificationsService,
     SettingsService,
     {
       provide: LOCALE_ID,
