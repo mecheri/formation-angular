@@ -4,6 +4,6 @@ export default class Lib {
         this._hello = 'salut';
     }
     hello() {
-        return this._hello
+        return this._hello;
     }
 }

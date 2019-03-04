@@ -9,13 +9,13 @@ console.log(lib.diag(4, 3)); // 5
 //#endregion
 
 
-// //#region default exports: functions
-// import libFunc from './lib';
-// libFunc();
-// //#endregion
+//#region default exports: functions
+import libFunc from './lib';
+libFunc();
+//#endregion
 
 
-// //#region default exports: classes
-// import LibClass from './lib';
-// let inst = new LibClass();
-// //#endregion
+//#region default exports: classes
+import LibClass from './lib';
+let inst = new LibClass();
+//#endregion

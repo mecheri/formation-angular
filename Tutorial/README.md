@@ -73,105 +73,106 @@ Would you like to add Angular routing? N
     ]
     ```
 
-02. User component
-    - Generate UserComponent
-        ```bash
-        ng generate component user
-        ```
-    - Clean the AppComponent template
-        ```html
-        <!-- path: src/app/app.component.html -->
+## 02. User component
+--------------------------------------------------------
+- Generate UserComponent
+    ```bash
+    ng generate component user
+    ```
+- Clean the AppComponent template
+    ```html
+    <!-- path: src/app/app.component.html -->
 
-        <div style="text-align:center">
-            <h1>
-                Welcome to {{ title }}!
-            </h1>
-            <img width="100" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-        </div>
+    <div style="text-align:center">
+        <h1>
+            Welcome to {{ title }}!
+        </h1>
+        <img width="100" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+    </div>
 
-        <app-user></app-user>
-        ```
-    - Create User class:
-        ```bash
-        ng generate class user/user
-        ```
+    <app-user></app-user>
+    ```
+- Create User class:
+    ```bash
+    ng generate class user/user
+    ```
+    ```typescript
+    // path: src/app/user/user.ts
+
+    export class User {
+        id: number;
+        username: string;
+        password: string;
+        email: string;
+        firstname: string;
+        lastname: string;
+        birthdate?: Date;
+    }
+    ```
+- Display the user object:
         ```typescript
-        // path: src/app/user/user.ts
+    // path: src/app/user/user.component.ts
 
-        export class User {
-            id: number;
-            username: string;
-            password: string;
-            email: string;
-            firstname: string;
-            lastname: string;
-            birthdate?: Date;
+    user: User = {
+        id: 1,
+        username: 'test',
+        password: 'pa$$word',
+        email: 'mehdi.mecheri@viveris.fr',
+        firstname: 'Mehdi',
+        lastname: 'Mecheri',
+        birthdate: new Date(2018, 5, 22)
+    };
+    dateFormat = "MM/dd/yy";
+    image = 'https://assets-cdn.github.com/images/icons/emoji/unicode/1f471.png?v8';
+    ```
+    ```html
+    <!-- path: src/app/user/user.component.ts -->
+
+    <div style="text-align:center">
+        <!-- One-way binding: property (to-the-dom) -->
+        <img width="100" alt="property as one-way binding" [src]="image">
+        <!-- One-way binding: interpolation (to-the-dom) -->
+        <h2>{{ user.firstname }} {{ user.lastname }} Details : </h2>
+        <div><span>id: </span>{{user.id}}</div>
+        <div><span>email: </span>{{user.email}}</div>
+        <div><span>birth date: </span>{{user.birthdate}}</div>
+    </div>
+    ```
+- One-way binding: interpolation (to-the-dom)
+- One-way binding: property (to-the-dom)
+- Apply some of Angular's standard pipes:
+    ```html
+    <!-- path: src/app/user/user.component.html -->
+
+    <div><span>birth date: </span>{{user.birthdate | date}}</div>
+    <div><span>birth date: </span>{{user.birthdate | date: "MM/dd/yy"}}</div>
+    <div><span>birth date: </span>{{user.birthdate | date: dateFormat}}</div>
+    <div><span>birth date: </span>{{user.birthdate | date | uppercase}}</div>
+    ```
+- Generate and apply custom pipe:
+    ```bash
+    ng generate pipe exponential
+    ```
+    ```typescript
+    // path: src/app/exponential.pipe.ts
+
+    import { Pipe, PipeTransform } from '@angular/core';
+
+    @Pipe({
+        name: 'exponential'
+    })
+    export class ExponentialPipe implements PipeTransform {
+        transform(value: number, exponent: string): number {
+            let exp = parseFloat(exponent);
+            return Math.pow(value, isNaN(exp) ? 1 : exp);
         }
-        ```
-    - Display the user object:
-         ```typescript
-        // path: src/app/user/user.component.ts
+    }
+    ```
+    ```html
+    <!-- path: src/app/user/user.component.html -->
 
-        user: User = {
-            id: 1,
-            username: 'test',
-            password: 'pa$$word',
-            email: 'mehdi.mecheri@viveris.fr',
-            firstname: 'Mehdi',
-            lastname: 'Mecheri',
-            birthdate: new Date(2018, 5, 22)
-        };
-        dateFormat = "MM/dd/yy";
-        image = 'https://assets-cdn.github.com/images/icons/emoji/unicode/1f471.png?v8';
-        ```
-        ```html
-        <!-- path: src/app/user/user.component.ts -->
-
-        <div style="text-align:center">
-            <!-- One-way binding: property (to-the-dom) -->
-            <img width="100" alt="property as one-way binding" [src]="image">
-            <!-- One-way binding: interpolation (to-the-dom) -->
-            <h2>{{ user.firstname }} {{ user.lastname }} Details : </h2>
-            <div><span>id: </span>{{user.id}}</div>
-            <div><span>email: </span>{{user.email}}</div>
-            <div><span>birth date: </span>{{user.birthdate}}</div>
-        </div>
-        ```
-    - One-way binding: interpolation (to-the-dom)
-    - One-way binding: property (to-the-dom)
-    - Apply some of Angular's standard pipes:
-        ```html
-        <!-- path: src/app/user/user.component.html -->
-
-        <div><span>birth date: </span>{{user.birthdate | date}}</div>
-        <div><span>birth date: </span>{{user.birthdate | date: "MM/dd/yy"}}</div>
-        <div><span>birth date: </span>{{user.birthdate | date: dateFormat}}</div>
-        <div><span>birth date: </span>{{user.birthdate | date | uppercase}}</div>
-        ```
-    - Generate and apply custom pipe:
-        ```bash
-        ng generate pipe exponential
-        ```
-        ```typescript
-        // path: src/app/exponential.pipe.ts
-
-        import { Pipe, PipeTransform } from '@angular/core';
-
-        @Pipe({
-            name: 'exponential'
-        })
-        export class ExponentialPipe implements PipeTransform {
-            transform(value: number, exponent: string): number {
-                let exp = parseFloat(exponent);
-                return Math.pow(value, isNaN(exp) ? 1 : exp);
-            }
-        }
-        ```
-        ```html
-        <!-- path: src/app/user/user.component.html -->
-
-        <div>Exponentielle: {{2 | exponential: 2}}</div>
-        ```
+    <div>Exponentielle: {{2 | exponential: 2}}</div>
+    ```
 
 ## 03. User component Lifecycle Hooks
 -------------------------------------
@@ -214,20 +215,53 @@ Would you like to add Angular routing? N
     ```
 - Constructor:
     ```typescript
+     // path: src/app/user/user.component.ts
+
     constructor () {
         // Est appelé lorsque Angular crée un composant en appelant new de la classe.
     }
     ```
 - OnChanges:
     ```typescript
+    // path: src/app/app.component.ts
+
+    dates = [new Date().getTime()];
+    addDate() {
+        this.dates.push(new Date().getTime()); // Default Change Detection Strategy
+    }
+    ```
+    ```html
+    <!-- path: src/app/app.component.html -->
+
+    <button type="button" (click)="addDate()">Click to add date</button>
+    <app-user [dates]="dates"></app-user>
+    ```
+    ```typescript
+    // path: src/app/user/user.component.ts
+
+    @Component({
+        ...,
+        changeDetection: ChangeDetectionStrategy.Default
+    })
+
     // Appelé à chaque fois qu'il y a un changement dans l'une des propriétés d'entrée (@Input) du composant.
     // SimpleChanges permet de voir quelles propriétés d'entrée ont changé (si nous en avons plusieurs) et quelles sont les valeurs précédentes et actuelles.
+    @Input() dates;
     ngOnChanges(changes: SimpleChanges) {
-        console.log('---> OnChanges Can\'t fire here <---');
+        console.log('---> OnChanges fires here <---');
     }
+    ```
+    ```html
+    <!-- path: src/app/user/user.component.html -->
+
+    <ul>
+        <li *ngFor="let dt of dates">{{ dt }}</li>
+    </ul>
     ```
 - OnInit:
     ```typescript
+     // path: src/app/user/user.component.ts
+
     ngOnInit() {
         // Invoqué lorsque le composant donné a été initialisé.
         // Ce hook n'est appelé qu'une fois après le premier ngOnChanges
@@ -236,14 +270,39 @@ Would you like to add Angular routing? N
     ```
 - DoCheck:
     ```typescript
+    // path: src/app/app.component.ts
+
+    dates = [new Date().getTime()];
+    addDate() {
+        // OnPush fonctionne en comparant les références des entrées des composants
+        // Jusqu'à ce que nous fournissions la référence d'un nouvel objet au lieu d'un objet existant coupé, le détecteur de changement ne se déclenchera pas.
+        // this.dates.push(new Date().getTime()); // Default Change Detection Strategy ---> rien ne se passe
+        this.dates = this.dates.concat(new Date().getTime()); // OnPush Change Detection Strategy
+    }
+    ```
+    ```typescript
+    // path: src/app/user/user.component.ts
+
+    @Component({
+        ...,
+        changeDetection: ChangeDetectionStrategy.OnPush
+    })
+
+    constructor(
+        ...,
+        private cd: ChangeDetectorRef
+    ) { }
+
     ngDoCheck() {
-        // Utilisé pour détecter manuellement les modificationsla stratégie de "Change Detection" est OnPush et non par défaut.
-        // Cela nous permet de mettre en œuvre notre propre algorithme de détection de changement pour le composant donné.
+        // Ici, on peut grace au ChangeDetectorRef, declencher manuellement la detection du changement quand il s'agit d'une transformation et non d'une création d'un nouvelle référence de la structure de donnée en entrée
         console.log('---> DoCheck fires <---');
+        this.cd.markForCheck();
     }
     ```
 - AfterViewInit, Renderer, ViewChild (HTML input auto-focus):
     ```typescript
+     // path: src/app/user/user.component.ts
+
     @ViewChild('input') input;
 
     constructor(private renderer: Renderer) { }
@@ -263,6 +322,8 @@ Would you like to add Angular routing? N
     ```
 - AfterViewChecked:
     ```typescript
+     // path: src/app/user/user.component.ts
+
     ngAfterViewChecked() {
         // Appelé à chaque fois que la vue du composant donné a été vérifiée par le mécanisme Change Detection d'Angular.
         console.log('---> AfterViewChecked fires <---');
@@ -270,6 +331,8 @@ Would you like to add Angular routing? N
     ```
 - OnDestroy:
     ```typescript
+     // path: src/app/user/user.component.ts
+
     ngOnDestroy() {
         // Il est appelé pour nettoyer la logique d'un composant (events, abonnements, timers..), juste avant que ce dernier ne soit détruit.
         console.log('---> OnDestroy fires <---');
@@ -606,7 +669,7 @@ Would you like to add Angular routing? N
         // path: src/app/user/user-detail/user-detail.component.ts
 
         @Input() user: User;
-        @Input('avatar') image: User;
+        @Input('avatar') image: string;
 
         constructor() { }
         ...
@@ -3262,7 +3325,7 @@ Une application Angular se compose principalement de Components et de leurs Temp
     ```
     - Rendu plus rapide: le navigateur télécharge une version précompilée de l'application, puis exécute directement sans attendre la compilation
     - Moins de requêtes asynchrones: l'HTML et les CSS sont integrés dans le JavaScript, éliminant les requêtes ajax séparées pour charger ces ressources
-    - La taille baisse: il n'est plus necéssaire de charger le compilateur Angular par le navigateur car l'application est compliée (le compilateur c'est 50% de d'Angular)
+    - La taille baisse: il n'est plus necéssaire de charger le compilateur Angular par le navigateur car l'application est compliée (le compilateur c'est 50% d'Angular)
     - AOT détecte et signale les erreurs de binding Template/Component lors de la génération avant de les voir dans la console du navigateur.
 
 ### Build

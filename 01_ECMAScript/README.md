@@ -76,8 +76,8 @@ Pour résoudre ces problemes d'implémentations.
 
 ## Module bundlers
 * Ils font la même chose que les Module loaders (gérer et charger des modules interdépendants), mais pendant la construction de l'application avant l'exécution.
-* Au lieu de charger les dépendances telles qu'elles définient dans le code, un bundler assemble tous les modules en un seul fichier (un bundle) avant l'exécution.
-* Les Module loaders les plus populaires sont Webpack et Browserify.
+* Au lieu de charger les dépendances telles qu'elles sont définient dans le code, un bundler assemble tous les modules en un seul fichier (un bundle) avant l'exécution.
+* Les Module bundlers les plus populaires sont Webpack et Browserify.
 
 ## Quand utiliser quoi?
 * Le choix dépend de la structure et de la taille de l'application

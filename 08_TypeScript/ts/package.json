@@ -11,6 +11,7 @@
     "license": "ISC",
     "devDependencies": {
         "@types/jquery": "^3.3.29",
+        "jquery": "^3.3.1",
         "scroll-to": "0.0.2",
         "typescript": "^2.7.2"
     }

@@ -54,7 +54,7 @@
 //     }
 // }
 // class ChildObj extends Obj {}
-// var obj = new Obj();
+// let obj = new Obj();
 // obj.show();
 // //#endregion
 
@@ -85,15 +85,15 @@
 // //#endregion
 
 
-// // -----------------------------------------
-// //#region promises
-// function timer(duration = 1000) {
-//     return new Promise((resolve, reject) => {
-//         // setTimeout(() => resolve('fin du timeout avec succes'), duration);
-//         // setTimeout(() => reject('une erreur s\'est produite'), duration);
-//     });
-// }
-// timer(500)
-//     .then(msg => console.log(msg))
-//     .catch(err => console.error(err));
-// // #endregion
+// -----------------------------------------
+//#region promises
+function timer(duration = 1000) {
+    return new Promise((resolve, reject) => {
+        // setTimeout(() => resolve('fin du timeout avec succes'), duration);
+        // setTimeout(() => reject('une erreur s\'est produite'), duration);
+    });
+}
+timer(500)
+    .then(msg => console.log(msg))
+    .catch(err => console.error(err));
+// #endregion

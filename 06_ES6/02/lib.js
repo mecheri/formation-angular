@@ -9,15 +9,15 @@ export function diag(x, y) {
 //#endregion
 
 //#region default exports: function
-// export default function() {
-//     console.log('Hello from exported function');
-// }
+export default function() {
+    console.log('Hello from exported function');
+}
 //#endregion
 
 //#region default exports: class
-// export default class {
-//     constructor() {
-//         console.log('Hello from exported class');
-//     }
-// }
+export default class {
+    constructor() {
+        console.log('Hello from exported class');
+    }
+}
 //#endregion

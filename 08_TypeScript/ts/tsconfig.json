@@ -9,6 +9,6 @@
     },
     "files": [
         "./main.ts",
-        // "./scrollto.d.ts"
+        "./scrollto.d.ts"
     ]
 }
