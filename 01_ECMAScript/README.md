@@ -13,8 +13,9 @@ Version  | Description
 1999 ECMAScript 3 | RegEx et try/catch
 ECMAScript 4	  | Annulée
 2009 ECMAScript 5 | "strict mode" et support JSON.
-2015 ECMAScript 6 | Fonctions Flêchées, Classes, Modules --> une vraie révolution du Javascript
+2015 ECMAScript 6 | Fonctions Flêchées, Classes, Modules, ... --> une vraie révolution du Javascript
 2016 ECMAScript 7 | Exponential operator (**), Array.prototype.includes
+ESnext (en cours de dev) | Async/await, opérateur de binding, décorateurs, observable, attributs d'instances publics et privés
 
 ## Support navigateurs
 Version  | Support
@@ -39,16 +40,13 @@ Pour résoudre ces problemes d'implémentations.
     ```javascript
     // Fonction constructeur d'objet
     // "this" représente l'objet qui possède le code
-    function User(first, last, email) {
+    function User(first, last) {
         this.firstName = first;
         this.lastName = last;
     }
 
     // Création de l'instance
     var user = new User("Léo", "Messi");
-
-    // Ajout d'une Propriété à l'instance de l'objet
-    user.email = "leo.messi@barca.es";
 
     // Ajout d'une propriété à un constructeur existant --> Impossible
     User.nationalite = "Français";
@@ -57,7 +55,7 @@ Pour résoudre ces problemes d'implémentations.
     User.prototype.nationalite = "Français";
 
     // On peut ajouter aussi des fonction
-    User.prototype.name = function() {
+    User.prototype.fullName = function() {
         return this.firstName + " " + this.lastName;
     };
     ```

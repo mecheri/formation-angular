@@ -3,12 +3,13 @@
 // Le fichier tsconfig.json spécifie les fichiers racine et les options de compilation requises pour compiler le projet.
 {
     "compilerOptions": {
+        "outDir": "./out",
         "target": "es5",
         "pretty": true,
         "experimentalDecorators": true
     },
     "files": [
         "./main.ts",
-        "./scrollto.d.ts"
+        "types/scrollto.d.ts"
     ]
 }

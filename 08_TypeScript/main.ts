@@ -1,11 +1,11 @@
-//-----------------------------------------
+// //-----------------------------------------
 // // #region Inference
 // let test: number = 145;
 // console.log(test);
 // // #endregion
 
 
-//-----------------------------------------
+// //-----------------------------------------
 // //#region enums
 // enum DIRECTIONS {
 //     UP,
@@ -18,7 +18,7 @@
 // //#endregion
 
 
-//-----------------------------------------
+// //-----------------------------------------
 // //#region functions
 // function isPair(x: number): boolean {
 //     return x % 2 === 0;
@@ -54,15 +54,13 @@
 // //#endregion
 
 
-//-----------------------------------------
+// //-----------------------------------------
 // //#region classes
 // class Demo {
 //     public a;
 //     protected b;
 //     private c;
-
 //     constructor() { }
-
 //     static demo() {
 //         return 'coucou';
 //     }
@@ -74,8 +72,8 @@
 // //#endregion
 
 
-//-----------------------------------------
-//#region interfaces
+// //-----------------------------------------
+// //#region interfaces
 // // definir la structure d'un objet que l'on passe en parametre
 // interface IDemo {
 //     x: number;
@@ -99,7 +97,7 @@
 // //#endregion
 
 
-//-----------------------------------------
+// //-----------------------------------------
 // //#region namespaces
 // // fournit une self invoking function
 // // pas indispensable si on travail avec les modules
@@ -113,7 +111,7 @@
 // //#endregion
 
 
-//-----------------------------------------
+// //-----------------------------------------
 // //#region modules (dependencies)
 // import Lib from './lib';
 // let lib = new Lib();
@@ -121,7 +119,7 @@
 // //#endregion
 
 
-//-----------------------------------------
+// //-----------------------------------------
 // //#region decorators
 // // Les décorateurs permettent d'ajouter des annotations
 // // Une syntaxe de méta-programmation pour les déclarations de classe et les membres.
@@ -147,12 +145,12 @@
 // //#endregion
 
 
-//-----------------------------------------
-//#region vendors
-// importer une librairie tierce de nodeJS
-// typescript ne connais pas la librairie (module) scroll-to
-// il faut un fichier de declaration de type qui decrit comment fonctionne un module
-// npm install --save-dev scroll-to
+// //-----------------------------------------
+// //#region vendors
+// // Importer une librairie tierce de nodeJS ?
+// // Typescript ne connais pas la librairie (module) scroll-to
+// // il faut un fichier de declaration de type qui decrit comment fonctionne un module
+// // npm install --save-dev scroll-to
 // import scrollTo from 'scroll-to';
 // scrollTo(500, 1200, {
 //     ease: 'out-bounce',

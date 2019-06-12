@@ -1,14 +1,9 @@
 {
     "name": "amd",
     "version": "1.0.0",
-    "description": "",
-    "main": "main.js",
     "scripts": {
-        "webpack": "webpack ./js/main.js ./main.bundle.js"
+        "webpack": "webpack ./main.js ./main.bundle.js"
     },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
     "devDependencies": {
         "webpack": "^3.8.1"
     }

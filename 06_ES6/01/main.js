@@ -79,21 +79,21 @@
 
 // //-----------------------------------------
 // //#region backquote
-// let a = "Mehdi"
+// let a = "à tous"
 // let b = `Salut ${a}`;
 // console.log(b);
 // //#endregion
 
 
-// -----------------------------------------
-//#region promises
-function timer(duration = 1000) {
-    return new Promise((resolve, reject) => {
-        // setTimeout(() => resolve('fin du timeout avec succes'), duration);
-        // setTimeout(() => reject('une erreur s\'est produite'), duration);
-    });
-}
-timer(500)
-    .then(msg => console.log(msg))
-    .catch(err => console.error(err));
-// #endregion
+// // -----------------------------------------
+// //#region promises
+// function timer(duration = 1000) {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => resolve('fin du timeout avec succes'), duration);
+//         setTimeout(() => reject('une erreur s\'est produite'), duration);
+//     });
+// }
+// timer(500)
+//     .then(msg => console.log(msg))
+//     .catch(err => console.error(err));
+// // #endregion

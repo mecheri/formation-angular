@@ -3,5 +3,5 @@
 
 # ES6 <=> ES2015
 * Pour satisfaire les utilisateurs de CommonJS et AMD
-    - Similaire à CommonJS, avec une syntaxe compacte
+    - Similaire à CommonJS, avec une syntaxe déclarative et compacte
     - Similaire à AMD, ils supportent directement le chargement asynchrone

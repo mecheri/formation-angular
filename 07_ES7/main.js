@@ -6,5 +6,5 @@ console.log(array.includes(2));
 
 //#region Exponentiation operator
 let result = 3 ** 4;
-console.log(result); //81
+console.log(result); // 81
 //#endregion
