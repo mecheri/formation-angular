@@ -31,11 +31,11 @@
  npm install -g @angular/cli
 
  # if already installed
- npm uninstall -g angular-cli
+ npm uninstall -g @angular/cli
  npm cache verify
- npm install -g @angular/cli@latest
+ npm install -g @angular/cli@8.0.0
  ```
-## 00. Generating an Angular project
+## 00. [Step01] Generating an Angular project
 ------------------------------------
 ```bash
 ng new MY-PROJECT-NAME --style=scss
@@ -43,14 +43,15 @@ ng new MY-PROJECT-NAME --style=scss
 Would you like to add Angular routing? N
 ```
 
-## 01. Initial configuration (Packages / Styles / Fonts)
+## 01. [Step02] Initial configuration (Packages / Styles / Fonts)
 --------------------------------------------------------
-- Copy formation-angular/resources/sass directory to /src
+- Remove src/styles.scss file
+- Copy formation-angular/resources/styles directory to /src
 - Copy formation-angular/resources/fonts directory to /src/assets
 - Set up this as styles property in angular.json file:
     ```javascript
     "styles": [
-        "src/sass/app.scss"
+        "src/styles/app.scss"
     ],
     ```
 - Install ngx-materialize:
@@ -59,11 +60,11 @@ Would you like to add Angular routing? N
     ```
 - Install jquery and it's types
     ```bash
-    npm install --save jquery @types/jquery
+    npm install --save jquery
     ```
 - Install primeng and it's icons
     ```bash
-    npm install --save primeng@6.1.0 primeicons
+    npm install --save primeng primeicons
     ```
 - Set this as scripts property in angular.json file:
     ```javascript
@@ -73,13 +74,13 @@ Would you like to add Angular routing? N
     ]
     ```
 
-## 02. User component
+## 02. [Step03] User component
 --------------------------------------------------------
 - Generate UserComponent
     ```bash
     ng generate component user
     ```
-- Clean the AppComponent template
+- Update the AppComponent template
     ```html
     <!-- path: src/app/app.component.html -->
 
@@ -92,7 +93,7 @@ Would you like to add Angular routing? N
 
     <app-user></app-user>
     ```
-- Create User class:
+- Create User Model class:
     ```bash
     ng generate class user/user
     ```
@@ -110,7 +111,7 @@ Would you like to add Angular routing? N
     }
     ```
 - Display the user object:
-        ```typescript
+    ```typescript
     // path: src/app/user/user.component.ts
 
     user: User = {
@@ -123,7 +124,7 @@ Would you like to add Angular routing? N
         birthdate: new Date(2018, 5, 22)
     };
     dateFormat = "MM/dd/yy";
-    image = 'https://assets-cdn.github.com/images/icons/emoji/unicode/1f471.png?v8';
+    image = 'https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f471-1f3fb.png';
     ```
     ```html
     <!-- path: src/app/user/user.component.ts -->
@@ -174,7 +175,7 @@ Would you like to add Angular routing? N
     <div>Exponentielle: {{2 | exponential: 2}}</div>
     ```
 
-## 03. User component Lifecycle Hooks
+## 03. [Step04] User component's Lifecycle Hooks
 -------------------------------------
 - Remove exponential.pipe.ts and exponential.pipe.spec.ts files
 - Clean the UserComponent template:
@@ -213,7 +214,7 @@ Would you like to add Angular routing? N
 
     ...
     ```
-- Constructor:
+- Constructor
     ```typescript
      // path: src/app/user/user.component.ts
 
@@ -221,13 +222,17 @@ Would you like to add Angular routing? N
         // Est appelé lorsque Angular crée un composant en appelant new de la classe.
     }
     ```
-- OnChanges:
+- OnChanges
     ```typescript
     // path: src/app/app.component.ts
 
     dates = [new Date().getTime()];
     addDate() {
-        this.dates.push(new Date().getTime()); // Default Change Detection Strategy
+        // Transformation d'objet => Angular ne detectera pas de changements
+        this.dates.push(new Date().getTime()); 
+        // OU
+        // Nouvelle référence d'objet => Angular detectera le changement
+        this.dates = this.dates.concat(new Date().getTime()); 
     }
     ```
     ```html
@@ -244,11 +249,11 @@ Would you like to add Angular routing? N
         changeDetection: ChangeDetectionStrategy.Default
     })
 
-    // Appelé à chaque fois qu'il y a un changement dans l'une des propriétés d'entrée (@Input) du composant.
-    // SimpleChanges permet de voir quelles propriétés d'entrée ont changé (si nous en avons plusieurs) et quelles sont les valeurs précédentes et actuelles.
     @Input() dates;
     ngOnChanges(changes: SimpleChanges) {
-        console.log('---> OnChanges fires here <---');
+        // Appelé à chaque fois qu'il y a un changement dans l'une des propriétés d'entrée (@Input) du composant.
+        // SimpleChanges permet de voir quelles propriétés d'entrée ont changé (si nous en avons plusieurs)et quelles sont les valeurs précédentes et actuelles.
+        console.log('---> OnChanges fires here <---', changes);
     }
     ```
     ```html
@@ -258,7 +263,7 @@ Would you like to add Angular routing? N
         <li *ngFor="let dt of dates">{{ dt }}</li>
     </ul>
     ```
-- OnInit:
+- OnInit
     ```typescript
      // path: src/app/user/user.component.ts
 
@@ -268,16 +273,15 @@ Would you like to add Angular routing? N
         console.log('---> OnInit fires <---');
     }
     ```
-- DoCheck:
+- DoCheck
     ```typescript
     // path: src/app/app.component.ts
 
     dates = [new Date().getTime()];
     addDate() {
         // OnPush fonctionne en comparant les références des entrées des composants
-        // Jusqu'à ce que nous fournissions la référence d'un nouvel objet au lieu d'un objet existant coupé, le détecteur de changement ne se déclenchera pas.
-        // this.dates.push(new Date().getTime()); // Default Change Detection Strategy ---> rien ne se passe
-        this.dates = this.dates.concat(new Date().getTime()); // OnPush Change Detection Strategy
+        // Jusqu'à ce que nous fournissions la référence d'un nouvel objet au lieu d'un objet existant, le détecteur de changement ne se déclenchera pas.
+        this.dates.push(new Date().getTime());
     }
     ```
     ```typescript
@@ -285,6 +289,7 @@ Would you like to add Angular routing? N
 
     @Component({
         ...,
+        // Avec OnPush Strategy on force manuellement angular à detecter le changement
         changeDetection: ChangeDetectionStrategy.OnPush
     })
 
@@ -294,18 +299,21 @@ Would you like to add Angular routing? N
     ) { }
 
     ngDoCheck() {
-        // Ici, on peut grace au ChangeDetectorRef, declencher manuellement la detection du changement quand il s'agit d'une transformation et non d'une création d'un nouvelle référence de la structure de donnée en entrée
-        console.log('---> DoCheck fires <---');
+        // Grace au ChangeDetectorRef, on peut declencher manuellement la detection du changement quand il s'agit d'une transformation et non d'une création d'un nouvelle référence de la structure de donnée en entrée
         this.cd.markForCheck();
+        console.log('---> DoCheck fires <---', this.dates);
     }
     ```
-- AfterViewInit, Renderer, ViewChild (HTML input auto-focus):
+- AfterViewInit, Renderer, ViewChild (HTML input auto-focus)
     ```typescript
      // path: src/app/user/user.component.ts
 
-    @ViewChild('input') input;
+    @ViewChild('input', null) input;
 
-    constructor(private renderer: Renderer) { }
+    constructor(
+        ...,
+        private renderer: Renderer
+    ) { }
 
     ngAfterViewInit() {
         // Appelé lorsque la vue du composant a été complètement initialisée
@@ -320,7 +328,7 @@ Would you like to add Angular routing? N
         <input #input type="text" placeholder="Test input for auto-focus">
     </div>
     ```
-- AfterViewChecked:
+- AfterViewChecked
     ```typescript
      // path: src/app/user/user.component.ts
 
@@ -329,7 +337,7 @@ Would you like to add Angular routing? N
         console.log('---> AfterViewChecked fires <---');
     }
     ```
-- OnDestroy:
+- OnDestroy
     ```typescript
      // path: src/app/user/user.component.ts
 
@@ -339,7 +347,7 @@ Would you like to add Angular routing? N
     }
     ```
 
-## 04. User editor
+## 04. [Step05] User editor
 ------------------
 - Replace UserComponent template content by the following:
     ```html
@@ -377,9 +385,37 @@ Would you like to add Angular routing? N
         ...
     })
     ```
+- Clean AppComponent class:
+    ```typescript
+    // path: src/app/app.component.ts
+
+    import { Component } from '@angular/core';
+
+    @Component({
+        selector: 'app-root',
+        templateUrl: './app.component.html',
+        styleUrls: ['./app.component.scss']
+    })
+    export class AppComponent {
+      title = 'Step05';
+    }
+    ```
+- Clean AppComponent template:
+    ```html
+    <!-- path: src/app/app.component.html -->
+
+    <div style="text-align:center">
+        <h1>
+            Welcome to {{ title }}!
+        </h1>
+        <img width="100" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+    </div>
+
+    <app-user></app-user>
+    ```
 - Two-way binding
 
-## 05. Display a List of users
+## 05. [Step06] Display a list of users
 ------------------------------
 - Clean the UserComponent class:
     ```typescript
@@ -394,7 +430,7 @@ Would you like to add Angular routing? N
         styleUrls: ['./user.component.scss']
     })
     export class UserComponent implements OnInit {
-        image = 'https://assets-cdn.github.com/images/icons/emoji/unicode/1f471.png?v8';
+        image = 'https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f471-1f3fb.png';
 
         constructor() { }
 
@@ -484,7 +520,7 @@ Would you like to add Angular routing? N
             </ul>
         </div>
         <div class="col m8">
-            <!-- TODO: Display user detail on select one -->
+            <!-- TODO: Display selected user -->
         </div>
     </div>
     ```
@@ -509,7 +545,7 @@ Would you like to add Angular routing? N
     <!-- path: src/app/user/user.component.html -->
 
     <div class="col m8">
-        <!-- TODO: Display user detail on select one -->
+        <!-- TODO: Display selected user -->
         <br>
         <img width="100" alt="property as one-way binding" [src]="image">
         <h2>{{ selectedUser.firstname }} {{ selectedUser.lastname }} Details : </h2>
@@ -603,7 +639,7 @@ Would you like to add Angular routing? N
         }
         ```
         ```html
-        <!-- path: src/app/user.component.html -->
+        <!-- path: src/app/user/user.component.html -->
 
         <input type="text" [(ngModel)]="selectedUser.firstname" [appInputMaxLength]="30">
         ```

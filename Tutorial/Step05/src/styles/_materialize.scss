@@ -1,0 +1,21 @@
+@import '~materialize-css/dist/css/materialize.min.css';
+@import './../assets/fonts/material-icons/material-icons.css';
+
+nav {
+    ul {
+        a {
+            &:hover {
+                color: #fff;
+            }
+        }
+    }
+}
+button {
+    margin-right: 5px;
+}
+
+.card-panel {
+    &.red {
+        color: #fff;
+    }
+}

@@ -1,0 +1,15 @@
+<div style="text-align:center">
+    <img width="100" alt="property as one-way binding" [src]="image">
+    <h2>{{ user.firstname }} {{ user.lastname }} Details : </h2>
+    <div><span>id: </span>{{user.id}}</div>
+    <div><span>email: </span>{{user.email}}</div>
+    <div><span>birth date: </span>{{user.birthdate}}</div>
+
+    <ul>
+        <li *ngFor="let date of dates">{{ date }}</li>
+    </ul>
+
+    <div style="margin: 2% 5% 0 5%;display:inline-block;">
+        <input #input type="text" placeholder="Test input for auto-focus">
+    </div>
+</div>
