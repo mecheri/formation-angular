@@ -644,7 +644,7 @@ Would you like to add Angular routing? N
         <input type="text" [(ngModel)]="selectedUser.firstname" [appInputMaxLength]="30">
         ```
 
-## 06. User detail component (child component)
+## 06. [Step07] User detail component (child component)
 ----------------------------------------------
 - Clean the UserComponent template
     ```html
@@ -719,7 +719,7 @@ Would you like to add Angular routing? N
         ```typescript
         // path: src/app/user/user.component.ts
 
-        image2 = '               https://assets-cdn.github.com/images/icons/emoji/unicode/1f471.png?v8';
+        image2 = '               https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f471-1f3fb.png';
         ```
         ```html
         <!-- path: src/app/user/user.component.html -->
@@ -807,7 +807,7 @@ Would you like to add Angular routing? N
         ```typescript
         // path: src/app/user/user.component.ts
 
-        @ViewChild(UserDetailComponent) ud: UserDetailComponent;
+        @ViewChild(UserDetailComponent, null) ud: UserDetailComponent;
         // Update existing function onSelect
         onSelect(user: User): void {
             this.selectedUser = user;
@@ -857,12 +857,18 @@ Would you like to add Angular routing? N
 
         import { Interaction07Service } from '../interaction07.service';
 
+        subscription: Subscription;
         constructor(private service: Interaction07Service) {
-            service.broadcastChildStream$.subscribe((dataFromChild) => console.log(dataFromChild));
+            this.subscription= service.broadcastChildStream$.subscribe((dataFromChild) => console.log(dataFromChild));
         }
 
         broadcastParent() {
             this.service.broadcastParent('Hello from parent');
+        }
+
+        ngOnDestroy() {
+            // do no forget to implement OnDestroy interface
+            this.subscription.unsubscribe(); // prevent memory leak
         }
         ```
         ```html

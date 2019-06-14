@@ -1,0 +1,11 @@
+<img width="100" alt="property as one-way binding" [src]="image">
+<img width="100" alt="property as one-way binding" [src]="image2">
+<h2>{{ user.firstname }} {{ user.lastname }} Details : </h2>
+<div><span>id: </span>{{user.id}}</div>
+<input type="text" [(ngModel)]="user.firstname" [appInputMaxLength]="30">
+<input type="text" [(ngModel)]="user.lastname">
+<input type="text" [(ngModel)]="user.email">
+
+<button (click)="action('Hello from User-detail-component @Output')">Hello</button>
+
+<button (click)="broadcastChild()">BROADCAST CHILD</button>
