@@ -1,0 +1,23 @@
+<p-dialog header="Delete user" [(visible)]="display" [modal]="true" width="400">
+    <div class="row">
+        <mz-input-container class="col s12 m12">
+            <input mz-input id="username" type="text" [(ngModel)]="user.username" [label]="'User name'" disabled/>
+        </mz-input-container>
+        <mz-input-container class="col s12 m12">
+            <input mz-input id="password" type="password" [(ngModel)]="user.password" [label]="'Password'" disabled/>
+        </mz-input-container>
+        <mz-input-container class="col s12 m12">
+            <input mz-input id="email" [(ngModel)]="user.email" [label]="'Email'" disabled/>
+        </mz-input-container>
+        <mz-input-container class="col s12 m12">
+            <input mz-input id="firstname" [(ngModel)]="user.firstname" [label]="'First name'" disabled/>
+        </mz-input-container>
+        <mz-input-container class="col s12 m12">
+            <input mz-input id="lastname" [(ngModel)]="user.lastname" [label]="'Last name'" disabled/>
+        </mz-input-container>
+    </div>
+    <p-footer>
+        <button mz-button class="blue-grey lighten-1" (click)="cancel()" type="button">CANCEL</button>
+        <button mz-button class="red" (click)="delete()">DELETE</button>
+    </p-footer>
+</p-dialog>

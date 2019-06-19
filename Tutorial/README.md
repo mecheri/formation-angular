@@ -2391,7 +2391,7 @@ Would you like to add Angular routing? N
 
     <notifier-container></notifier-container>
     ```
-## 11. CoreModule
+## 11. [Step12] CoreModule
 -----------------
 - Generate CoreModule
     ```bash
@@ -2455,31 +2455,13 @@ Would you like to add Angular routing? N
     })
     export class AppModule { }
     ```
-- Create "resources" directory under /src and copy in it following files
+- Create "resources" directory under /src/assets and copy in it following files
     * formation-angular/resources/settings.hjson
-    * formation-angular/resources/resources.fr.hjson
+    * formation-angular/resources/resources.hjson
+    
 - Install hjson package:
     ```bash
     npm install --save hjson os
-    ```
-- Update assets array property in angular.json file:
-    ```json
-    // path: angular.json
-
-    "assets": [
-        "src/favicon.ico",
-        "src/assets",
-        "src/resources"
-    ],
-    ```
-- Add locale property to app environment files
-    ```typescript
-    // path: src/environments/**.ts
-
-    export const environment = {
-        ...
-        locale: 'fr-FR',
-    };
     ```
 - Inject SettingsService into UserService and Update HTTP calls
     ```typescript
@@ -2491,7 +2473,6 @@ Would you like to add Angular routing? N
     ) { }
 
     getUsers(): Observable<User[]> {
-        // return of(USERS);
         return this.http
         .get(`${this.settingsService.config.apiUrl}/api/User`)
         .pipe(
@@ -2501,7 +2482,6 @@ Would you like to add Angular routing? N
     }
 
     getUser(id: number): Observable<User> {
-        // return of(USERS.find(user => user.id === id));
         return this.http
         .get(`${this.settingsService.config.apiUrl}/api/User/${id}`)
         .pipe(
@@ -2528,7 +2508,7 @@ Would you like to add Angular routing? N
         .pipe(catchError(this.handleError))
     }
     ```
-## 12. SharedModule
+## 12. [Step13] SharedModule
 -------------------
 - Generate SharedModule
     ```bash

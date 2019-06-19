@@ -1,0 +1,23 @@
+<p-breadcrumb [model]="bcItems"></p-breadcrumb>
+<h2>User Edit : </h2>
+<form *ngIf="user" [formGroup]="editForm" (ngSubmit)="save()" novalidate>
+    <div class="row">
+        <mz-input-container class="col s12 m12">
+            <input mz-input mz-validation required id="username" formControlName="username" type="text" [errorMessageResource]="validation.username" [label]="'User name'" [placeholder]="'User name'" />
+        </mz-input-container>
+        <mz-input-container class="col s12 m12">
+            <input mz-input mz-validation required id="password" formControlName="password" type="password" [errorMessageResource]="validation.password" [label]="'Password'" [placeholder]="'Password'" />
+        </mz-input-container>
+        <mz-input-container class="col s12 m12">
+            <input mz-input mz-validation required id="email" formControlName="email" type="text" [errorMessageResource]="validation.email" [label]="'Email'" [placeholder]="'Email'" />
+        </mz-input-container>
+        <mz-input-container class="col s12 m12">
+            <input mz-input mz-validation required id="firstname" formControlName="firstname" type="text" [errorMessageResource]="validation.firstname" [label]="'First name'" [placeholder]="'First name'" />
+        </mz-input-container>
+        <mz-input-container class="col s12 m12">
+            <input mz-input mz-validation required id="lastname" formControlName="lastname" type="text" [errorMessageResource]="validation.lastname" [label]="'Last name'" [placeholder]="'Last name'" />
+        </mz-input-container>
+    </div>
+    <button mz-button class="blue-grey lighten-1" (click)="cancel()" type="button">CANCEL</button>
+    <button mz-button [disabled]="!editForm.valid" type="submit">SAVE</button>
+</form>
