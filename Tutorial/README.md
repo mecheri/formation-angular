@@ -58,13 +58,17 @@ Would you like to add Angular routing? N
     ```bash
     npm install --save ngx-materialize
     ```
-- Install jquery and it's types
+- Install jquery (ngx-materialize needs jquery)
     ```bash
     npm install --save jquery
     ```
 - Install primeng and it's icons
     ```bash
     npm install --save primeng primeicons
+    ```
+- Install @angular/cdk (Component Dev Kit: Angular Material Abstraction used by primeng) 
+    ```bash
+    npm --save install @angular/cdk
     ```
 - Set this as scripts property in angular.json file:
     ```javascript
@@ -1208,13 +1212,13 @@ Would you like to add Angular routing? N
 
 - RxJS API demo
 
-## 08. Routing
+## 08. [Step09] Routing
 --------------
 - Generate AppRoutingModule
     ```bash
     ng generate module app-routing --flat
     ```
-- Clean AppRoutingModule & Export RouterModule
+- Update AppRoutingModule and export RouterModule
     ```typescript
     // path: src/app/app-routing.module.ts
 
@@ -1229,11 +1233,11 @@ Would you like to add Angular routing? N
     })
     export class AppRoutingModule { }
     ```
-- Generate HomeComponent
+- Generate Home Component
     ```bash
     ng generate component home
     ```
-- Add routes for user, userDetail and home components
+- Add routes for User, UserDetail and Home components
     ```typescript
     // path: src/app/app-routing.module.ts
 
@@ -1269,7 +1273,7 @@ Would you like to add Angular routing? N
         ...
     ];
     ```
-- Move AppComponent template content to HomeComponent template and <strong>remove UserComponent html tag</strong>
+- Void AppComponent template by moving it's content to HomeComponent template and <strong>remove UserComponent html tag</strong>
     ```html
     <!-- path: src/app/home/home.component.html -->
 
@@ -1406,7 +1410,7 @@ Would you like to add Angular routing? N
         TableModule,
         BreadcrumbModule,
         DialogModule
-    ],
+    ]
     ```
 - Import BrowserAnimationsModule
     ```typescript
@@ -1420,6 +1424,66 @@ Would you like to add Angular routing? N
         ...
     ],
     ```
+
+- Clean UserService
+    ```typescript
+    // path: src/app/user/user.service.ts
+
+    import { Injectable } from '@angular/core';
+    import { Observable, of } from 'rxjs';
+    import { User } from './user';
+
+    export const USERS: User[] = [
+        {
+            id: 1,
+            username: 'test',
+            password: 'pa$$word',
+            email: 'mehdi.mecheri@viveris.fr',
+            firstname: 'Mehdi',
+            lastname: 'Mecheri',
+            birthdate: new Date(2018, 5, 22)
+        },
+        {
+            id: 2,
+            username: 'test',
+            password: 'pa$$word',
+            email: 'lionel.messi@barca.es',
+            firstname: 'Lionel',
+            lastname: 'Messi',
+            birthdate: new Date(2018, 5, 22)
+        },
+        {
+            id: 3,
+            username: 'test',
+            password: 'pa$$word',
+            email: 'cristiano.ronaldo@real.es',
+            firstname: 'Cristiano',
+            lastname: 'Ronaldo',
+            birthdate: new Date(2018, 5, 22)
+        },
+        {
+            id: 4,
+            username: 'test',
+            password: 'pa$$word',
+            email: 'neymar.jr@psg.fr',
+            firstname: 'Neymar',
+            lastname: 'JR',
+            birthdate: new Date(2018, 5, 22)
+        }
+    ];
+
+    @Injectable({
+        providedIn: 'root'
+    })
+    export class UserService {
+        constructor() { }
+
+        getUsers(): Observable<User[]> {
+            return of(USERS);
+        }
+    }
+    ```
+
 - Enhance and clean UserComponent with injected Router and primeng UI components (Table, Breadcrumb)
     ```typescript
     // path: src/app/user/user.component.ts
@@ -1512,65 +1576,7 @@ Would you like to add Angular routing? N
         </ng-template>
     </p-table>
     ```
-- Clean UserService
-    ```typescript
-    // path: src/app/user/user.service.ts
 
-    import { Injectable } from '@angular/core';
-    import { Observable, of } from 'rxjs';
-
-    import { User } from './user';
-
-    export const USERS: User[] = [
-        {
-            id: 1,
-            username: 'test',
-            password: 'pa$$word',
-            email: 'mehdi.mecheri@viveris.fr',
-            firstname: 'Mehdi',
-            lastname: 'Mecheri',
-            birthdate: new Date(2018, 5, 22)
-        },
-        {
-            id: 2,
-            username: 'test',
-            password: 'pa$$word',
-            email: 'lionel.messi@barca.es',
-            firstname: 'Lionel',
-            lastname: 'Messi',
-            birthdate: new Date(2018, 5, 22)
-        },
-        {
-            id: 3,
-            username: 'test',
-            password: 'pa$$word',
-            email: 'cristiano.ronaldo@real.es',
-            firstname: 'Cristiano',
-            lastname: 'Ronaldo',
-            birthdate: new Date(2018, 5, 22)
-        },
-        {
-            id: 4,
-            username: 'test',
-            password: 'pa$$word',
-            email: 'neymar.jr@psg.fr',
-            firstname: 'Neymar',
-            lastname: 'JR',
-            birthdate: new Date(2018, 5, 22)
-        }
-    ];
-
-    @Injectable({
-        providedIn: 'root'
-    })
-    export class UserService {
-        constructor() { }
-
-        getUsers(): Observable<User[]> {
-            return of(USERS);
-        }
-    }
-    ```
 - Navigate to the User detail -> nothing displayed !!! -> it's normal
 - Add function in UserService to get specific user by ID
     ```typescript
@@ -1623,15 +1629,15 @@ Would you like to add Angular routing? N
     <input type="text" [(ngModel)]="user.lastname">
     <input type="text" [(ngModel)]="user.email">
     ```
-## 09. User CRUD
+## 09. [Step10] User CRUD
 ----------------
-- Generate User new, edit and delete Components and its routes (ng generate component UserNew)
+- Generate User new, edit and delete Components and its routes
     ```bash
     ng generate component user/userNew
     ng generate component user/userEdit
     ng generate component user/userDelete
     ```
-- Add routes for newly generated components
+- Add routes for newly generated components (UserDeleteComponent is not concerned)
     ```typescript
     // path: src/app/app-routing.module.ts
 
@@ -1822,7 +1828,7 @@ Would you like to add Angular routing? N
             this.getUser();
         }
 
-        getUser(): void {
+        getUser() {
             const id = +this.route.snapshot.paramMap.get('id');
             this.userService.getUser(id)
             .subscribe(user => this.user = user);
