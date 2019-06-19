@@ -2104,9 +2104,9 @@ Would you like to add Angular routing? N
     }
     ```
 
-## 10. HttpClient
+## 10. [Step11] HttpClient
 -----------------
-- Enable Angular's HTTP services (HttpClientModule)
+- Enable Angular's HTTP module (HttpClientModule)
     ```typescript
     // path: src/app/app.module.ts
 
@@ -2116,12 +2116,6 @@ Would you like to add Angular routing? N
         ...
         HttpClientModule,
     ],
-    ```
-- Inject HttpClient into UserService and remove USERS Mocks table
-    ```typescript
-    // path: src/app/user/user.service.ts
-
-    constructor(private http: HttpClient) { }
     ```
 - HttpClient API examples
     ```typescript
@@ -2185,6 +2179,12 @@ Would you like to add Angular routing? N
 
     import { Observable, throwError } from 'rxjs';
     import { map, catchError } from 'rxjs/operators';
+    ```
+- Inject HttpClient into UserService and remove USERS Mocks table
+    ```typescript
+    // path: src/app/user/user.service.ts
+
+    constructor(private http: HttpClient) { }
     ```
 - Handle HTTP errors
     ```typescript
@@ -2259,7 +2259,7 @@ Would you like to add Angular routing? N
     ```bash
     npm install --save angular-notifier
     ```
-- Create new file src/sass/_notifier.scss to import newly installed notifier styles
+- Create new file src/styles/_notifier.scss to import newly installed notifier styles
     ```scss
     // path: src/sass/_notifier.scss
 
@@ -2274,9 +2274,8 @@ Would you like to add Angular routing? N
     ```scss
     // path: src/sass/app.scss
 
-    @import "_variables";
-    @import "_materialize";
-    @import "_primeng";
+    ...
+    ...
     @import "_notifier";
     @import "_custom";
     ```
@@ -2386,7 +2385,7 @@ Would you like to add Angular routing? N
         );
     }
     ```
-- Add angular-notifier HTML tag in AppComponent template
+- Add angular-notifier HTML tag in AppComponent template outside the RouterOutlet
     ```html
     <!-- path: src/app/app.component.html -->
 
