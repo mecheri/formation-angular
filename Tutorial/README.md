@@ -4,8 +4,8 @@
 - [Git](https://git-scm.com/)
  ```bash
  # git behind proxy
- git config --global http.proxy http://172.16.33.50:3128
- git config --global https.proxy http://172.16.33.50:3128
+ git config --global http.proxy http://proxy-host:port
+ git config --global https.proxy http://proxy-host:port
 
  # check the currently set proxy
  git config --global --get http.proxy
@@ -14,8 +14,8 @@
  - [Node.js](https://nodejs.org/)
  ```bash
  # npm behind proxy
- npm config set proxy http://172.16.33.50:3128
- npm config set https-proxy http://172.16.33.50:3128
+ npm config set proxy http://proxy-host:port
+ npm config set https-proxy http://proxy-host:port
  npm config set registry http://registry.npmjs.org/
  npm config set strict-ssl false
 
