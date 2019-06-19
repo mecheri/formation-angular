@@ -904,7 +904,7 @@ Would you like to add Angular routing? N
         <button (click)="broadcastChild()">BROADCAST CHILD</button>
         ```
 
-## 07. User service
+## 07. [Step08] User service
 -------------------
 - Clean Workspace
     * Remove custom Pipes, custom Directives and Interaction07Service
@@ -990,7 +990,7 @@ Would you like to add Angular routing? N
         users: User[];
         selectedUser: User;
 
-        image = 'https://assets-cdn.github.com/images/icons/emoji/unicode/1f471.png?v8';
+        image = 'https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f471-1f3fb.png';
 
         constructor() {}
 
@@ -1129,10 +1129,14 @@ Would you like to add Angular routing? N
 
     // path: src/app/user/user.component.ts
 
-    users: User[];
     ngOnInit() {
+        this.loadUsers();
+    }
+
+    loadUsers() {
         this.users = this.userService.getUsers();
     }
+
     ```
 
 - Load users asynchronously with Observables
@@ -1164,23 +1168,42 @@ Would you like to add Angular routing? N
 
     usersAsync: User[];
     ngOnInit() {
-        ...
+        this.loadUsers();
+        this.loadUsersAsync();
+    }
+
+    loadUsersAsync() {
         this.userService.getUsersAsync()
-            .subscribe(
-                (data: User[]) => this.usersAsync = data,
-                (error) => console.log(error)
-            );
+        .subscribe(
+            (data: User[]) => this.usersAsync = data,
+            (error) => console.log(error)
+        );
     }
     ```
     ```html
     <!-- path: src/app/user/user.component.html -->
 
+    <h2>Users</h2>
     <hr>
-    <ul>
-        <li *ngFor="let user of usersAsync" [class.active-line]="selectedUser && selectedUser.id === user.id" (click)="onSelect(user)">
-            <span>{{user.id}} - {{user.firstname}} {{user.lastname}}</span>
-        </li>
-    </ul>
+    <div class="row">
+        <div class="col m4">
+            <ul>
+                <li *ngFor="let user of users" [class.active-line]="selectedUser && selectedUser.id === user.id" (click)="onSelect(user)">
+                    <span>{{user.id}} - {{user.firstname}} {{user.lastname}} </span>
+                </li>
+                <hr>
+                <span *ngIf="!usersAsync">Waiting for usersAsync...</span>
+                <ul>
+                    <li *ngFor="let user of usersAsync" [class.active-line]="selectedUser && selectedUser.id === user.id" (click)="onSelect(user)">
+                        <span>{{user.id}} - {{user.firstname}} {{user.lastname}}</span>
+                    </li>
+                </ul>
+            </ul>
+        </div>
+        <div class="col m8" *ngIf="selectedUser">
+            <app-user-detail [user]="selectedUser" [avatar]="image"></app-user-detail>
+        </div>
+    </div>
     ```
 
 - RxJS API demo
