@@ -2564,7 +2564,7 @@ Would you like to add Angular routing? N
 
     <app-spinner></app-spinner>
     ```
-## 13. Feature Modules
+## 13. [Step14] Feature Modules
 ----------------------
 - Create "features" directory under src/app
 - Generate UserModule with routing
