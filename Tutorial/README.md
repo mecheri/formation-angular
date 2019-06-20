@@ -37,14 +37,21 @@
  ```
 ## 00. [Step01] Generating an Angular project
 ------------------------------------
+<details>
+  <summary>Click to expand!</summary>
+  
 ```bash
 ng new MY-PROJECT-NAME --style=scss
 
 Would you like to add Angular routing? N
 ```
+</details>
 
 ## 01. [Step02] Initial configuration (Packages / Styles / Fonts)
 --------------------------------------------------------
+<details>
+  <summary>Click to expand!</summary>
+  
 - Remove src/styles.scss file
 - Copy formation-angular/resources/styles directory to /src
 - Copy formation-angular/resources/fonts directory to /src/assets
@@ -77,9 +84,13 @@ Would you like to add Angular routing? N
         "node_modules/materialize-css/dist/js/materialize.min.js"
     ]
     ```
+</details>
 
 ## 02. [Step03] User component
 --------------------------------------------------------
+<details>
+  <summary>Click to expand!</summary>
+  
 - Generate UserComponent
     ```bash
     ng generate component user
@@ -178,9 +189,13 @@ Would you like to add Angular routing? N
 
     <div>Exponentielle: {{2 | exponential: 2}}</div>
     ```
+</details>
 
 ## 03. [Step04] User component's Lifecycle Hooks
 -------------------------------------
+<details>
+  <summary>Click to expand!</summary>
+  
 - Remove exponential.pipe.ts and exponential.pipe.spec.ts files
 - Clean the UserComponent template:
     ```html
@@ -350,9 +365,13 @@ Would you like to add Angular routing? N
         console.log('---> OnDestroy fires <---');
     }
     ```
+</details>
 
 ## 04. [Step05] User editor
 ------------------
+<details>
+  <summary>Click to expand!</summary>
+  
 - Replace UserComponent template content by the following:
     ```html
     <!-- path: src/app/user/user.component.html -->
@@ -418,9 +437,13 @@ Would you like to add Angular routing? N
     <app-user></app-user>
     ```
 - Two-way binding
+</details>
 
 ## 05. [Step06] Display a list of users
 ------------------------------
+<details>
+  <summary>Click to expand!</summary>
+  
 - Clean the UserComponent class:
     ```typescript
     // path: src/app/user/user.component.ts
@@ -647,9 +670,13 @@ Would you like to add Angular routing? N
 
         <input type="text" [(ngModel)]="selectedUser.firstname" [appInputMaxLength]="30">
         ```
+</details>
 
 ## 06. [Step07] User detail component (child component)
 ----------------------------------------------
+<details>
+  <summary>Click to expand!</summary>
+  
 - Clean the UserComponent template
     ```html
     <!-- path: src/app/user/user.component.html -->
@@ -907,9 +934,13 @@ Would you like to add Angular routing? N
 
         <button (click)="broadcastChild()">BROADCAST CHILD</button>
         ```
+</details>
 
 ## 07. [Step08] User service
 -------------------
+<details>
+  <summary>Click to expand!</summary>
+  
 - Clean Workspace
     * Remove custom Pipes, custom Directives and Interaction07Service
     * Update the User and UserDetail Components and AppModule imports
@@ -1209,11 +1240,14 @@ Would you like to add Angular routing? N
         </div>
     </div>
     ```
-
 - RxJS API demo
+</details>
 
 ## 08. [Step09] Routing
 --------------
+<details>
+  <summary>Click to expand!</summary>
+  
 - Generate AppRoutingModule
     ```bash
     ng generate module app-routing --flat
@@ -1629,8 +1663,13 @@ Would you like to add Angular routing? N
     <input type="text" [(ngModel)]="user.lastname">
     <input type="text" [(ngModel)]="user.email">
     ```
+</details>
+
 ## 09. [Step10] User CRUD
 ----------------
+<details>
+  <summary>Click to expand!</summary>
+  
 - Generate User new, edit and delete Components and its routes
     ```bash
     ng generate component user/userNew
@@ -2103,9 +2142,13 @@ Would you like to add Angular routing? N
         };
     }
     ```
+</details>
 
 ## 10. [Step11] HttpClient
 -----------------
+<details>
+  <summary>Click to expand!</summary>
+  
 - Enable Angular's HTTP module (HttpClientModule)
     ```typescript
     // path: src/app/app.module.ts
@@ -2391,8 +2434,13 @@ Would you like to add Angular routing? N
 
     <notifier-container></notifier-container>
     ```
+</details>
+
 ## 11. [Step12] CoreModule
 -----------------
+<details>
+  <summary>Click to expand!</summary>
+  
 - Generate CoreModule
     ```bash
     ng generate module core
@@ -2508,8 +2556,13 @@ Would you like to add Angular routing? N
         .pipe(catchError(this.handleError))
     }
     ```
+</details>
+
 ## 12. [Step13] SharedModule
 -------------------
+<details>
+  <summary>Click to expand!</summary>
+  
 - Generate SharedModule
     ```bash
     ng generate module shared
@@ -2564,8 +2617,13 @@ Would you like to add Angular routing? N
 
     <app-spinner></app-spinner>
     ```
+</details>
+
 ## 13. [Step14] Feature Modules
 ----------------------
+<details>
+  <summary>Click to expand!</summary>
+  
 - Create "features" directory under src/app
 - Generate UserModule with routing
     ```bash
@@ -2739,9 +2797,13 @@ Would you like to add Angular routing? N
     })
     export class AppRoutingModule { }
     ```
+</details>
 
 ## 14. [Step15] Login And Register Modules
 ---------------------------------
+<details>
+  <summary>Click to expand!</summary>
+  
 - Generate LoginModule with routing under features directory
     ```bash
     ng generate module features/login --routing
@@ -3206,10 +3268,14 @@ Would you like to add Angular routing? N
         { path: 'edit/:id', component: UserEditComponent, canDeactivate: [UserGuard] },
     ];
     ```
+</details>
 
 ## 15. [Step16] IndexModule as a portal (second RouterOutlet)
 ----------------------------------------------------
-- Generate IndexModule with routing
+<details>
+  <summary>Click to expand!</summary>
+  
+  - Generate IndexModule with routing
     ```bash
     ng generate module features/index --routing
     ```
@@ -3360,9 +3426,13 @@ Would you like to add Angular routing? N
     <app-spinner></app-spinner>
     <notifier-container></notifier-container>
     ```
+</details>
 
 ## 16. Compilation and Build
 ----------------------------
+<details>
+  <summary>Click to expand!</summary>
+  
 ### Compilation
 Une application Angular se compose principalement de Components et de leurs Templates HTML, qui sont convertis en JavaScript exécutable par le compilateur Angular.
 * Just-in-Time (JIT) --> par défaut : Compile l'application dans le navigateur lors de l'exécution du Javascript
@@ -3404,3 +3474,5 @@ Une application Angular se compose principalement de Components et de leurs Temp
         - Élimination du code mort et des imports inutilent avec le mécanisme de Tree-shaking
 
     * --build-optimizer (par défaut avec AOT) : permet de réduire la taille des bundles JavaScript générés
+
+</details>
