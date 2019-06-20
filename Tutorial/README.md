@@ -70,7 +70,7 @@ Would you like to add Angular routing? N
     ```bash
     npm --save install @angular/cdk
     ```
-- Set this as scripts property in angular.json file:
+- Set the following as scripts property in angular.json file:
     ```javascript
     "scripts": [
         "node_modules/jquery/dist/jquery.min.js",
@@ -2740,7 +2740,7 @@ Would you like to add Angular routing? N
     export class AppRoutingModule { }
     ```
 
-## 14. Login And Register Modules
+## 14. [Step15] Login And Register Modules
 ---------------------------------
 - Generate LoginModule with routing under features directory
     ```bash
@@ -2754,7 +2754,9 @@ Would you like to add Angular routing? N
     // path: src/app/features/login/components/login.component.ts
 
     import { Component, OnInit } from '@angular/core';
+    import { FormBuilder, FormGroup, Validators } from '@angular/forms';
     import { Router } from '@angular/router';
+
     import { AuthService } from './../../../core/services/auth.service';
     import { ResourcesService } from './../../../core/services/resources.service';
     import { Auth } from './../../../core/models/auth';
@@ -2771,23 +2773,23 @@ Would you like to add Angular routing? N
     })
     export class LoginComponent implements OnInit {
         rsc: any;
-        model: Auth;
+        form: FormGroup;
         errorMessage: any;
 
         /**
         * Creates an instance of LoginComponent.
         * @param {Router} router
+        * @param {FormBuilder} fb
         * @param {ResourcesService} rscService
         * @param {AuthService} authService
         * @memberof LoginComponent
         */
         constructor(
             private router: Router,
+            private fb: FormBuilder,
             private rscService: ResourcesService,
             private authService: AuthService
-        ) {
-            this.model = new Auth();
-        }
+        ) { }
 
         /**
         * Component Init
@@ -2796,6 +2798,7 @@ Would you like to add Angular routing? N
         */
         ngOnInit() {
             this.loadResources();
+            this.createForm();
         }
 
         /**
@@ -2808,16 +2811,27 @@ Would you like to add Angular routing? N
         }
 
         /**
+        * Create Login From
+        *
+        * @memberof LoginComponent
+        */
+        createForm() {
+            this.form = this.fb.group(new Auth());
+            this.form.controls.username.setValidators([Validators.required]);
+            this.form.controls.password.setValidators([Validators.required]);
+        }
+
+        /**
         * Login to the app.
         *
         * @memberof LoginComponent
         */
-        login() {
-            this.authService.check(this.model)
-                .subscribe(
-                    () => this.router.navigate(['home']),
-                    (error) => this.errorMessage = error
-                );
+        onSubmit() {
+            this.authService.check(this.form.value)
+            .subscribe(
+                () => this.router.navigate(['home']),
+                (error) => this.errorMessage = error
+            );
         }
 
         /**
@@ -2827,16 +2841,6 @@ Would you like to add Angular routing? N
         */
         register() {
             this.router.navigate(['register']);
-        }
-
-        /**
-        * Event handle on enter keypress event
-        *
-        * @param {number} keyCode
-        * @memberof LoginComponent
-        */
-        eventHandler(keyCode: number) {
-            if (keyCode === 13) { this.login(); }
         }
     }
     ```
@@ -2849,22 +2853,22 @@ Would you like to add Angular routing? N
 
         <h2>{{ rsc.subTitle }}</h2>
 
-        <div *ngIf="errorMessage" class="card-panel red lighten-1">{{ errorMessage }}</div>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div *ngIf="errorMessage" class="card-panel red lighten-1">{{ errorMessage }}</div>
 
-        <div (keypress)="eventHandler($event.keyCode)">
             <div class="row">
                 <mz-input-container class="col s12 m12">
-                    <input mz-input type="text" [(ngModel)]="model.username" [label]="rsc.loginPLH" [placeholder]="rsc.loginPLH" />
+                    <input mz-input type="text" [formControl]="form.controls.username" [label]="rsc.loginPLH" [placeholder]="rsc.loginPLH" />
                 </mz-input-container>
 
                 <mz-input-container class="col s12 m12">
-                    <input mz-input type="password" [(ngModel)]="model.password" [label]="rsc.loginPLH" [placeholder]="rsc.passwordPLH" />
+                    <input mz-input type="password" [formControl]="form.controls.password" [label]="rsc.loginPLH" [placeholder]="rsc.passwordPLH" />
                 </mz-input-container>
             </div>
 
-            <button mz-button class="left" (click)="login()">{{ rsc.buttons.connect }}</button>
-            <button mz-button class="right blue" (click)="register()">{{ rsc.buttons.register }}</button>
-        </div>
+            <button mz-button class="left">{{ rsc.buttons.connect }}</button>
+            <button mz-button class="right blue" type="button" (click)="register()">{{ rsc.buttons.register }}</button>
+        </form>
     </div>
     ```
 - Update LoginRoutingModule
@@ -3119,7 +3123,7 @@ Would you like to add Angular routing? N
     ```
 - Generate User module Guard
     ```bash
-    ng generate guard features/user/services/user --module=user
+    ng generate guard features/user/services/user
     ```
     ```typescript
     // path: src/app/features/user/services/user.guard.ts

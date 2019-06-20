@@ -1,0 +1,23 @@
+<div class="container">
+    <h3>{{ rsc.title }}</h3>
+    <div class="divider"></div>
+
+    <h2>{{ rsc.subTitle }}</h2>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div *ngIf="errorMessage" class="card-panel red lighten-1">{{ errorMessage }}</div>
+
+        <div class="row">
+            <mz-input-container class="col s12 m12">
+                <input mz-input type="text" [formControl]="form.controls.username" [label]="rsc.loginPLH" [placeholder]="rsc.loginPLH" />
+            </mz-input-container>
+
+            <mz-input-container class="col s12 m12">
+                <input mz-input type="password" [formControl]="form.controls.password" [label]="rsc.loginPLH" [placeholder]="rsc.passwordPLH" />
+            </mz-input-container>
+        </div>
+
+        <button mz-button class="left">{{ rsc.buttons.connect }}</button>
+        <button mz-button class="right blue" type="button" (click)="register()">{{ rsc.buttons.register }}</button>
+    </form>
+</div>
