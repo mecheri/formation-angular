@@ -36,7 +36,6 @@
  npm install -g @angular/cli@8.0.0
  ```
 ## 00. [Step01] Generating an Angular project
-------------------------------------
 <details>
   <summary>Click to expand!</summary>
   
@@ -48,7 +47,6 @@ Would you like to add Angular routing? N
 </details>
 
 ## 01. [Step02] Initial configuration (Packages / Styles / Fonts)
---------------------------------------------------------
 <details>
   <summary>Click to expand!</summary>
   
@@ -87,7 +85,6 @@ Would you like to add Angular routing? N
 </details>
 
 ## 02. [Step03] User component
---------------------------------------------------------
 <details>
   <summary>Click to expand!</summary>
   
@@ -192,7 +189,6 @@ Would you like to add Angular routing? N
 </details>
 
 ## 03. [Step04] User component's Lifecycle Hooks
--------------------------------------
 <details>
   <summary>Click to expand!</summary>
   
@@ -368,7 +364,6 @@ Would you like to add Angular routing? N
 </details>
 
 ## 04. [Step05] User editor
-------------------
 <details>
   <summary>Click to expand!</summary>
   
@@ -440,7 +435,6 @@ Would you like to add Angular routing? N
 </details>
 
 ## 05. [Step06] Display a list of users
-------------------------------
 <details>
   <summary>Click to expand!</summary>
   
@@ -673,7 +667,6 @@ Would you like to add Angular routing? N
 </details>
 
 ## 06. [Step07] User detail component (child component)
-----------------------------------------------
 <details>
   <summary>Click to expand!</summary>
   
@@ -937,7 +930,6 @@ Would you like to add Angular routing? N
 </details>
 
 ## 07. [Step08] User service
--------------------
 <details>
   <summary>Click to expand!</summary>
   
@@ -1244,7 +1236,6 @@ Would you like to add Angular routing? N
 </details>
 
 ## 08. [Step09] Routing
---------------
 <details>
   <summary>Click to expand!</summary>
   
@@ -1666,7 +1657,6 @@ Would you like to add Angular routing? N
 </details>
 
 ## 09. [Step10] User CRUD
-----------------
 <details>
   <summary>Click to expand!</summary>
   
@@ -2145,7 +2135,6 @@ Would you like to add Angular routing? N
 </details>
 
 ## 10. [Step11] HttpClient
------------------
 <details>
   <summary>Click to expand!</summary>
   
@@ -2437,7 +2426,6 @@ Would you like to add Angular routing? N
 </details>
 
 ## 11. [Step12] CoreModule
------------------
 <details>
   <summary>Click to expand!</summary>
   
@@ -2559,7 +2547,6 @@ Would you like to add Angular routing? N
 </details>
 
 ## 12. [Step13] SharedModule
--------------------
 <details>
   <summary>Click to expand!</summary>
   
@@ -2620,7 +2607,6 @@ Would you like to add Angular routing? N
 </details>
 
 ## 13. [Step14] Feature Modules
-----------------------
 <details>
   <summary>Click to expand!</summary>
   
@@ -2800,7 +2786,6 @@ Would you like to add Angular routing? N
 </details>
 
 ## 14. [Step15] Login And Register Modules
----------------------------------
 <details>
   <summary>Click to expand!</summary>
   
@@ -3271,7 +3256,6 @@ Would you like to add Angular routing? N
 </details>
 
 ## 15. [Step16] IndexModule as a portal (second RouterOutlet)
-----------------------------------------------------
 <details>
   <summary>Click to expand!</summary>
   
@@ -3429,7 +3413,6 @@ Would you like to add Angular routing? N
 </details>
 
 ## 16. Compilation and Build
-----------------------------
 <details>
   <summary>Click to expand!</summary>
   
