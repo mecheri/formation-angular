@@ -3207,7 +3207,7 @@ Would you like to add Angular routing? N
     ];
     ```
 
-## 15. IndexModule as a portal (second RouterOutlet)
+## 15. [Step16] IndexModule as a portal (second RouterOutlet)
 ----------------------------------------------------
 - Generate IndexModule with routing
     ```bash
