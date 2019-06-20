@@ -4,8 +4,8 @@ import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
-import { User } from './user';
-import { SettingsService } from '../core/services/settings.service';
+import { User } from '../models/user';
+import { SettingsService } from '../../../core/services/settings.service';
 
 @Injectable({
   providedIn: 'root'

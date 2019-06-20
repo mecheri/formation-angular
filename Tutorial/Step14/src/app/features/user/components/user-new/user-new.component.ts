@@ -1,25 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { AbstractControl, FormControl, FormGroup, FormBuilder, Validators, ValidatorFn } from '@angular/forms';
+import { Router } from '@angular/router';
 
-import { User } from '../../user/user';
-import { UserService } from '../../user/user.service';
+import { UserService } from '../../services/user.service';
 import { NotifierService } from 'angular-notifier';
 
 @Component({
-  selector: 'app-user-edit',
-  templateUrl: './user-edit.component.html',
-  styleUrls: ['./user-edit.component.scss']
+  selector: 'app-user-new',
+  templateUrl: './user-new.component.html',
+  styleUrls: ['./user-new.component.scss']
 })
-export class UserEditComponent implements OnInit {
-  user: User;
-  editForm: FormGroup;
+export class UserNewComponent implements OnInit {
+  newForm: FormGroup;
 
   bcItems = [
     { label: 'Home', routerLink: '/home', icon: 'pi pi-home' },
     { label: 'Users', routerLink: '/user' },
-    { label: 'User Edit' }
-  ];;
+    { label: 'User New' }
+  ];
 
   validation: any = {
     username: {
@@ -34,6 +32,7 @@ export class UserEditComponent implements OnInit {
     },
     firstname: {
       required: 'First name is required.',
+      forbidden: 'Unauthorized string.',
     },
     lastname: {
       required: 'Last name is required.',
@@ -42,7 +41,6 @@ export class UserEditComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     private fb: FormBuilder,
     private notifier: NotifierService,
     private userService: UserService
@@ -50,30 +48,16 @@ export class UserEditComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
-    this.getUser();
-  }
-
-  getUser(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.userService.getUser(id)
-      .subscribe(
-        user => {
-          this.user = user;
-          this.editForm.patchValue(this.user);
-        },
-        error => this.notifier.notify('error', error)
-      );
   }
 
   createForm() {
-    if (this.editForm) { this.editForm.reset(); }
-    this.editForm = this.fb.group({
-      id: [''],
+    if (this.newForm) { this.newForm.reset(); }
+    this.newForm = this.fb.group({ // <==> new FormGroup({ username: new FormControl() })
       username: ['', Validators.required],
       password: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      firstname: ['', Validators.required],
-      lastname: ['', Validators.required],
+      firstname: ['', [Validators.required, forbiddenValidator(/test/)]],
+      lastname: ['', Validators.required]
     });
   }
 
@@ -82,7 +66,7 @@ export class UserEditComponent implements OnInit {
   }
 
   save() {
-    this.userService.updateUser(<User>this.editForm.value)
+    this.userService.createUser(this.newForm.value)
       .subscribe(
         resp => {
           this.notifier.notify('success', 'Operation successfully done !');
@@ -91,4 +75,11 @@ export class UserEditComponent implements OnInit {
         error => this.notifier.notify('error', error)
       );
   }
+}
+
+export function forbiddenValidator(nameRe: RegExp): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } => {
+    const forbidden = nameRe.test(control.value);
+    return forbidden ? { 'forbidden': { value: control.value } } : null;
+  };
 }

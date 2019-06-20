@@ -1,6 +1,6 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
-import { User } from '../user';
-import { UserService } from '../user.service';
+import { User } from '../../models/user';
+import { UserService } from '../../services/user.service';
 import { NotifierService } from 'angular-notifier';
 
 @Component({

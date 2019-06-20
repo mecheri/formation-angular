@@ -2720,12 +2720,12 @@ Would you like to add Angular routing? N
     const routes: Routes = [
         {
             path: 'home',
-            loadChildren: './modules/home/home.module#HomeModule'
+            loadChildren: './features/home/home.module#HomeModule'
         },
         { path: '', redirectTo: '/home', pathMatch: 'full' },
         {
             path: 'user',
-            loadChildren: './modules/user/user.module#UserModule'
+            loadChildren: './features/user/user.module#UserModule'
         },
     ];
 

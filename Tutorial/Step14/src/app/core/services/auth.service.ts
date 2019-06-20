@@ -13,7 +13,7 @@ import { SettingsService } from './settings.service';
 
 // Models
 import { Auth } from './../models/auth';
-import { User } from './../../user/user';
+import { User } from '../../features/user/models/user';
 
 @Injectable({
     providedIn: 'root',
