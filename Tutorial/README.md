@@ -3255,7 +3255,7 @@ Would you like to add Angular routing? N
     ```
 </details>
 
-## 15. [Step16] IndexModule as a portal (second RouterOutlet)
+## 15. [Step16] IndexModule as portal (second RouterOutlet)
 <details>
   <summary>Click to expand!</summary>
   
