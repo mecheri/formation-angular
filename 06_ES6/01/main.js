@@ -54,7 +54,7 @@
 //     }
 // }
 // class ChildObj extends Obj {}
-// let obj = new Obj();
+// let obj = new ChildObj();
 // obj.show();
 // //#endregion
 
@@ -93,7 +93,7 @@
 //         setTimeout(() => reject('une erreur s\'est produite'), duration);
 //     });
 // }
-// timer(500)
+// timer(3000)
 //     .then(msg => console.log(msg))
 //     .catch(err => console.error(err));
 // // #endregion

@@ -5,6 +5,8 @@
         "tsc": "tsc -w"
     },
     "devDependencies": {
+        "@types/jquery": "^3.3.29",
+        "scroll-to": "0.0.2",
         "typescript": "^2.7.2"
     }
 }

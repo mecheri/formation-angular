@@ -18,4 +18,4 @@
 ## Observables vs Events API
 * Les Observables sont très similaires aux gestionnaires d'événements
 * L'abonnement à un Observables équivaut à ajouter un listner d'événement
-* La seule différence est qu'on peut configurer un Observables pour transformer un événement avant l'éxécution de son contenu
+* La seule différence est qu'on peut configurer un Observable pour transformer un événement avant l'éxécution de son contenu

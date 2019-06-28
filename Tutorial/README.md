@@ -652,7 +652,7 @@ Would you like to add Angular routing? N
 
             constructor(private el: ElementRef) { }
 
-            @HostListener('keypress', ['$event']) onMouseEnter($event: any) {
+            @HostListener('keypress', ['$event']) onkeypress($event: any) {
                 if ($event.srcElement.value.length === this.appInputMaxLength) {
                     $event.preventDefault();
                 }
@@ -3103,7 +3103,7 @@ Would you like to add Angular routing? N
     ```
 - Update AppRoutingModule and load lazily the newly generated modules
     ```typescript
-    // path: src/app/app.module.ts
+    // path: src/app/app-routing.module.ts
 
     import { NgModule } from '@angular/core';
     import { RouterModule, Routes } from '@angular/router';
@@ -3269,7 +3269,7 @@ Would you like to add Angular routing? N
     ```
 - Update IndexModule
     ```typescript
-    // path: src/app/features/index/index-routing.module.ts
+    // path: src/app/features/index/index.module.ts
 
     import { NgModule } from '@angular/core';
     import { SharedModule } from './../../shared/shared.module';

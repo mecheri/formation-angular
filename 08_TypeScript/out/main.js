@@ -3,8 +3,6 @@
 // let test: number = 145;
 // console.log(test);
 // // #endregion
-
-
 // //-----------------------------------------
 // //#region enums
 // enum DIRECTIONS {
@@ -16,15 +14,12 @@
 // let right = DIRECTIONS.RIGHT;
 // console.log(right);
 // //#endregion
-
-
 // //-----------------------------------------
 // //#region functions
 // function isPair(x: number): boolean {
 //     return x % 2 === 0;
 // }
 // console.log(isPair(2));
-
 // function isPair2(x: number | string): boolean {
 //     if (typeof x !== 'number') {
 //         x = parseInt(<string>x, 10);
@@ -32,7 +27,6 @@
 //     return <number>x % 2 === 0;
 // }
 // console.log(isPair2(2));
-
 // function hello(t: string[]): Array<string> {
 //     let out = [];
 //     for (const item of t) {
@@ -42,7 +36,6 @@
 //     return out;
 // }
 // hello(['hi', 'coucou', 'salut']);
-
 // function isOdd(x: number, callback?: (num: number) => void): boolean {
 //     if (callback) {
 //         callback(x);
@@ -52,8 +45,6 @@
 // }
 // isOdd(2, (num) => console.log(num));
 // //#endregion
-
-
 // //-----------------------------------------
 // //#region classes
 // class Demo {
@@ -70,8 +61,6 @@
 // console.log(d.a);
 // console.log(Demo.demo());
 // //#endregion
-
-
 // //-----------------------------------------
 // //#region interfaces
 // // definir la structure d'un objet que l'on passe en parametre
@@ -95,8 +84,6 @@
 // });
 // demo.options.hello('salut');
 // //#endregion
-
-
 // //-----------------------------------------
 // //#region namespaces
 // // fournit une self invoking function
@@ -109,16 +96,12 @@
 // }
 // let demo = new Viveris.Demo();
 // //#endregion
-
-
 // //-----------------------------------------
 // //#region modules (dependencies)
 // import Lib from './lib';
 // let lib = new Lib();
 // console.log(lib.hello());
 // //#endregion
-
-
 // //-----------------------------------------
 // //#region decorators
 // // Les décorateurs permettent d'ajouter des annotations
@@ -143,8 +126,6 @@
 //     hello() { return this._hello; }
 // }
 // //#endregion
-
-
 // //-----------------------------------------
 // //#region vendors
 // // Importer une librairie tierce de nodeJS ?
@@ -157,8 +138,6 @@
 //     duration: 1500
 // });
 // //#endregion
-
-
 // //-----------------------------------------
 // //#region @types
 // // Créer un fichier de declaration pour jQuery peut prendre beaucoup de temps
