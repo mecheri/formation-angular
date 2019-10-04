@@ -1,13 +1,16 @@
+let rxjs = require('rxjs');
 let Observable = rxjs.Observable;
 let of = rxjs.of;
 let from = rxjs.from;
-let delay = rxjs.operators.delay;
-let map = rxjs.operators.map;
-let mergeAll = rxjs.operators.mergeAll;
-let mergeMap = rxjs.operators.mergeMap;
-let flatMap = rxjs.operators.flatMap;
-let switchMap = rxjs.operators.switchMap;
-let concatMap = rxjs.operators.concatMap;
+
+let operators = require('rxjs/operators');
+let delay = operators.delay;
+let map = operators.map;
+let mergeAll = operators.mergeAll;
+let mergeMap = operators.mergeMap;
+let flatMap = operators.flatMap;
+let switchMap = operators.switchMap;
+let concatMap = operators.concatMap;
 
 const getData = (param) => {
     return of(`retrieved new data with param ${param}`).pipe(
