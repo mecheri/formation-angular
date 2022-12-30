@@ -5,6 +5,6 @@
         "webpack": "webpack ./main.js ./main.bundle.js"
     },
     "devDependencies": {
-        "webpack": "^3.8.1"
+        "webpack": "^5.75.0"
     }
 }
